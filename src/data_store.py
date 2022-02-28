@@ -23,12 +23,29 @@ Example usage:
     print(store) # Prints { 'names': ['Emily', 'Hayden', 'Jake', 'Nick'] }
     data_store.set(store)
 '''
-
+'''
+Hey Guys!
+Just a note about the setup of the users list. As users are added, they are stored as below:
+'users': [
+    {
+    'id': [string id]
+    'email': [string email]
+    'password': [string password]
+    'first': [string first name]
+    'last': [string last name]
+    }
+]
+So there'll be a new user dictionary added to the users list for all users created.
+[Whoever makes channels etc, maybe continue this when you alter initial_object so others don't have
+to go searching for the syntax they need? Epic, thanks!
+-Laura
+'''
 ## YOU SHOULD MODIFY THIS OBJECT BELOW
 initial_object = {
     'users': [],
 }
 ## YOU SHOULD MODIFY THIS OBJECT ABOVE
+
 
 ## YOU ARE ALLOWED TO CHANGE THE BELOW IF YOU WISH
 class Datastore:
