@@ -48,11 +48,21 @@ def test_register_alphanumeric_chars():
     for ch in user_id:
         assert(ch.isalnum() == True)
     
-    
-
-'''
 #[This will be testable once we have auth_login_v1.]
-def test_register_valid():
+def test_register_login_valid():
     clear_v1()
-    result = auth_register_v1("email@gmail.com", "password", "Sadistic", "Genius")
-'''
+    result1 = auth_register_v1("email@gmail.com", "password", "Sadistic", "Genius")
+    result2 = auth_login_v1("email@gmail.com", "password")
+    
+    assert(result1 = result2)
+
+def test_login_nonexistent_email():
+    clear_v1()
+    with pytest.raises(InputError):
+        auth_login_v1("unregistered@gmail.com", "yupdefsseemslegit")
+
+def test_login_wrong_password():
+    clear_v1()
+    auth_register_v1("valid@gmail.com", "passwordishness", "Jeff", "Sprocket")
+    with pytest.raises(InputError):
+        auth_login_v1("valid@gmail.com", "hehyeahIforgot")
