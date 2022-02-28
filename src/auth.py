@@ -4,20 +4,43 @@ from src.data_store import data_store
 from src.error import InputError
 
 def auth_login_v1(email, password):
+    '''Logs in a user from the given email and password, if they are valid.'''
+    # Locate user from email.
+    store = data_store.get()
+    found = False
+    for user in store['users']:
+        if user['email'] == email:
+            # This is the correct user.
+            found = True
+            break
+   
+    # Check the email has a registered user. 
+    if found == False:
+        raise InputError("This email has no registered user.")
+   
+    # Check password is correct. 
+    if user['password'] != password:
+        raise InputError("Incorrect password.")
+
     return {
-        'auth_user_id': 1,
+        'auth_user_id': user['id'],
     }
 
 def auth_register_v1(email, password, name_first, name_last):
+    '''Registers a new user with the given user information.'''
     # Validate input.
     validate_input(email, password, name_first, name_last)
     
+    # Create new handle.
+    handle = create_new_handle(name_first, name_last)   
+
     # Create new auth id.
-    new_id = create_new_id(name_first, name_last)   
+    new_id = create_new_id()   
     
     # Create new user entry.
     new_user = {
         'id': new_id,
+        'handle': handle,
         'email': email,
         'password': password,
         'first': name_first,
@@ -65,21 +88,35 @@ def check_duplicate(new, field):
             return True
     return False
 
-def create_new_id(first, last):
-    '''Generates a new unique user id from the given first and last name.'''
-    # Create concatenate first and last name to get an id.
-    new_id = f"{first.lower()}{last.lower()}"
-    new_id = ''.join(char for char in new_id if char.isalnum())
-    new_id = new_id[0:20]
+def create_new_handle(first, last):
+    '''Generates a new unique user handle from the given first and last name.'''
+    # Create concatenate first and last name to get an handle.
+    new_handle = f"{first.lower()}{last.lower()}"
+    new_handle = ''.join(char for char in new_handle if char.isalnum())
+    new_handle = new_handle[0:20]
     # Add number if necessary. 
-    if check_duplicate(new_id, 'id') == False:
+    if check_duplicate(new_handle, 'handle') == False:
         unique = True
     else:
         unique = False
     num = 0
     while unique == False:
-        if check_duplicate(f"{new_id}{num}", 'id') == False:
+        if check_duplicate(f"{new_handle}{num}", 'handle') == False:
             unique = True
-            new_id = f"{new_id}{num}"
-    return new_id
+            new_handle = f"{new_handle}{num}"
+        else:
+            num += 1
+    return new_handle
 
+def create_new_id():
+    '''Generates a new integer id that was previously unused.'''
+    num = 0
+    unique = False
+    store = data_store.get()
+    while unique == False:
+        # Check num against store.
+        if check_duplicate(num, 'id') == False:
+            unique = True
+        else:
+            num += 1
+    return num

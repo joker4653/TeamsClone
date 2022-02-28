@@ -28,7 +28,8 @@ Hey Guys!
 Just a note about the setup of the users list. As users are added, they are stored as below:
 'users': [
     {
-    'id': [string id]
+    'id': [integer id]
+    'handle': [string user handle]
     'email': [string email]
     'password': [string password]
     'first': [string first name]

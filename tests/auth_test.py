@@ -1,6 +1,6 @@
 import pytest
 
-from src.auth import auth_register_v1
+from src.auth import auth_register_v1, auth_login_v1
 from src.other import clear_v1
 from src.error import InputError
 
@@ -41,20 +41,13 @@ def test_register_lastname_long():
     with pytest.raises(InputError):
         auth_register_v1("valid@gmail.com", "password", "Pax", "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
 
-def test_register_alphanumeric_chars():
-    clear_v1()
-    result = auth_register_v1("valid@gmail.com", "password", "Pa@x__", "da@Vaga__bond")
-    user_id = result['auth_user_id']
-    for ch in user_id:
-        assert(ch.isalnum() == True)
-    
 #[This will be testable once we have auth_login_v1.]
 def test_register_login_valid():
     clear_v1()
     result1 = auth_register_v1("email@gmail.com", "password", "Sadistic", "Genius")
     result2 = auth_login_v1("email@gmail.com", "password")
     
-    assert(result1 = result2)
+    assert(result1 == result2)
 
 def test_login_nonexistent_email():
     clear_v1()
@@ -66,3 +59,14 @@ def test_login_wrong_password():
     auth_register_v1("valid@gmail.com", "passwordishness", "Jeff", "Sprocket")
     with pytest.raises(InputError):
         auth_login_v1("valid@gmail.com", "hehyeahIforgot")
+
+def test_login_multiple_users():
+    clear_v1()
+    register1 = auth_register_v1("valid1@gmail.com", "passwordishness", "Jeff", "Sprocket")
+    register2 = auth_register_v1("valid2@gmail.com", "passwordish", "Egwene", "daAmyrlinSeat")
+
+    login1 = auth_login_v1("valid1@gmail.com", "passwordishness")
+    login2 = auth_login_v1("valid2@gmail.com", "passwordish")
+    
+    assert(register1 == login1)
+    assert(register2 == login2)
