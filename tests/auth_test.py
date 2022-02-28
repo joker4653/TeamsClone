@@ -41,10 +41,18 @@ def test_register_lastname_long():
     with pytest.raises(InputError):
         auth_register_v1("valid@gmail.com", "password", "Pax", "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
 
+def test_register_alphanumeric_chars():
+    clear_v1()
+    result = auth_register_v1("valid@gmail.com", "password", "Pa@x__", "da@Vaga__bond")
+    user_id = result['auth_user_id']
+    for ch in user_id:
+        assert(ch.isalnum() == True)
+    
+    
 
-"""
-[This will be testable once we have auth_login_v1.]
+'''
+#[This will be testable once we have auth_login_v1.]
 def test_register_valid():
     clear_v1()
     result = auth_register_v1("email@gmail.com", "password", "Sadistic", "Genius")
-"""
+'''
