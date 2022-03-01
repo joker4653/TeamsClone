@@ -1,5 +1,6 @@
 from src.data_store import data_store
-from src.error import InputError
+from src.error import InputError, AccessError
+from src.other import valid_user_id
 
 def channels_list_v1(auth_user_id):
     return {
@@ -21,10 +22,13 @@ def channels_listall_v1(auth_user_id):
         ],
     }
 
-# Returns the id of the new channel: this id is the length of the channels
-# list plus 1; so if this new channel is the third channel ever created, then
-# it's channel id will be 3.
+
 def channels_create_v1(auth_user_id, name, is_public):
+    '''Creates new channel and returns channel id (length of channels list plus 1)'''
+    # Check valid user id passed.
+    if valid_user_id(auth_user_id) != True:
+        raise AccessError("This user id does not belong to a registerd user.")
+
     # Check valid name input.
     if len(name) < 1:
         raise InputError("This channel name is too short, minimum is 1 character.")
@@ -32,7 +36,7 @@ def channels_create_v1(auth_user_id, name, is_public):
         raise InputError("This channel name is too long, maximum is 20 characters.")
 
     store = data_store.get()   
-    new_channel_id = len(store['channels'])
+    new_channel_id = len(store['channels']) + 1
 
     # Create a new channel.
     new_channel = {
