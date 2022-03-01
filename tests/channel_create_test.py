@@ -9,8 +9,9 @@ from src.data_store import data_store
 @pytest.fixture
 def example_user_id() -> int:
     clear_v1()
-    return auth_register_v1("steve.smith@gmail.com", "my_good_password1", "Steve", "Smith")
-
+    user_id = auth_register_v1("steve.smith@gmail.com", "my_good_password1", "Steve", "Smith")
+    return user_id.get('auth_user_id')
+    
 
 def test_create_invalid_channel_shortname(example_user_id):
     with pytest.raises(InputError):
@@ -20,7 +21,8 @@ def test_create_invalid_channel_longname(example_user_id):
     with pytest.raises(InputError):
         channels_create_v1(example_user_id, "names_>_20_are_grosss", True)
 
-def test_create_channel_bad_user_id(example_user_id):
+def test_create_channel_bad_user_id():
+    clear_v1()
     with pytest.raises(AccessError):
         channels_create_v1(67, "good_name", True)
     with pytest.raises(AccessError):
