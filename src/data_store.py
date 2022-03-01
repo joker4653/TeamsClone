@@ -40,10 +40,28 @@ So there'll be a new user dictionary added to the users list for all users creat
 [Whoever makes channels etc, maybe continue this when you alter initial_object so others don't have
 to go searching for the syntax they need? Epic, thanks!
 -Laura
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+                            !!! CHANNELS EXPLAINED !!!
+Hey Badgers, just a little explanation of how I have implemented the 'channels' key 
+of the 'initial_object' dictionary below. 
+As channels are added, the channels list will appear as follows:
+
+    'channels' = [
+        {
+        'channel_id':   [integer id],
+        'name':         [string name],
+        'is_public':    [boolean value],
+        'user_ids':     [integer id],
+        }
+    ]
+
+cheers, Nick.
 '''
 ## YOU SHOULD MODIFY THIS OBJECT BELOW
 initial_object = {
     'users': [],
+    'channels': [],
 }
 ## YOU SHOULD MODIFY THIS OBJECT ABOVE
 
