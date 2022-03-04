@@ -61,17 +61,17 @@ def test_channel_invite_bad_auth_id(example_user_id):
     channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
     invalid_auth_id = sum(example_user_id) + 1
     with pytest.raises(AccessError):
-        channel_invite_v1(invalid_auth_id, channel_id, example_user_id[1])
+        channel_invite_v1(invalid_auth_id, channel_id.get('channel_id'), example_user_id[1])
     with pytest.raises(AccessError):
-        channel_invite_v1(example_user_id[2], channel_id, example_user_id[1])
+        channel_invite_v1(example_user_id[2], channel_id.get('channel_id'), example_user_id[1])
 
 def test_channel_invite_invalid_user_id(example_user_id):
     channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
     invalid_user_id = sum(example_user_id) + 1
     with pytest.raises(InputError):
-        channel_invite_v1(example_user_id[0], channel_id, invalid_user_id)
+        channel_invite_v1(example_user_id[0], channel_id.get('channel_id'), invalid_user_id)
 
 def test_channel_invite_user_already_in_channel(example_user_id):
     channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
     with pytest.raises(InputError):
-        channel_invite_v1(example_user_id[0], channel_id, example_user_id[0])
+        channel_invite_v1(example_user_id[0], channel_id.get('channel_id'), example_user_id[0])
