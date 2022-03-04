@@ -37,6 +37,10 @@
   9.  [Automarking](#9-automarking)
   10. [Plagiarism](#10-plagiarism)
 
+## 0. Change log:
+
+* Changed `time_created` to `time_sent` in `channel.py` stub code
+
 ## 1. Aims:
 
 * To provide students with hands on experience testing, developing, and maintaining a backend server in Python.

@@ -65,7 +65,7 @@ def channel_messages_v1(auth_user_id, channel_id, start):
                 'message_id': 1,
                 'u_id': 1,
                 'message': 'Hello world',
-                'time_created': 1582426789,
+                'time_sent': 1582426789,
             }
         ],
         'start': 0,
