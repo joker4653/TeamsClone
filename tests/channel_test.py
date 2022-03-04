@@ -94,4 +94,4 @@ def test_detail_auth_id_not_member(example_user_id):
 
 def test_detail_correct_return_value(example_user_id):
     channel_id = channels_create_v1(example_user_id[0], "Badgers", True)
-    assert channel_details_v1(example_user_id[0], channel_id) == ("Badgers", True, example_user_id[0], example_user_id[0])
+    assert channel_details_v1(example_user_id[0], channel_id.get('channel_id')) == ("Badgers", True, example_user_id[0], example_user_id[0])
