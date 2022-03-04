@@ -49,10 +49,11 @@ As channels are added, the channels list will appear as follows:
 
     'channels' = [
         {
-        'channel_id':   [integer id],
-        'name':         [string name],
-        'is_public':    [boolean value],
-        'user_ids':     [integer id],
+        'channel_owner_id': integer id,
+        'channel_id':       integer id,
+        'name':             string name,
+        'is_public':        boolean value,
+        'user_ids':         [integer id],
         }
     ]
 

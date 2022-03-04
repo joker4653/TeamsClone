@@ -40,6 +40,7 @@ def channels_create_v1(auth_user_id, name, is_public):
 
     # Create a new channel.
     new_channel = {
+        'channel_owner_id': auth_user_id,
         'channel_id': new_channel_id,
         'name': name,
         'is_public': is_public,
