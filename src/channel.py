@@ -33,30 +33,28 @@ def channel_invite_v1(auth_user_id, channel_id, u_id):
     return {
     }
 
-
-
 def channel_details_v1(auth_user_id, channel_id):
-    return {
-        'name': 'Hayden',
-        'owner_members': [
-            {
-                'u_id': 1,
-                'email': 'example@gmail.com',
-                'name_first': 'Hayden',
-                'name_last': 'Jacobs',
-                'handle_str': 'haydenjacobs',
-            }
-        ],
-        'all_members': [
-            {
-                'u_id': 1,
-                'email': 'example@gmail.com',
-                'name_first': 'Hayden',
-                'name_last': 'Jacobs',
-                'handle_str': 'haydenjacobs',
-            }
-        ],
+    if valid_channel_id(channel_id) != True:
+        raise InputError("This channel_id does not correspond to an existing channel.")
+    if valid_user_id(auth_user_id) == False:
+        raise AccessError("auth_user_id provided is not valid; this user does not exist.")
+    if is_member(auth_user_id, channel_id) == False:
+        raise AccessError("auth_user is not a member of the channel.")
+
+    store = data_store.get()
+    for channel in store['channels']:
+        if channel['channel_id'] == channel_id:
+            channel_name = channel['name']
+            channel_is_public = channel['is_public']
+            channel_owner_id = channel['channel_owner_id']
+            channel_members = channel['user_ids']
+    return_dict = {
+        'name': channel_name,
+        'is_public': channel_is_public,
+        'owner_members': channel_owner_id,
+        'all_members': channel_members,
     }
+    return return_dict
 
 def channel_messages_v1(auth_user_id, channel_id, start):
     return {
