@@ -1,10 +1,10 @@
 import pytest
 
 from src.channels import channels_create_v1
+from src.channel import channel_invite_v1
 from src.auth import auth_register_v1, auth_login_v1
 from src.other import clear_v1
 from src.error import AccessError, InputError
-from src.data_store import data_store
 
 @pytest.fixture
 def example_user_id() -> list:
@@ -51,3 +51,27 @@ def test_create_channel_multiple(example_user_id):
     channels_create_v1(example_user_id[2], "cool_channel", True)
     new_channel_id = channels_create_v1(example_user_id[2], "second_cool_channel", True)
     assert new_channel_id.get('channel_id') == 4
+
+# No channels created, so any channel id must be invalid.
+def test_channel_invite_invalid_channel_id(example_user_id):
+    with pytest.raises(InputError):
+        channel_invite_v1(example_user_id[0], 1, example_user_id[1])
+
+def test_channel_invite_bad_auth_id(example_user_id):
+    channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
+    invalid_auth_id = sum(example_user_id) + 1
+    with pytest.raises(AccessError):
+        channel_invite_v1(invalid_auth_id, channel_id, example_user_id[1])
+    with pytest.raises(AccessError):
+        channel_invite_v1(example_user_id[2], channel_id, example_user_id[1])
+
+def test_channel_invite_invalid_user_id(example_user_id):
+    channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
+    invalid_user_id = sum(example_user_id) + 1
+    with pytest.raises(InputError):
+        channel_invite_v1(example_user_id[0], channel_id, invalid_user_id)
+
+def test_channel_invite_user_already_in_channel(example_user_id):
+    channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
+    with pytest.raises(InputError):
+        channel_invite_v1(example_user_id[0], channel_id, example_user_id[0])
