@@ -81,11 +81,16 @@ def test_detail_invalid_channel_id(example_user_id):
     with pytest.raises(InputError):
         channel_detail_v1(example_user_id[0], 1)
 
-def test_detail_bad_auth_id(example_user_id):
+def test_detail_invalid_auth_id(example_user_id):
     channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
     invalid_auth_id = sum(example_user_id) + 1
     with pytest.raises(AccessError):
         channels_detail_v1(invalid_auth_id, channel_id.get('channel_id'))
+
+def test_detail_auth_id_not_member(example_user_id):
+    channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
+    with pytest.raises(AccessError):
+        channels_detail_v1(example_user_id[1], channel_id.get('channel_id'))
 
 def test_detail_correct_return_value(example_user_id):
     channel_id = channels_create_v1(example_user_id[0], "Badgers", True)
