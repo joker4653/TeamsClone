@@ -87,5 +87,6 @@ def test_detail_bad_auth_id(example_user_id):
     with pytest.raises(AccessError):
         channels_detail_v1(invalid_auth_id, channel_id.get('channel_id'))
 
-
-
+def test_detail_correct_return_value(example_user_id):
+    channel_id = channels_create_v1(example_user_id[0], "Badgers", True)
+    assert channel_details_v1(example_user_id[0], channel_id) == ("Badgers", True, example_user_id[0], example_user_id[0])
