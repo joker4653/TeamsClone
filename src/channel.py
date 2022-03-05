@@ -58,7 +58,6 @@ def channel_details_v1(auth_user_id, channel_id):
 
 
 def channel_messages_v1(auth_user_id, channel_id, start):
-    # Check if auth_user_id is a real user.
     if valid_user_id(auth_user_id) == False:
         raise InputError("auth_user_id provided is not valid; this user does not exist.")
     
@@ -67,7 +66,7 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     # First check if there are any channels
     channels = store['channels']
     if len(channels) == 0:
-        raise InputError("start is greater than the total number of messages in the channel")
+        raise InputError("channel_id does not refer to a valid channel")
 
     # Check if channel_id is valid
     channel_found = False
@@ -78,9 +77,8 @@ def channel_messages_v1(auth_user_id, channel_id, start):
             channel = c
             break
     if not channel_found:
-        raise InputError("channel_id does not refer to a valid channel")     
+        raise InputError("channel_id does not refer to a valid channel")
 
-    # Checking if user is actually in the channel
     if not is_member(auth_user_id, channel_id):
         raise AccessError("channel_id is valid and the authorised user is not a member of the channel")
 
