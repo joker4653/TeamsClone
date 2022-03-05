@@ -1,8 +1,11 @@
+from cmath import e
 import pytest
+import random
+
 
 from src.channels import channels_create_v1, channels_listall_v1
-from src.channel import channel_invite_v1, channel_details_v1, channel_join_v1
-from src.auth import auth_register_v1
+from src.channel import channel_messages_v1, channel_invite_v1, channel_details_v1, channel_join_v1
+from src.auth import auth_register_v1, auth_login_v1
 from src.other import clear_v1
 from src.error import AccessError, InputError
 
@@ -150,3 +153,28 @@ def test_join_success(example_user_id):
     channel_join_v1(example_user_id[1], channel_id.get('channel_id'))
     channel_details = channel_details_v1(example_user_id[1], channel_id.get('channel_id'))
     assert channel_details['all_members'] == [0, 1]
+
+
+# Can't test the number of messages as there is no function to implement this yet.
+# Therefore, also can't test InputError when start is greater than the total number 
+# of messages in the channel.
+      
+      
+def test_channel_messages_InputError_nonvalid_channel(example_user_id):
+    # example_user_id[0]
+    with pytest.raises(InputError):
+        channel_messages_v1(example_user_id[0], 14, 0)
+    
+
+def test_channel_messages_AccessError(example_user_id):
+    id = channels_create_v1(example_user_id[0], "I_love_seams", True)["channel_id"]
+    channel_messages_v1(example_user_id[0], id, 0)
+
+    with pytest.raises(AccessError):
+        channel_messages_v1(example_user_id[1], id, 0)
+
+    channel_join_v1(example_user_id[1], id)
+    try:
+        channel_messages_v1(example_user_id[1], id, 0)
+    except AccessError:
+        assert False
