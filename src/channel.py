@@ -56,19 +56,48 @@ def channel_details_v1(auth_user_id, channel_id):
     }
     return return_dict
 
+
 def channel_messages_v1(auth_user_id, channel_id, start):
-    return {
-        'messages': [
-            {
-                'message_id': 1,
-                'u_id': 1,
-                'message': 'Hello world',
-                'time_sent': 1582426789,
-            }
-        ],
-        'start': 0,
-        'end': 50,
-    }
+    # Check if auth_user_id is a real user.
+    if valid_user_id(auth_user_id) == False:
+        raise InputError("auth_user_id provided is not valid; this user does not exist.")
+    
+    store = data_store.get()
+
+    # Check if channel_id is valid
+    channel_found = False
+    channels = store['channels']
+    for channel in channels:
+        if channel['channel_id'] == channel_id:
+            channel_found = True
+            break
+    if not channel_found:
+        raise InputError("channel_id does not refer to a valid channel")
+
+    # Checking if user is actually in the channel
+    if not is_member(auth_user_id, channel_id):
+        raise AccessError("channel_id is valid and the authorised user is not a member of the channel")
+    
+    # Now access the messages and check amount of messages
+    messages = channel["messages"]
+    amount = len(messages)
+
+    # Check if start is greater than amount
+    if start > amount:
+        raise InputError("start is greater than the total number of messages in the channel")
+
+    # Most recent message has index 0. Begin from 'start' and go back in time to
+    # 'start + 50'.
+    if start + 50 >= amount:
+        end = -1
+        messages = messages[start:]
+    else:
+        end = start + 50
+        messages = messages[start:end]
+
+    return {messages, start, end}
+    
+    
 
 def channel_join_v1(auth_user_id, channel_id):
     if valid_user_id(auth_user_id) == False:
