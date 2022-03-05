@@ -53,8 +53,7 @@ As channels are added, the channels list will appear as follows:
         'channel_id':       integer id,
         'name':             string name,
         'is_public':        boolean value,
-        'user_ids':         [integer id],
-        'messages':         [{message_id, u_id, message, time_sent}, ...]
+        'user_ids':         [integer id]
         }
     ]
 

@@ -168,13 +168,13 @@ def test_channel_messages_InputError_nonvalid_channel(example_user_id):
 
 def test_channel_messages_AccessError(example_user_id):
     id = channels_create_v1(example_user_id[0], "I_love_seams", True)["channel_id"]
-    channel_messages_v1(example_user_id[0], id, 0)
+    channel_messages_v1(example_user_id[0], id, 2)
 
     with pytest.raises(AccessError):
         channel_messages_v1(example_user_id[1], id, 0)
 
     channel_join_v1(example_user_id[1], id)
     try:
-        channel_messages_v1(example_user_id[1], id, 0)
+        channel_messages_v1(example_user_id[1], id, 12)
     except AccessError:
         assert False
