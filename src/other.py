@@ -17,3 +17,14 @@ def valid_user_id(auth_user_id):
         if user['id'] == auth_user_id:
             return True
     return False
+
+def valid_channel_id(channel_id):
+    '''Check valid channel_id was passed. Return True if valid, False if invalid.'''
+    if isinstance(channel_id, int) != True:
+        return False
+    
+    store = data_store.get()
+    for channel in store['channels']:
+        if channel['channel_id'] == channel_id:
+            return True
+    return False

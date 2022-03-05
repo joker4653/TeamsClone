@@ -37,6 +37,10 @@
   9.  [Automarking](#9-automarking)
   10. [Plagiarism](#10-plagiarism)
 
+## 0. Change log:
+
+* Changed `time_created` to `time_sent` in `channel.py` stub code
+
 ## 1. Aims:
 
 * To provide students with hands on experience testing, developing, and maintaining a backend server in Python.
@@ -173,6 +177,7 @@ However, when deciding how to structure your tests, keep in mind the following:
 
 * Your tests should be *black box* unit tests.
   * Black box means they should not depend your specific implementation, but rather work with *any* working implementation. You should design your tests such that if they were run against another group's backend they would still pass.
+  For Iteration 1, you will only need to import the errors from `src/error.py` and the functions listed in the interface table (Section 6.2). You should *not* be importing from `src/data_store.py`.
   * Unit tests mean the tests focus on testing particular functions, rather than the system as a whole. Certain unit tests will depend on other tests succeeding. It's OK to write tests that are only a valid test if other functions are correct (e.g. to test `channel` functions you can assume that `auth` is implemented correctly).
 
 * Avoid writing your tests such that they need to be run in a particular order. That can make it hard to identify what exactly is failing.
