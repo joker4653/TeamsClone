@@ -56,20 +56,6 @@ def test_create_channel_multiple(example_user_id):
     assert new_channel_id.get('channel_id') == 4
 
 
-
-
-
-# What do I need to test ???????
-'''
-    Inputs: Test the errors.
-    Outputs: start + 50 or -1 for end.
-'''
-
-'''
-    Function stub: 
-    channel_messages_v1({ auth_user_id, channel_id, start }) --> { messages, start, end }
-'''
-
 # Can't test the number of messages as there is no function to implement this yet.
 # Therefore, also can't test InputError when start is greater than the total number 
 # of messages in the channel.
@@ -92,4 +78,4 @@ def test_channel_messages_AccessError(example_user_id):
     try:
         channel_messages_v1(example_user_id[1], id, 0)
     except AccessError:
-        assert True == False
+        assert False
