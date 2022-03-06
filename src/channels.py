@@ -1,26 +1,38 @@
 from src.data_store import data_store
 from src.error import InputError, AccessError
 from src.other import valid_user_id
+from src.channel import is_member
 
 def channels_list_v1(auth_user_id):
-    return {
-        'channels': [
-        	{
-        		'channel_id': 1,
-        		'name': 'My Channel',
-        	}
-        ],
-    }
+    data = data_store.get()
+    new_list = {'channels' : []}
+    for c in data['channels']:
+        ''' check owner status and if user is a member'''
+        if (c['channel_owner_id'] == auth_user_id or 
+        is_member(auth_user_id, c['channel_id']) == True
+        ):
+            new_channel = {
+                        'channel_id': c['channel_id'], 
+                        'name' : c['name']
+                        }
+            new_list['channels'].append(new_channel)
+
+
+    return new_list
 
 def channels_listall_v1(auth_user_id):
-    return {
-        'channels': [
-        	{
-        		'channel_id': 1,
-        		'name': 'My Channel',
-        	}
-        ],
-    }
+    data = data_store.get()
+    new_list = {'channels' : []}
+    for c in data['channels']:
+        ''' no need to check against owners or users, simply add all to the list'''
+        '''owner permission to be added in later iteration (assumed)'''
+        new_channel = {
+                    'channel_id': c['channel_id'], 
+                    'name' : c['name']
+                    }
+        new_list['channels'].append(new_channel)
+
+    return new_list
 
 
 def channels_create_v1(auth_user_id, name, is_public):
