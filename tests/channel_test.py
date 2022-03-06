@@ -274,6 +274,7 @@ def test_showing_private_conversations_being_omitted(example_user_id):
     for (a,b,c) in zip(channels3['channels'], all_channel_details, all_channel_ids):
         assert a['name'] == b['name']
         assert a['channel_id'] == c['channel_id']
+
         
     assert len(channels1['channels']) == 1
     assert len(channels2['channels']) == 2
