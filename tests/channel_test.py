@@ -254,12 +254,31 @@ def test_showing_private_conversations_being_omitted(example_user_id):
     channel_invite_v1(example_user_id[0], channel_id1['channel_id'], example_user_id[1])
     channel_invite_v1(example_user_id[0], channel_id1['channel_id'], example_user_id[2])
     channel_invite_v1(example_user_id[1], channel_id2['channel_id'], example_user_id[2])
+    channel_details1 = channel_details_v1(example_user_id[0], channel_id1['channel_id'])
+    channel_details2 = channel_details_v1(example_user_id[1], channel_id2['channel_id'])
+    channel_details3 = channel_details_v1(example_user_id[2], channel_id3['channel_id'])
     channels1 = channels_list_v1(example_user_id[0])
     channels2 = channels_list_v1(example_user_id[1])
     channels3 = channels_list_v1(example_user_id[2])
+    all_channel_details = [channel_details1, channel_details2, channel_details3]
+    all_channel_ids = [channel_id1, channel_id2, channel_id3]
+
+    for (a,b,c) in zip(channels1['channels'], all_channel_details, all_channel_ids):
+        assert a['name'] == b['name']
+        assert a['channel_id'] == c['channel_id']
+
+    for (a,b,c) in zip(channels2['channels'], all_channel_details, all_channel_ids):
+        assert a['name'] == b['name']
+        assert a['channel_id'] == c['channel_id']
+
+    for (a,b,c) in zip(channels3['channels'], all_channel_details, all_channel_ids):
+        assert a['name'] == b['name']
+        assert a['channel_id'] == c['channel_id']
+        
     assert len(channels1['channels']) == 1
     assert len(channels2['channels']) == 2
     assert len(channels3['channels']) == 3
+    
 
 # tests for channels_listall_v1
 '''Since channels_Listall_v1 is a variant of channels_list_v1, with same code excluding an 
@@ -288,7 +307,7 @@ def test_no_channels_listall(example_user_id):
 
 def test_list_channels_PER_USER_length(example_user_id):
     channel_id1 = channels_create_v1(example_user_id[0], "Badgers", False)
-    channel_id2 = channels_create_v1(example_user_id[1], "Seams!", False)
+    channel_id2 = channels_create_v1(example_user_id[1], "Seams!", True)
     channel_id3 = channels_create_v1(example_user_id[2], "No_name", False)
     channel_details1 = channel_details_v1(example_user_id[0], channel_id1['channel_id'])
     channel_details2 = channel_details_v1(example_user_id[1], channel_id2['channel_id'])
@@ -297,21 +316,23 @@ def test_list_channels_PER_USER_length(example_user_id):
     channels2 = channels_listall_v1(example_user_id[1])
     channels3 = channels_listall_v1(example_user_id[2])
     all_channel_details = [channel_details1, channel_details2, channel_details3]
+    all_channel_ids = [channel_id1, channel_id2, channel_id3]
 
-    for (a,b) in zip(channels1['channels'], all_channel_details):
+    for (a,b,c) in zip(channels1['channels'], all_channel_details, all_channel_ids):
         assert a['name'] == b['name']
-        assert a['channel_id'] == b['channel_id']
+        assert a['channel_id'] == c['channel_id']
 
-    for (a,b) in zip(channels2['channels'], all_channel_details):
+    for (a,b,c) in zip(channels2['channels'], all_channel_details, all_channel_ids):
         assert a['name'] == b['name']
-        assert a['channel_id'] == b['channel_id']
+        assert a['channel_id'] == c['channel_id']
 
-    for (a,b) in zip(channels3['channels'], all_channel_details):
+    for (a,b,c) in zip(channels3['channels'], all_channel_details, all_channel_ids):
         assert a['name'] == b['name']
-        assert a['channel_id'] == b['channel_id']
+        assert a['channel_id'] == c['channel_id']
     
 
     '''checking seperate lists to ensure they all are 3, listall ignores private channels'''
+    '''One channel is public, implies length of channel is not dependent on if channel is public or private'''
     assert len(channels1['channels']) == 3
     assert len(channels2['channels']) == 3
     assert len(channels3['channels']) == 3
