@@ -230,12 +230,9 @@ def test_multi_length_for_one_user(example_user_id):
     channel_id1 = channels_create_v1(example_user_id[0], "Badgers", False)
     channel_id2 = channels_create_v1(example_user_id[0], "Seam!", False)
     channel_id3 = channels_create_v1(example_user_id[0], "No_name", False)
-    channel_details1 = channel_details_v1(example_user_id[0], channel_id1['channel_id'])
-    channel_details2 = channel_details_v1(example_user_id[0], channel_id2['channel_id'])
-    channel_details3 = channel_details_v1(example_user_id[0], channel_id3['channel_id'])
-    assert channel_details1['owner_members'] == example_user_id[0]
-    assert channel_details2['owner_members'] == example_user_id[0]
-    assert channel_details3['owner_members'] == example_user_id[0]
+    channel_details_v1(example_user_id[0], channel_id1['channel_id'])
+    channel_details_v1(example_user_id[0], channel_id2['channel_id'])
+    channel_details_v1(example_user_id[0], channel_id3['channel_id'])
     channels = channels_list_v1(example_user_id[0])
     
     assert len(channels['channels']) == 3
