@@ -28,3 +28,13 @@ def valid_channel_id(channel_id):
         if channel['channel_id'] == channel_id:
             return True
     return False
+
+def user_info(auth_user_id): 
+    store = data_store.get()
+    return {
+        'u_id': auth_user_id,
+        'email': store['users'][auth_user_id]['email'],
+        'name_first': store['users'][auth_user_id]['first'],
+        'name_last': store['users'][auth_user_id]['last'],
+        'handle_string': store['users'][auth_user_id]['handle'],
+    }

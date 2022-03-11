@@ -103,7 +103,7 @@ def test_detail_invalid_channel_id(example_user_id):
 def test_detail_invalid_auth_id(example_user_id):
     channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
     invalid_auth_id = sum(example_user_id) + 1
-    with pytest.raises(InputError):
+    with pytest.raises(AccessError):
         channel_details_v1(invalid_auth_id, channel_id.get('channel_id'))
 
 def test_detail_auth_id_not_member(example_user_id):
@@ -116,8 +116,8 @@ def test_detail_correct_return_value(example_user_id):
     channel_details = channel_details_v1(example_user_id[0], channel_id.get('channel_id'))
     assert channel_details['name'] == 'Badgers'
     assert channel_details['is_public'] == True
-    assert channel_details['owner_members'] == 0
-    assert channel_details['all_members'] == [0]
+    assert 0 in [k['u_id'] for k in channel_details['owner_members']]
+    assert 0 in [k['u_id'] for k in channel_details['all_members']]
 
 def test_detail_multiple_members(example_user_id):
     channel_id = channels_create_v1(example_user_id[0], "Badgers", True)
@@ -125,8 +125,9 @@ def test_detail_multiple_members(example_user_id):
     channel_details = channel_details_v1(example_user_id[0], channel_id.get('channel_id'))
     assert channel_details['name'] == 'Badgers'
     assert channel_details['is_public'] == True
-    assert channel_details['owner_members'] == 0
-    assert channel_details['all_members'] == [0, 1]
+    assert 0 in [k['u_id'] for k in channel_details['owner_members']]
+    assert 0 in [k['u_id'] for k in channel_details['all_members']]
+    assert 1 in [k['u_id'] for k in channel_details['all_members']]
 
 # tests for channel_join_v1
 def test_join_invalid_channel_id(example_user_id):
@@ -136,7 +137,7 @@ def test_join_invalid_channel_id(example_user_id):
 def test_join_invalid_auth_id(example_user_id):
     channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
     invalid_auth_id = sum(example_user_id) + 1
-    with pytest.raises(InputError):
+    with pytest.raises(AccessError):
         channel_join_v1(invalid_auth_id, channel_id.get('channel_id'))
 
 def test_join_user_already_in_channel(example_user_id):
@@ -153,7 +154,8 @@ def test_join_success(example_user_id):
     channel_id = channels_create_v1(example_user_id[0], "Badgers", True)
     channel_join_v1(example_user_id[1], channel_id.get('channel_id'))
     channel_details = channel_details_v1(example_user_id[1], channel_id.get('channel_id'))
-    assert channel_details['all_members'] == [0, 1]
+    assert 0 in [k['u_id'] for k in channel_details['all_members']]
+    assert 1 in [k['u_id'] for k in channel_details['all_members']]
 
 
 # Can't test the number of messages as there is no function to implement this yet.
@@ -341,3 +343,6 @@ def test_list_channels_PER_USER_length(example_user_id):
     assert len(channels1['channels']) == 3
     assert len(channels2['channels']) == 3
     assert len(channels3['channels']) == 3
+
+
+

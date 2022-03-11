@@ -1,9 +1,11 @@
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import valid_user_id
+from src.other import valid_user_id, user_info
 from src.channel import is_member
 
 def channels_list_v1(auth_user_id):
+    if valid_user_id(auth_user_id) == False:
+        raise AccessError("auth_user_id provided is not valid; this user does not exist.")
     data = data_store.get()
     new_list = {'channels' : []}
     for c in data['channels']:
@@ -21,6 +23,8 @@ def channels_list_v1(auth_user_id):
     return new_list
 
 def channels_listall_v1(auth_user_id):
+    if valid_user_id(auth_user_id) == False:
+        raise AccessError("auth_user_id provided is not valid; this user does not exist.")
     data = data_store.get()
     new_list = {'channels' : []}
     for c in data['channels']:
@@ -33,7 +37,6 @@ def channels_listall_v1(auth_user_id):
         new_list['channels'].append(new_channel)
 
     return new_list
-
 
 def channels_create_v1(auth_user_id, name, is_public):
     '''Creates new channel and returns channel id (length of channels list plus 1)'''
@@ -52,11 +55,11 @@ def channels_create_v1(auth_user_id, name, is_public):
 
     # Create a new channel.
     new_channel = {
-        'channel_owner_id': auth_user_id,
+        'channel_owner_id': [user_info(auth_user_id)],
         'channel_id': new_channel_id,
         'name': name,
         'is_public': is_public,
-        'user_ids': [auth_user_id],
+        'user_ids': [user_info(auth_user_id)]
     }
 
     # Add new channel and save this update.
