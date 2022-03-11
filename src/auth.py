@@ -56,6 +56,12 @@ def auth_register_v1(email, password, name_first, name_last):
         'auth_user_id': new_id,
     }
 
+
+def auth_logout_v1(token):
+    pass
+
+
+
 def validate_input(email, password, first, last):
     '''Checks a certain input set meets the criteria for registering a new user.'''
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
