@@ -73,7 +73,6 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     for c in channels:
         if c['channel_id'] == channel_id:
             channel_found = True
-            channel = c
             break
     if not channel_found:
         raise InputError("channel_id does not refer to a valid channel")
