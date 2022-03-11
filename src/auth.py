@@ -118,7 +118,6 @@ def create_new_id():
     '''Generates a new integer id that was previously unused.'''
     num = 0
     unique = False
-    store = data_store.get()
     while unique == False:
         # Check num against store.
         if check_duplicate(num, 'id') == False:

@@ -70,7 +70,6 @@ def channel_messages_v1(auth_user_id, channel_id, start):
 
     # Check if channel_id is valid
     channel_found = False
-    channel = channels[0]
     for c in channels:
         if c['channel_id'] == channel_id:
             channel_found = True
