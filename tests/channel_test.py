@@ -233,6 +233,9 @@ def test_multi_length_for_one_user(example_user_id):
     channel_details1 = channel_details_v1(example_user_id[0], channel_id1['channel_id'])
     channel_details2 = channel_details_v1(example_user_id[0], channel_id2['channel_id'])
     channel_details3 = channel_details_v1(example_user_id[0], channel_id3['channel_id'])
+    assert channel_details1['owner_members'] == example_user_id[0]
+    assert channel_details2['owner_members'] == example_user_id[0]
+    assert channel_details3['owner_members'] == example_user_id[0]
     channels = channels_list_v1(example_user_id[0])
     
     assert len(channels['channels']) == 3
@@ -295,6 +298,7 @@ def test_private_conversations_being_listed(example_user_id):
     channel_invite_v1(example_user_id[0], channel_id1['channel_id'], example_user_id[1])
     channel_invite_v1(example_user_id[0], channel_id1['channel_id'], example_user_id[2])
     channel_invite_v1(example_user_id[1], channel_id2['channel_id'], example_user_id[2])
+    channel_invite_v1(example_user_id[2], channel_id3['channel_id'], example_user_id[0])
     channels1 = channels_listall_v1(example_user_id[0])
     channels2 = channels_listall_v1(example_user_id[1])
     channels3 = channels_listall_v1(example_user_id[2])
@@ -339,7 +343,6 @@ def test_list_channels_PER_USER_length(example_user_id):
     assert len(channels1['channels']) == 3
     assert len(channels2['channels']) == 3
     assert len(channels3['channels']) == 3
-
 
 
 
