@@ -117,3 +117,15 @@ def channel_join_v1(auth_user_id, channel_id):
     
     return {
     }
+
+
+def channel_leave_v1(token, channel_id):
+    pass
+
+
+def channel_addowner_v1(token, channel_id, u_id):
+    pass
+
+
+def channel_removeowner_v1(token, channel_id, u_id):
+    pass

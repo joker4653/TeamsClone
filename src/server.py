@@ -280,12 +280,13 @@ def handle_user_profile():
 
 
 @APP.route("/user/profile/setname/v1", methods=['PUT'])
-def handle_profile_setemail():
+def handle_profile_setname():
     params = request.get_json()
     token = params.get('token', None)
-    email = params.get('email', None)
+    name_first = params.get('name_first', None)
+    name_last = params.get('name_last', None)
 
-    return users.user_profile_setemail_v1(token, email)
+    return users.user_profile_setname_v1(token, name_first, name_last)
 
 
 @APP.route("/user/profile/sethandle/v1", methods=['PUT'])
@@ -295,6 +296,15 @@ def handle_profile_sethandle():
     handle_str = params.get('handle_str', None)
 
     return users.user_profile_sethandle_v1(token, handle_str)
+
+
+@APP.route("/user/profile/setemail/v1", method=['PUT'])
+def handle_profile_setemail():
+    params = request.get_json()
+    token = params.get("token", None)
+    email = params.get("email", None)
+
+    return users.user_profile_setemail_v1(token, email)
 
 
 @APP.route("/admin/user/remove/v1", methods=['DELETE'])
