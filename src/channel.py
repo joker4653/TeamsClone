@@ -46,12 +46,12 @@ def channel_details_v1(auth_user_id, channel_id):
         if channel['channel_id'] == channel_id:
             channel_name = channel['name']
             channel_is_public = channel['is_public']
-            channel_owner_id = channel['channel_owner_id']
+            channel_owner_ids = channel['channel_owner_ids']
             channel_members = channel['user_ids']
     return_dict = {
         'name': channel_name,
         'is_public': channel_is_public,
-        'owner_members': channel_owner_id,
+        'owner_members': channel_owner_ids,
         'all_members': channel_members,
     }
     return return_dict

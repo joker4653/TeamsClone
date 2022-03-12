@@ -45,24 +45,32 @@ to go searching for the syntax they need? Epic, thanks!
                             !!! CHANNELS EXPLAINED !!!
 Hey Badgers, just a little explanation of how I have implemented the 'channels' key 
 of the 'initial_object' dictionary below. 
-As channels are added, the channels list will appear as follows:
+As channels are added, the channels dictionary will appear as follows:
 
-    'channels' = [
-        {
-        'channel_owner_id': integer id,
-        'channel_id':       integer id,
-        'name':             string name,
-        'is_public':        boolean value,
-        'user_ids':         [integer id]
+    'channels' = {
+        "1": {
+            'channel_owner_ids': [integer ids],
+            'name':             string name,
+            'is_public':        boolean value,
+            'user_ids':         [integer ids],
         }
-    ]
-
+        "2": {
+            'channel_owner_ids': [integer id],
+            'channel_id':       integer id,
+            'name':             string name,
+            'is_public':        boolean value,
+            'user_ids':         [integer id],
+        }
+        ...
+    }
+where the keys "1" and "2" are the channel ids, whose values are dictionaries
+containing information about the channel.
 cheers, Nick.
 '''
 ## YOU SHOULD MODIFY THIS OBJECT BELOW
 initial_object = {
     'users': [],
-    'channels': [],
+    'channels': {},
 }
 ## YOU SHOULD MODIFY THIS OBJECT ABOVE
 
