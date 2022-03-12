@@ -59,6 +59,9 @@ As channels are added, the channels list will appear as follows:
 
 cheers, Nick.
 '''
+import json
+import os
+
 ## YOU SHOULD MODIFY THIS OBJECT BELOW
 initial_object = {
     'users': [],
@@ -80,7 +83,23 @@ class Datastore:
             raise TypeError('store must be of type dictionary')
         self.__store = store
 
+    def populate_data(self):
+        '''
+        Reads data from data.json and adds it to data store
+        '''
+        path = os.path.dirname(__file__) + "../data/"
+
+        with open(path + "channels.json", "r") as f:
+            channels = json.loads(f.read())
+        self.__store["channels"] = channels
+
+        with open(path + "users.json", "r") as f:
+            users = json.loads(f.read())
+        self.__store["users"] = users
+
+
 print('Loading Datastore...')
 
 global data_store
 data_store = Datastore()
+data_store.populate_data()

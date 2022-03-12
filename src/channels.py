@@ -2,6 +2,7 @@ from src.data_store import data_store
 from src.error import InputError, AccessError
 from src.other import valid_user_id, user_info
 from src.channel import is_member
+from src.data_json import write_data
 
 def channels_list_v1(auth_user_id):
     if valid_user_id(auth_user_id) == False:
@@ -65,6 +66,7 @@ def channels_create_v1(auth_user_id, name, is_public):
     # Add new channel and save this update.
     store['channels'].append(new_channel)
     data_store.set(store)
+    write_data(store)
     
     return {
         'channel_id': new_channel_id,
