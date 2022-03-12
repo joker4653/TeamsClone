@@ -49,17 +49,16 @@ As channels are added, the channels dictionary will appear as follows:
 
     'channels' = {
         "1": {
-            'channel_owner_ids': [integer ids],
+            'channel_owner_ids': [user_info(auth_user_id), details in other.py],
             'name':             string name,
             'is_public':        boolean value,
-            'user_ids':         [integer ids],
+            'user_ids':         [user_info(auth_user_id), details in other.py],
         }
         "2": {
-            'channel_owner_ids': [integer id],
-            'channel_id':       integer id,
+            'channel_owner_ids': [user_info(auth_user_id), details in other.py],
             'name':             string name,
             'is_public':        boolean value,
-            'user_ids':         [integer id],
+            'user_ids':         [user_info(auth_user_id), details in other.py],
         }
         ...
     }

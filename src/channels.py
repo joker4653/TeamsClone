@@ -53,7 +53,7 @@ def channels_create_v1(auth_user_id, name, is_public):
     store = data_store.get()   
     new_channel_id = len(store['channels']) + 1
 
-    # Create a new channel.
+    # Create a new channel, user creating channel becomes an owner.
     new_channel_details = {
             'channel_owner_ids': [user_info(auth_user_id)],
             'name': name,
@@ -62,17 +62,6 @@ def channels_create_v1(auth_user_id, name, is_public):
     }
     store['channels'][new_channel_id] = new_channel_details
     data_store.set(store)
-    #new_channel = {
-    #    'channel_owner_ids': [user_info(auth_user_id)],
-    #    'channel_id': new_channel_id,
-    #    'name': name,
-    #    'is_public': is_public,
-    #    'user_ids': [user_info(auth_user_id)]
-    #}
-
-    # Add new channel and save this update.
-    #store['channels'].append(new_channel)
-    # data_store.set(store)
     
     return {
         'channel_id': new_channel_id,
