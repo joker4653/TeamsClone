@@ -87,7 +87,7 @@ class Datastore:
         '''
         Reads data from data.json and adds it to data store
         '''
-        path = os.path.dirname(__file__) + "../data/"
+        path = os.path.dirname(__file__) + "/../data/"
 
         with open(path + "channels.json", "r") as f:
             channels = json.loads(f.read())
