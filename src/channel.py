@@ -30,7 +30,7 @@ def channel_invite_v1(auth_user_id, channel_id, u_id):
         if channel['channel_id'] == channel_id:
             channel['user_ids'].append(user_info(u_id))
     data_store.set(store)
-    write_data(store)
+    write_data(data_store)
     
     return {
     }
@@ -112,7 +112,7 @@ def channel_join_v1(auth_user_id, channel_id):
             else:
                 channel['user_ids'].append(user_info(auth_user_id))
     data_store.set(store)
-    write_data(store)
+    write_data(data_store)
     
     return {
     }

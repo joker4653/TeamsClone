@@ -6,7 +6,7 @@ def clear_v1():
     store['users'] = []
     store['channels'] = []
     data_store.set(store)
-    write_data(store)
+    write_data(data_store)
 
 def valid_user_id(auth_user_id):
     '''Check valid user_id was passed. Return True if valid, False if invalid.'''

@@ -66,7 +66,7 @@ def channels_create_v1(auth_user_id, name, is_public):
     # Add new channel and save this update.
     store['channels'].append(new_channel)
     data_store.set(store)
-    write_data(store)
+    write_data(data_store)
     
     return {
         'channel_id': new_channel_id,

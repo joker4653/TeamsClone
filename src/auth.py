@@ -52,7 +52,7 @@ def auth_register_v1(email, password, name_first, name_last):
     store = data_store.get()
     store['users'].append(new_user)
     data_store.set(store)
-    write_data(store)
+    write_data(data_store)
 
     return {
         'auth_user_id': new_id,
