@@ -1,10 +1,12 @@
 from src.data_store import data_store
+from src.data_json import write_data
 
 def clear_v1():
     store = data_store.get()
     store['users'] = []
     store['channels'] = []
     data_store.set(store)
+    write_data(data_store)
 
 def valid_user_id(auth_user_id):
     '''Check valid user_id was passed. Return True if valid, False if invalid.'''

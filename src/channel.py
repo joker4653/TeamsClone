@@ -1,6 +1,7 @@
 from src.data_store import data_store
 from src.error import InputError, AccessError
 from src.other import valid_user_id, valid_channel_id, user_info
+from src.data_json import write_data
 
 def is_member(user_id, channel_id):
     '''Check if a user is in a channel. Return True if in channel, False if not in.'''
@@ -29,7 +30,8 @@ def channel_invite_v1(auth_user_id, channel_id, u_id):
         if channel['channel_id'] == channel_id:
             channel['user_ids'].append(user_info(u_id))
     data_store.set(store)
-
+    write_data(data_store)
+    
     return {
     }
 
@@ -110,6 +112,7 @@ def channel_join_v1(auth_user_id, channel_id):
             else:
                 channel['user_ids'].append(user_info(auth_user_id))
     data_store.set(store)
+    write_data(data_store)
     
     return {
     }
