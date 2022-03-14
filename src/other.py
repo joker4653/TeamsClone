@@ -2,8 +2,8 @@ from src.data_store import data_store
 
 def clear_v1():
     store = data_store.get()
-    store['users'] = []
-    store['channels'] = []
+    store['users'] = {}
+    store['channels'] = {}
     data_store.set(store)
 
 def valid_user_id(auth_user_id):
@@ -13,10 +13,12 @@ def valid_user_id(auth_user_id):
         return False
 
     store = data_store.get()
-    for user in store['users']:
-        if user['id'] == auth_user_id:
-            return True
-    return False
+    
+    x = store['users'].get(auth_user_id, False)
+    if x:
+        return True
+    else:
+        return False
 
 def valid_channel_id(channel_id):
     '''Check valid channel_id was passed. Return True if valid, False if invalid.'''

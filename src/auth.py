@@ -2,13 +2,14 @@ import re
 
 from src.data_store import data_store
 from src.error import InputError
+from src.other import valid_user_id
 
 def auth_login_v1(email, password):
     '''Logs in a user from the given email and password, if they are valid.'''
     # Locate user from email.
     store = data_store.get()
     found = False
-    for user in store['users']:
+    for user in store['users'].values():
         if user['email'] == email:
             # This is the correct user.
             found = True
@@ -49,7 +50,9 @@ def auth_register_v1(email, password, name_first, name_last):
     
     #Add new user to data_store
     store = data_store.get()
-    store['users'].append(new_user)
+    users = store['users']
+
+    users[new_id] = new_user
     data_store.set(store)
      
     return {
@@ -87,7 +90,7 @@ def validate_input(email, password, first, last):
 def check_duplicate(new, field):
     '''Goes through the users in data store and returns True if new already has a registered entry in users[field].'''
     store = data_store.get()
-    for user in store['users']:
+    for user in store['users'].values():
         # Check if the user field is the same as new.
         if user[field] == new:
             # This new entry is a duplicate.
@@ -101,12 +104,12 @@ def create_new_handle(first, last):
     new_handle = ''.join(char for char in new_handle if char.isalnum())
     new_handle = new_handle[0:20]
     # Add number if necessary. 
-    if check_duplicate(new_handle, 'handle') == False:
+    if not check_duplicate(new_handle, 'handle'):
         unique = True
     else:
         unique = False
     num = 0
-    while unique == False:
+    while not unique:
         if check_duplicate(f"{new_handle}{num}", 'handle') == False:
             unique = True
             new_handle = f"{new_handle}{num}"
@@ -118,10 +121,10 @@ def create_new_id():
     '''Generates a new integer id that was previously unused.'''
     num = 0
     unique = False
-    while unique == False:
+    while not unique:
         # Check num against store.
-        if check_duplicate(num, 'id') == False:
-            unique = True
-        else:
+        if valid_user_id(num):
             num += 1
+        else:
+            unique = True
     return num

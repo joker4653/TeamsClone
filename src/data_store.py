@@ -68,7 +68,7 @@ cheers, Nick.
 '''
 ## YOU SHOULD MODIFY THIS OBJECT BELOW
 initial_object = {
-    'users': [],
+    'users': {},
     'channels': {},
 }
 ## YOU SHOULD MODIFY THIS OBJECT ABOVE
