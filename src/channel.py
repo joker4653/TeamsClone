@@ -6,7 +6,7 @@ def is_member(user_id, channel_id):
     '''Check if a user is in a channel. Return True if in channel, False if not in.'''
     if valid_channel_id(channel_id):
         store = data_store.get()
-        user_ids = store['channels']['channel_id']['user_ids']
+        user_ids = store['channels'][channel_id]['user_ids']
         if any(user['u_id'] == user_id for user in user_ids):
             return True
     return False
@@ -24,9 +24,7 @@ def channel_invite_v1(auth_user_id, channel_id, u_id):
         raise InputError("u_id is already a member of the channel.")
 
     store = data_store.get()
-    for channel in store['channels']:
-        if channel['channel_id'] == channel_id:
-            channel['user_ids'].append(user_info(u_id))
+    store['channels'][channel_id]['user_ids'].append(user_info(u_id))
     data_store.set(store)
 
     return {

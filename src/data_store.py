@@ -46,13 +46,13 @@ of the 'initial_object' dictionary below.
 As channels are added, the channels dictionary will appear as follows:
 
     'channels' = {
-        "1": {
+        1: {
             'channel_owner_ids': [user_info(auth_user_id), details in other.py],
             'name':             string name,
             'is_public':        boolean value,
             'user_ids':         [user_info(auth_user_id), details in other.py],
         }
-        "2": {
+        2: {
             'channel_owner_ids': [user_info(auth_user_id), details in other.py],
             'name':             string name,
             'is_public':        boolean value,
