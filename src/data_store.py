@@ -26,8 +26,8 @@ Example usage:
 '''
 Hey Guys!
 Just a note about the setup of the users list. As users are added, they are stored as below:
-'users': [
-    {
+'users': {
+    id: {
     'id': [integer id]
     'handle': [string user handle]
     'email': [string email]
@@ -35,10 +35,8 @@ Just a note about the setup of the users list. As users are added, they are stor
     'first': [string first name]
     'last': [string last name]
     }
-]
-So there'll be a new user dictionary added to the users list for all users created.
-[Whoever makes channels etc, maybe continue this when you alter initial_object so others don't have
-to go searching for the syntax they need? Epic, thanks!
+}
+So there'll be a new user dictionary added to the users dictionary for all users created.
 -Laura
 ---------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------
