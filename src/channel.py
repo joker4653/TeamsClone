@@ -4,12 +4,11 @@ from src.other import valid_user_id, valid_channel_id, user_info
 
 def is_member(user_id, channel_id):
     '''Check if a user is in a channel. Return True if in channel, False if not in.'''
-    store = data_store.get()
-    for channel in store['channels']:
-        if channel['channel_id'] == channel_id:
-            for user in channel['user_ids']:
-                if user['u_id'] == user_id:
-                    return True
+    if valid_channel_id(channel_id):
+        store = data_store.get()
+        user_ids = store['channels']['channel_id']['user_ids']
+        if any(user['u_id'] == user_id for user in user_ids):
+            return True
     return False
 
 def channel_invite_v1(auth_user_id, channel_id, u_id):

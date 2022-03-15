@@ -26,10 +26,12 @@ def valid_channel_id(channel_id):
         return False
     
     store = data_store.get()
-    for channel in store['channels']:
-        if channel['channel_id'] == channel_id:
-            return True
-    return False
+
+    valid_id = store['channels'].get(channel_id, False)
+    if valid_id:
+        return True
+    else:
+        return False
 
 def user_info(auth_user_id): 
     store = data_store.get()
