@@ -39,17 +39,12 @@ def channel_details_v1(auth_user_id, channel_id):
         raise AccessError("auth_user is not a member of the channel.")
 
     store = data_store.get()
-    for channel in store['channels']:
-        if channel['channel_id'] == channel_id:
-            channel_name = channel['name']
-            channel_is_public = channel['is_public']
-            channel_owner_ids = channel['channel_owner_ids']
-            channel_members = channel['user_ids']
+    curr_channel = store['channels'][channel_id]
     return_dict = {
-        'name': channel_name,
-        'is_public': channel_is_public,
-        'owner_members': channel_owner_ids,
-        'all_members': channel_members,
+        'name': curr_channel['name'],
+        'is_public': curr_channel['is_public'],
+        'owner_members': curr_channel['channel_owner_ids'],
+        'all_members': curr_channel['user_ids'],
     }
     return return_dict
 
@@ -100,14 +95,12 @@ def channel_join_v1(auth_user_id, channel_id):
         raise InputError("auth_user_id is already a member of the channel.")
     
     store = data_store.get()
-    for channel in store['channels']:
-        if channel['channel_id'] == channel_id:    
-            if channel['is_public'] == False:
-                raise AccessError(f"Access Denied. {channel['name']} is a private channel.")
-            else:
-                channel['user_ids'].append(user_info(auth_user_id))
+    curr_channel = store['channels'][channel_id]
+    if not curr_channel['is_public']:
+        raise AccessError(f"Access Denied. {curr_channel['name']} is a private channel.")
+    else:
+        store['channels'][channel_id]['user_ids'].append(user_info(auth_user_id))
     data_store.set(store)
-    
     return {
     }
 
