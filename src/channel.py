@@ -31,11 +31,11 @@ def channel_invite_v1(auth_user_id, channel_id, u_id):
     }
 
 def channel_details_v1(auth_user_id, channel_id):
-    if valid_channel_id(channel_id) == False:
+    if not valid_channel_id(channel_id):
         raise InputError("This channel_id does not correspond to an existing channel.")
-    if valid_user_id(auth_user_id) == False:
+    if not valid_user_id(auth_user_id):
         raise AccessError("auth_user_id provided is not valid; this user does not exist.")
-    if is_member(auth_user_id, channel_id) == False:
+    if not is_member(auth_user_id, channel_id):
         raise AccessError("auth_user is not a member of the channel.")
 
     store = data_store.get()
@@ -50,9 +50,9 @@ def channel_details_v1(auth_user_id, channel_id):
 
 
 def channel_messages_v1(auth_user_id, channel_id, start):
-    if valid_user_id(auth_user_id) == False:
+    if not valid_user_id(auth_user_id):
         raise AccessError("auth_user_id provided is not valid; this user does not exist.")    
-    if valid_channel_id(channel_id) == False:
+    if not valid_channel_id(channel_id):
             raise InputError("This channel_id does not correspond to an existing channel.")
     if not is_member(auth_user_id, channel_id):
         raise AccessError("channel_id is valid and the authorised user is not a member of the channel")
@@ -72,9 +72,9 @@ def channel_messages_v1(auth_user_id, channel_id, start):
 
     
 def channel_join_v1(auth_user_id, channel_id):
-    if valid_user_id(auth_user_id) == False:
+    if not valid_user_id(auth_user_id):
         raise AccessError("auth_user_id provided is not valid; this user does not exist.")
-    if valid_channel_id(channel_id) == False:
+    if not valid_channel_id(channel_id):
         raise InputError("This channel_id does not correspond to an existing channel.")
     if is_member(auth_user_id, channel_id):
         raise InputError("auth_user_id is already a member of the channel.")
