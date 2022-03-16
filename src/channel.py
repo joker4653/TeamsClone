@@ -51,24 +51,9 @@ def channel_details_v1(auth_user_id, channel_id):
 
 def channel_messages_v1(auth_user_id, channel_id, start):
     if valid_user_id(auth_user_id) == False:
-        raise AccessError("auth_user_id provided is not valid; this user does not exist.")
-    
-    store = data_store.get()
-
-    # First check if there are any channels
-    channels = store['channels']
-    if len(channels) == 0:
-        raise InputError("channel_id does not refer to a valid channel")
-
-    # Check if channel_id is valid
-    channel_found = False
-    for c in channels:
-        if c['channel_id'] == channel_id:
-            channel_found = True
-            break
-    if not channel_found:
-        raise InputError("channel_id does not refer to a valid channel")
-
+        raise AccessError("auth_user_id provided is not valid; this user does not exist.")    
+    if valid_channel_id(channel_id) == False:
+            raise InputError("This channel_id does not correspond to an existing channel.")
     if not is_member(auth_user_id, channel_id):
         raise AccessError("channel_id is valid and the authorised user is not a member of the channel")
 
