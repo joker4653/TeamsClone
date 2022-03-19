@@ -1,3 +1,4 @@
+from tokenize import endpats
 from src.data_store import data_store
 from src.error import InputError, AccessError
 from src.other import valid_user_id, valid_channel_id, user_info
@@ -82,19 +83,33 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     if not is_member(auth_user_id, channel_id):
         raise AccessError("channel_id is valid and the authorised user is not a member of the channel")
 
+
+    # I'm gonna add a messages field to every channel ...
+    # Have to fix channels_create functions first and fix data_store documentation
+    # format is "messages" = [message_dict, ...]
+        #  message dict is { message_id, u_id, message, time_sent }
+
+
+    store = data_store.get()
+    channel = store["channels"][channel_id]
+    messages = channel["messages"]
+    messages_return = []
+
+    end = start + 50
+    for i in range(start, start + 50):
+        messages_return.append(messages[i])
+        if (i == len(messages)):
+            end = -1
+            break
+    
     return {
-        'messages': [
-            {
-                'message_id': 1,
-                'u_id': 1,
-                'message': 'Hello world',
-                'time_sent': 1582426789,
-            }
-        ],
-        'start': 0,
-        'end': 50,
+        "messages": messages,
+        "start": start,
+        "end": end
     }
 
+
+    
     
 def channel_join_v1(auth_user_id, channel_id):
     if valid_user_id(auth_user_id) == False:
