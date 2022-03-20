@@ -1,5 +1,8 @@
-from src.data_store import data_store
-from src.data_json import write_data
+#from src.data_store import data_store
+#from src.data_json import write_data
+
+from data_store import data_store
+from data_json import write_data
 
 def clear_v1():
     store = data_store.get()

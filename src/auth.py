@@ -1,8 +1,12 @@
 import re
 
-from src.data_store import data_store
-from src.error import InputError
-from src.data_json import write_data
+#from src.data_store import data_store
+#from src.error import InputError
+#from src.data_json import write_data
+
+from data_store import data_store
+from error import InputError
+from data_json import write_data
 
 def auth_login_v1(email, password):
     '''Logs in a user from the given email and password, if they are valid.'''

@@ -1,7 +1,12 @@
-from src.data_store import data_store
-from src.error import InputError, AccessError
-from src.other import valid_user_id, valid_channel_id, user_info
-from src.data_json import write_data
+#from src.data_store import data_store
+#from src.error import InputError, AccessError
+#from src.other import valid_user_id, valid_channel_id, user_info
+#from src.data_json import write_data
+
+from data_store import data_store
+from error import InputError, AccessError
+from other import valid_user_id, valid_channel_id, user_info
+from data_json import write_data
 
 def is_member(user_id, channel_id):
     '''Check if a user is in a channel. Return True if in channel, False if not in.'''
