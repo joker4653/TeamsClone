@@ -61,7 +61,6 @@ def message_send_v1(token, channel_id, message):
 
     #TODO: u_id convert to token somehow...
     auth_user_id = 1
-    usr_info = user_info(auth_user_id)
     
     store = data_store.get()
     message_id = assign_message_id(store)

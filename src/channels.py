@@ -61,6 +61,7 @@ def channels_create_v1(auth_user_id, name, is_public):
             'name': name,
             'is_public': is_public,
             'user_ids': [user_info(auth_user_id)],
+            'messages': []
     }
     store['channels'][new_channel_id] = new_channel_details
     data_store.set(store)
