@@ -8,17 +8,18 @@ def channels_list_v1(auth_user_id):
     if valid_user_id(auth_user_id) == False:
         raise AccessError("auth_user_id provided is not valid; this user does not exist.")
     data = data_store.get()
-    new_list = {'channels' : []}
+    new_list = []
     for c in data['channels']:
-        ''' check owner status and if user is a member'''
-        if (c['channel_owner_id'] == auth_user_id or 
-        is_member(auth_user_id, c['channel_id']) == True
-        ):
-            new_channel = {
-                        'channel_id': c['channel_id'], 
-                        'name' : c['name']
-                        }
-            new_list['channels'].append(new_channel)
+        for channels_owner in data['channels'][c]['channel_owner_ids']:
+            ''' check owner status and if user is a member'''
+            if (channels_owner == auth_user_id or 
+            is_member(auth_user_id, c) == True
+            ):
+                new_channel = {
+                            'channel_id': c, 
+                            'name' : data['channels'][c]['name']
+                            }
+                new_list.append(new_channel)
 
 
     return new_list
@@ -27,15 +28,15 @@ def channels_listall_v1(auth_user_id):
     if valid_user_id(auth_user_id) == False:
         raise AccessError("auth_user_id provided is not valid; this user does not exist.")
     data = data_store.get()
-    new_list = {'channels' : []}
+    new_list = []
     for c in data['channels']:
         ''' no need to check against owners or users, simply add all to the list'''
         '''owner permission to be added in later iteration (assumed)'''
         new_channel = {
-                    'channel_id': c['channel_id'], 
-                    'name' : c['name']
+                    'channel_id': c, 
+                    'name' : data['channels'][c]['name']
                     }
-        new_list['channels'].append(new_channel)
+        new_list.append(new_channel)
 
     return new_list
 
@@ -54,17 +55,14 @@ def channels_create_v1(auth_user_id, name, is_public):
     store = data_store.get()   
     new_channel_id = len(store['channels']) + 1
 
-    # Create a new channel.
-    new_channel = {
-        'channel_owner_id': [user_info(auth_user_id)],
-        'channel_id': new_channel_id,
-        'name': name,
-        'is_public': is_public,
-        'user_ids': [user_info(auth_user_id)]
+    # Create a new channel, user creating channel becomes an owner.
+    new_channel_details = {
+            'channel_owner_ids': [user_info(auth_user_id)],
+            'name': name,
+            'is_public': is_public,
+            'user_ids': [user_info(auth_user_id)],
     }
-
-    # Add new channel and save this update.
-    store['channels'].append(new_channel)
+    store['channels'][new_channel_id] = new_channel_details
     data_store.set(store)
     write_data(data_store)
     
