@@ -3,6 +3,7 @@ import re
 from src.data_store import data_store
 from src.error import InputError
 from src.other import valid_user_id
+from src.data_json import write_data
 
 def auth_login_v1(email, password):
     '''Logs in a user from the given email and password, if they are valid.'''
@@ -54,7 +55,8 @@ def auth_register_v1(email, password, name_first, name_last):
 
     users[new_id] = new_user
     data_store.set(store)
-     
+    write_data(data_store)
+
     return {
         'auth_user_id': new_id,
     }
