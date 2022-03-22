@@ -72,6 +72,9 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     messages = channel["messages"]
     messages_return = []
 
+    if start > len(messages):
+        raise InputError("start is greater than the total number of messages in the channel")
+
     end = start + 50
     for i in range(start, start + 50):
         messages_return.append(messages[i])
@@ -80,7 +83,7 @@ def channel_messages_v1(auth_user_id, channel_id, start):
             break
     
     return {
-        "messages": messages,
+        "messages": messages_return,
         "start": start,
         "end": end
     }
