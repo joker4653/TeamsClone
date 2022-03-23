@@ -34,6 +34,7 @@ Just a note about the setup of the users list. As users are added, they are stor
     'password': [string password]
     'first': [string first name]
     'last': [string last name]
+    'sessions': [list of active sessions of this user]
     }
 ]
 So there'll be a new user dictionary added to the users list for all users created.
@@ -64,6 +65,7 @@ import os
 
 ## YOU SHOULD MODIFY THIS OBJECT BELOW
 initial_object = {
+    'sessions_no': 0,
     'users': [],
     'channels': [],
 }

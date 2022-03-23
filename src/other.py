@@ -34,6 +34,31 @@ def valid_channel_id(channel_id):
             return True
     return False
 
+def create_token(str: user_id, int: session_id):
+    token_data = {
+        'auth_user_id': new_id,
+        'session_id': session_id
+    }
+    
+    token = jwt.encode(token_data, SECRET, algorithm='HS256')
+
+    return token
+
+
+def validate_token(token):
+    # Decode token.
+    data = jwt.decode(token, options={'verify_signature': False}, algorithms=['HS256'])
+
+    test = jwt.encode(data, SECRET, algorithm='HS256')
+    if token != test:
+        # The token is invalid.
+        return False
+
+    # Check session id with user.
+    # TODO check session id against user->sessions.
+
+    return data
+
 def user_info(auth_user_id): 
     store = data_store.get()
     return {

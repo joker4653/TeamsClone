@@ -1,4 +1,6 @@
 import re
+import hashlib
+import jwt
 
 #from src.data_store import data_store
 #from src.error import InputError
@@ -24,7 +26,7 @@ def auth_login_v1(email, password):
         raise InputError("This email has no registered user.")
    
     # Check password is correct. 
-    if user['password'] != password:
+    if user['password'] != hashlib.sha256(password.encode()).hexdigest():
         raise InputError("Incorrect password.")
 
     return {
@@ -41,25 +43,35 @@ def auth_register_v1(email, password, name_first, name_last):
 
     # Create new auth id.
     new_id = create_new_id()   
+  
+    # Choose a new session id. 
+    store = data_store.get()
+    session_id = store['sessions_no']
+    store['sessions_no'] += 1
+    
     
     # Create new user entry.
     new_user = {
         'id': new_id,
         'handle': handle,
         'email': email,
-        'password': password,
+        'password': hashlib.sha256(password.encode()).hexdigest(),
         'first': name_first,
-        'last': name_last
+        'last': name_last,
+        'sessions': [session_id]
     }
     
     #Add new user to data_store
-    store = data_store.get()
     store['users'].append(new_user)
     data_store.set(store)
     write_data(data_store)
 
+    # Generate jwt token.
+    token = create_token(new_id, session_id)
+
     return {
         'auth_user_id': new_id,
+        'token': token
     }
 
 
