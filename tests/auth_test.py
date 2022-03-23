@@ -111,3 +111,9 @@ def test_login_multiple_users():
     assert(register1['auth_user_id'] == login1['auth_user_id'])
     assert(register2['auth_user_id'] == login2['auth_user_id'])
 
+    assert(register1['token'])
+    assert(register2['token'])
+    assert(login1['token'])
+    assert(login2['token'])
+
+
