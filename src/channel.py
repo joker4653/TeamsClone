@@ -60,12 +60,6 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     if not is_member(auth_user_id, channel_id):
         raise AccessError("channel_id is valid and the authorised user is not a member of the channel")
 
-    # TODO:
-    # I'm gonna add a messages field to every channel ...
-    # Have to fix channels_create functions first and fix data_store documentation
-    # format is "messages" = [message_dict, ...]
-        #  message dict is { message_id, u_id, message, time_sent }
-
 
     store = data_store.get()
     channel = store["channels"][channel_id]
