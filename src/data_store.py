@@ -26,8 +26,8 @@ Example usage:
 '''
 Hey Guys!
 Just a note about the setup of the users list. As users are added, they are stored as below:
-'users': [
-    {
+'users': {
+    id: {
     'id': [integer id]
     'handle': [string user handle]
     'email': [string email]
@@ -36,28 +36,35 @@ Just a note about the setup of the users list. As users are added, they are stor
     'last': [string last name]
     'sessions': [list of active sessions of this user]
     }
-]
-So there'll be a new user dictionary added to the users list for all users created.
-[Whoever makes channels etc, maybe continue this when you alter initial_object so others don't have
-to go searching for the syntax they need? Epic, thanks!
+}
+So there'll be a new user dictionary added to the users dictionary for all users created.
 -Laura
 ---------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------
                             !!! CHANNELS EXPLAINED !!!
 Hey Badgers, just a little explanation of how I have implemented the 'channels' key 
 of the 'initial_object' dictionary below. 
-As channels are added, the channels list will appear as follows:
+As channels are added, the channels dictionary will appear as follows:
 
-    'channels' = [
-        {
-        'channel_owner_id': integer id,
-        'channel_id':       integer id,
-        'name':             string name,
-        'is_public':        boolean value,
-        'user_ids':         [integer id]
+    'channels' = {
+        1: {
+            'channel_owner_ids': [user_info(auth_user_id), details in other.py],
+            'name':             string name,
+            'is_public':        boolean value,
+            'user_ids':         [user_info(auth_user_id), details in other.py],
+            'messages':         dict
         }
-    ]
-
+        2: {
+            'channel_owner_ids': [user_info(auth_user_id), details in other.py],
+            'name':             string name,
+            'is_public':        boolean value,
+            'user_ids':         [user_info(auth_user_id), details in other.py],
+            'messages':         dict
+        }
+        ...
+    }
+where the keys "1" and "2" are the channel ids, whose values are dictionaries
+containing information about the channel.
 cheers, Nick.
 '''
 import json
@@ -66,8 +73,8 @@ import os
 ## YOU SHOULD MODIFY THIS OBJECT BELOW
 initial_object = {
     'sessions_no': 0,
-    'users': [],
-    'channels': [],
+    'users': {},
+    'channels': {},
 }
 ## YOU SHOULD MODIFY THIS OBJECT ABOVE
 

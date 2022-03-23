@@ -6,8 +6,8 @@ from data_json import write_data
 
 def clear_v1():
     store = data_store.get()
-    store['users'] = []
-    store['channels'] = []
+    store['users'] = {}
+    store['channels'] = {}
     data_store.set(store)
     write_data(data_store)
 
@@ -18,21 +18,27 @@ def valid_user_id(auth_user_id):
         return False
 
     store = data_store.get()
-    for user in store['users']:
-        if user['id'] == auth_user_id:
-            return True
-    return False
+    
+    x = store['users'].get(auth_user_id, False)
+    return bool(x)
 
 def valid_channel_id(channel_id):
     '''Check valid channel_id was passed. Return True if valid, False if invalid.'''
-    if isinstance(channel_id, int) != True:
+    if not isinstance(channel_id, int):
         return False
     
     store = data_store.get()
-    for channel in store['channels']:
-        if channel['channel_id'] == channel_id:
-            return True
-    return False
+    return bool(store['channels'].get(channel_id, False))
+
+
+def valid_dm_id(dm_id):
+    '''Check valid dm_id was passed. Return True if valid, False if invalid.'''
+    if not isinstance(dm_id, int):
+        return False
+    
+    store = data_store.get()
+    return bool(store['dms'].get(dm_id, False))
+
 
 def create_token(str: user_id, int: session_id):
     token_data = {
