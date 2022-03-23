@@ -70,7 +70,7 @@ def auth_register_v1(email, password, name_first, name_last):
     }
     
     #Add new user to data_store
-    users = store['users'][new_id] = new_user
+    store['users'][new_id] = new_user
 
     data_store.set(store)
     write_data(data_store)
