@@ -17,23 +17,25 @@ def valid_user_id(auth_user_id):
     store = data_store.get()
     
     x = store['users'].get(auth_user_id, False)
-    if x:
-        return True
-    else:
-        return False
+    return bool(x)
 
 def valid_channel_id(channel_id):
     '''Check valid channel_id was passed. Return True if valid, False if invalid.'''
-    if isinstance(channel_id, int) != True:
+    if not isinstance(channel_id, int):
         return False
     
     store = data_store.get()
+    return bool(store['channels'].get(channel_id, False))
 
-    valid_id = store['channels'].get(channel_id, False)
-    if valid_id:
-        return True
-    else:
+
+def valid_dm_id(dm_id):
+    '''Check valid dm_id was passed. Return True if valid, False if invalid.'''
+    if not isinstance(dm_id, int):
         return False
+    
+    store = data_store.get()
+    return bool(store['dms'].get(dm_id, False))
+
 
 def user_info(auth_user_id): 
     store = data_store.get()
