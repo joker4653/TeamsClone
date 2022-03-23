@@ -26,17 +26,21 @@ def process_test_request(route, method, inputs=None):
 def example_user_id() -> list:
     process_test_request(route="/clear/v1", method='delete')
 
+    process_test_request(route="/auth/register/v2", method='post', inputs={'email': "steve.smith@gmail.com", 'password': "my_good_password1", 'name_first': "Steve", 'name_last': "Smith"})
     #response1 = process_test_request(route="/auth/register/v2", method='post', inputs={'email': "steve.smith@gmail.com", 'password': "my_good_password1", 'name_first': "Steve", 'name_last': "Smith"})
     #user_info_1 = json.loads(response1.text)
 
+    process_test_request(route="/auth/register/v2", method='post', inputs={'email': "smith.james12@gmail.com", 'password': "my_good_password2", 'name_first': "James", 'name_last': "Smith"})
     #response2 = process_test_request(route="/auth/register/v2", method='post', inputs={'email': "smith.james12@gmail.com", 'password': "my_good_password2", 'name_first': "James", 'name_last': "Smith"})
     #user_info_2 = json.loads(response2.text)
     
+    process_test_request(route="/auth/register/v2", method='post', inputs={'email': "carl.johns56@gmail.com", 'password': "my_good_password3", 'name_first': "Carl", 'name_last': "Johns"})
     #response3 = process_test_request(route="/auth/register/v2", method='post', inputs={'email': "carl.johns56@gmail.com", 'password': "my_good_password3", 'name_first': "Carl", 'name_last': "Johns"})
     #user_info_3 = json.loads(response3.text)
 
     # return [user_info_1, user_info_2, user_info_3]
     # TODO: !! replace this dummy return with above line when v2 auth functions are implemented !!
+    #       -> also: replace above three lines of code with the commented out lines underneath them!
     return [{'token': 0}, {'token': 1}, {'token': 2}]
 
 
