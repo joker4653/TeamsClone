@@ -70,6 +70,8 @@ def handle_channels_create():
     name = params.get('name', None)
     token = params.get('token', None)
 
+    # TODO: check valid token, if valid pass user id to channels_create_v1.
+
     return channels.channels_create_v1(token, name, is_public)
 
 
@@ -252,7 +254,7 @@ def handle_dm_messages():
     return dm.dm_messages_v1(token, dm_id, start)
 
 
-@APP.route("/message/senddm/v1", method=['POST'])
+@APP.route("/message/senddm/v1", methods=['POST'])
 def handle_message_senddm():
     params = request.get_json()
     token = params.get('token', None)
@@ -262,7 +264,7 @@ def handle_message_senddm():
     return message.message_senddm_v1(token, dm_id, messages)
 
 
-@APP.route("/users/all/v1", method=['GET'])
+@APP.route("/users/all/v1", methods=['GET'])
 def handle_user_all():
     params = request.args
     token = params.get('token', None)
@@ -270,7 +272,7 @@ def handle_user_all():
     return users.users_all_v1(token)
 
 
-@APP.route("/user/profile/v1", method=['GET'])
+@APP.route("/user/profile/v1", methods=['GET'])
 def handle_user_profile():
     params = request.args
     token = params.get('token', None)
@@ -298,7 +300,7 @@ def handle_profile_sethandle():
     return users.user_profile_sethandle_v1(token, handle_str)
 
 
-@APP.route("/user/profile/setemail/v1", method=['PUT'])
+@APP.route("/user/profile/setemail/v1", methods=['PUT'])
 def handle_profile_setemail():
     params = request.get_json()
     token = params.get("token", None)
