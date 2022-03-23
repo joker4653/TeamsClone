@@ -4,8 +4,8 @@ from src.other import valid_dm_id
 from src.data_store import data_store
 """
 
-from other import valid_dm_id
-from data_store import data_store
+from src.other import valid_dm_id
+from src.data_store import data_store
 
 def is_member(user_id, dm_id):
     '''Check if a user is in a dm. Return True if in dm, False if not in.'''

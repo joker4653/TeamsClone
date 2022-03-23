@@ -3,13 +3,10 @@ import signal
 from json import dumps
 from flask import Flask, request
 from flask_cors import CORS
-#from src.error import InputError
-#from src import config, auth, channel
-#from src import channels, other, message, dm, users
 
-from error import InputError
-import config, auth, channel
-import channels, other, message, dm, users
+from src.error import InputError
+from src import config, auth, channel
+from src import channels, other, message, dm, users
 
 def quit_gracefully(*args):
     '''For coverage'''

@@ -1,14 +1,8 @@
-#from src.data_store import data_store
-#from src.error import InputError, AccessError
-#from src.other import valid_user_id, user_info
-#from src.channel import is_member
-#from src.data_json import write_data
-
-from data_store import data_store
-from error import InputError, AccessError
-from other import valid_user_id, user_info
-from channel import is_member
-from data_json import write_data
+from src.data_store import data_store
+from src.error import InputError, AccessError
+from src.other import valid_user_id, user_info
+from src.channel import is_member
+from src.data_json import write_data
 
 def channels_list_v1(auth_user_id):
     if valid_user_id(auth_user_id) == False:
