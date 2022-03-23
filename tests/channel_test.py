@@ -20,7 +20,7 @@ def process_test_request(route, method, inputs=None):
     elif method == 'delete':
         return requests.delete(config.url + route)
     elif method == 'get':
-        return requests.get(config.url + route, json = inputs)
+        return requests.get(config.url + route, params = inputs)
 
 @pytest.fixture
 def example_user_id() -> list:
@@ -35,7 +35,9 @@ def example_user_id() -> list:
     response3 = process_test_request(route="/auth/register/v2", method='post', inputs={'email': "carl.johns56@gmail.com", 'password': "my_good_password3", 'name_first': "Carl", 'name_last': "Johns"})
     user_info_3 = json.loads(response3.text)
 
-    return [user_info_1, user_info_2, user_info_3]
+    # return [user_info_1, user_info_2, user_info_3]
+    # TODO: !! replace this dummy return with above line when v2 auth functions are implemented !!
+    return [{'token': 0}, {'token': 1}, {'token': 2}]
 
 
 # tests for channels_create_v2
@@ -50,7 +52,7 @@ def test_create_invalid_channel_longname(example_user_id):
 def test_create_channel_bad_token():
     process_test_request(route="/clear/v1", method='delete')
     response = process_test_request(route="/channels/create/v2", method='post', inputs={'token': "not_a_good_token", 'name': "good_name", 'is_public': True})
-    assert response.status_code == 400
+    assert response.status_code == 403
 
 def test_create_channel_single(example_user_id):
     process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[1].get('token'), 'name': "I_love_seams", 'is_public': True})

@@ -71,7 +71,6 @@ def handle_channels_create():
     token = params.get('token', None)
 
     # TODO: check valid token, if valid pass user id to channels_create_v1.
-
     return channels.channels_create_v1(token, name, is_public)
 
 
@@ -79,7 +78,7 @@ def handle_channels_create():
 def handle_channel_list():
     params = request.args
     token = params.get('token', None)
-
+    
     return channels.channels_list_v1(token)
 
 
