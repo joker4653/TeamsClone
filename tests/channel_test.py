@@ -366,5 +366,3 @@ def test_list_channels_PER_USER_length(example_user_id):
     assert len(channels2) == 3
     assert len(channels3) == 3
 """
-
-"""
