@@ -1,9 +1,10 @@
 import re
+import hashlib
 
 from src.data_store import data_store
 from src.error import InputError
-from src.other import valid_user_id
 from src.data_json import write_data
+from src.other import valid_user_id, create_token
 
 def auth_login_v1(email, password):
     '''Logs in a user from the given email and password, if they are valid.'''
@@ -21,11 +22,21 @@ def auth_login_v1(email, password):
         raise InputError("This email has no registered user.")
    
     # Check password is correct. 
-    if user['password'] != password:
+    if user['password'] != hashlib.sha256(password.encode()).hexdigest():
         raise InputError("Incorrect password.")
+
+    # Choose a new session id. 
+    store = data_store.get()
+    session_id = store['sessions_no']
+    store['sessions_no'] += 1
+    write_data(data_store)
+
+    # Generate jwt token.
+    token = create_token(user['id'], session_id)
 
     return {
         'auth_user_id': user['id'],
+        'token': token
     }
 
 def auth_register_v1(email, password, name_first, name_last):
@@ -38,27 +49,38 @@ def auth_register_v1(email, password, name_first, name_last):
 
     # Create new auth id.
     new_id = create_new_id()   
+  
+    # Choose a new session id. 
+    store = data_store.get()
+    session_id = store['sessions_no']
+    store['sessions_no'] += 1
+   
+    permissions = choose_permissions() 
     
     # Create new user entry.
     new_user = {
         'id': new_id,
         'handle': handle,
         'email': email,
-        'password': password,
+        'password': hashlib.sha256(password.encode()).hexdigest(),
         'first': name_first,
-        'last': name_last
+        'last': name_last,
+        'permissions_id': permissions,
+        'sessions': [session_id]
     }
     
     #Add new user to data_store
-    store = data_store.get()
-    users = store['users']
+    store['users'][new_id] = new_user
 
-    users[new_id] = new_user
     data_store.set(store)
     write_data(data_store)
 
+    # Generate jwt token.
+    token = create_token(new_id, session_id)
+
     return {
         'auth_user_id': new_id,
+        'token': token
     }
 
 
@@ -118,6 +140,14 @@ def create_new_handle(first, last):
         else:
             num += 1
     return new_handle
+
+def choose_permissions():
+    '''Chooses owner if no users, otherwise member.'''
+    store = data_store.get()
+    if store['users'] == {}:
+        # This is the first user created.
+        return 1
+    return 2
 
 def create_new_id():
     '''Generates a new integer id that was previously unused.'''

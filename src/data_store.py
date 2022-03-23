@@ -25,7 +25,7 @@ Example usage:
 '''
 '''
 Hey Guys!
-Just a note about the setup of the users list. As users are added, they are stored as below:
+Just a note about the setup of the users dict. As users are added, they are stored as below:
 'users': {
     id: {
     'id': [integer id]
@@ -34,6 +34,8 @@ Just a note about the setup of the users list. As users are added, they are stor
     'password': [string password]
     'first': [string first name]
     'last': [string last name]
+    'permissions_id': [int indicating global user permissions. 1 for global owner, 2 otherwise.]
+    'sessions': [list of active sessions (ints) of this user]
     }
 }
 So there'll be a new user dictionary added to the users dictionary for all users created.
@@ -71,6 +73,7 @@ import os
 
 ## YOU SHOULD MODIFY THIS OBJECT BELOW
 initial_object = {
+    'sessions_no': 0,
     'users': {},
     'channels': {},
 }

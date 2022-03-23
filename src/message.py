@@ -1,12 +1,13 @@
 '''Message Functions'''
+import datetime
 from operator import index
+
 from src.data_store import data_store
 from src.error import InputError, AccessError
 from src.other import valid_user_id, valid_channel_id, user_info, valid_dm_id
 from src.data_json import write_data
 from src.channel import is_member as c_is_member
 from src.dm import is_member as d_is_member
-import datetime
 '''
 Message format:
 	message_dict = {

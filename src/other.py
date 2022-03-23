@@ -1,5 +1,9 @@
+import jwt
+
 from src.data_store import data_store
 from src.data_json import write_data
+
+SECRET = "TheBadgerUsesToolsLikeABoss"
 
 def clear_v1():
     store = data_store.get()
@@ -37,7 +41,47 @@ def valid_dm_id(dm_id):
     return bool(store['dms'].get(dm_id, False))
 
 
+def create_token(user_id, session_id):
+    ''' Generates a new token for a given user and session id combo.'''
+    token_data = {
+        'auth_user_id': user_id,
+        'session_id': session_id
+    }
+    
+    token = jwt.encode(token_data, SECRET, algorithm='HS256')
+
+    return token
+
+
+def validate_token(token):
+    '''
+    Validates a given token.
+
+    Returns:
+        - auth_user_id for user if token is valid.
+        - False if token is invalid.
+
+    '''
+    # Decode token.
+    data = jwt.decode(token, options={'verify_signature': False}, algorithms=['HS256'])
+
+    test = jwt.encode(data, SECRET, algorithm='HS256')
+    if token != test:
+        # The token is invalid.
+        return False
+
+    # Check session id with user.
+    user_id = data['auth_user_id']
+    session_id = data['session_id']
+    store = data_store.get()
+   
+    if session_id not in store['users']['sessions']:
+        return False
+
+    return user_id
+
 def user_info(auth_user_id): 
+    '''Returns a dictionary of the user object for output.'''
     store = data_store.get()
     return {
         'u_id': auth_user_id,
@@ -46,3 +90,4 @@ def user_info(auth_user_id):
         'name_last': store['users'][auth_user_id]['last'],
         'handle_string': store['users'][auth_user_id]['handle'],
     }
+
