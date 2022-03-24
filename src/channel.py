@@ -13,6 +13,27 @@ def is_member(user_id, channel_id):
             return True
     return False
 
+def is_owner(user_id, channel_id):
+    '''Check if a user is an owner of a channel. Return True if user is an owner, return False otherwise.'''
+    if valid_channel_id(channel_id):
+        store = data_store.get()
+        owner_ids = store['channels'][channel_id]['channel_owner_ids']
+        if any(owner['u_id'] == user_id for owner in owner_ids):
+            return True
+    return False
+
+def is_global_owner(user_id):
+    '''Return true if a user is a global owner, return false otherwise.'''
+    if not valid_user_id(user_id):
+        return False
+    store = data_store.get()
+    global_status = store['users'][user_id]['permissions_id']
+    if global_status == 1:
+        return True
+    else:
+        return False
+
+
 def channel_invite_v1(auth_user_id, channel_id, u_id):
     if valid_user_id(auth_user_id) == False:
         raise AccessError("auth_user_id provided is not valid; this user does not exist.")
@@ -112,7 +133,26 @@ def channel_leave_v1(token, channel_id):
 
 
 def channel_addowner_v1(token, channel_id, u_id):
-    pass
+    if not valid_channel_id(channel_id):
+        raise InputError("This channel_id does not correspond to an existing channel.")        
+    if not valid_user_id(u_id):
+        raise InputError("u_id provided is not valid; this user does not exist.")
+    if not is_member(u_id, channel_id):
+        raise InputError("u_id is not a member of the channel.")
+    if is_owner(u_id, channel_id):
+        raise InputError("u_id is already an owner of the channel.")
+    if not is_owner(token, channel_id) and not is_global_owner(token):
+        raise AccessError("auth_user does not have owner permissions.")
+
+    store = data_store.get()
+    store['channels'][channel_id]['channel_owner_ids'].append(user_info(u_id))
+    data_store.set(store)
+    write_data(data_store)
+    
+    return {
+    }
+
+    
 
 
 def channel_removeowner_v1(token, channel_id, u_id):

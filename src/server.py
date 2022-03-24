@@ -167,7 +167,12 @@ def handle_channel_addowner():
     channel_id = params.get('channel_id', None)
     u_id = params.get('u_id', None)
 
-    return dumps(channel.channel_addowner_v1(token, channel_id, u_id))
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(channel.channel_addowner_v1(auth_user_id, channel_id, u_id))
 
 
 @APP.route("/channel/removeowner/v1", methods=['POST'])
