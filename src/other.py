@@ -7,6 +7,7 @@ SECRET = "TheBadgerUsesToolsLikeABoss"
 
 def clear_v1():
     store = data_store.get()
+    store['sessions_no'] = 0
     store['users'] = {}
     store['channels'] = {}
     data_store.set(store)
