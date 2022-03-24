@@ -60,7 +60,7 @@ def test_create_channel_single(example_user_id):
     assert response1.status_code == 200
     #response2 = process_test_request(route="/channels/listall/v2", method='get', inputs={'token': example_user_id[1].get('token')})
     #all_channels = json.loads(response2.text)
-    #assert len(all_channels) == 1
+    #assert len(all_channels.get('channels')) == 1
     pass
 
 #TODO: uncomment when we have channels/listall/v2
@@ -69,7 +69,7 @@ def test_create_channel_duplicate_same_user(example_user_id):
     process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "I_love_seams", 'is_public': True})
     #response = process_test_request(route="/channels/listall/v2", method='get', inputs={'token': example_user_id[0].get('token')})
     #all_channels = json.loads(response.text)
-    #assert len(all_channels) == 2
+    #assert len(all_channels.get('channels')) == 2
     pass
     
 #TODO: uncomment when we have channels/listall/v2
@@ -81,42 +81,52 @@ def test_create_channel_multiple(example_user_id):
 
     #response = process_test_request(route="/channels/listall/v2", method='get', inputs={'token': example_user_id[0].get('token')})
     #all_channels = json.loads(response.text)
-    # assert len(all_channels) == 4
+    # assert len(all_channels.get('channels')) == 4
     pass
    
-"""
+
 # tests for channel_invite_v1
 # No channels created, so any channel id must be invalid.
 def test_invite_invalid_channel_id(example_user_id):
-    with pytest.raises(InputError):
-        channel_invite_v1(example_user_id[0], 1, example_user_id[1])
+    response = process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': 1, 'u_id': example_user_id[1].get('auth_user_id')})
+    assert response.status_code == 400
 
 def test_invite_bad_auth_id(example_user_id):
-    channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
-    invalid_auth_id = sum(example_user_id) + 1
-    with pytest.raises(AccessError):
-        channel_invite_v1(invalid_auth_id, channel_id.get('channel_id'), example_user_id[1])
-    with pytest.raises(AccessError):
-        channel_invite_v1(example_user_id[2], channel_id.get('channel_id'), example_user_id[1])
+    create_channel = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': False})
+    new_channel = create_channel.json()
+    response1 = process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[2].get('token'), 'channel_id': new_channel.get('channel_id'), 'u_id': example_user_id[1].get('auth_user_id')})
+    assert response1.status_code == 403
+
+    #process_test_request(route="/auth/logout/v1", method='post', inputs={'token': example_user_id[0].get('token')})
+    #response2 = process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id'), 'u_id': example_user_id[1].get('auth_user_id')})
+    #assert response2.status_code == 403
 
 def test_invite_invalid_user_id(example_user_id):
-    channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
-    invalid_user_id = sum(example_user_id) + 1
-    with pytest.raises(InputError):
-        channel_invite_v1(example_user_id[0], channel_id.get('channel_id'), invalid_user_id)
+    create_channel = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': False})
+    new_channel = create_channel.json()
+    invalid_user_id = sum(abs(d.get('auth_user_id')) for d in example_user_id) + 1
+
+    response = process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id'), 'u_id': invalid_user_id})
+    assert response.status_code == 400    
 
 def test_invite_user_already_in_channel(example_user_id):
-    channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
-    with pytest.raises(InputError):
-        channel_invite_v1(example_user_id[0], channel_id.get('channel_id'), example_user_id[0])
+    create_channel = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': False})
+    new_channel = create_channel.json()
+    response = process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id'), 'u_id': example_user_id[0].get('auth_user_id')})
+    assert response.status_code == 400
 
 def test_invite_multiple(example_user_id):
-    channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
-    channel_invite_v1(example_user_id[0], channel_id.get('channel_id'), example_user_id[1])
-    channel_invite_v1(example_user_id[1], channel_id.get('channel_id'), example_user_id[2])
-    channel_details = channel_details_v1(example_user_id[0], channel_id.get('channel_id'))
+    create_channel = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': False})
+    new_channel = create_channel.json()
+    process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id'), 'u_id': example_user_id[1].get('auth_user_id')})
+    response = process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[1].get('token'), 'channel_id': new_channel.get('channel_id'), 'u_id': example_user_id[2].get('auth_user_id')})
+    assert response.status_code == 200
+
+    response2 = process_test_request(route="/channel/details/v2", method='get', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id')})
+    channel_details = json.loads(response2.text)
     assert len(channel_details['all_members']) == 3
 
+"""
 # tests for channel_details_v1
 def test_detail_invalid_channel_id(example_user_id):
     with pytest.raises(InputError):
