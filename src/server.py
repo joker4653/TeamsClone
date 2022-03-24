@@ -4,7 +4,7 @@ from json import dumps
 from flask import Flask, request
 from flask_cors import CORS
 
-from src.error import InputError
+from src.error import InputError, AccessError
 from src import config, auth, channel
 from src import channels, other, message, dm, users
 
@@ -70,7 +70,12 @@ def handle_channels_create():
     name = params.get('name', None)
     token = params.get('token', None)
 
-    return dumps(channels.channels_create_v1(token, name, is_public))
+    user_id = other.validate_token(token)
+    if user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(channels.channels_create_v1(user_id, name, is_public))
 
 
 @APP.route("/channels/list/v2", methods=['GET'])
