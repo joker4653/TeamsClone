@@ -59,7 +59,7 @@ def test_create_channel_single(example_user_id):
     response1 = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[1].get('token'), 'name': "I_love_seams", 'is_public': True})
     assert response1.status_code == 200
     #response2 = process_test_request(route="/channels/listall/v2", method='get', inputs={'token': example_user_id[1].get('token')})
-    #all_channels = json.loads(response2.text)
+    #all_channels = response2.json()
     #assert len(all_channels.get('channels')) == 1
     pass
 
@@ -68,7 +68,7 @@ def test_create_channel_duplicate_same_user(example_user_id):
     process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "I_love_seams", 'is_public': True})
     process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "I_love_seams", 'is_public': True})
     #response = process_test_request(route="/channels/listall/v2", method='get', inputs={'token': example_user_id[0].get('token')})
-    #all_channels = json.loads(response.text)
+    #all_channels = response.json()
     #assert len(all_channels.get('channels')) == 2
     pass
     
@@ -80,7 +80,7 @@ def test_create_channel_multiple(example_user_id):
     process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[2].get('token'), 'name': "cool_channel", 'is_public': True})
 
     #response = process_test_request(route="/channels/listall/v2", method='get', inputs={'token': example_user_id[0].get('token')})
-    #all_channels = json.loads(response.text)
+    #all_channels = response.json()
     # assert len(all_channels.get('channels')) == 4
     pass
    
