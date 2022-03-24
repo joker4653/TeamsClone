@@ -2,9 +2,9 @@ import re
 import hashlib
 
 from src.data_store import data_store
-from src.error import InputError
+from src.error import InputError, AccessError
 from src.data_json import write_data
-from src.other import valid_user_id, create_token
+from src.other import valid_user_id, create_token, validate_token
 
 def auth_login_v1(email, password):
     '''Logs in a user from the given email and password, if they are valid.'''
@@ -29,6 +29,10 @@ def auth_login_v1(email, password):
     store = data_store.get()
     session_id = store['sessions_no']
     store['sessions_no'] += 1
+    
+    # Add session id to user's sessions.
+    user['sessions'].append(session_id)
+
     write_data(data_store)
 
     # Generate jwt token.
@@ -54,6 +58,7 @@ def auth_register_v1(email, password, name_first, name_last):
     store = data_store.get()
     session_id = store['sessions_no']
     store['sessions_no'] += 1
+    write_data(data_store)
    
     permissions = choose_permissions() 
     
@@ -85,8 +90,23 @@ def auth_register_v1(email, password, name_first, name_last):
 
 
 def auth_logout_v1(token):
-    pass
+    # Validate token.
+    valid = validate_token(token, return_session=True)
 
+    if not valid:
+        raise AccessError("The token provided was invalid.")
+    
+    user_id = valid[0]
+    session_id = valid[1]     
+
+    store = data_store.get()
+
+    if session_id in store['users'][user_id]['sessions']:
+        # Remove session id.
+        store['users'][user_id]['sessions'].remove(session_id)
+
+    data_store.set(store)
+    write_data(data_store)
 
 
 def validate_input(email, password, first, last):
