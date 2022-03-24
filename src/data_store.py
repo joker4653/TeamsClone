@@ -73,7 +73,7 @@ import os
 
 ## YOU SHOULD MODIFY THIS OBJECT BELOW
 initial_object = {
-    'sessions_no': 0,
+    'sessions_no': 1,
     'users': {},
     'channels': {},
 }

@@ -29,6 +29,10 @@ def auth_login_v1(email, password):
     store = data_store.get()
     session_id = store['sessions_no']
     store['sessions_no'] += 1
+    
+    # Add session id to user's sessions.
+    user['sessions'].append(session_id)
+
     write_data(data_store)
 
     # Generate jwt token.

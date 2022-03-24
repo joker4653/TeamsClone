@@ -109,11 +109,6 @@ def test_login_multiple_users():
     assert(register1['auth_user_id'] == login1['auth_user_id'])
     assert(register2['auth_user_id'] == login2['auth_user_id'])
 
-    assert(register1['token'])
-    assert(register2['token'])
-    assert(login1['token'])
-    assert(login2['token'])
-
 def test_logout_valid():
     process_test_request(route="/clear/v1", method='delete')
 
@@ -127,7 +122,7 @@ def test_logout_valid():
     assert(response1.status_code == 200)
 
     # Logout user.
-    logout = process_test_request(route="/auth/logout/v1", method='post', inputs={'token': token})
+    process_test_request(route="/auth/logout/v1", method='post', inputs={'token': token})
     
     # Check session is inactive.
     response2 = process_test_request(route="/channels/create/v2", method='post', inputs={'token': token, 'name': "Friday Harbour", 'is_public': False})
@@ -145,7 +140,7 @@ def test_logout_multiple_users():
     register2 = register2.json()
     token2 = register2['token']
     # Log one out.
-    logout = process_test_request(route="/auth/logout/v1", method='post', inputs={'token': token1})
+    process_test_request(route="/auth/logout/v1", method='post', inputs={'token': token1})
 
     # Check one session inactive, other active.    
     response1 = process_test_request(route="/channels/create/v2", method='post', inputs={'token': token1, 'name': "Semantic Content", 'is_public': False})
@@ -167,8 +162,8 @@ def test_logout_multiple_sessions():
     assert(token1 != token2)
 
     # Log one out.
-    logout = process_test_request(route="/auth/logout/v1", method='post', inputs={'token': token1})
-
+    process_test_request(route="/auth/logout/v1", method='post', inputs={'token': token1})
+    
     # Check one session inactive, other active.    
     response1 = process_test_request(route="/channels/create/v2", method='post', inputs={'token': token1, 'name': "Semantic Content", 'is_public': False})
     assert(response1.status_code == 403)
