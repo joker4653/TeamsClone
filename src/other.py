@@ -75,7 +75,7 @@ def validate_token(token):
     session_id = data['session_id']
     store = data_store.get()
    
-    if session_id not in store['users']['sessions']:
+    if session_id not in store['users'][user_id]['sessions']:
         return False
 
     return user_id

@@ -151,7 +151,7 @@ def choose_permissions():
 
 def create_new_id():
     '''Generates a new integer id that was previously unused.'''
-    num = 0
+    num = 1
     unique = False
     while not unique:
         # Check num against store.
