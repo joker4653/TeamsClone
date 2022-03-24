@@ -374,3 +374,22 @@ def test_list_channels_PER_USER_length(example_user_id):
     assert len(channels2) == 3
     assert len(channels3) == 3
 """
+@pytest.fixture
+def example_channels(example_user_id) -> list:
+    process_test_request(route="/clear/v1", method='delete')
+   
+    create_channel1 = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': False})
+    new_channel1 = create_channel1.json()
+    process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel1.get('channel_id'), 'u_id': example_user_id[1].get('auth_user_id')})
+
+    create_channel2 = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[1].get('token'), 'name': "some_channel", 'is_public': True})
+    new_channel2 = create_channel2.json()
+    process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[1].get('token'), 'channel_id': new_channel2.get('channel_id'), 'u_id': example_user_id[0].get('auth_user_id')})
+    process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[1].get('token'), 'channel_id': new_channel2.get('channel_id'), 'u_id': example_user_id[2].get('auth_user_id')})
+
+
+    # new_channel1 has one owner (example_user_id[0]) and two members (example_user_id[0] & example_user_id[1])
+
+    # new_channel2 has one owner (example_user_id[1]) and three members (example_user_id[0] & example_user_id[1] & example_user_id[2])
+    # NOTE: in new_channel2, example_user_id[0] is a global owner and hence has owner permissions for the channel.
+    return [new_channel1, new_channel2]
