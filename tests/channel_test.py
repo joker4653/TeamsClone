@@ -25,23 +25,17 @@ def process_test_request(route, method, inputs=None):
 @pytest.fixture
 def example_user_id() -> list:
     process_test_request(route="/clear/v1", method='delete')
+   
+    response1 = process_test_request(route="/auth/register/v2", method='post', inputs={'email': "steve.smith@gmail.com", 'password': "my_good_password1", 'name_first': "Steve", 'name_last': "Smith"})
+    user_info_1 = json.loads(response1.text)
+   
+    response2 = process_test_request(route="/auth/register/v2", method='post', inputs={'email': "smith.james12@gmail.com", 'password': "my_good_password2", 'name_first': "James", 'name_last': "Smith"})
+    user_info_2 = json.loads(response2.text)
+       
+    response3 = process_test_request(route="/auth/register/v2", method='post', inputs={'email': "carl.johns56@gmail.com", 'password': "my_good_password3", 'name_first': "Carl", 'name_last': "Johns"})
+    user_info_3 = json.loads(response3.text)
 
-    process_test_request(route="/auth/register/v2", method='post', inputs={'email': "steve.smith@gmail.com", 'password': "my_good_password1", 'name_first': "Steve", 'name_last': "Smith"})
-    #response1 = process_test_request(route="/auth/register/v2", method='post', inputs={'email': "steve.smith@gmail.com", 'password': "my_good_password1", 'name_first': "Steve", 'name_last': "Smith"})
-    #user_info_1 = json.loads(response1.text)
-
-    process_test_request(route="/auth/register/v2", method='post', inputs={'email': "smith.james12@gmail.com", 'password': "my_good_password2", 'name_first': "James", 'name_last': "Smith"})
-    #response2 = process_test_request(route="/auth/register/v2", method='post', inputs={'email': "smith.james12@gmail.com", 'password': "my_good_password2", 'name_first': "James", 'name_last': "Smith"})
-    #user_info_2 = json.loads(response2.text)
-    
-    process_test_request(route="/auth/register/v2", method='post', inputs={'email': "carl.johns56@gmail.com", 'password': "my_good_password3", 'name_first': "Carl", 'name_last': "Johns"})
-    #response3 = process_test_request(route="/auth/register/v2", method='post', inputs={'email': "carl.johns56@gmail.com", 'password': "my_good_password3", 'name_first': "Carl", 'name_last': "Johns"})
-    #user_info_3 = json.loads(response3.text)
-
-    # return [user_info_1, user_info_2, user_info_3]
-    # TODO: !! replace this dummy return with above line when v2 auth functions are implemented !!
-    #       -> also: replace above three lines of code with the commented out lines underneath them!
-    return [{'token': 0}, {'token': 1}, {'token': 2}]
+    return [user_info_1, user_info_2, user_info_3]
 
 
 # tests for channels_create_v2
@@ -53,33 +47,37 @@ def test_create_invalid_channel_longname(example_user_id):
     response = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "names_>_20_are_grosss", 'is_public': True})
     assert response.status_code == 400
 
-def test_create_channel_bad_token():
-    process_test_request(route="/clear/v1", method='delete')
-    response = process_test_request(route="/channels/create/v2", method='post', inputs={'token': "not_a_good_token", 'name': "good_name", 'is_public': True})
-    assert response.status_code == 403
-
-def test_create_channel_single(example_user_id):
-    #process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[1].get('token'), 'name': "I_love_seams", 'is_public': True})
-    #response = process_test_request(route="/channels/listall/v2", method='get', inputs={'token': example_user_id[1].get('token')})
-    #all_channels = json.loads(response.text)
-    # assert len(all_channels) == 1
+#TODO: uncomment when we have auth/logout/v1
+def test_create_channel_bad_token(example_user_id):
+    #process_test_request(route="/auth/logout/v1", method='post', inputs={'token': example_user_id[0].get('token')})
+    #response = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "good_name", 'is_public': True})
+    #assert response.status_code == 403
     pass
 
-def test_create_channel_duplicate_same_user(example_user_id):
-    #process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "I_love_seams", 'is_public': True})
-    #process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "I_love_seams", 'is_public': True})
+#TODO: uncomment when we have channels/listall/v2
+def test_create_channel_single(example_user_id):
+    response1 = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[1].get('token'), 'name': "I_love_seams", 'is_public': True})
+    assert response1.status_code == 200
+    #response2 = process_test_request(route="/channels/listall/v2", method='get', inputs={'token': example_user_id[1].get('token')})
+    #all_channels = json.loads(response2.text)
+    #assert len(all_channels) == 1
+    pass
 
+#TODO: uncomment when we have channels/listall/v2
+def test_create_channel_duplicate_same_user(example_user_id):
+    process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "I_love_seams", 'is_public': True})
+    process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "I_love_seams", 'is_public': True})
     #response = process_test_request(route="/channels/listall/v2", method='get', inputs={'token': example_user_id[0].get('token')})
     #all_channels = json.loads(response.text)
-    # assert len(all_channels) == 2
+    #assert len(all_channels) == 2
     pass
     
-
+#TODO: uncomment when we have channels/listall/v2
 def test_create_channel_multiple(example_user_id):
-    #process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': False})
-    #process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[1].get('token'), 'name': "I_love_seams", 'is_public': True})
-    #process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[2].get('token'), 'name': "I_love_seams", 'is_public': True})
-    #process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[2].get('token'), 'name': "cool_channel", 'is_public': True})
+    process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': False})
+    process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[1].get('token'), 'name': "I_love_seams", 'is_public': True})
+    process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[2].get('token'), 'name': "I_love_seams", 'is_public': True})
+    process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[2].get('token'), 'name': "cool_channel", 'is_public': True})
 
     #response = process_test_request(route="/channels/listall/v2", method='get', inputs={'token': example_user_id[0].get('token')})
     #all_channels = json.loads(response.text)
