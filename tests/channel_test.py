@@ -376,8 +376,6 @@ def test_list_channels_PER_USER_length(example_user_id):
 """
 @pytest.fixture
 def example_channels(example_user_id) -> list:
-    process_test_request(route="/clear/v1", method='delete')
-   
     create_channel1 = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': False})
     new_channel1 = create_channel1.json()
     process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel1.get('channel_id'), 'u_id': example_user_id[1].get('auth_user_id')})
@@ -388,8 +386,26 @@ def example_channels(example_user_id) -> list:
     process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[1].get('token'), 'channel_id': new_channel2.get('channel_id'), 'u_id': example_user_id[2].get('auth_user_id')})
 
 
-    # new_channel1 has one owner (example_user_id[0]) and two members (example_user_id[0] & example_user_id[1])
+    # new_channel1:
+    #   owners: example_user_id[0], 
+    #   members: example_user_id[0] & example_user_id[1],
+    #   global owners: example_user_id[0]
 
-    # new_channel2 has one owner (example_user_id[1]) and three members (example_user_id[0] & example_user_id[1] & example_user_id[2])
-    # NOTE: in new_channel2, example_user_id[0] is a global owner and hence has owner permissions for the channel.
+    # new_channel2: 
+    #   owners: example_user_id[1]
+    #   members: example_user_id[0] & example_user_id[1] & example_user_id[2],
+    #   global owners: example_user_id[0]
+
+    # NOTE: global owners have owner permissions i.e. a global owner can do anything an owner can do.
     return [new_channel1, new_channel2]
+
+# channel/addowner/v1 tests
+def test_add_owner_invalid_channel_id(example_user_id):
+    # no channels created so any channel_id is invalid.
+    response = process_test_request(route="/channel/addowner/v1", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': 0, 'u_id': example_user_id[1].get('auth_user_id')})
+    assert response.status_code == 400
+
+def test_add_owner_invalid_u_id(example_user_id, example_channels):
+    invalid_user_id = sum(abs(d.get('auth_user_id')) for d in example_user_id) + 1
+    response = process_test_request(route="/channel/addowner/v1", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': example_channels[0].get('channel_id'), 'u_id': invalid_user_id})
+    assert response.status_code == 400
