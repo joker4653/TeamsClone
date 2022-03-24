@@ -54,7 +54,7 @@ def create_token(user_id, session_id):
     return token
 
 
-def validate_token(token):
+def validate_token(token, return_session=False):
     '''
     Validates a given token.
 
@@ -79,7 +79,10 @@ def validate_token(token):
     if session_id not in store['users'][user_id]['sessions']:
         return False
 
-    return user_id
+    if return_session:
+        return user_id, session_id
+    else:
+        return user_id
 
 def user_info(auth_user_id): 
     '''Returns a dictionary of the user object for output.'''

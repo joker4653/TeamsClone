@@ -164,6 +164,7 @@ def test_logout_multiple_sessions():
     token1 = register1['token']
     login1 = login1.json()
     token2 = login1['token']
+    assert(token1 != token2)
 
     # Log one out.
     logout = process_test_request(route="/auth/logout/v1", method='post', inputs={'token': token1})
