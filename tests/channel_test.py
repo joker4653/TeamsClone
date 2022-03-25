@@ -21,12 +21,10 @@ def test_create_invalid_channel_longname(example_user_id):
     response = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "names_>_20_are_grosss", 'is_public': True})
     assert response.status_code == 400
 
-#TODO: uncomment when we have auth/logout/v1
 def test_create_channel_bad_token(example_user_id):
-    #process_test_request(route="/auth/logout/v1", method='post', inputs={'token': example_user_id[0].get('token')})
-    #response = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "good_name", 'is_public': True})
-    #assert response.status_code == 403
-    pass
+    process_test_request(route="/auth/logout/v1", method='post', inputs={'token': example_user_id[0].get('token')})
+    response = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "good_name", 'is_public': True})
+    assert response.status_code == 403
 
 #TODO: uncomment when we have channels/listall/v2
 def test_create_channel_single(example_user_id):
@@ -71,9 +69,9 @@ def test_invite_bad_auth_id(example_user_id):
     response1 = process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[2].get('token'), 'channel_id': new_channel.get('channel_id'), 'u_id': example_user_id[1].get('auth_user_id')})
     assert response1.status_code == 403
 
-    #process_test_request(route="/auth/logout/v1", method='post', inputs={'token': example_user_id[0].get('token')})
-    #response2 = process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id'), 'u_id': example_user_id[1].get('auth_user_id')})
-    #assert response2.status_code == 403
+    process_test_request(route="/auth/logout/v1", method='post', inputs={'token': example_user_id[0].get('token')})
+    response2 = process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id'), 'u_id': example_user_id[1].get('auth_user_id')})
+    assert response2.status_code == 403
 
 def test_invite_invalid_user_id(example_user_id):
     create_channel = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': False})
@@ -89,6 +87,7 @@ def test_invite_user_already_in_channel(example_user_id):
     response = process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id'), 'u_id': example_user_id[0].get('auth_user_id')})
     assert response.status_code == 400
 
+# TODO: uncomment when we have channel/details/v2
 def test_invite_multiple(example_user_id):
     create_channel = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': False})
     new_channel = create_channel.json()
@@ -420,6 +419,7 @@ def test_remove_owner_auth_user_not_an_owner(example_user_id, example_channels):
     response2 = process_test_request(route="/channel/removeowner/v1", method='post', inputs={'token': example_user_id[2].get('token'), 'channel_id': example_channels[1].get('channel_id'), 'u_id': example_user_id[0].get('auth_user_id')})
     assert response1.status_code == response2.status_code == 403
 
+# TODO: uncomment when we have channel/details/v2
 def test_remove_multiple_owners(example_user_id, example_channels):
     process_test_request(route="/channel/addowner/v1", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': example_channels[1].get('channel_id'), 'u_id': example_user_id[2].get('auth_user_id')})
     process_test_request(route="/channel/addowner/v1", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': example_channels[1].get('channel_id'), 'u_id': example_user_id[0].get('auth_user_id')})
@@ -433,6 +433,7 @@ def test_remove_multiple_owners(example_user_id, example_channels):
     #assert len(channel_details['owner_members']) == 1
     #assert len(channel_details['all_members']) == 3
 
+# TODO: uncomment when we have channel/details/v2
 def test_global_owner_removes_owner(example_user_id, example_channels):
     process_test_request(route="/channel/addowner/v1", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': example_channels[1].get('channel_id'), 'u_id': example_user_id[2].get('auth_user_id')})
 
