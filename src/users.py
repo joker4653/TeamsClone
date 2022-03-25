@@ -54,6 +54,23 @@ def user_profile_setemail_v1(token, email):
 
 
 def user_profile_sethandle_v1(token, handle_str):
+    '''Update the authorised user's handle (i.e. display name).
+
+        Arguments:
+            token       (string) - jwt token used to authenticate user (contains auth_user_id).
+            handle_str  (string) - the replacement for auth_user's current handle.
+
+        Exceptions:
+            InputError  - Occurs when: - handle_str is outside the range of 3 to 20 
+                                         characters (inclusive).
+                                       - handle_str contains characters that are not alphanumeric.
+                                       - handle_str is already being used as a handle by another user.
+                                       
+            AccessError - Occurs when invalid token is passed to function.
+
+        Return Value:
+            Returns {} always
+    '''
     auth_user_id = validate_token(token)
     if auth_user_id == False:
         # Invalid token, raise an access error.
