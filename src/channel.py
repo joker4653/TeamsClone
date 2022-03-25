@@ -205,6 +205,7 @@ def channel_removeowner_v1(token, channel_id, u_id):
             InputError  - Occurs when: - u_id does not correspond to a registered user.
                                        - channel_id does not correspond to an existing channel.
                                        - user with user id u_id is not an owner of the channel.
+                                       - user with user id u_id is the only owner of the channel
 
             AccessError - Occurs when: - token is invalid.
                                        - auth_user does not have owner permissions.
@@ -228,7 +229,7 @@ def channel_removeowner_v1(token, channel_id, u_id):
     store = data_store.get()
     owner_ids = store['channels'][channel_id]['channel_owner_ids']
     if len(owner_ids) == 1:
-        raise InputError("u_id is the only owner of the channel; cannot be removed.")
+        raise InputError("User with user id u_id is the only owner of the channel; cannot be removed.")
     
     # remove this owner and save data.
     for owner in owner_ids:
