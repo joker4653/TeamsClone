@@ -76,6 +76,7 @@ initial_object = {
     'sessions_no': 1,
     'users': {},
     'channels': {},
+    'dms': {}
 }
 ## YOU SHOULD MODIFY THIS OBJECT ABOVE
 
