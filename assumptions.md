@@ -9,3 +9,6 @@
 
 * auth/logout/v1
     - If a certain session_id is not present in a users sessions list, program will not raise an error, and will simply move to next instruction.
+
+* channel/removeowner/v1
+    - The original owner (creator) of a channel can be removed by subsequent owners.
