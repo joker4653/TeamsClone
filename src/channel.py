@@ -1,7 +1,7 @@
 from tokenize import endpats
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import valid_user_id, valid_channel_id, user_info
+from src.other import valid_user_id, valid_channel_id, user_info, validate_token
 from src.data_json import write_data
 
 def is_member(user_id, channel_id):
@@ -133,6 +133,10 @@ def channel_leave_v1(token, channel_id):
 
 
 def channel_addowner_v1(token, channel_id, u_id):
+    auth_user_id = validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
     if not valid_channel_id(channel_id):
         raise InputError("This channel_id does not correspond to an existing channel.")        
     if not valid_user_id(u_id):
@@ -141,7 +145,7 @@ def channel_addowner_v1(token, channel_id, u_id):
         raise InputError("u_id is not a member of the channel.")
     if is_owner(u_id, channel_id):
         raise InputError("u_id is already an owner of the channel.")
-    if not is_owner(token, channel_id) and not is_global_owner(token):
+    if not is_owner(auth_user_id, channel_id) and not is_global_owner(auth_user_id):
         raise AccessError("auth_user does not have owner permissions.")
 
     store = data_store.get()
@@ -156,4 +160,32 @@ def channel_addowner_v1(token, channel_id, u_id):
 
 
 def channel_removeowner_v1(token, channel_id, u_id):
-    pass
+    auth_user_id = validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+    if not valid_channel_id(channel_id):
+        raise InputError("This channel_id does not correspond to an existing channel.")        
+    if not valid_user_id(u_id):
+        raise InputError("u_id provided is not valid; this user does not exist.")
+    if not is_owner(u_id, channel_id):
+        raise InputError("u_id is not an owner of the channel.")
+    if not is_owner(auth_user_id, channel_id) and not is_global_owner(auth_user_id):
+        raise AccessError("auth_user does not have owner permissions.")
+    
+    store = data_store.get()
+    owner_ids = store['channels'][channel_id]['channel_owner_ids']
+    if len(owner_ids) == 1:
+        raise InputError("u_id is the only owner of the channel; cannot be removed.")
+    
+    # remove this owner and save data.
+    for owner in owner_ids:
+        if owner['u_id'] == u_id:
+            owner_ids.remove(owner)
+            break
+    data_store.set(store)
+    write_data(data_store)
+
+    return {
+    }
+
