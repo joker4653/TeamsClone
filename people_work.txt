@@ -1,15 +1,12 @@
-Laura - auth_login_v2, auth_register_v2, clear_v2, auth_logout_v2, channel_leave_v1, auth/logout/v1
+Laura - auth_login_v2, auth_register_v2, clear_v2, auth_logout_v2, channel_leave_v1, auth/logout/v1, admin/user/remove/v1
 
 Joseph - channels_list, channels_listall, dm/create/v1, dm/list/v1/ dm/details/v1, dm/details/remove, dm/removes
 
-Sagar - channel_details_v1, channel_join_v1, channel_details_v2, channel_join_v2, user/all/v1, user/profile/v1, user/profile/setemail/v1
+Sagar - channel_details_v1, channel_join_v1, channel_details_v2, channel_join_v2, user/all/v1, user/profile/v1, user/profile/setemail/v1, admin/userpermission/change/v1
 
-Nicholas - channel_create_v2, channel_invite_v2, channel_add_owner_v1, channel_remove_owner_v1, user/profile/setname/v2
+Nicholas - channel_create_v2, channel_invite_v2, channel_add_owner_v1, channel_remove_owner_v1, user/profile/setname/v2, user/profile/sethandle/v1
 
 Rumman - channel_messages_v1, channel_messages_v1, message_send_v1, message_edit_v1, message_remove_v1, dm/message/c1s, message/senddm/v1
 
 
 
-user/profile/sethandle/v1
-admin/user/remove/v1
-admin/userpermission/change/v1
