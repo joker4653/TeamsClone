@@ -6,3 +6,6 @@
 
 * channel_messages_v1
     - Raise an input error when the auth_user_id does not refer to a user that does not exist
+
+* auth/logout/v1
+    - If a certain session_id is not present in a users sessions list, program will not raise an error, and will simply move to next instruction.

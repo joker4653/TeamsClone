@@ -1,17 +1,15 @@
 import pytest
 import requests
 import json
+import jwt
 
-'''
-from src.auth import auth_register_v1, auth_login_v1
-from src.other import clear_v1
-from src.error import InputError
-'''
 from src import config
 
 def process_test_request(route, method, inputs=None):
     # Return result of request.
-    if method == 'post':
+    if method == 'get':
+        return requests.get(config.url + route, params = inputs)
+    elif method == 'post':
         return requests.post(config.url + route, json = inputs)
     elif method == 'delete':
         return requests.delete(config.url + route)
@@ -111,9 +109,74 @@ def test_login_multiple_users():
     assert(register1['auth_user_id'] == login1['auth_user_id'])
     assert(register2['auth_user_id'] == login2['auth_user_id'])
 
-    assert(register1['token'])
-    assert(register2['token'])
-    assert(login1['token'])
-    assert(login2['token'])
+def test_logout_valid():
+    process_test_request(route="/clear/v1", method='delete')
+
+    # Register a new user.
+    register = process_test_request(route="/auth/register/v2", method='post', inputs={'email': "valid2@gmail.com", 'password': "passwordish", 'name_first': "Egwene", 'name_last': "daAmyrlinSeat"})
+    register = register.json() 
+    token = register['token']
+
+    # Check the session is active.
+    response1 = process_test_request(route="/channels/create/v2", method='post', inputs={'token': token, 'name': "Badgers", 'is_public': False})
+    assert(response1.status_code == 200)
+
+    # Logout user.
+    process_test_request(route="/auth/logout/v1", method='post', inputs={'token': token})
+    
+    # Check session is inactive.
+    response2 = process_test_request(route="/channels/create/v2", method='post', inputs={'token': token, 'name': "Friday Harbour", 'is_public': False})
+    assert(response2.status_code == 403)
+
+def test_logout_multiple_users():
+    process_test_request(route="/clear/v1", method='delete')
+
+    # Register two users.
+    register1 = process_test_request(route="/auth/register/v2", method='post', inputs={'email': "valid1@gmail.com", 'password': "passwordish", 'name_first': "Egwene", 'name_last': "daAmyrlinSeat"})
+    register2 = process_test_request(route="/auth/register/v2", method='post', inputs={'email': "valid2@gmail.com", 'password': "passwordish", 'name_first': "Rand", 'name_last': "al-Thor"})
+
+    register1 = register1.json()
+    token1 = register1['token']
+    register2 = register2.json()
+    token2 = register2['token']
+    # Log one out.
+    process_test_request(route="/auth/logout/v1", method='post', inputs={'token': token1})
+
+    # Check one session inactive, other active.    
+    response1 = process_test_request(route="/channels/create/v2", method='post', inputs={'token': token1, 'name': "Semantic Content", 'is_public': False})
+    assert(response1.status_code == 403)
+    response2 = process_test_request(route="/channels/create/v2", method='post', inputs={'token': token2, 'name': "Kermesite", 'is_public': False})
+    assert(response2.status_code == 200)
+
+def test_logout_multiple_sessions():
+    process_test_request(route="/clear/v1", method='delete')
+    
+    # Register two sessions.
+    register1 = process_test_request(route="/auth/register/v2", method='post', inputs={'email': "valid1@gmail.com", 'password': "passwordish", 'name_first': "Egwene", 'name_last': "daAmyrlinSeat"})
+    login1 = process_test_request(route="/auth/login/v2", method='post', inputs={'email': "valid1@gmail.com", 'password': "passwordish"})
+
+    register1 = register1.json()
+    token1 = register1['token']
+    login1 = login1.json()
+    token2 = login1['token']
+    assert(token1 != token2)
+
+    # Log one out.
+    process_test_request(route="/auth/logout/v1", method='post', inputs={'token': token1})
+    
+    # Check one session inactive, other active.    
+    response1 = process_test_request(route="/channels/create/v2", method='post', inputs={'token': token1, 'name': "Semantic Content", 'is_public': False})
+    assert(response1.status_code == 403)
+    response2 = process_test_request(route="/channels/create/v2", method='post', inputs={'token': token2, 'name': "Kermesite", 'is_public': False})
+    assert(response2.status_code == 200)
 
 
+def test_logout_invalid_token():
+    process_test_request(route="/clear/v1", method='delete')
+
+    # Generate jwt token with random phrase.
+    token = jwt.encode({'name': "lolnope."}, "catastrophe", algorithm="HS256")
+    
+    # Check it does not allow logout.
+    response = process_test_request(route="/auth/logout/v1", method='post', inputs={'token': token})
+    assert(response.status_code == 403)
