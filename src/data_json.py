@@ -12,7 +12,7 @@ def write_data(data_store):
     path = os.path.dirname(__file__) + "/../data/"
     
     with open(path + "channels.json", "w") as f:
-        json.dump(store["channels"], f)
+        json.dump(store["channels"], f, indent=4)
 
     with open(path + "users.json", "w") as f:
-        json.dump(store["users"], f)
+        json.dump(store["users"], f, indent=4)

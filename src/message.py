@@ -1,5 +1,6 @@
 '''Message Functions'''
 import datetime
+from email.policy import default
 from operator import index
 
 from src.data_store import data_store
@@ -39,15 +40,17 @@ def message_find(message_id):
 def assign_message_id(store):
 	maximum = 1
 	minimum = 1
-	for channel in store["chanels"]:
-		max_id = max([message["message_id"] for message in channel["messages"]])
-		min_id = min([message["message_id"] for message in channel["messages"]])
+	for channel in store["channels"].values():
+		ids = [message["message_id"] for message in channel["messages"]]
+		max_id = max(ids, default=1)
+		min_id = min(ids, default=1)
 		maximum = max_id if max_id > maximum else maximum
 		minimum = min_id if min_id > minimum else minimum
 
-	for dm in store["dms"]:
-		max_id = max([message["message_id"] for message in dm["messages"]])
-		min_id = min([message["message_id"] for message in dm["messages"]])
+	for dm in store["dms"].values():
+		ids = [message["message_id"] for message in dm["messages"]]
+		max_id = max(ids, default=1)
+		min_id = min(ids, default=1)
 		maximum = max_id if max_id > maximum else maximum
 		minimum = min_id if min_id > minimum else minimum
 	
@@ -57,26 +60,24 @@ def assign_message_id(store):
 		return maximum + 1
 
 
-def send_message(token, id, message, dm_or_channel):
+def send_message(auth_user_id, id, message, dm_or_channel):
 	if dm_or_channel == "channels":
 		if not valid_channel_id(id):
 			raise InputError("channel_id does not refer to a valid channel")
+		if not c_is_member(auth_user_id, id):
+			raise AccessError("channel_id is valid and the authorised user is not a member of the channel")
 	elif dm_or_channel == "dms":
 		if not valid_dm_id(id):
 			raise InputError("dm_id does not refer to a valid dm")
+		if not d_is_member(auth_user_id, id):
+			raise AccessError("dm_id is valid and the authorised user is not a member of the DM")
 
 	if len(message) not in range(1,1001):
 		raise InputError("length of message is less than 1 or over 1000 characters")
 
-	if 1: #TODO: check if token is valid user_id in channel
-		raise AccessError("channel_id is valid and the authorised user is not a member of the channel")
-
-	#TODO: u_id convert to token somehow...
-	auth_user_id = 1
-	
 	store = data_store.get()
 	message_id = assign_message_id(store)
-
+	
 	# Get UTC timestamp
 	time_sent = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp()
 	time_sent = int(time_sent)
@@ -93,15 +94,15 @@ def send_message(token, id, message, dm_or_channel):
 
 	return {"message_id": message_id}
 
-def message_send_v1(token, channel_id, message):
-	return send_message(token, channel_id, message, "channels")
+def message_send_v1(auth_user_id, channel_id, message):
+	return send_message(auth_user_id, channel_id, message, "channels")
 
-def message_senddm_v1(token, dm_id, message):
-	return send_message(token, dm_id, message, "dms")
+def message_senddm_v1(auth_user_id, dm_id, message):
+	return send_message(auth_user_id, dm_id, message, "dms")
 
 
 
-def message_edit_v1(token, message_id, message):
+def message_edit_v1(auth_user_id, message_id, message):
 	if len(message) > 1000:
 		raise InputError("length of message is over 1000 characters")
 
@@ -114,19 +115,17 @@ def message_edit_v1(token, message_id, message):
 	index = message_info[1]
 	message_type = message_info[2]
 
-	# TODO: Authenticate token and convert to user_id
-	user_id = 1
-	if (not c_is_member(user_id, channel_dm_id)) and (not d_is_member(user_id, channel_dm_id)):
+	if (not c_is_member(auth_user_id, channel_dm_id)) and (not d_is_member(auth_user_id, channel_dm_id)):
 		raise InputError("message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
 	
-	if store[message_type][channel_dm_id]["messages"][index]["u_id"] != user_id:
+	if store[message_type][channel_dm_id]["messages"][index]["u_id"] != auth_user_id:
 		raise AccessError("the message was not sent by the authorised user making this request")
    
 	if channel_dm_id == "channels":
 		owners = 'channel_owner_ids'
 	elif channel_dm_id == "dms":
 		owners = 'dm_owner_ids'
-	if user_info(user_id) not in store[message_type][channel_dm_id][owners]:
+	if user_info(auth_user_id) not in store[message_type][channel_dm_id][owners]:
 		raise AccessError("the authorised user has not owner permissions in the channel/DM")
 
 	store["channels"][channel_dm_id]["messages"][index]["message"] = message
@@ -136,11 +135,8 @@ def message_edit_v1(token, message_id, message):
 	return {}
 
 
-def message_remove_v1(token, message_id):
+def message_remove_v1(auth_user_id, message_id):
 	# Authenticate token and convert to user_id
-	# TODO: Update this functions with messages
-	user_id = 1
-
 	message_info = message_find(message_id)
 	if not message_info:
 		raise InputError("message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
@@ -151,14 +147,14 @@ def message_remove_v1(token, message_id):
 
 	store = data_store.get()
 
-	if (not c_is_member(user_id, channel_dm_id)) and (not d_is_member(user_id, channel_dm_id)):
+	if (not c_is_member(auth_user_id, channel_dm_id)) and (not d_is_member(auth_user_id, channel_dm_id)):
 		raise AccessError("message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
 	
 	if channel_dm_id == "channels":
 		owners = 'channel_owner_ids'
 	elif channel_dm_id == "dms":
 		owners = 'dm_owner_ids'
-	if user_info(user_id) not in store[message_type][channel_dm_id][owners]:
+	if user_info(auth_user_id) not in store[message_type][channel_dm_id][owners]:
 		raise AccessError("the authorised user does not have owner permissions in the channel/DM")
 
 	if store[message_type][channel_dm_id]["messages"][index]["u_id"] != user_id:

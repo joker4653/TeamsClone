@@ -71,10 +71,10 @@ def channel_messages_v1(auth_user_id, channel_id, start):
 
     end = start + 50
     for i in range(start, start + 50):
-        messages_return.append(messages[i])
         if (i == len(messages)):
             end = -1
             break
+        messages_return.append(messages[i])
     
     return {
         "messages": messages_return,

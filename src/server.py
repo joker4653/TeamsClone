@@ -124,12 +124,16 @@ def handle_channel_invite():
 
 @APP.route("/channel/messages/v2", methods=['GET'])
 def handle_channel_messages():
-    params = request.args
+    params = request.get_json()
     token = params.get('token', None)
     channel_id = params.get('channel_id', None)
     start = params.get('start', None)
 
-    return dumps(channel.channel_messages_v1(token, channel_id, start))
+    auth_user_id = other.validate_token(token)
+    if not auth_user_id:
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(channel.channel_messages_v1(auth_user_id, channel_id, start))
 
 
 @APP.route("/clear/v1", methods=['DELETE'])
@@ -182,7 +186,12 @@ def handle_message_send():
     channel_id = params.get('channel_id', None)
     messages = params.get('message', None)
 
-    return dumps(message.message_send_v1(token, channel_id, messages))
+    user_id = other.validate_token(token)
+    if user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(message.message_send_v1(user_id, channel_id, messages))
 
 
 @APP.route("/message/edit/v1", methods=['PUT'])
