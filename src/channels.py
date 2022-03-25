@@ -41,11 +41,20 @@ def channels_listall_v1(auth_user_id):
     return new_list
 
 def channels_create_v1(auth_user_id, name, is_public):
-    '''Creates new channel and returns channel id (length of channels list plus 1)'''
-    # Check valid user id passed.
-    if valid_user_id(auth_user_id) != True:
-        raise AccessError("This user id does not belong to a registerd user.")
+    ''' Creates a new channel with the given name that is either a public or private channel. 
+        The user who created it automatically joins the channel.
 
+        Arguments:
+            auth_user_id   (int)      - the id of an authenticated user.
+            name           (string)   - the name that the new channel will have.
+            is_public      (bool)     - false if the channel is not public, true if it is public.
+
+        Exceptions:
+            InputError  - Occurs when name is outside the range of 1 to 20 characters (inclusive).
+
+        Return Value:
+            Returns {'channel_id': new_channel_id} when name is valid.
+    '''
     # Check valid name input.
     if len(name) < 1:
         raise InputError("This channel name is too short, minimum is 1 character.")

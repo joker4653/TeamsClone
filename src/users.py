@@ -17,17 +17,18 @@ def user_profile_setname_v1(token, name_first, name_last):
     '''Updates the authorised user's first and last name.
 
         Arguments:
-            token (string)      - jwt token used to authenticate user (contains auth_user_id).
-            name_first (string) - the replacement for auth_user's current first name.
-            name_last (string)  - the replacement for auth_user's current last name.
+            token       (string) - jwt token used to authenticate user (contains auth_user_id).
+            name_first  (string) - the replacement for auth_user's current first name.
+            name_last   (string) - the replacement for auth_user's current last name.
 
         Exceptions:
-            InputError  - Occurs when name_first or name_last are outside the range of 1 to 50 characters.
+            InputError  - Occurs when name_first or name_last are outside the range of 1 to 50 
+                          characters (inclusive).
             AccessError - Occurs when invalid token is passed to function.
 
         Return Value:
             Returns {} always
-'''
+    '''
     auth_user_id = validate_token(token)
     if auth_user_id == False:
         # Invalid token, raise an access error.
