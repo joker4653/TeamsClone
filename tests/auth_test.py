@@ -171,3 +171,5 @@ def test_logout_invalid_token():
     # Check it does not allow logout.
     response = process_test_request(route="/auth/logout/v1", method='post', inputs={'token': token})
     assert(response.status_code == 403)
+
+    process_test_request(route="/clear/v1", method='delete')
