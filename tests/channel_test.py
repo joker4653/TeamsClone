@@ -444,5 +444,7 @@ def test_global_owner_removes_owner(example_user_id, example_channels):
     #channel_details = response2.json()
     #assert len(channel_details['owner_members']) == 1
     #assert len(channel_details['all_members']) == 3
-    
-process_test_request(route="/clear/v1", method='delete')
+
+# NOTE: not an actual test - keep this at the bottom of the test file to clear data stores!
+def test_clear_data_stores():
+    process_test_request(route="/clear/v1", method='delete')

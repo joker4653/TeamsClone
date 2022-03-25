@@ -72,4 +72,6 @@ def test_user_sethandle_valid(example_user_id):
     #assert user_info1['handle_str'] == "goodhandl3"
     #assert user_info2['handle_str'] == "675834573"
 
-process_test_request(route="/clear/v1", method='delete')
+# NOTE: not an actual test - keep this at the bottom of the test file to clear data stores!
+def test_clear_data_stores():
+    process_test_request(route="/clear/v1", method='delete')
