@@ -157,7 +157,7 @@ def message_remove_v1(auth_user_id, message_id):
 	if user_info(auth_user_id) not in store[message_type][channel_dm_id][owners]:
 		raise AccessError("the authorised user does not have owner permissions in the channel/DM")
 
-	if store[message_type][channel_dm_id]["messages"][index]["u_id"] != user_id:
+	if store[message_type][channel_dm_id]["messages"][index]["u_id"] != auth_user_id:
 		raise AccessError("the message was not sent by the authorised user making this request")
 
 	del store[message_type][channel_dm_id]["messages"][index]
