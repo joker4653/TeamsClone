@@ -99,7 +99,7 @@ def test_invite_multiple(example_user_id):
     #channel_details = json.loads(response2.text)
     #assert len(channel_details['all_members']) == 3
 
-"""# tests for channel_details_v2
+# tests for channel_details_v2
 def test_detail_invalid_channel_id(example_user_id):
     response = process_test_request(route="/channel/details/v2", method='get', inputs={'token': example_user_id[0].get('token'), 'channel_id': 1})
     assert response.status_code == 400
@@ -143,7 +143,7 @@ def test_detail_multiple_members(example_user_id):
     assert channel_details['is_public'] == True
     assert 0 in [k['u_id'] for k in channel_details['owner_members']]
     assert 0 in [k['u_id'] for k in channel_details['all_members']]
-    assert 1 in [k['u_id'] for k in channel_details['all_members']]"""
+    assert 1 in [k['u_id'] for k in channel_details['all_members']]
 
 # tests for channel_join_v2
 def test_join_invalid_channel_id(example_user_id):
@@ -181,7 +181,6 @@ def test_join_success(example_user_id):
     
     response2 = process_test_request(route="/channel/details/v2", method='get', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id')})
     channel_details = json.loads(response2.text)
-    print(channel_details)
     assert len(channel_details['all_members']) == 3
 
 """
