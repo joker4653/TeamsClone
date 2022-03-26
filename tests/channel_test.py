@@ -4,14 +4,6 @@ import requests
 import json
 from tests.process_request import process_test_request
 
-"""
-from src.channels import channels_create_v1, channels_listall_v1, channels_list_v1
-from src.channel import channel_messages_v1, channel_invite_v1, channel_details_v1, channel_join_v1
-from src.auth import auth_register_v1, auth_login_v1
-from src.other import clear_v1
-from src.error import AccessError, InputError
-"""
-
 # tests for channels_create_v2
 def test_create_invalid_channel_shortname(example_user_id):
     response = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "", 'is_public': False})
@@ -444,3 +436,29 @@ def test_global_owner_removes_owner(example_user_id, example_channels):
     #channel_details = response2.json()
     #assert len(channel_details['owner_members']) == 1
     #assert len(channel_details['all_members']) == 3
+
+def test_leave_invalid_channel(example_user_id):
+    process_test_request(route="/clear/v1", method='delete')
+
+    response = process_test_request(route="/channel/leave/v1", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': 4})
+    assert response.status_code == 400
+
+def test_leave_bad_user(example_user_id, example_channels):
+    process_test_request(route="/clear/v1", method='delete')
+
+    response = process_test_request(route="/channel/leave/v1", method='post', inputs={'token': example_user_id[2].get('token'), 'channel_id': example_channels[0].get('channel_id')})
+    assert response.status_code == 403
+    
+
+def test_leave_valid(example_user_id, example_channels):
+    process_test_request(route="/clear/v1", method='delete')
+
+    response1 = process_test_request(route="/channel/leave/v1", method='post', inputs={'token': example_user_id[1].get('token'), 'channel_id': example_channels[0].get('channel_id')})
+    assert response1.status_code == 200
+    
+    # Check user has left group.
+    response2 = process_test_request(route="channel/invite/v2", method='post', inputs={'token': example_user_id[1].get('token'), 'channel_id': example_channels[0].get('channel_id'), 'u_id': example_user_id[2].get('auth_user_id')})
+    assert response2.status_code == 403
+
+    process_test_request(route="/clear/v1", method='delete')
+
