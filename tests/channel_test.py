@@ -95,9 +95,9 @@ def test_invite_multiple(example_user_id):
     response = process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[1].get('token'), 'channel_id': new_channel.get('channel_id'), 'u_id': example_user_id[2].get('auth_user_id')})
     assert response.status_code == 200
 
-    #response2 = process_test_request(route="/channel/details/v2", method='get', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id')})
-    #channel_details = json.loads(response2.text)
-    #assert len(channel_details['all_members']) == 3
+    response2 = process_test_request(route="/channel/details/v2", method='get', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id')})
+    channel_details = json.loads(response2.text)
+    assert len(channel_details['all_members']) == 3
 
 # tests for channel_details_v2
 def test_detail_invalid_channel_id(example_user_id):
