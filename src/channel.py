@@ -9,7 +9,7 @@ def is_member(user_id, channel_id):
     if valid_channel_id(channel_id):
         store = data_store.get()
         user_ids = store['channels'][channel_id]['user_ids']
-        if any(user['u_id'] == user_id for user in user_ids):
+    if any(user['u_id'] == user_id for user in user_ids):
             return True
     return False
 
@@ -146,7 +146,38 @@ def channel_join_v1(auth_user_id, channel_id):
 
 
 def channel_leave_v1(token, channel_id):
-    pass
+    user_id = validate_token(token)
+    if not user_id:
+        # Invalid token.
+        raise AccessError("The token provided was invalid.")
+    # Validate channel id.
+    if not valid_channel_id(channel_id):
+        raise InputError("This channel_id does not correspond to an existing channel.")
+    # Check user is a member of channel.
+    if not is_member(user_id, channel_id):
+        raise AccessError("The user is not a member of this channel.")
+    
+    store = data_store.get()
+
+    # Delete user from user_ids.
+    user_ids = store['channels'][channel_id]['user_ids']
+    for user in user_ids:
+        if user['u_id'] == user_id:
+            user_ids.remove(user)
+            break
+
+    # Delete owner from owner_ids, if applicable.
+    owner_ids = store['channels'][channel_id]['channel_owner_ids']
+    for owner in owner_ids:
+        if owner['u_id'] == user_id:
+            owner_ids.remove(owner)
+            break
+
+    data_store.set(store)
+    write_data(data_store)
+
+    return {
+    }
 
 
 def channel_addowner_v1(token, channel_id, u_id):

@@ -1,1 +1,38 @@
-{}
+{
+    "1": {
+        "id": 1,
+        "handle": "stevesmith",
+        "email": "steve.smith@gmail.com",
+        "password": "fbb402a456192e9a03c568f1217ecbc51bc3614e240679670ed599f007ca1570",
+        "first": "Gertrude",
+        "last": "Longbottom",
+        "permissions_id": 1,
+        "sessions": [
+            1
+        ]
+    },
+    "2": {
+        "id": 2,
+        "handle": "jamessmith",
+        "email": "smith.james12@gmail.com",
+        "password": "4fb7ee7e7bf4fd01b23de28ba885e91b90fe5d3f86a50ae05a03a1257d7f53c4",
+        "first": "Hairy",
+        "last": "Pineapple",
+        "permissions_id": 2,
+        "sessions": [
+            2
+        ]
+    },
+    "3": {
+        "id": 3,
+        "handle": "carljohns",
+        "email": "carl.johns56@gmail.com",
+        "password": "08acd149775fd77d2ec445e07e57a8cd7e5fffdb39a65276ee29c62a9c9c0c32",
+        "first": "Carl",
+        "last": "Johns",
+        "permissions_id": 2,
+        "sessions": [
+            3
+        ]
+    }
+}
