@@ -108,6 +108,9 @@ def auth_logout_v1(token):
     data_store.set(store)
     write_data(data_store)
 
+    return {
+    }
+
 
 def validate_input(email, password, first, last):
     '''Checks a certain input set meets the criteria for registering a new user.'''

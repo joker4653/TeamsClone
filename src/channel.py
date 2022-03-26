@@ -9,7 +9,7 @@ def is_member(user_id, channel_id):
     if valid_channel_id(channel_id):
         store = data_store.get()
         user_ids = store['channels'][channel_id]['user_ids']
-        if any(user['u_id'] == user_id for user in user_ids):
+    if any(user['u_id'] == user_id for user in user_ids):
             return True
     return False
 
@@ -158,9 +158,21 @@ def channel_leave_v1(token, channel_id):
         raise AccessError("The user is not a member of this channel.")
     
     store = data_store.get()
-    if user_id in store['channels'][channel_id]['user_ids']:
-        store['channels'][channel_id]['user_ids'].remove(user_id)
-    
+
+    # Delete user from user_ids.
+    user_ids = store['channels'][channel_id]['user_ids']
+    for user in user_ids:
+        if user['u_id'] == user_id:
+            user_ids.remove(user)
+            break
+
+    # Delete owner from owner_ids, if applicable.
+    owner_ids = store['channels'][channel_id]['channel_owner_ids']
+    for owner in owner_ids:
+        if owner['u_id'] == user_id:
+            owner_ids.remove(owner)
+            break
+
     data_store.set(store)
     write_data(data_store)
 
