@@ -239,7 +239,6 @@ def test_owner_remove_message(test_send_messages, initialise_tests):
     assert messages[0]["message_id"] == test_send_messages[3]
 
 
-
 def test_edit_message_input_errors(test_send_messages, initialise_tests):
     # message too long
     response = process_test_request("message/edit/v1", "put", {
@@ -249,10 +248,24 @@ def test_edit_message_input_errors(test_send_messages, initialise_tests):
     })
     assert response.status_code == 400
 
-    # 
+    # non valid message_id
+    response = process_test_request("message/edit/v1", "put", {
+        "token": initialise_tests[0].get("token"), # John
+        "message_id": test_send_messages[0], # abcds message_id
+        "message": "Hello World!"
+    })
+    assert response.status_code == 400
+
 
 def test_edit_message_access_errors(test_send_messages, initialise_tests):
-    pass
+    response = process_test_request("message/edit/v1", "put", {
+        "token": initialise_tests[2].get("token"), # abcd
+        "message_id": test_send_messages[3], # janes message_id
+        "message": "Hello World!"
+    })
+    assert response.status_code == 403
+    
+
 
 def test_edit_messages(test_send_messages, initialise_tests):
     response = process_test_request("message/edit/v1", "put", {
