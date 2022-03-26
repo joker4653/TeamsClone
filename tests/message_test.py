@@ -211,7 +211,6 @@ def test_remove_own_message(test_send_messages, initialise_tests):
         "message_id": test_send_messages[0] # abcds message in john channel
     })
     assert response.status_code == 200
-
     response = process_test_request("channel/messages/v2", "get", {
         "token": initialise_tests[2].get("token"), # abcd user
         "channel_id": initialise_tests[3].get("channel_id"), # johns channel
@@ -228,8 +227,16 @@ def test_owner_remove_message(test_send_messages, initialise_tests):
         "token": initialise_tests[1].get("token"), # jane user
         "message_id": test_send_messages[1] # abcd message in jane channel
     })
-    assert response.status_code == 403
-
+    assert response.status_code == 200
+    response = process_test_request("channel/messages/v2", "get", {
+        "token": initialise_tests[1].get("token"), # jane user
+        "channel_id": initialise_tests[4].get("channel_id"), # johns channel
+        "start": 0
+    })
+    messages = response.json()["messages"]
+    assert len(messages) == 1
+    assert messages[0]["message"] == "jane message in channel2"
+    assert messages[0]["message_id"] == test_send_messages[3]
 
 '''
 

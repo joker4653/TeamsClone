@@ -1,1 +1,76 @@
-{}
+{
+    "1": {
+        "channel_owner_ids": [
+            {
+                "u_id": 1,
+                "email": "john@email.com",
+                "name_first": "John",
+                "name_last": "Johnson",
+                "handle_string": "johnjohnson"
+            }
+        ],
+        "name": "Johns Channel",
+        "is_public": true,
+        "user_ids": [
+            {
+                "u_id": 1,
+                "email": "john@email.com",
+                "name_first": "John",
+                "name_last": "Johnson",
+                "handle_string": "johnjohnson"
+            },
+            {
+                "u_id": 3,
+                "email": "abcd@email.com",
+                "name_first": "Abcd",
+                "name_last": "Efgh",
+                "handle_string": "abcdefgh"
+            }
+        ],
+        "messages": [
+            {
+                "message_id": 4,
+                "u_id": 1,
+                "message": "john message in channel1",
+                "time_sent": 1648265362
+            }
+        ]
+    },
+    "2": {
+        "channel_owner_ids": [
+            {
+                "u_id": 2,
+                "email": "jane@email.com",
+                "name_first": "Jane",
+                "name_last": "Janeson",
+                "handle_string": "janejaneson"
+            }
+        ],
+        "name": "Janes Channel",
+        "is_public": true,
+        "user_ids": [
+            {
+                "u_id": 2,
+                "email": "jane@email.com",
+                "name_first": "Jane",
+                "name_last": "Janeson",
+                "handle_string": "janejaneson"
+            },
+            {
+                "u_id": 3,
+                "email": "abcd@email.com",
+                "name_first": "Abcd",
+                "name_last": "Efgh",
+                "handle_string": "abcdefgh"
+            }
+        ],
+        "messages": [
+            {
+                "message_id": 5,
+                "u_id": 2,
+                "message": "jane message in channel2",
+                "time_sent": 1648265362
+            }
+        ]
+    }
+}
