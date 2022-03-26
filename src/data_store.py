@@ -108,6 +108,10 @@ class Datastore:
             users = json.loads(f.read())
         self.__store["users"] = users
 
+        with open(path + "dms.json", "r") as f:
+            dms = json.loads(f.read())
+        self.__store["dms"] = dms
+
 
 print('Loading Datastore...')
 

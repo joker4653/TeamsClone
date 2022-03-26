@@ -82,16 +82,27 @@ def handle_channels_create():
 def handle_channel_list():
     params = request.args
     token = params.get('token', None)
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
 
-    return dumps(channels.channels_list_v1(token))
+
+    return dumps(channels.channels_list_v1(auth_user_id))
 
 
 @APP.route("/channels/listall/v2", methods=['GET'])
 def handle_channel_listall():
     params = request.args
     token = params.get('token', None)
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
 
-    return dumps(channels.channels_listall_v1(token))
+
+
+    return dumps(channels.channels_listall_v1(auth_user_id))
 
 
 @APP.route("/channel/details/v2", methods=['GET'])
@@ -235,26 +246,36 @@ def handle_dm_create():
 @APP.route("/dm/list/v1", methods=['GET'])
 def handle_dm_list():
     token = request.args.get('token', None)
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
 
     return dumps(dm.dm_list_v1(token))
 
 
 @APP.route("/dm/remove/v1", methods=['DELETE'])
 def handle_dm_remove():
-    params = request.get_json()
-    token = params.get('token', None)
-    dm_id = params.get('dm_id', None)
+    token = request.get_json().get('token', None)
+    dm_id = request.get_json().get('dm_id', None)
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
 
-    return dumps(dm.dm_remove_v1(token, dm_id))
+    return dumps(dm.dm_remove_v1(auth_user_id, dm_id))
 
 
 @APP.route("/dm/details/v1", methods=['GET'])
 def handle_dm_details():
-    params = request.args
-    token = params.get('token', None)
-    dm_id = params.get('dm_id', None)
+    token = request.args.get('token', None)
+    dm_id = request.args.get('dm_id', None)
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
 
-    return dumps(dm.dm_details_v1(token, dm_id))
+    return dumps(dm.dm_details_v1(token, int(dm_id)))
 
 
 @APP.route("/dm/leave/v1", methods=['POST'])
@@ -262,8 +283,13 @@ def handle_dm_leave():
     params = request.get_json()
     token = params.get('token', None)
     dm_id = params.get('dm_id', None)
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
 
     return dumps(dm.dm_leave_v1(token, dm_id))
+
 
 
 @APP.route("/dm/messages/v1", methods=['GET'])
