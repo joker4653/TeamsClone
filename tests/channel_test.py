@@ -181,6 +181,7 @@ def test_join_success(example_user_id):
     
     response2 = process_test_request(route="/channel/details/v2", method='get', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id')})
     channel_details = json.loads(response2.text)
+    print(channel_details)
     assert len(channel_details['all_members']) == 3
 
 """
