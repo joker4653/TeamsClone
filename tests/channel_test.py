@@ -114,7 +114,7 @@ def test_detail_invalid_auth_id(example_user_id):
     #response2 = process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id'), 'u_id': example_user_id[1].get('auth_user_id')})
     #assert response2.status_code == 403
 
-
+"""
 def test_detail_auth_id_not_member(example_user_id):
     channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
     with pytest.raises(AccessError):
@@ -137,7 +137,7 @@ def test_detail_multiple_members(example_user_id):
     assert 0 in [k['u_id'] for k in channel_details['owner_members']]
     assert 0 in [k['u_id'] for k in channel_details['all_members']]
     assert 1 in [k['u_id'] for k in channel_details['all_members']]
-
+"""
 # tests for channel_join_v2
 def test_join_invalid_channel_id(example_user_id):
     response = process_test_request(route="/channel/join/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': 1})
