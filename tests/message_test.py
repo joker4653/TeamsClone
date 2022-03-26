@@ -1,5 +1,4 @@
 import json
-from py import process
 import pytest
 import requests
 from src import config
@@ -310,6 +309,6 @@ def test_invalid_user_channel_messages(initialise_tests):
     pass
 
 
+'''
 def test_clear_again():
     process_test_request("clear/v1", "delete", {})
-'''
