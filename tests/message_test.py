@@ -1,5 +1,4 @@
 import json
-from py import process
 import pytest
 import requests
 from src import config
@@ -104,6 +103,7 @@ def test_send_message_input_errors(initialise_tests):
     })
     assert response.status_code == 400
 
+
 @pytest.fixture(scope="session")
 def test_send_messages(initialise_tests):
     # They are in the same function as I need access to the ID's for removing
@@ -184,11 +184,18 @@ def test_remove_messages_inputerror(test_send_messages, initialise_tests):
             invalid_id = id
     response = process_test_request("message/remove/v1", "delete", {
         "token": initialise_tests[0].get("token"),
-        "message_id": id
+        "message_id": invalid_id
     })
     assert response.status_code == 400
 
-'''
+    # Now for a valid channel_id that the user is not a part of.
+    response = process_test_request("message/remove/v1", "delete", {
+        "token": initialise_tests[0].get("token"), # john
+        "message_id": test_send_messages[1] # abcds message in janes channel
+    })
+    assert response.status_code == 400
+
+
 def test_remove_messages_accesserror(test_send_messages, initialise_tests):
     # user who is removing the message did not send it and is not an owner
     response = process_test_request("message/remove/v1", "delete", {
@@ -197,6 +204,86 @@ def test_remove_messages_accesserror(test_send_messages, initialise_tests):
     })
     assert response.status_code == 403
 
+def test_remove_own_message(test_send_messages, initialise_tests):
+    response = process_test_request("message/remove/v1", "delete", {
+        "token": initialise_tests[2].get("token"), # abcd user
+        "message_id": test_send_messages[0] # abcds message in john channel
+    })
+    assert response.status_code == 200
+    response = process_test_request("channel/messages/v2", "get", {
+        "token": initialise_tests[2].get("token"), # abcd user
+        "channel_id": initialise_tests[3].get("channel_id"), # johns channel
+        "start": 0
+    })
+    messages = response.json()["messages"]
+    assert len(messages) == 1
+    assert messages[0]["message"] == "john message in channel1"
+    assert messages[0]["message_id"] == test_send_messages[2]
+
+
+def test_owner_remove_message(test_send_messages, initialise_tests):
+    response = process_test_request("message/remove/v1", "delete", {
+        "token": initialise_tests[1].get("token"), # jane user
+        "message_id": test_send_messages[1] # abcd message in jane channel
+    })
+    assert response.status_code == 200
+    response = process_test_request("channel/messages/v2", "get", {
+        "token": initialise_tests[1].get("token"), # jane user
+        "channel_id": initialise_tests[4].get("channel_id"), # janes channel
+        "start": 0
+    })
+    messages = response.json()["messages"]
+    assert len(messages) == 1
+    assert messages[0]["message"] == "jane message in channel2"
+    assert messages[0]["message_id"] == test_send_messages[3]
+
+
+def test_edit_message_input_errors(test_send_messages, initialise_tests):
+    # message too long
+    response = process_test_request("message/edit/v1", "put", {
+        "token": initialise_tests[0].get("token"), # John
+        "message_id": test_send_messages[2], # Johns message_id
+        "message": ''.join(random.choice(string.ascii_letters) for i in range(1001))
+    })
+    assert response.status_code == 400
+
+    # non valid message_id
+    response = process_test_request("message/edit/v1", "put", {
+        "token": initialise_tests[0].get("token"), # John
+        "message_id": test_send_messages[0], # abcds message_id
+        "message": "Hello World!"
+    })
+    assert response.status_code == 400
+
+
+def test_edit_message_access_errors(test_send_messages, initialise_tests):
+    response = process_test_request("message/edit/v1", "put", {
+        "token": initialise_tests[2].get("token"), # abcd
+        "message_id": test_send_messages[3], # janes message_id
+        "message": "Hello World!"
+    })
+    assert response.status_code == 403
+    
+
+
+def test_edit_messages(test_send_messages, initialise_tests):
+    response = process_test_request("message/edit/v1", "put", {
+        "token": initialise_tests[0].get("token"), # John
+        "message_id": test_send_messages[2], # Johns message_id
+        "message": "Johns message has been edited!"
+    })
+    assert response.status_code == 200
+    response = process_test_request("channel/messages/v2", "get", {
+        "token": initialise_tests[0].get("token"), # john user
+        "channel_id": initialise_tests[3].get("channel_id"), # johns channel
+        "start": 0
+    })
+    messages = response.json()["messages"]
+    assert len(messages) == 1
+    assert messages[0]["message"] == "Johns message has been edited!"
+    assert messages[0]["message_id"] == test_send_messages[2]
+
+'''
 
 def test_0_messages_dms(initialise_tests):
     pass
@@ -222,25 +309,6 @@ def test_invalid_user_channel_messages(initialise_tests):
     pass
 
 
-def test_edit_message_input_errors(initialise_tests):
-    pass
-
-def test_edit_message_access_errors(initialise_tests):
-    pass
-
-def test_edit_messages(initialise_tests):
-    pass
-
-def test_remove_message_access_errors(initialise_tests):
-    pass
-
-def test_remove_message_input_errors(initialise_tests):
-    pass
-
-def test_remove_messages(initialise_tests):
-    pass
-
 '''
-
 def test_clear_again():
     process_test_request("clear/v1", "delete", {})
