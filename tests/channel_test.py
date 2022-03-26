@@ -99,17 +99,21 @@ def test_invite_multiple(example_user_id):
     #channel_details = json.loads(response2.text)
     #assert len(channel_details['all_members']) == 3
 
-"""
-# tests for channel_details_v1
+# tests for channel_details_v2
 def test_detail_invalid_channel_id(example_user_id):
-    with pytest.raises(InputError):
-        channel_details_v1(example_user_id[0], 1)
+    response = process_test_request(route="/channel/details/v2", method='get', inputs={'token': example_user_id[0].get('token'), 'channel_id': 1})
+    assert response.status_code == 400
 
 def test_detail_invalid_auth_id(example_user_id):
-    channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
-    invalid_auth_id = sum(example_user_id) + 1
-    with pytest.raises(AccessError):
-        channel_details_v1(invalid_auth_id, channel_id.get('channel_id'))
+    create_channel = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': False})
+    new_channel = create_channel.json()
+    response1 = process_test_request(route="/channel/details/v2", method='post', inputs={'token': example_user_id[2].get('token'), 'channel_id': new_channel.get('channel_id')})
+    assert response1.status_code == 403
+
+    #process_test_request(route="/auth/logout/v1", method='post', inputs={'token': example_user_id[0].get('token')})
+    #response2 = process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id'), 'u_id': example_user_id[1].get('auth_user_id')})
+    #assert response2.status_code == 403
+
 
 def test_detail_auth_id_not_member(example_user_id):
     channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
@@ -134,34 +138,45 @@ def test_detail_multiple_members(example_user_id):
     assert 0 in [k['u_id'] for k in channel_details['all_members']]
     assert 1 in [k['u_id'] for k in channel_details['all_members']]
 
-# tests for channel_join_v1
+# tests for channel_join_v2
 def test_join_invalid_channel_id(example_user_id):
-    with pytest.raises(InputError):
-        channel_join_v1(example_user_id[0], 1)
+    response = process_test_request(route="/channel/join/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': 1})
+    assert response.status_code == 400
 
-def test_join_invalid_auth_id(example_user_id):
-    channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
-    invalid_auth_id = sum(example_user_id) + 1
-    with pytest.raises(AccessError):
-        channel_join_v1(invalid_auth_id, channel_id.get('channel_id'))
+def test_join_invalid_token(example_user_id):
+    create_channel = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': True})
+    new_channel = create_channel.json()
+    response1 = process_test_request(route="/channel/join/v2", method='post', inputs={'token': -1, 'channel_id': new_channel.get('channel_id')})
+    assert response1.status_code == 403
+
+    process_test_request(route="/auth/logout/v1", method='post', inputs={'token': example_user_id[0].get('token')})
+    response2 = process_test_request(route="/channel/join/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id')})
+    assert response2.status_code == 403
 
 def test_join_user_already_in_channel(example_user_id):
-    channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
-    with pytest.raises(InputError):
-        channel_join_v1(example_user_id[0], channel_id.get('channel_id'))
+    create_channel = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': True})
+    new_channel = create_channel.json()
+    response = process_test_request(route="/channel/join/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id')})
+    assert response.status_code == 400
 
 def test_join_private_channel(example_user_id):
-    channel_id = channels_create_v1(example_user_id[0], "Badgers", False)
-    with pytest.raises(AccessError):
-        channel_join_v1(example_user_id[1], channel_id.get('channel_id'))
+    create_channel = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': False})
+    new_channel = create_channel.json()
+    response = process_test_request(route="/channel/join/v2", method='post', inputs={'token': example_user_id[1].get('token'), 'channel_id': new_channel.get('channel_id')})
+    assert response.status_code == 400
 
 def test_join_success(example_user_id):
-    channel_id = channels_create_v1(example_user_id[0], "Badgers", True)
-    channel_join_v1(example_user_id[1], channel_id.get('channel_id'))
-    channel_details = channel_details_v1(example_user_id[1], channel_id.get('channel_id'))
-    assert 0 in [k['u_id'] for k in channel_details['all_members']]
-    assert 1 in [k['u_id'] for k in channel_details['all_members']]
+    create_channel = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': False})
+    new_channel = create_channel.json()
+    process_test_request(route="/channel/join/v2", method='post', inputs={'token': example_user_id[1].get('token'), 'channel_id': new_channel.get('channel_id')})
+    response = process_test_request(route="/channel/join/v2", method='post', inputs={'token': example_user_id[2].get('token'), 'channel_id': new_channel.get('channel_id')})
+    assert response.status_code == 200
+    
+    response2 = process_test_request(route="/channel/details/v2", method='get', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id')})
+    channel_details = json.loads(response2.text)
+    assert len(channel_details['all_members']) == 3
 
+"""
 
 # Can't test the number of messages as there is no function to implement this yet.
 # Therefore, also can't test InputError when start is greater than the total number 
