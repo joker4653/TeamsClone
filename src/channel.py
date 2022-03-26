@@ -146,7 +146,26 @@ def channel_join_v1(auth_user_id, channel_id):
 
 
 def channel_leave_v1(token, channel_id):
-    pass
+    user_id = validate_token(token)
+    if not user_id:
+        # Invalid token.
+        raise AccessError("The token provided was invalid.")
+    # Validate channel id.
+    if not valid_channel_id(channel_id):
+        raise InputError("This channel_id does not correspond to an existing channel.")
+    # Check user is a member of channel.
+    if not is_member(user_id, channel_id):
+        raise AccessError("The user is not a member of this channel.")
+    
+    store = data_store.get()
+    if user_id in store['channels'][channel_id]['user_ids']:
+        store['channels'][channel_id]['user_ids'].remove(user_id)
+    
+    data_store.set(store)
+    write_data(data_store)
+
+    return {
+    }
 
 
 def channel_addowner_v1(token, channel_id, u_id):

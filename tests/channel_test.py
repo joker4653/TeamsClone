@@ -437,10 +437,17 @@ def test_global_owner_removes_owner(example_user_id, example_channels):
     #assert len(channel_details['owner_members']) == 1
     #assert len(channel_details['all_members']) == 3
 
+def test_leave_existence():
+    process_test_request(route="/clear/v1", method='delete')
+
+    response1 = process_test_request(route="/channel/leave/v1", method='post', inputs={'token': "Magic", 'channel_id': 9999999})
+    assert response1.status_code == 403
+
+
 def test_leave_invalid_channel(example_user_id):
     process_test_request(route="/clear/v1", method='delete')
 
-    response = process_test_request(route="/channel/leave/v1", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': 4})
+    response = process_test_request(route="/channel/leave/v1", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': 33})
     assert response.status_code == 400
 
 def test_leave_bad_user(example_user_id, example_channels):
