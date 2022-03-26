@@ -8,7 +8,9 @@ from src.error import InputError, AccessError
 from src.other import valid_user_id, valid_channel_id, user_info, valid_dm_id
 from src.data_json import write_data
 from src.channel import is_member as c_is_member
+from src.channel import is_owner as c_is_owner
 from src.dm import is_member as d_is_member
+from src.dm import is_owner as d_is_owner
 '''
 Message format:
 	message_dict = {
@@ -23,13 +25,14 @@ def message_find(message_id):
 	store = data_store.get()
 
 	channels = store["channels"]
-	for id, info in channels:
+	print(type(channels))
+	for id, info in channels.items():
 		for i, message in enumerate(info["messages"]):
 			if message["message_id"] == message_id:
 				return (id, i, "channels")
 
 	dms = store["dms"]
-	for id, info in dms:
+	for id, info in dms.items():
 		for i, message in enumerate(info["messages"]):
 			if message["message_id"] == message_id:
 				return (id, i, "dms")
@@ -44,19 +47,21 @@ def assign_message_id(store):
 		ids = [message["message_id"] for message in channel["messages"]]
 		max_id = max(ids, default=1)
 		min_id = min(ids, default=1)
-		maximum = max_id if max_id > maximum else maximum
-		minimum = min_id if min_id > minimum else minimum
+		maximum = max(max_id, maximum)
+		minimum = min(min_id, minimum)
 
 	for dm in store["dms"].values():
 		ids = [message["message_id"] for message in dm["messages"]]
 		max_id = max(ids, default=1)
 		min_id = min(ids, default=1)
-		maximum = max_id if max_id > maximum else maximum
-		minimum = min_id if min_id > minimum else minimum
+		maximum = max(max_id, maximum)
+		minimum = min(min_id, minimum)
 	
 	if minimum > 1:
+		print(f" JHAHAH ----- {minimum - 1}")
 		return minimum - 1
 	else:
+		print(f" JAHAHHAAJ ----- {maximum + 1}")
 		return maximum + 1
 
 
@@ -118,15 +123,9 @@ def message_edit_v1(auth_user_id, message_id, message):
 	if (not c_is_member(auth_user_id, channel_dm_id)) and (not d_is_member(auth_user_id, channel_dm_id)):
 		raise InputError("message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
 	
-	if store[message_type][channel_dm_id]["messages"][index]["u_id"] != auth_user_id:
-		raise AccessError("the message was not sent by the authorised user making this request")
-   
-	if channel_dm_id == "channels":
-		owners = 'channel_owner_ids'
-	elif channel_dm_id == "dms":
-		owners = 'dm_owner_ids'
-	if user_info(auth_user_id) not in store[message_type][channel_dm_id][owners]:
-		raise AccessError("the authorised user has not owner permissions in the channel/DM")
+	if not (c_is_owner(auth_user_id, channel_dm_id)) and not (d_is_owner(auth_user_id, channel_dm_id)):
+		if store[message_type][channel_dm_id]["messages"][index]["u_id"] != auth_user_id:
+			raise AccessError
 
 	store["channels"][channel_dm_id]["messages"][index]["message"] = message
 
@@ -148,17 +147,11 @@ def message_remove_v1(auth_user_id, message_id):
 	store = data_store.get()
 
 	if (not c_is_member(auth_user_id, channel_dm_id)) and (not d_is_member(auth_user_id, channel_dm_id)):
-		raise AccessError("message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
-	
-	if channel_dm_id == "channels":
-		owners = 'channel_owner_ids'
-	elif channel_dm_id == "dms":
-		owners = 'dm_owner_ids'
-	if user_info(auth_user_id) not in store[message_type][channel_dm_id][owners]:
-		raise AccessError("the authorised user does not have owner permissions in the channel/DM")
+		raise InputError("message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
 
-	if store[message_type][channel_dm_id]["messages"][index]["u_id"] != auth_user_id:
-		raise AccessError("the message was not sent by the authorised user making this request")
+	if not (c_is_owner(auth_user_id, channel_dm_id)) and not (d_is_owner(auth_user_id, channel_dm_id)):
+		if store[message_type][channel_dm_id]["messages"][index]["u_id"] != auth_user_id:
+			raise AccessError
 
 	del store[message_type][channel_dm_id]["messages"][index]
 
