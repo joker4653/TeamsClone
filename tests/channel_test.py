@@ -170,10 +170,10 @@ def test_join_private_channel(example_user_id):
     create_channel = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': False})
     new_channel = create_channel.json()
     response = process_test_request(route="/channel/join/v2", method='post', inputs={'token': example_user_id[1].get('token'), 'channel_id': new_channel.get('channel_id')})
-    assert response.status_code == 400
+    assert response.status_code == 403
 
 def test_join_success(example_user_id):
-    create_channel = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': False})
+    create_channel = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': True})
     new_channel = create_channel.json()
     process_test_request(route="/channel/join/v2", method='post', inputs={'token': example_user_id[1].get('token'), 'channel_id': new_channel.get('channel_id')})
     response = process_test_request(route="/channel/join/v2", method='post', inputs={'token': example_user_id[2].get('token'), 'channel_id': new_channel.get('channel_id')})
