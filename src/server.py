@@ -109,7 +109,12 @@ def handle_channel_join():
     token = params.get('token', None)
     channel_id = params.get('channel_id', None)
 
-    return dumps(channel.channel_join_v1(token, channel_id))
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(channel.channel_join_v1(auth_user_id, channel_id))
 
 
 @APP.route("/channel/invite/v2", methods=['POST'])
@@ -206,7 +211,12 @@ def handle_message_edit():
     message_id = params.get('message_id', None)
     messages = params.get('message', None)
 
-    return dumps(message.message_edit_v1(token, message_id, messages))
+    user_id = other.validate_token(token)
+    if user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(message.message_edit_v1(user_id, message_id, messages))
 
 
 @APP.route("/message/remove/v1", methods=['DELETE'])
@@ -215,7 +225,12 @@ def handle_message_remove():
     token = params.get('token', None)
     message_id = params.get('message_id', None)
 
-    return dumps(message.message_remove_v1(token, message_id))
+    user_id = other.validate_token(token)
+    if user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(message.message_remove_v1(user_id, message_id))
 
 
 @APP.route("/dm/create/v1", methods=['POST'])

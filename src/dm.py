@@ -16,6 +16,14 @@ def is_member(user_id, dm_id):
             return True
     return False
 
+def is_owner(user_id, dm_id):
+    '''Check if a user is an owner of a channel. Return True if user is an owner, return False otherwise.'''
+    if valid_dm_id(dm_id):
+        store = data_store.get()
+        owner_ids = store['dms'][dm_id]['dm_owner_id']
+        if any(owner['u_id'] == user_id for owner in owner_ids):
+            return True
+    return False
 
 
 def dm_create(token, u_ids):
