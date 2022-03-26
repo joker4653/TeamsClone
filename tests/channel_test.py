@@ -125,25 +125,24 @@ def test_detail_correct_return_value(example_user_id):
     new_channel = create_channel.json()
     response = process_test_request(route="/channel/details/v2", method='get', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id')})
     channel_details = json.loads(response.text)
-    print(channel_details)
-    assert len(channel_details['all_members']) == 1
     #assert len(channel_details['all_members']) == 1
-"""    
     assert channel_details['name'] == 'Badgers'
-    assert channel_details['is_public'] == True
+    assert channel_details['is_public'] == False
     assert 0 in [k['u_id'] for k in channel_details['owner_members']]
     assert 0 in [k['u_id'] for k in channel_details['all_members']]
 
 def test_detail_multiple_members(example_user_id):
-    channel_id = channels_create_v1(example_user_id[0], "Badgers", True)
-    channel_invite_v1(example_user_id[0], channel_id.get('channel_id'), example_user_id[1])
-    channel_details = channel_details_v1(example_user_id[0], channel_id.get('channel_id'))
+    create_channel = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': True})
+    new_channel = create_channel.json()
+    process_test_request(route="/channel/invite/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id'), 'u_id': example_user_id[1].get('auth_user_id')})
+    response = process_test_request(route="/channel/details/v2", method='get', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id')})
+    channel_details = json.loads(response.text)
     assert channel_details['name'] == 'Badgers'
     assert channel_details['is_public'] == True
     assert 0 in [k['u_id'] for k in channel_details['owner_members']]
     assert 0 in [k['u_id'] for k in channel_details['all_members']]
     assert 1 in [k['u_id'] for k in channel_details['all_members']]
-"""
+
 # tests for channel_join_v2
 def test_join_invalid_channel_id(example_user_id):
     response = process_test_request(route="/channel/join/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'channel_id': 1})
