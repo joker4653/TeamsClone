@@ -152,9 +152,8 @@ def test_join_invalid_channel_id(example_user_id):
 
 def test_join_invalid_token(example_user_id):
     create_channel = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': True})
-    print(example_user_id[0].get('token'))
     new_channel = create_channel.json()
-    response1 = process_test_request(route="/channel/join/v2", method='post', inputs={'token': -1, 'channel_id': new_channel.get('channel_id')})
+    response1 = process_test_request(route="/channel/join/v2", method='post', inputs={'token': example_user_id[0].get('token') + '0', 'channel_id': new_channel.get('channel_id')})
     assert response1.status_code == 403
 
     process_test_request(route="/auth/logout/v1", method='post', inputs={'token': example_user_id[0].get('token')})
