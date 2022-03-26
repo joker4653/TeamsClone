@@ -109,7 +109,12 @@ def handle_channel_join():
     token = params.get('token', None)
     channel_id = params.get('channel_id', None)
 
-    return dumps(channel.channel_join_v1(token, channel_id))
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(channel.channel_join_v1(auth_user_id, channel_id))
 
 
 @APP.route("/channel/invite/v2", methods=['POST'])
