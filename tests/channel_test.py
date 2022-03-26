@@ -125,6 +125,7 @@ def test_detail_correct_return_value(example_user_id):
     new_channel = create_channel.json()
     response = process_test_request(route="/channel/details/v2", method='get', inputs={'token': example_user_id[0].get('token'), 'channel_id': new_channel.get('channel_id')})
     channel_details = json.loads(response.text)
+    print(channel_details)
     assert len(channel_details['all_members']) == 1
     #assert len(channel_details['all_members']) == 1
 """    
