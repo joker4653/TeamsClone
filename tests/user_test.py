@@ -35,3 +35,43 @@ def test_user_setname_valid(example_user_id):
     #assert user_info2['name_first'] == "Hairy"
     #assert user_info2['name_last'] == "Pineapple"
 
+# tests for user/profile/sethandle/v1
+def test_user_sethandle_too_short(example_user_id):
+    response = process_test_request(route="/user/profile/sethandle/v1", method='put', inputs={'token': example_user_id[0].get('token'), 'handle_str': "ab"})
+    assert response.status_code == 400
+
+def test_user_sethandle_too_long(example_user_id):
+    response = process_test_request(route="/user/profile/sethandle/v1", method='put', inputs={'token': example_user_id[1].get('token'), 'handle_str': "thisisjusttooo00olong"})
+    assert response.status_code == 400
+
+def test_user_sethandle_bad_characters(example_user_id):
+    response1 = process_test_request(route="/user/profile/sethandle/v1", method='put', inputs={'token': example_user_id[1].get('token'), 'handle_str': "not_good"})
+    response2 = process_test_request(route="/user/profile/sethandle/v1", method='put', inputs={'token': example_user_id[1].get('token'), 'handle_str': "@alsonotgood"})
+    response3 = process_test_request(route="/user/profile/sethandle/v1", method='put', inputs={'token': example_user_id[1].get('token'), 'handle_str': "very!bad"})
+    assert response1.status_code == response2.status_code == response3.status_code == 400
+
+# TODO: uncomment when we have user/profile/v1.
+def test_user_sethandle_handle_already_taken(example_user_id):
+    #get_user = process_test_request(route="/user/profile/v1", method='get', inputs={'token': example_user_id[0].get('token'), 'u_id': example_user_id[0].get('auth_user_id')})
+    #user_info = get_user.json()
+    #response = process_test_request(route="/user/profile/sethandle/v1", method='put', inputs={'token': example_user_id[1].get('token'), 'handle_str': user_info['handle_str']})
+    #assert response.status_code == 400
+    pass
+
+# TODO: uncomment when we have user/profile/v1.
+def test_user_sethandle_valid(example_user_id):
+    response1 = process_test_request(route="/user/profile/sethandle/v1", method='put', inputs={'token': example_user_id[1].get('token'), 'handle_str': "goodhandl3"})
+    response2 = process_test_request(route="/user/profile/sethandle/v1", method='put', inputs={'token': example_user_id[2].get('token'), 'handle_str': "675834573"})
+    assert response1.status_code == response2.status_code == 200
+
+    #get_user1 = process_test_request(route="/user/profile/v1", method='get', inputs={'token': example_user_id[0].get('token'), 'u_id': example_user_id[1].get('auth_user_id')})
+    #get_user2 = process_test_request(route="/user/profile/v1", method='get', inputs={'token': example_user_id[0].get('token'), 'u_id': example_user_id[2].get('auth_user_id')})
+    #user_info1 = get_user1.json()
+    #user_info2 = get_user2.json()
+
+    #assert user_info1['handle_str'] == "goodhandl3"
+    #assert user_info2['handle_str'] == "675834573"
+
+# NOTE: not an actual test - keep this at the bottom of the test file to clear data stores!
+def test_clear_data_stores():
+    process_test_request(route="/clear/v1", method='delete')

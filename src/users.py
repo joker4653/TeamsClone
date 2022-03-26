@@ -4,6 +4,7 @@ from src.data_store import data_store
 from src.error import InputError, AccessError
 from src.other import validate_token
 from src.data_json import write_data
+from src.auth import check_duplicate
 
 def users_all_v1(token):
     pass
@@ -53,8 +54,41 @@ def user_profile_setemail_v1(token, email):
 
 
 def user_profile_sethandle_v1(token, handle_str):
-    pass
+    '''Update the authorised user's handle (i.e. display name).
 
+        Arguments:
+            token       (string) - jwt token used to authenticate user (contains auth_user_id).
+            handle_str  (string) - the replacement for auth_user's current handle.
+
+        Exceptions:
+            InputError  - Occurs when: - handle_str is outside the range of 3 to 20 
+                                         characters (inclusive).
+                                       - handle_str contains characters that are not alphanumeric.
+                                       - handle_str is already being used as a handle by another user.
+                                       
+            AccessError - Occurs when invalid token is passed to function.
+
+        Return Value:
+            Returns {} always
+    '''
+    auth_user_id = validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+    if len(handle_str) < 3 or len(handle_str) > 20:
+        raise InputError("Handle must be between 3-20 characters")
+    if not handle_str.isalnum():
+        raise InputError("Handle must contain only alphanumeric characters.")
+    if check_duplicate(handle_str, 'handle'):
+        raise InputError("This handle is already taken by another user.")
+
+    store = data_store.get()
+    store['users'][auth_user_id]['handle'] = handle_str
+    data_store.set(store)
+    write_data(data_store)
+
+    return {
+    }
 
 def admin_user_remove_v1(token, u_id):
     pass
