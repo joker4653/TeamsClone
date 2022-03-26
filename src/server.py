@@ -216,7 +216,12 @@ def handle_message_edit():
     message_id = params.get('message_id', None)
     messages = params.get('message', None)
 
-    return dumps(message.message_edit_v1(token, message_id, messages))
+    user_id = other.validate_token(token)
+    if user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(message.message_edit_v1(user_id, message_id, messages))
 
 
 @APP.route("/message/remove/v1", methods=['DELETE'])
@@ -225,7 +230,12 @@ def handle_message_remove():
     token = params.get('token', None)
     message_id = params.get('message_id', None)
 
-    return dumps(message.message_remove_v1(token, message_id))
+    user_id = other.validate_token(token)
+    if user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(message.message_remove_v1(user_id, message_id))
 
 
 @APP.route("/dm/create/v1", methods=['POST'])

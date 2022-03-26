@@ -25,7 +25,6 @@ def message_find(message_id):
 	store = data_store.get()
 
 	channels = store["channels"]
-	print(type(channels))
 	for id, info in channels.items():
 		for i, message in enumerate(info["messages"]):
 			if message["message_id"] == message_id:
@@ -45,23 +44,17 @@ def assign_message_id(store):
 	minimum = 1
 	for channel in store["channels"].values():
 		ids = [message["message_id"] for message in channel["messages"]]
-		max_id = max(ids, default=1)
-		min_id = min(ids, default=1)
-		maximum = max(max_id, maximum)
-		minimum = min(min_id, minimum)
+		maximum = max(max(ids, default=1), maximum)
+		minimum = min(min(ids, default=1), minimum)
 
 	for dm in store["dms"].values():
 		ids = [message["message_id"] for message in dm["messages"]]
-		max_id = max(ids, default=1)
-		min_id = min(ids, default=1)
-		maximum = max(max_id, maximum)
-		minimum = min(min_id, minimum)
+		maximum = max(max(ids, default=1), maximum)
+		minimum = min(min(ids, default=1), minimum)
 	
 	if minimum > 1:
-		print(f" JHAHAH ----- {minimum - 1}")
 		return minimum - 1
 	else:
-		print(f" JAHAHHAAJ ----- {maximum + 1}")
 		return maximum + 1
 
 
