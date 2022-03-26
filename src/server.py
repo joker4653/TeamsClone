@@ -105,7 +105,7 @@ def handle_channel_details():
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
-    return dumps(channel.channel_details_v1(token, channel_id))
+    return dumps(channel.channel_details_v1(auth_user_id, channel_id))
 
 
 @APP.route("/channel/join/v2", methods=['POST'])
