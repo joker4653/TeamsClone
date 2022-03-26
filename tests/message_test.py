@@ -230,13 +230,46 @@ def test_owner_remove_message(test_send_messages, initialise_tests):
     assert response.status_code == 200
     response = process_test_request("channel/messages/v2", "get", {
         "token": initialise_tests[1].get("token"), # jane user
-        "channel_id": initialise_tests[4].get("channel_id"), # johns channel
+        "channel_id": initialise_tests[4].get("channel_id"), # janes channel
         "start": 0
     })
     messages = response.json()["messages"]
     assert len(messages) == 1
     assert messages[0]["message"] == "jane message in channel2"
     assert messages[0]["message_id"] == test_send_messages[3]
+
+
+
+def test_edit_message_input_errors(test_send_messages, initialise_tests):
+    # message too long
+    response = process_test_request("message/edit/v1", "put", {
+        "token": initialise_tests[0].get("token"), # John
+        "message_id": test_send_messages[2], # Johns message_id
+        "message": ''.join(random.choice(string.ascii_letters) for i in range(1001))
+    })
+    assert response.status_code == 400
+
+    # 
+
+def test_edit_message_access_errors(test_send_messages, initialise_tests):
+    pass
+
+def test_edit_messages(test_send_messages, initialise_tests):
+    response = process_test_request("message/edit/v1", "put", {
+        "token": initialise_tests[0].get("token"), # John
+        "message_id": test_send_messages[2], # Johns message_id
+        "message": "Johns message has been edited!"
+    })
+    assert response.status_code == 200
+    response = process_test_request("channel/messages/v2", "get", {
+        "token": initialise_tests[0].get("token"), # john user
+        "channel_id": initialise_tests[3].get("channel_id"), # johns channel
+        "start": 0
+    })
+    messages = response.json()["messages"]
+    assert len(messages) == 1
+    assert messages[0]["message"] == "Johns message has been edited!"
+    assert messages[0]["message_id"] == test_send_messages[2]
 
 '''
 
@@ -261,25 +294,6 @@ def test_invalid_user_dm_messages(initialise_tests):
     pass
 
 def test_invalid_user_channel_messages(initialise_tests):
-    pass
-
-
-def test_edit_message_input_errors(initialise_tests):
-    pass
-
-def test_edit_message_access_errors(initialise_tests):
-    pass
-
-def test_edit_messages(initialise_tests):
-    pass
-
-def test_remove_message_access_errors(initialise_tests):
-    pass
-
-def test_remove_message_input_errors(initialise_tests):
-    pass
-
-def test_remove_messages(initialise_tests):
     pass
 
 

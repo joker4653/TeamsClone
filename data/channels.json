@@ -31,8 +31,8 @@
             {
                 "message_id": 4,
                 "u_id": 1,
-                "message": "john message in channel1",
-                "time_sent": 1648265362
+                "message": "Johns message has been edited!",
+                "time_sent": 1648292042
             }
         ]
     },
@@ -69,7 +69,7 @@
                 "message_id": 5,
                 "u_id": 2,
                 "message": "jane message in channel2",
-                "time_sent": 1648265362
+                "time_sent": 1648292042
             }
         ]
     }
