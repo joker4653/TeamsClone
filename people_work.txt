@@ -1,6 +1,6 @@
 Laura - auth_login_v2, auth_register_v2, clear_v2, auth_logout_v2, channel_leave_v1, auth/logout/v1, admin/user/remove/v1
 
-Joseph - channels_list, channels_listall, dm/create/v1, dm/list/v1/ dm/details/v1, dm/details/remove, dm/removes
+Joseph - channels_list, channels_listall, dm/create/v1, dm/list/v1/ dm/details/v1, dm/remove/v1, dm/leave/v1
 
 Sagar - channel_details_v1, channel_join_v1, channel_details_v2, channel_join_v2, user/all/v1, user/profile/v1, user/profile/setemail/v1, admin/userpermission/change/v1
 
