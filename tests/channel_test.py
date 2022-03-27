@@ -184,7 +184,6 @@ def test_join_success(example_user_id):
     assert len(channel_details['all_members']) == 3
 
 """
-
 # Can't test the number of messages as there is no function to implement this yet.
 # Therefore, also can't test InputError when start is greater than the total number 
 # of messages in the channel.
