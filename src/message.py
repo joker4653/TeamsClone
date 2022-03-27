@@ -163,29 +163,29 @@ channel/DM that the authorised user has joined.
         Returns {} always.
     '''
     if len(message) > 1000:
-		raise InputError("length of message is over 1000 characters")
+        raise InputError("length of message is over 1000 characters")
 
-	store = data_store.get()
-	message_info = message_find(message_id) # format (channel_id, index)
+    store = data_store.get()
+    message_info = message_find(message_id) # format (channel_id, index)
 
-	if not message_info:
-		raise InputError("message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
-	channel_dm_id = message_info[0]
-	index = message_info[1]
-	message_type = message_info[2]
+    if not message_info:
+        raise InputError("message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
+    channel_dm_id = message_info[0]
+    index = message_info[1]
+    message_type = message_info[2]
 
-	if (not c_is_member(auth_user_id, channel_dm_id)) and (not d_is_member(auth_user_id, channel_dm_id)):
-		raise InputError("message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
+    if (not c_is_member(auth_user_id, channel_dm_id)) and (not d_is_member(auth_user_id, channel_dm_id)):
+        raise InputError("message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
 	
-	if not (c_is_owner(auth_user_id, channel_dm_id)) and not (d_is_owner(auth_user_id, channel_dm_id)):
-		if store[message_type][channel_dm_id]["messages"][index]["u_id"] != auth_user_id:
-			raise AccessError
+    if not (c_is_owner(auth_user_id, channel_dm_id)) and not (d_is_owner(auth_user_id, channel_dm_id)):
+        if store[message_type][channel_dm_id]["messages"][index]["u_id"] != auth_user_id:
+            raise AccessError
 
-	store["channels"][channel_dm_id]["messages"][index]["message"] = message
+    store["channels"][channel_dm_id]["messages"][index]["message"] = message
 
-	data_store.set(store)
-	write_data(data_store)
-	return {}
+    data_store.set(store)
+    write_data(data_store)
+    return {}
 
 
 def message_remove_v1(auth_user_id, message_id):
@@ -207,26 +207,26 @@ channel/DM that the authorised user has joined.
     Return Value:
         Returns {} always.
     '''
-	# Authenticate token and convert to user_id
-	message_info = message_find(message_id)
-	if not message_info:
-		raise InputError("message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
+    # Authenticate token and convert to user_id
+    message_info = message_find(message_id)
+    if not message_info:
+        raise InputError("message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
 	
-	channel_dm_id = message_info[0]
-	index = message_info[1]
-	message_type = message_info[2]
+    channel_dm_id = message_info[0]
+    index = message_info[1]
+    message_type = message_info[2]
 
-	store = data_store.get()
+    store = data_store.get()
 
-	if (not c_is_member(auth_user_id, channel_dm_id)) and (not d_is_member(auth_user_id, channel_dm_id)):
-		raise InputError("message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
+    if (not c_is_member(auth_user_id, channel_dm_id)) and (not d_is_member(auth_user_id, channel_dm_id)):
+        raise InputError("message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
 
-	if not (c_is_owner(auth_user_id, channel_dm_id)) and not (d_is_owner(auth_user_id, channel_dm_id)):
-		if store[message_type][channel_dm_id]["messages"][index]["u_id"] != auth_user_id:
-			raise AccessError
+    if not (c_is_owner(auth_user_id, channel_dm_id)) and not (d_is_owner(auth_user_id, channel_dm_id)):
+        if store[message_type][channel_dm_id]["messages"][index]["u_id"] != auth_user_id:
+            raise AccessError
 
-	del store[message_type][channel_dm_id]["messages"][index]
+    del store[message_type][channel_dm_id]["messages"][index]
 
-	data_store.set(store)
-	write_data(data_store)
-	return {}
+    data_store.set(store)
+    write_data(data_store)
+    return {}
