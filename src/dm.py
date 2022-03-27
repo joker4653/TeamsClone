@@ -273,13 +273,6 @@ def dm_leave_v1(token,dm_id):
     return {}
 
 
-def dm_messages_v1(auth_user_id, dm_id, start):
-    if not valid_dm_id(dm_id):
-        raise InputError("This dm_id does not correspond to an existing dm.")
-    if not is_member(auth_user_id, dm_id):
-        raise AccessError("dm_id is valid and the authorised user is not a member of the DM")
-
-
 def dm_messages_v1(token, dm_id, start):
     '''
     Given a DM with ID dm_id that the authorised user is a member of, return up to 50 messages
@@ -305,6 +298,11 @@ channel.
         }
 
     '''
+    if not valid_dm_id(dm_id):
+        raise InputError("This dm_id does not correspond to an existing dm.")
+    if not is_member(auth_user_id, dm_id):
+        raise AccessError("dm_id is valid and the authorised user is not a member of the DM")
+
     store = data_store.get()
     dm = store["dms"][dm_id]
     messages = dm["messages"]
