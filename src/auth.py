@@ -110,7 +110,8 @@ def auth_register_v1(email, password, name_first, name_last):
         'first': name_first,
         'last': name_last,
         'permissions_id': permissions,
-        'sessions': [session_id]
+        'sessions': [session_id],
+        'removed': False
     }
     
     #Add new user to data_store
@@ -190,7 +191,7 @@ def check_duplicate(new, field):
     store = data_store.get()
     for user in store['users'].values():
         # Check if the user field is the same as new.
-        if user[field] == new:
+        if user[field] == new and user['removed'] == False:
             # This new entry is a duplicate.
             return True
     return False

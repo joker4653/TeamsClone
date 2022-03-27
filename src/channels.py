@@ -94,6 +94,7 @@ who created it automatically joins the channel.
 
     # Create a new channel, user creating channel becomes an owner.
     new_channel_details = {
+            'channel_id': new_channel_id,
             'channel_owner_ids': [user_info(auth_user_id)],
             'name': name,
             'is_public': is_public,
