@@ -169,8 +169,7 @@ def test_channel_messages_start_invalid_user(user_tests, channel_id):
         "start": 0
     })
     assert response.status_code == 403
-'''
-'''
+
 
 def test_clear_again():
     process_test_request("clear/v1", "delete", {})

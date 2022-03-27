@@ -89,8 +89,9 @@ def send_message(auth_user_id, id, message, dm_or_channel):
 	store[dm_or_channel][id]["messages"].insert(0, message_dict)
 	data_store.set(store)
 	write_data(data_store)
-
 	return {"message_id": message_id}
+
+
 
 def message_send_v1(auth_user_id, channel_id, message):
     '''
