@@ -308,8 +308,12 @@ def handle_dm_messages():
     token = params.get('token', None)
     dm_id = params.get('dm_id', None)
     start = params.get('start', None)
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
 
-    return dumps(dm.dm_messages_v1(token, dm_id, start))
+    return dumps(dm.dm_messages_v1(auth_user_id, dm_id, start))
 
 
 @APP.route("/message/senddm/v1", methods=['POST'])
