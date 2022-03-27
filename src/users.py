@@ -2,7 +2,7 @@
 
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import validate_token
+from src.other import validate_token, valid_user_id
 from src.data_json import write_data
 from src.auth import check_duplicate
 import re
@@ -20,8 +20,14 @@ def users_all_v1(token):
     return user_list
 
 def user_profile_v1(token, u_id):
-    pass
-
+    auth_user_id = validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+    if not valid_user_id(u_id):
+        raise InputError("u_id provided is not valid; this user does not exist.")
+    data = data_store.get()
+    return data['users'][u_id]
 
 def user_profile_setname_v1(token, name_first, name_last):
     '''Updates the authorised user's first and last name.
