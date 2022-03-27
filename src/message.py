@@ -181,7 +181,7 @@ channel/DM that the authorised user has joined.
             raise AccessError
 
     if len(message) == 0:
-    del store[message_type][channel_dm_id]["messages"][index]
+        del store[message_type][channel_dm_id]["messages"][index]
     else:
         store["channels"][channel_dm_id]["messages"][index]["message"] = message
     data_store.set(store)
