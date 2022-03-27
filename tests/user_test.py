@@ -28,6 +28,7 @@ def test_user_setemail_invalid_email(example_user_id):
 def test_user_setemail_email_already_taken(example_user_id):
     get_user = process_test_request(route="/user/profile/v1", method='get', inputs={'token': example_user_id[0].get('token'), 'u_id': example_user_id[0].get('auth_user_id')})
     user_info = get_user.json()
+    print("user_info at user test - " , user_info)
     response = process_test_request(route="/user/profile/setemail/v1", method='put', inputs={'token': example_user_id[1].get('token'), 'email': user_info['email']})
     assert response.status_code == 400
     

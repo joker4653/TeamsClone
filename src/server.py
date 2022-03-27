@@ -99,7 +99,9 @@ def handle_channel_details():
     params = request.args
     token = params.get('token', None)
     channel_id = params.get('channel_id', None)
+    print("channel_id and type at channel details - " , channel_id, type(channel_id))
     auth_user_id = other.validate_token(token)
+    print("auth_user_id and type at channel details - " , auth_user_id, type(auth_user_id))
     if auth_user_id == False:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
