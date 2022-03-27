@@ -10,6 +10,7 @@ def clear_v1():
     store['sessions_no'] = 1
     store['users'] = {}
     store['channels'] = {}
+    store['dms'] = {}
     data_store.set(store)
     write_data(data_store)
 
@@ -95,3 +96,28 @@ def user_info(auth_user_id):
         'handle_string': store['users'][auth_user_id]['handle'],
     }
 
+def is_global_owner(user_id):
+    '''Return true if a user is a global owner, return false otherwise.'''
+    if not valid_user_id(user_id):
+        return False
+    store = data_store.get()
+    global_status = store['users'][user_id]['permissions_id']
+    if global_status == 1:
+        return True
+    else:
+        return False
+
+def is_only_global_owner(u_id):
+    '''Returns true if user with u_id is the only global owner, false otherwise.'''
+    if not is_global_owner(u_id):
+        return False
+    
+    store = data_store.get()
+    count = 0
+    for user_info in store['users'].values():
+        if user_info['permissions_id'] == 1:
+            # This user is a global owner
+            count += 1
+        if count > 1:
+            return False
+    return True
