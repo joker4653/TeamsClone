@@ -36,7 +36,7 @@ def users_all_v1(token):
     user_list = []
     for u in data['users']:
         if data['users'][u]['removed'] == False:
-            user_details = user_info(auth_user_id)
+            user_details = user_info(data['users'][u]['id'])
             user_list.append({
                 'u_id': user_details.get('u_id'),
                 'email': user_details.get('email'),
