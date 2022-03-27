@@ -318,31 +318,5 @@ def test_0_messages_dms(test_dms):
         "end": -1
     }
 
-
-
-
-'''
-def test_invalid_channel_messages(initialise_tests):
-    channel_id = initialise_tests[2].get("channel_id")
-    invalid_id = channel_id + 1
-
-    resposen = process_test_request("/channel/messages/v2", "get", {
-        "token": initialise_tests[0].get("token"),
-        "channel_id": invalid_id,
-        "start": 0
-    })
-    pass
-
-def test_invalid_dm_messages(initialise_tests):
-    pass
-
-def test_invalid_user_dm_messages(initialise_tests):
-    pass
-
-def test_invalid_user_channel_messages(initialise_tests):
-    pass
-
-
-'''
 def test_clear_again():
     process_test_request("clear/v1", "delete", {})

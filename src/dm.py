@@ -188,8 +188,6 @@ def dm_leave_v1(token,dm_id):
 
 
 def dm_messages_v1(auth_user_id, dm_id, start):
-    if not valid_user_id(auth_user_id):
-        raise AccessError("auth_user_id provided is not valid; this user does not exist.")    
     if not valid_dm_id(dm_id):
         raise InputError("This dm_id does not correspond to an existing dm.")
     if not is_member(auth_user_id, dm_id):
