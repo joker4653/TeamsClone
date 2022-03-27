@@ -70,7 +70,7 @@ cheers, Nick.
 '''
 
 # DMS data store
-''''channels' = {
+''''dms' = {
         1: {
             'dm_owner_id':      [user_info(auth_user_id), details in other.py],
             'name':             string name,
