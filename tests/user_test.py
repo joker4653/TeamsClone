@@ -6,10 +6,15 @@ import jwt
 
 from tests.process_request import process_test_request
 
+#tests for users/all/v1
+def test_users_all_success(example_user_id):
+    response = process_test_request(route = '/users/all/v1', method = 'get', inputs = {'token':example_user_id[0].get('token')})
+    assert response.status_code == 200
+
 #tests for user/profile/v1
 def test_user_profile_invalid_u_id(example_user_id):
-    response = process_test_request(route="/user/profile/v1", method='get', inputs={'token': example_user_id[0].get('token'), 'u_id': -1})
-    assert  response.status_code == 400
+    response = process_test_request(route="/user/profile/v1", method='get', inputs={'token': example_user_id[0].get('token'), 'u_id': int('-999')})
+    assert response.status_code == 400
 
 def test_user_profile_success(example_user_id):
     response = process_test_request(route="/user/profile/v1", method='get', inputs={'token': example_user_id[0].get('token'), 'u_id': example_user_id[0].get('auth_user_id')})
@@ -18,16 +23,14 @@ def test_user_profile_success(example_user_id):
 # tests for user/profile/setemail/v1
 def test_user_setemail_invalid_email(example_user_id):  
     response = process_test_request(route="/user/profile/setemail/v1", method='put', inputs={'token': example_user_id[0].get('token'), 'email': "wearebadgers.com"})
-    assert  response.status_code == 400
+    assert response.status_code == 400
 
-# TODO: uncomment
 def test_user_setemail_email_already_taken(example_user_id):
-    #get_user = process_test_request(route="/user/profile/v1", method='get', inputs={'token': example_user_id[0].get('token'), 'u_id': example_user_id[0].get('auth_user_id')})
-    #user_info = get_user.json()
-    #response = process_test_request(route="/user/profile/setemail/v1", method='put', inputs={'token': example_user_id[1].get('token'), 'email': user_info['email']})
-    #assert response.status_code == 400
-    pass
-
+    get_user = process_test_request(route="/user/profile/v1", method='get', inputs={'token': example_user_id[0].get('token'), 'u_id': example_user_id[0].get('auth_user_id')})
+    user_info = get_user.json()
+    response = process_test_request(route="/user/profile/setemail/v1", method='put', inputs={'token': example_user_id[1].get('token'), 'email': user_info['email']})
+    assert response.status_code == 400
+    
 # tests for user/profile/setname/v1
 def test_user_setname_invalid_first_name(example_user_id):
     response_short_name = process_test_request(route="/user/profile/setname/v1", method='put', inputs={'token': example_user_id[0].get('token'), 'name_first': "", 'name_last': "good_last_name"})
