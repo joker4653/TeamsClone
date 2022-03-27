@@ -33,6 +33,23 @@ def is_owner(user_id, dm_id):
 
 
 def dm_create(token, u_ids):
+    '''
+    Create a direct messaging chain (dm) between two users.
+    
+    Arguments:
+        token      (str)   - an active token corresponding to a certain user.
+        u_ids      (ints)  - the IDs of the two users of the dm.
+
+    Exceptions:
+        InputError  -occurs when:   - any u_id in u_ids does not refer to a valid user.
+                                    - there are duplicate 'u_id's in u_ids.
+    
+    Return Value:
+        returns {
+            'dm_id': [The id of the new dm.]
+        } 
+
+    '''
     owner_id = validate_token(token)
 
     # validate creator of DM
@@ -98,6 +115,20 @@ def dm_create(token, u_ids):
 
 
 def dm_list_v1(token):
+    '''
+    Returns the list of DMs that the user is a member of.
+    
+    Arguments:
+        token      (str)   - an active token corresponding to a certain user.
+
+    Exceptions: N/A
+    
+    Return Value:
+        returns {
+            'dms': [A list of all dms the user is a member of.]
+        } 
+
+    '''
     auth_user_id = token
 
     if auth_user_id is False:
@@ -124,6 +155,25 @@ def dm_list_v1(token):
 
 
 def dm_remove_v1(token, dm_id):
+    '''
+    Remove an existing DM, so all members are no longer in the DM. This can only be done by the
+original creator of the DM.
+    
+    Arguments:
+        token      (str)   - an active token corresponding to a certain user.
+        dm_id      (int)   - the ID of a certain dm.
+
+    Exceptions:
+        InputError  -occurs when:   - dm_id does not refer to a valid DM.
+
+        AccessError -occurs when:   - dm_id is valid and the authorised user is not the original DM
+creator
+                                    - dm_id is valid and the authorised user is no longer in the DM.
+    
+    Return Value:
+        Returns {} always.
+
+    '''
     auth_user_id = token
 
     if auth_user_id == False:
@@ -151,6 +201,25 @@ def dm_remove_v1(token, dm_id):
 
 
 def dm_details_v1(token, dm_id):
+    '''
+    Given a DM with ID dm_id that the authorised user is a member of, provide basic details about the DM.
+    
+    Arguments:
+        token      (str)   - an active token corresponding to a certain user.
+        dm_id      (int)   - the ID of a certain dm.
+
+    Exceptions:
+        InputError  -occurs when:   - dm_id does not refer to a valid DM.
+
+        AccessError -occurs when:   - dm_id is valid and the authorised user is not a member of the DM.
+    
+    Return Value:
+        Returns {
+            'name': [The name of the DM.]
+            'members': [The two members of the DM.]
+        }
+
+    '''
     store = data_store.get()
     auth_user_id = validate_token(token)
     if auth_user_id == False:
@@ -169,6 +238,22 @@ def dm_details_v1(token, dm_id):
     
     
 def dm_leave_v1(token,dm_id):
+    '''
+    Given a DM ID, the user is removed as a member of this DM.
+    
+    Arguments:
+        token      (str)   - an active token corresponding to a certain user.
+        dm_id      (int)   - the ID of a certain dm.
+
+    Exceptions:
+        InputError  -occurs when:   - dm_id does not refer to a valid DM.
+
+        AccessError -occurs when:   - dm_id is valid and the authorised user is not a member of the DM.
+    
+    Return Value:
+        Returns {} always.
+
+    '''
     store = data_store.get()
     auth_user_id = validate_token(token)
     if auth_user_id == False:
@@ -189,6 +274,30 @@ def dm_leave_v1(token,dm_id):
 
 
 def dm_messages_v1(auth_user_id, dm_id, start):
+    '''
+    Given a DM with ID dm_id that the authorised user is a member of, return up to 50 messages
+between index "start" and "start + 50". 
+    
+    Arguments:
+        token      (str)   - an active token corresponding to a certain user.
+        dm_id      (int)   - the ID of a certain dm.
+        start      (int)   - the index where the messages should start.
+
+    Exceptions:
+        InputError  -occurs when:   - dm_id does not refer to a valid DM.
+                                    - start is greater than the total number of messages in the
+channel.
+
+        AccessError -occurs when:   - dm_id is valid and the authorised user is not a member of the DM.
+    
+    Return Value:
+        Returns {
+            'messages': [The messages in the given area of the DM.]
+            'start': [The index of the beginning of the messages.]
+            'end': [The index of the end of the messages.]
+        }
+
+    '''
     if not valid_dm_id(dm_id):
         raise InputError("This dm_id does not correspond to an existing dm.")
     if not is_member(auth_user_id, dm_id):

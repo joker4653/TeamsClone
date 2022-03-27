@@ -5,6 +5,19 @@ from src.channel import is_member
 from src.data_json import write_data
 
 def channels_list_v1(auth_user_id):
+    '''
+    Provide a list of all channels (and their associated details) that the authorised user is part of.
+    
+    Arguments:
+        token      (str)   - an active token corresponding to a certain user.
+
+    Exceptions: N/A
+
+    Return Value:
+        returns {
+            'channels': [A list of the channels.]
+        } 
+    '''
     if valid_user_id(auth_user_id) == False:
         raise AccessError("auth_user_id provided is not valid; this user does not exist.")
     data = data_store.get()
@@ -25,6 +38,20 @@ def channels_list_v1(auth_user_id):
     return new_list
 
 def channels_listall_v1(auth_user_id):
+    '''
+    Provide a list of all channels, including private channels, (and their associated details).
+    
+    Arguments:
+        token      (str)   - an active token corresponding to a certain user.
+
+    Exceptions: N/A
+
+    Return Value:
+        returns {
+            'channels': [A list of all channels.]
+        } 
+
+    '''
     if valid_user_id(auth_user_id) == False:
         raise AccessError("auth_user_id provided is not valid; this user does not exist.")
     data = data_store.get()
@@ -41,8 +68,9 @@ def channels_listall_v1(auth_user_id):
     return new_list
 
 def channels_create_v1(auth_user_id, name, is_public):
-    ''' Creates a new channel with the given name that is either a public or private channel. 
-        The user who created it automatically joins the channel.
+    '''
+    Creates a new channel with the given name that is either a public or private channel. The user
+who created it automatically joins the channel.
 
         Arguments:
             auth_user_id   (int)      - the id of an authenticated user.
