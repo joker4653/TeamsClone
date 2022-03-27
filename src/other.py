@@ -10,6 +10,7 @@ def clear_v1():
     store['sessions_no'] = 1
     store['users'] = {}
     store['channels'] = {}
+    store['dms'] = {}
     data_store.set(store)
     write_data(data_store)
 

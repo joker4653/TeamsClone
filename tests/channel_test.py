@@ -91,6 +91,41 @@ def test_invite_multiple(example_user_id):
     #channel_details = json.loads(response2.text)
     #assert len(channel_details['all_members']) == 3
 
+
+def test_list_invalid_token(example_user_id):
+    process_test_request(route="/auth/logout/v1", method='post', inputs={'token': example_user_id[0].get('token')})
+    response = process_test_request(route="/channels/list/v2", method='get', inputs={'token': example_user_id[0].get('token')})
+
+    # Access Error
+    assert(response.status_code == 403)
+
+def test_list_expected_output(example_user_id):
+    process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[2].get('token'), 'name': "I_love_seams", 'is_public': True})
+    process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[2].get('token'), 'name': "cool_channel", 'is_public': False})
+    response = process_test_request(route = "/channels/list/v2", method = 'get', inputs = {'token': example_user_id[2].get('token')})
+    all_channels = json.loads(response.text)
+    assert len(all_channels) == 2
+
+    # no Error
+    assert(response.status_code == 200)
+
+def test_listall_invalid_token(example_user_id):
+    process_test_request(route="/auth/logout/v1", method='post', inputs={'token': example_user_id[0].get('token')})
+    response = process_test_request(route="/channels/listall/v2", method='get', inputs={'token': example_user_id[0].get('token')})
+
+    # Access Error
+    assert(response.status_code == 403)
+
+
+def test_listall_expected_output(example_user_id):
+    process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[2].get('token'), 'name': "I_love_seams", 'is_public': True})
+    process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[2].get('token'), 'name': "cool_channel", 'is_public': False})
+    response = process_test_request(route = "/channels/listall/v2", method = 'get', inputs = {'token': example_user_id[2].get('token')})
+    all_channels = json.loads(response.text)
+    assert len(all_channels) == 2
+    # no Error
+    assert(response.status_code == 200)
+
 """
 # tests for channel_details_v1
 def test_detail_invalid_channel_id(example_user_id):
