@@ -5,6 +5,7 @@ from src.error import InputError, AccessError
 from src.other import validate_token
 from src.data_json import write_data
 from src.auth import check_duplicate
+import re
 
 def users_all_v1(token):
     pass
@@ -50,7 +51,24 @@ def user_profile_setname_v1(token, name_first, name_last):
 
 
 def user_profile_setemail_v1(token, email):
-    pass
+    auth_user_id = validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+    '''Checks a certain input set meets the criteria for registering a new user.'''
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    if re.fullmatch(regex, email) == None:
+        raise InputError("Email is of invalid format.")
+    if check_duplicate(email, 'email'):
+        raise InputError("This email is already registered.")
+
+    store = data_store.get()
+    store['users'][auth_user_id]['email'] = email
+    data_store.set(store)
+    write_data(data_store)
+
+    return {
+    }
 
 
 def user_profile_sethandle_v1(token, handle_str):
