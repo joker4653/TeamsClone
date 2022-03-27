@@ -72,6 +72,37 @@ def test_user_sethandle_valid(example_user_id):
     #assert user_info1['handle_str'] == "goodhandl3"
     #assert user_info2['handle_str'] == "675834573"
 
+# tests for admin/user/remove/v1
+def test_user_remove_invalid_u_id(example_user_id):
+    invalid_user_id = sum(abs(d.get('auth_user_id')) for d in example_user_id) + 1
+    response = process_test_request(route="/admin/user/remove/v1", method='delete', inputs={'token': example_user_id[0].get('token'), 'u_id': invalid_user_id})
+    assert response.status_code == 400
+
+def test_user_remove_u_id_is_only_global_owner(example_user_id):
+    response = process_test_request(route="/admin/user/remove/v1", method='delete', inputs={'token': example_user_id[0].get('token'), 'u_id': example_user_id[0].get('auth_user_id')})
+    assert response.status_code == 400
+
+def test_user_remove_auth_user_not_global_owner(example_user_id):
+    response = process_test_request(route="/admin/user/remove/v1", method='delete', inputs={'token': example_user_id[1].get('token'), 'u_id': example_user_id[2].get('auth_user_id')})
+    assert response.status_code == 403
+
+# TODO: uncomment when we have users/all/v1 and user/profile/v1
+def test_user_remove_success(example_user_id):
+    response = process_test_request(route="/admin/user/remove/v1", method='delete', inputs={'token': example_user_id[0].get('token'), 'u_id': example_user_id[1].get('auth_user_id')})
+    assert response.status_code == 200
+
+    #removed_u_id = example_user_id[1].get('auth_user_id')
+    #get_users = process_test_request(route="/users/all/v1", method='get', inputs={'token': example_user_id[0].get('token')})
+    #users = get_users.json()
+    #for user in users:
+    #    assert user['u_id'] != removed_u_id
+
+    #get_user = process_test_request(route="/user/profile/v1", method='get', inputs={'token': example_user_id[0].get('token'), 'u_id': removed_u_id})
+    #user_info = get_user.json()
+    #assert user_info['name_first'] == "Removed"
+    #assert user_info['name_last'] == "user"
+
+
 # NOTE: not an actual test - keep this at the bottom of the test file to clear data stores!
 def test_clear_data_stores():
     process_test_request(route="/clear/v1", method='delete')
