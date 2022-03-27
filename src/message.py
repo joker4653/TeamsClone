@@ -113,7 +113,7 @@ def message_send_v1(auth_user_id, channel_id, message):
         } 
 
     '''
-	return send_message(auth_user_id, channel_id, message, "channels")
+    return send_message(auth_user_id, channel_id, message, "channels")
 
 def message_senddm_v1(auth_user_id, dm_id, message):
     '''
