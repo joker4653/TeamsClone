@@ -2,7 +2,7 @@
 
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import valid_user_id, validate_token, is_only_global_owner
+from src.other import user_info, valid_user_id, validate_token, is_only_global_owner
 from src.data_json import write_data
 from src.auth import check_duplicate
 from src.channel import is_global_owner
@@ -31,8 +31,8 @@ def user_profile_v1(token, u_id):
         raise AccessError("The token provided was invalid.")
     if not valid_user_id(u_id):
         raise InputError("u_id provided is not valid; this user does not exist.")
-    data = data_store.get()
-    return data['users'][u_id]
+    
+    return user_info(u_id)
 
 def user_profile_setname_v1(token, name_first, name_last):
     '''Updates the authorised user's first and last name.

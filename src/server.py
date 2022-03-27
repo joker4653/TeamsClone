@@ -314,7 +314,7 @@ def handle_user_profile():
     token = params.get('token', None)
     u_id = params.get('u_id', None)
 
-    return dumps(users.user_profile_v1(token, u_id))
+    return dumps(users.user_profile_v1(token, int(u_id)))
 
 
 @APP.route("/user/profile/setname/v1", methods=['PUT'])
