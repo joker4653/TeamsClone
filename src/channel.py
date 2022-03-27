@@ -95,7 +95,7 @@ def channel_details_v1(auth_user_id, channel_id):
         'name': curr_channel['name'],
         'is_public': curr_channel['is_public'],
         'owner_members': curr_channel['channel_owner_ids'],
-        'all_members': curr_channel['user_ids'],
+        'all_members': curr_channel['user_ids']
     }
     return return_dict
 

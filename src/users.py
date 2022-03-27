@@ -2,7 +2,7 @@
 
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import valid_user_id, validate_token, is_only_global_owner
+from src.other import user_info, valid_user_id, validate_token, is_only_global_owner
 from src.data_json import write_data
 from src.auth import check_duplicate
 from src.channel import is_global_owner
@@ -10,6 +10,8 @@ from src.channel import is_owner as is_channel_owner
 from src.channel import is_member as is_channel_member
 from src.dm import is_owner as is_dm_owner
 from src.dm import is_member as is_dm_member
+
+import re
 
 def users_all_v1(token):
     '''
@@ -26,13 +28,21 @@ def users_all_v1(token):
         } 
 
     '''
-    pass
+    auth_user_id = validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+    data = data_store.get()
+    user_list = {}
+    for u in data['users']:
+        if data['users'][u]['removed'] == False:
+            user_list[u] = data['users'][u]
+    return user_list
 
-
-def user_profile_v1(rtoken, u_id):
+def user_profile_v1(token, u_id):
     '''
     For a valid user, returns information about their user_id, email, first name, last name, and
-handle.
+    handle.
     
     Arguments:
         token      (str)   - an active token corresponding to a certain user.
@@ -47,7 +57,14 @@ handle.
         } 
 
     '''
-    pass
+    auth_user_id = validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+    if not valid_user_id(u_id):
+        raise InputError("u_id provided is not valid; this user does not exist.")
+    
+    return user_info(u_id)
 
 
 def user_profile_setname_v1(token, name_first, name_last):
@@ -101,7 +118,24 @@ def user_profile_setemail_v1(token, email):
         Returns {} always.
 
     '''
-    pass
+    auth_user_id = validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+    '''Checks a certain input set meets the criteria for registering a new user.'''
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    if re.fullmatch(regex, email) == None:
+        raise InputError("Email is of invalid format.")
+    if check_duplicate(email, 'email'):
+        raise InputError("This email is already registered.")
+
+    store = data_store.get()
+    store['users'][auth_user_id]['email'] = email
+    data_store.set(store)
+    write_data(data_store)
+
+    return {
+    }
 
 
 def user_profile_sethandle_v1(token, handle_str):
@@ -265,5 +299,22 @@ are being demoted to a user.
     Return Value:
         Returns {} always.
     '''
-    pass
+    auth_user_id = validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+    if not valid_user_id(u_id):
+        raise InputError("u_id provided is not valid; this user does not exist.")
+    if not is_global_owner(auth_user_id):
+        raise AccessError("Authorised user is not a global owner, cannot remove users.")
+    if is_only_global_owner(u_id):
+        raise InputError("User with u_id is the only global owner, cannot be removed.")
+    if permission_id not in [1, 2]:
+        raise InputError("Invalid permission id")
 
+    store = data_store.get()
+    user = store['users'][u_id]
+    if user['permissions_id'] != permission_id:
+        user['permissions_id'] = permission_id
+    else:
+        raise InputError("User already has these permissions")

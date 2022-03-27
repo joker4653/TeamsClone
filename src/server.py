@@ -110,8 +110,12 @@ def handle_channel_details():
     params = request.args
     token = params.get('token', None)
     channel_id = params.get('channel_id', None)
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
 
-    return dumps(channel.channel_details_v1(token, channel_id))
+    return dumps(channel.channel_details_v1(auth_user_id, int(channel_id)))
 
 
 @APP.route("/channel/join/v2", methods=['POST'])
@@ -346,7 +350,7 @@ def handle_user_profile():
     token = params.get('token', None)
     u_id = params.get('u_id', None)
 
-    return dumps(users.user_profile_v1(token, u_id))
+    return dumps(users.user_profile_v1(token, int(u_id)))
 
 
 @APP.route("/user/profile/setname/v1", methods=['PUT'])
