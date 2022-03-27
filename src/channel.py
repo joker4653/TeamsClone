@@ -1,7 +1,7 @@
 from tokenize import endpats
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import valid_user_id, valid_channel_id, user_info, validate_token
+from src.other import valid_user_id, valid_channel_id, user_info, validate_token, is_global_owner
 from src.data_json import write_data
 
 def is_member(user_id, channel_id):
@@ -21,17 +21,6 @@ def is_owner(user_id, channel_id):
         if any(owner['u_id'] == user_id for owner in owner_ids):
             return True
     return False
-
-def is_global_owner(user_id):
-    '''Return true if a user is a global owner, return false otherwise.'''
-    if not valid_user_id(user_id):
-        return False
-    store = data_store.get()
-    global_status = store['users'][user_id]['permissions_id']
-    if global_status == 1:
-        return True
-    else:
-        return False
 
 
 def channel_invite_v1(auth_user_id, channel_id, u_id):
