@@ -136,7 +136,7 @@ def message_senddm_v1(auth_user_id, dm_id, message):
         } 
 
     '''
-	return send_message(auth_user_id, dm_id, message, "dms")
+    return send_message(auth_user_id, dm_id, message, "dms")
 
 
 
@@ -162,7 +162,7 @@ channel/DM that the authorised user has joined.
     Return Value:
         Returns {} always.
     '''
-	if len(message) > 1000:
+    if len(message) > 1000:
 		raise InputError("length of message is over 1000 characters")
 
 	store = data_store.get()
