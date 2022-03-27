@@ -164,27 +164,45 @@ def test_user_remove_auth_user_not_global_owner(example_user_id):
 
 # TODO: uncomment when we have users/all/v1 and user/profile/v1
 def test_user_remove_success(example_user_id):
-    response = process_test_request(route="/admin/user/remove/v1", method='delete', inputs={
+    response1 = process_test_request(route="/admin/user/remove/v1", method='delete', inputs={
         'token': example_user_id[0].get('token'), 
         'u_id': example_user_id[1].get('auth_user_id')
     })
-    assert response.status_code == 200
+    assert response1.status_code == 200
 
     #removed_u_id = example_user_id[1].get('auth_user_id')
+    #get_removed_user = process_test_request(route="/user/profile/v1", method='get', inputs={
+    #    'token': example_user_id[0].get('token'), 
+    #    'u_id': removed_u_id
+    #})
+    #removed_user_info = get_removed_user.json()
+
+    # Check that name has been updated correctly.
+    #assert removed_user_info['name_first'] == "Removed"
+    #assert removed_user_info['name_last'] == "user"
+
+    # Check it is possible to register a user with same email address as this removed user.    
+    #response2 = process_test_request(route="/auth/register/v2", method='post', inputs={
+    #    'email': removed_user_info['email'], 
+    #    'password': "my_good_password3", 
+    #    'name_first': "John", 
+    #    'name_last': "Smith"
+    #})
+
+    # Check it is possible to change a user's handle to this removed user's handle.
+    #response3 = process_test_request(route="/user/profile/sethandle/v1", method='put', inputs={
+    #    'token': example_user_id[2].get('token'), 
+    #    'handle_str': removed_user_info['handle_str']
+    #})
+
+    #assert response2.status_code == response3.status_code == 200
+
     #get_users = process_test_request(route="/users/all/v1", method='get', inputs={
     #    'token': example_user_id[0].get('token')
     #})
     #users = get_users.json()
     #for user in users:
     #    assert user['u_id'] != removed_u_id
-
-    #get_user = process_test_request(route="/user/profile/v1", method='get', inputs={
-    #    'token': example_user_id[0].get('token'), 
-    #    'u_id': removed_u_id
-    #})
-    #user_info = get_user.json()
-    #assert user_info['name_first'] == "Removed"
-    #assert user_info['name_last'] == "user"
 
 
 # NOTE: not an actual test - keep this at the bottom of the test file to clear data stores!
