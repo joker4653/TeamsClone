@@ -273,7 +273,7 @@ def dm_leave_v1(token,dm_id):
     return {}
 
 
-def dm_messages_v1(token, dm_id, start):
+def dm_messages_v1(auth_user_id, dm_id, start):
     '''
     Given a DM with ID dm_id that the authorised user is a member of, return up to 50 messages
 between index "start" and "start + 50". 
