@@ -284,6 +284,22 @@ def test_edit_messages(test_send_messages, initialise_tests):
     assert messages[0]["message_id"] == test_send_messages[2]
 
 
+def test_edit_delete(test_send_messages, initialise_tests):
+    response = process_test_request("message/edit/v1", "put", {
+        "token": initialise_tests[1].get("token"), # John
+        "message_id": test_send_messages[3], # Johns message_id
+        "message": ""
+    })
+    assert response.status_code == 200
+    response = process_test_request("channel/messages/v2", "get", {
+        "token": initialise_tests[1].get("token"), # jane user
+        "channel_id": initialise_tests[4].get("channel_id"), # janes channel
+        "start": 0
+    })
+    messages = response.json()["messages"]
+    assert len(messages) == 0
+
+
 @pytest.fixture(scope='session')
 def test_dms():
     process_test_request("clear/v1", "delete", {})
@@ -317,6 +333,32 @@ def test_0_messages_dms(test_dms):
         "start": 0,
         "end": -1
     }
+
+
+def test_send_dm_inputerror(test_dms):
+    john_data, dm_id = test_dms[0], test_dms[2]
+    response = process_test_request("message/senddm/v1", "post", {
+        "token": john_data.get("token"),
+        "dm_id": dm_id + 1,
+        "message": "..."
+    })
+    assert response.status_code == 400
+
+
+def test_send_dm_accesserror(test_dms):
+    john_data, dm_id = test_dms[0], test_dms[2]
+    process_test_request("dm/leave/v1", "post", {
+        "token": john_data.get("token"),
+        "dm_id": dm_id
+    })
+    response = process_test_request("message/senddm/v1", "post", {
+        "token": john_data.get("token"),
+        "dm_id": dm_id,
+        "message": "..."
+    })
+    assert response.status_code == 403
+
+
 
 def test_clear_again():
     process_test_request("clear/v1", "delete", {})
