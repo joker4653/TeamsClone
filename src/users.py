@@ -8,10 +8,18 @@ from src.auth import check_duplicate
 import re
 
 def users_all_v1(token):
-    pass
+    auth_user_id = validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+    data = data_store.get()
+    user_list = {}
+    for u in data['users']:
+        if data['users'][u]['removed'] == False:
+            user_list[u] = data['users'][u]
+    return user_list
 
-
-def user_profile_v1(rtoken, u_id):
+def user_profile_v1(token, u_id):
     pass
 
 
