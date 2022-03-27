@@ -71,6 +71,19 @@ where the keys "1" and "2" are the channel ids, whose values are dictionaries
 containing information about the channel.
 cheers, Nick.
 '''
+
+# DMS data store
+''''dms' = {
+        1: {
+            'dm_owner_id':      [user_info(auth_user_id), details in other.py],
+            'name':             string name,
+            'dm_id':            integer,
+            'user_ids':         [user_info(auth_user_id), details in other.py],
+            'messages':         dict
+        }
+'''
+
+
 import json
 import os
 
