@@ -35,7 +35,8 @@ Just a note about the setup of the users dict. As users are added, they are stor
     'first': [string first name]
     'last': [string last name]
     'permissions_id': [int indicating global user permissions. 1 for global owner, 2 otherwise.]
-    'sessions': [list of active sessions (ints) of this user]
+    'sessions': [list of active sessions (ints) of this user],
+    'removed': [bool]
     }
 }
 So there'll be a new user dictionary added to the users dictionary for all users created.
@@ -49,6 +50,7 @@ As channels are added, the channels dictionary will appear as follows:
 
     'channels' = {
         1: {
+            'channel_id':        int,
             'channel_owner_ids': [user_info(auth_user_id), details in other.py],
             'name':             string name,
             'is_public':        boolean value,
@@ -56,6 +58,7 @@ As channels are added, the channels dictionary will appear as follows:
             'messages':         dict
         }
         2: {
+            'channel_id':        int,
             'channel_owner_ids': [user_info(auth_user_id), details in other.py],
             'name':             string name,
             'is_public':        boolean value,
@@ -68,6 +71,19 @@ where the keys "1" and "2" are the channel ids, whose values are dictionaries
 containing information about the channel.
 cheers, Nick.
 '''
+
+# DMS data store
+''''dms' = {
+        1: {
+            'dm_owner_id':      [user_info(auth_user_id), details in other.py],
+            'name':             string name,
+            'dm_id':            integer,
+            'user_ids':         [user_info(auth_user_id), details in other.py],
+            'messages':         dict
+        }
+'''
+
+
 import json
 import os
 

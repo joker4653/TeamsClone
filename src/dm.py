@@ -83,7 +83,8 @@ def dm_create(token, u_ids):
             'dm_owner_id': [user_info(owner_id)],
             'name' : dm_name,
             'user_ids': user_list,
-            'messages': []
+            'messages': [],
+            'dm_id' : new_dm_id
     }
     
     # write to data store and update json file
