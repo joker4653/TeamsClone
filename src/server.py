@@ -304,10 +304,11 @@ def handle_dm_leave():
 
 @APP.route("/dm/messages/v1", methods=['GET'])
 def handle_dm_messages():
-    params = request.args
+    params = request.get_json()
     token = params.get('token', None)
     dm_id = params.get('dm_id', None)
     start = params.get('start', None)
+
     auth_user_id = other.validate_token(token)
     if auth_user_id == False:
         # Invalid token, raise an access error.
@@ -322,8 +323,13 @@ def handle_message_senddm():
     token = params.get('token', None)
     dm_id = params.get('dm_id', None)
     messages = params.get('message', None)
+
+    user_id = other.validate_token(token)
+    if user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
     
-    return dumps(message.message_senddm_v1(token, dm_id, messages))
+    return dumps(message.message_senddm_v1(user_id, dm_id, messages))
 
 
 @APP.route("/users/all/v1", methods=['GET'])

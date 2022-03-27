@@ -120,8 +120,10 @@ def message_edit_v1(auth_user_id, message_id, message):
 		if store[message_type][channel_dm_id]["messages"][index]["u_id"] != auth_user_id:
 			raise AccessError
 
-	store["channels"][channel_dm_id]["messages"][index]["message"] = message
-
+	if len(message) == 0:
+		del store[message_type][channel_dm_id]["messages"][index]
+	else:
+		store["channels"][channel_dm_id]["messages"][index]["message"] = message
 	data_store.set(store)
 	write_data(data_store)
 	return {}

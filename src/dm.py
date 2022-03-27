@@ -13,11 +13,13 @@ from src.data_json import write_data
 
 def is_member(user_id, dm_id):
     '''Check if a user is in a dm. Return True if in dm, False if not in.'''
+    print(user_id, dm_id)
     if valid_dm_id(dm_id):
         store = data_store.get()
         user_ids = store['dms'][dm_id]['user_ids']
-        if any(user['u_id'] == user_id for user in user_ids):
-            return True
+        for user in user_ids:
+            if user["u_id"] == user_id:
+                return True
     return False
 
 def is_owner(user_id, dm_id):
@@ -185,13 +187,11 @@ def dm_leave_v1(token,dm_id):
     return {}
 
 
-
-
 def dm_messages_v1(auth_user_id, dm_id, start):
     if not valid_user_id(auth_user_id):
         raise AccessError("auth_user_id provided is not valid; this user does not exist.")    
     if not valid_dm_id(dm_id):
-            raise InputError("This dm_id does not correspond to an existing channel.")
+        raise InputError("This dm_id does not correspond to an existing dm.")
     if not is_member(auth_user_id, dm_id):
         raise AccessError("dm_id is valid and the authorised user is not a member of the DM")
 
