@@ -183,7 +183,7 @@ def test_remove_messages_inputerror(test_send_messages, initialise_tests):
             invalid_id = id
     response = process_test_request("message/remove/v1", "delete", {
         "token": initialise_tests[0].get("token"),
-        "message_id": id
+        "message_id": invalid_id
     })
     assert response.status_code == 400
 
