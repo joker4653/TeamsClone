@@ -13,11 +13,13 @@ from src.data_json import write_data
 
 def is_member(user_id, dm_id):
     '''Check if a user is in a dm. Return True if in dm, False if not in.'''
+    print(user_id, dm_id)
     if valid_dm_id(dm_id):
         store = data_store.get()
         user_ids = store['dms'][dm_id]['user_ids']
-        if any(user['u_id'] == user_id for user in user_ids):
-            return True
+        for user in user_ids:
+            if user["u_id"] == user_id:
+                return True
     return False
 
 def is_owner(user_id, dm_id):
@@ -138,8 +140,7 @@ def dm_remove_v1(token, dm_id):
 
     # DM is valid but auth_user is not in the DM
     if is_member(auth_user_id, dm_id) == False:
-        raise AccessError(f"You are not apart of this DM and cannot interact with it")
-
+        raise AccessError(f"You are not a part of this DM and cannot interact with it")
 
     # now can remove channel and update json
     store['dms'].pop(dm_id)
@@ -187,6 +188,29 @@ def dm_leave_v1(token,dm_id):
     return {}
 
 
+def dm_messages_v1(auth_user_id, dm_id, start):
+    if not valid_dm_id(dm_id):
+        raise InputError("This dm_id does not correspond to an existing dm.")
+    if not is_member(auth_user_id, dm_id):
+        raise AccessError("dm_id is valid and the authorised user is not a member of the DM")
 
-def dm_messages_v1(token, dm_id, start):
-    pass
+    store = data_store.get()
+    dm = store["dms"][dm_id]
+    messages = dm["messages"]
+    messages_return = []
+
+    if start > len(messages):
+        raise InputError("start is greater than the total number of messages in the DM")
+
+    end = start + 50
+    for i in range(start, start + 50):
+        if (i == len(messages)):
+            end = -1
+            break
+        messages_return.append(messages[i])
+    
+    return {
+        "messages": messages_return,
+        "start": start,
+        "end": end
+    }

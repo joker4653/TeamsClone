@@ -283,32 +283,40 @@ def test_edit_messages(test_send_messages, initialise_tests):
     assert messages[0]["message"] == "Johns message has been edited!"
     assert messages[0]["message_id"] == test_send_messages[2]
 
-'''
 
-def test_0_messages_dms(initialise_tests):
-    pass
+@pytest.fixture(scope='session')
+def test_dms():
+    process_test_request("clear/v1", "delete", {})
 
-def test_invalid_channel_messages(initialise_tests):
-    channel_id = initialise_tests[2].get("channel_id")
-    invalid_id = channel_id + 1
+    fields = ("email", "password", "name_first", "name_last")
+    john_info = ("john@email.com", "password123", "John", "Johnson")
+    jane_info = ("jane@email.com", "password321", "Jane", "Janeson")
+    john = process_test_request("auth/register/v2", "post", dict(zip(fields, john_info)))
+    jane = process_test_request("auth/register/v2", "post", dict(zip(fields, jane_info)))
+    john_data = john.json()
+    jane_data = jane.json()
 
-    resposen = process_test_request("/channel/messages/v2", "get", {
-        "token": initialise_tests[0].get("token"),
-        "channel_id": invalid_id,
+    response = process_test_request("dm/create/v1", "post", {
+        "token": john_data.get("token"),
+        "u_ids": [jane_data.get("auth_user_id")]
+    })
+    dm_id = response.json().get("dm_id")
+
+    return (john_data, jane_data, dm_id)
+
+def test_0_messages_dms(test_dms):
+    john_data, dm_id = test_dms[0], test_dms[2]
+    response = process_test_request("dm/messages/v1", "get", {
+        "token": john_data.get("token"),
+        "dm_id": dm_id,
         "start": 0
     })
-    pass
+    assert response.status_code == 200
+    assert response.json() == {
+        "messages": [],
+        "start": 0,
+        "end": -1
+    }
 
-def test_invalid_dm_messages(initialise_tests):
-    pass
-
-def test_invalid_user_dm_messages(initialise_tests):
-    pass
-
-def test_invalid_user_channel_messages(initialise_tests):
-    pass
-
-
-'''
 def test_clear_again():
     process_test_request("clear/v1", "delete", {})
