@@ -72,6 +72,27 @@ def channel_invite_v1(auth_user_id, channel_id, u_id):
     }
 
 def channel_details_v1(auth_user_id, channel_id):
+    '''
+    Given a channel with ID channel_id that the authorised user is a member of, provide basic details about the channel.
+    
+    Arguments:
+        token      (str)   - an active token corresponding to a certain user.
+        channel_id (int)   - the ID of a certain channel.
+
+    Exceptions:
+        InputError  -occurs when:   - channel_id does not refer to a valid channel.
+
+        AccessError -occurs when:   - channel_id is valid and the authorised user is not a member of the channel.
+
+    Return Value:
+        returns {
+            'name': [The channel's name.]
+            'is_public': [Whether or not the channel is public.]
+            'owner_members': [The owners of the channel.]
+            'all_members': [All members of the channel.]
+        } 
+
+    '''
     if not valid_channel_id(channel_id):
         raise InputError("This channel_id does not correspond to an existing channel.")
     if not valid_user_id(auth_user_id):
@@ -91,6 +112,27 @@ def channel_details_v1(auth_user_id, channel_id):
 
 
 def channel_messages_v1(auth_user_id, channel_id, start):
+    '''
+    Given a channel with ID channel_id that the authorised user is a member of, return up to 50 messages between index "start" and "start + 50".
+    
+    Arguments:
+        token      (str)   - an active token corresponding to a certain user.
+        channel_id (int)   - the ID of a certain channel.
+        start      (int)   - messages index to begin reading from.
+
+    Exceptions:
+        InputError  -occurs when:   - channel_id does not refer to a valid channel.
+                                    - start is greater than the total number of messages in the channel.
+
+        AccessError -occurs when:   - channel_id is valid and the authorised user is not a member of the channel.
+
+    Return Value:
+        returns {
+            'messages': [A list containing the collected messages.]
+            'start': [The start index of reading.]
+            'end': [The end index of reading.]
+        } 
+    '''
     if not valid_user_id(auth_user_id):
         raise AccessError("auth_user_id provided is not valid; this user does not exist.")    
     if not valid_channel_id(channel_id):
@@ -124,6 +166,24 @@ def channel_messages_v1(auth_user_id, channel_id, start):
     
     
 def channel_join_v1(auth_user_id, channel_id):
+    '''
+    Given a channel_id of a channel that the authorised user can join, adds them to that channel.   
+ 
+    Arguments:
+        token      (str)   - an active token corresponding to a certain user.
+        channel_id (int)   - the ID of a certain channel.
+
+    Exceptions:
+        InputError  -occurs when:   - channel_id does not refer to a valid channel.
+                                    - the authorised user is already a member of the channel.
+
+        AccessError -occurs when:   - channel_id refers to a channel that is private and the
+authorised user is not already a channel member and is not a global owner.
+
+    Return Value:
+        Returns {} always.
+    '''
+
     if not valid_user_id(auth_user_id):
         raise AccessError("auth_user_id provided is not valid; this user does not exist.")
     if not valid_channel_id(channel_id):
@@ -146,6 +206,21 @@ def channel_join_v1(auth_user_id, channel_id):
 
 
 def channel_leave_v1(token, channel_id):
+    '''
+    Given a channel with ID channel_id that the authorised user is a member of, remove them as a member of the channel.
+    
+    Arguments:
+        token      (str)   - an active token corresponding to a certain user.
+        channel_id (int)   - the ID of a certain channel.
+
+    Exceptions:
+        InputError  -occurs when:   - channel_id does not refer to a valid channel.
+
+        AccessError -occurs when:   - channel_id is valid and the authorised user is not a member of the channel.
+
+    Return Value:
+        Returns {} always.
+    '''
     user_id = validate_token(token)
     if not user_id:
         # Invalid token.

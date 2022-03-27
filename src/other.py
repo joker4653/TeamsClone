@@ -6,6 +6,16 @@ from src.data_json import write_data
 SECRET = "TheBadgerUsesToolsLikeABoss"
 
 def clear_v1():
+    '''
+    Resets the internal data of the application to its initial state.
+    
+    Arguments: N/A
+
+    Exceptions: N/A
+
+    Return Value:
+        Returns {} always.
+    '''
     store = data_store.get()
     store['sessions_no'] = 1
     store['users'] = {}

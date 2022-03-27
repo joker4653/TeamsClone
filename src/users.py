@@ -7,10 +7,41 @@ from src.data_json import write_data
 from src.auth import check_duplicate
 
 def users_all_v1(token):
+    '''
+    Returns a list of all users and their associated details.
+    
+    Arguments:
+        token      (str)   - an active token corresponding to a certain user.
+
+    Exceptions: N/A
+    
+    Return Value:
+        returns {
+            'users': [A list of all users and their details.]
+        } 
+
+    '''
     pass
 
 
 def user_profile_v1(rtoken, u_id):
+    '''
+    For a valid user, returns information about their user_id, email, first name, last name, and
+handle.
+    
+    Arguments:
+        token      (str)   - an active token corresponding to a certain user.
+        u_id       (int)   - the ID of the user whose profile is to be accessed.
+
+    Exceptions:
+        InputError  -occurs when:   - u_id does not refer to a valid user.
+    
+    Return Value:
+        returns {
+            'user': [The profile of the user.]
+        } 
+
+    '''
     pass
 
 
@@ -50,6 +81,21 @@ def user_profile_setname_v1(token, name_first, name_last):
 
 
 def user_profile_setemail_v1(token, email):
+    '''
+    Update the authorised user's email address.
+    
+    Arguments:
+        token      (str)   - an active token corresponding to a certain user.
+        email      (str)   - the email that the user wishes to change to.
+
+    Exceptions:
+        InputError  -occurs when:   - the email entered is not a valid email.
+                                    - the email address is already being used by another user.
+    
+    Return Value:
+        Returns {} always.
+
+    '''
     pass
 
 
@@ -91,9 +137,48 @@ def user_profile_sethandle_v1(token, handle_str):
     }
 
 def admin_user_remove_v1(token, u_id):
+    '''
+    Given a user by their u_id, remove them from the Seams.
+    
+    Arguments:
+        token      (str)   - an active token corresponding to a certain user.
+        u_id       (int)   - the ID of the user to be removed.
+
+    Exceptions:
+        InputError  -occurs when:   - the u_id does not refer to a valid user.
+                                    - the u_id refers to a user who is the only global owner.
+
+        AccessError -occurs when:   - the authorised user is not a global owner.
+        
+    
+    Return Value:
+        Returns {} always.
+    '''
     pass
 
 
 def admin_userpermission_change_v1(token, u_id, permission_id):
+    '''
+    Given a user by their user ID, set their permissions to new permissions described by
+permission_id.
+    
+    Arguments:
+        token           (str)   - an active token corresponding to a certain user.
+        u_id            (int)   - the ID of the user whose permissions will be altered.
+        permission_id   (int)   - the ID for the user permissions to be altered to.
+
+    Exceptions:
+        InputError  -occurs when:   - the u_id does not refer to a valid user.
+                                    - the u_id refers to a user who is the only global owner and they
+are being demoted to a user.
+                                    - permission_id is invalid.
+                                    - the user already has the permissions level of permission_id.
+
+        AccessError -occurs when:   - the authorised user is not a global owner.
+        
+    
+    Return Value:
+        Returns {} always.
+    '''
     pass
 

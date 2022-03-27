@@ -7,7 +7,24 @@ from src.data_json import write_data
 from src.other import valid_user_id, create_token, validate_token
 
 def auth_login_v1(email, password):
-    '''Logs in a user from the given email and password, if they are valid.'''
+    '''
+    Logs in a user from the given email and password, if they are valid.
+    
+    Arguments:
+        email       (str)   - the email address of the user.
+        password   (str)   - the password of the user.
+
+    Exceptions:
+        InputError  -occurs when:   - email entered does not belong to user.
+                                    - password is not correct.
+
+    Return Value:
+        returns {
+            'token': [Token of user session.]
+            'auth_user_id': [User id of user.]
+        } 
+
+    '''
     # Locate user from email.
     store = data_store.get()
     found = False
@@ -44,7 +61,29 @@ def auth_login_v1(email, password):
     }
 
 def auth_register_v1(email, password, name_first, name_last):
-    '''Registers a new user with the given user information.'''
+    '''
+    Registers a new user with the given user information.
+    
+    Arguments:
+        email       (str)   - the email address of the user.
+        password    (str)   - the password of the user.
+        name_first  (str)   - the user's first name.
+        name_last   (str)   - the user's last name.
+
+    Exceptions:
+        InputError  -occurs when:   - email entered is not a valid email.
+                                    - email address is already in use.
+                                    - length of password is less than six characters.
+                                    - length of name_first is not between 1 and 50 characters.
+                                    - length of name_last is not between 1 and 50 characters.
+
+
+    Return Value:
+        returns {
+            'token': [Token of user session.]
+            'auth_user_id': [User id of user.]
+        } 
+    '''
     # Validate input.
     validate_input(email, password, name_first, name_last)
     
@@ -90,6 +129,18 @@ def auth_register_v1(email, password, name_first, name_last):
 
 
 def auth_logout_v1(token):
+    '''
+    Given an active token, invalidates the token to log the user out.
+    
+    Arguments:
+        token       (str)   - the active token of a user.
+
+    Exceptions:
+        N/A
+
+    Return Value:
+        returns {} always.
+    '''
     # Validate token.
     valid = validate_token(token, return_session=True)
 
