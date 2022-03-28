@@ -3,6 +3,7 @@ from src.error import InputError, AccessError
 from src.other import valid_user_id, user_info
 from src.channel import is_member
 from src.data_json import write_data
+import src.std_vars as std_vars
 
 def channels_list_v1(auth_user_id):
     '''
@@ -70,7 +71,7 @@ def channels_listall_v1(auth_user_id):
 def channels_create_v1(auth_user_id, name, is_public):
     '''
     Creates a new channel with the given name that is either a public or private channel. The user
-who created it automatically joins the channel.
+    who created it automatically joins the channel.
 
         Arguments:
             auth_user_id   (int)      - the id of an authenticated user.
@@ -84,10 +85,10 @@ who created it automatically joins the channel.
             Returns {'channel_id': new_channel_id} when name is valid.
     '''
     # Check valid name input.
-    if len(name) < 1:
-        raise InputError("This channel name is too short, minimum is 1 character.")
-    if len(name) > 20:
-        raise InputError("This channel name is too long, maximum is 20 characters.")
+    if len(name) < std_vars.MIN_NAME_LEN_CHANNEL:
+        raise InputError(f"This channel name is too short, minimum is {std_vars.MIN_NAME_LEN_CHANNEL} character.")
+    if len(name) > std_vars.MAX_NAME_LEN_CHANNEL:
+        raise InputError(f"This channel name is too long, maximum is {std_vars.MAX_NAME_LEN_CHANNEL} characters.")
 
     store = data_store.get()   
     new_channel_id = len(store['channels']) + 1

@@ -10,6 +10,7 @@ from src.channel import is_owner as is_channel_owner
 from src.channel import is_member as is_channel_member
 from src.dm import is_owner as is_dm_owner
 from src.dm import is_member as is_dm_member
+import src.std_vars as std_vars
 
 import re
 
@@ -36,14 +37,7 @@ def users_all_v1(token):
     user_list = []
     for u in data['users']:
         if data['users'][u]['removed'] == False:
-            user_details = user_info(data['users'][u]['id'])
-            user_list.append({
-                'u_id': user_details.get('u_id'),
-                'email': user_details.get('email'),
-                'name_first': user_details.get('name_first'),
-                'name_last': user_details.get('name_last'),
-                'handle_str': user_details.get('handle_string')
-            })
+            user_list.append(user_info(data['users'][u]['id']))
     return user_list
 
 def user_profile_v1(token, u_id):
@@ -71,14 +65,7 @@ def user_profile_v1(token, u_id):
     if not valid_user_id(u_id):
         raise InputError("u_id provided is not valid; this user does not exist.")
     
-    user_details = user_info(u_id)
-    return {
-        'u_id': user_details.get('u_id'),
-        'email': user_details.get('email'),
-        'name_first': user_details.get('name_first'),
-        'name_last': user_details.get('name_last'),
-        'handle_str': user_details.get('handle_string')
-    }
+    return user_info(u_id)
 
 
 def user_profile_setname_v1(token, name_first, name_last):
@@ -101,10 +88,10 @@ def user_profile_setname_v1(token, name_first, name_last):
     if auth_user_id == False:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
-    if len(name_first) < 1 or len(name_first) > 50:
-        raise InputError("First name must be between 1-50 characters.")
-    if len(name_last) < 1 or len(name_last) > 50:
-        raise InputError("Last name must be between 1-50 characters.")
+    if len(name_first) < std_vars.MIN_NAME_LEN_FIRST or len(name_first) > std_vars.MAX_NAME_LEN_FIRST:
+        raise InputError(f"First name must be between {std_vars.MIN_NAME_LEN_FIRST}-{std_vars.MAX_NAME_LEN_FIRST} characters.")
+    if len(name_last) < std_vars.MIN_NAME_LEN_LAST or len(name_last) > std_vars.MAX_NAME_LEN_LAST:
+        raise InputError(f"Last name must be between {std_vars.MIN_NAME_LEN_LAST}-{std_vars.MAX_NAME_LEN_LAST} characters.")
 
     store = data_store.get()
     store['users'][auth_user_id]['first'] = name_first
@@ -174,8 +161,8 @@ def user_profile_sethandle_v1(token, handle_str):
     if auth_user_id == False:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
-    if len(handle_str) < 3 or len(handle_str) > 20:
-        raise InputError("Handle must be between 3-20 characters")
+    if len(handle_str) < std_vars.MIN_LEN_HANDLE or len(handle_str) > std_vars.MAX_LEN_HANDLE:
+        raise InputError(f"Handle must be between {std_vars.MIN_LEN_HANDLE}-{std_vars.MAX_LEN_HANDLE} characters.")
     if not handle_str.isalnum():
         raise InputError("Handle must contain only alphanumeric characters.")
     if check_duplicate(handle_str, 'handle'):
@@ -323,7 +310,7 @@ are being demoted to a user.
         raise AccessError("Authorised user is not a global owner, cannot remove users.")
     if is_only_global_owner(u_id):
         raise InputError("User with u_id is the only global owner, cannot be removed.")
-    if permission_id not in [1, 2]:
+    if permission_id not in std_vars.VALID_PERMS:
         raise InputError("Invalid permission id")
 
     store = data_store.get()

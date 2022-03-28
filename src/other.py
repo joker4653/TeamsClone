@@ -2,6 +2,7 @@ import jwt
 
 from src.data_store import data_store
 from src.data_json import write_data
+import src.std_vars as std_vars
 
 SECRET = "TheBadgerUsesToolsLikeABoss"
 
@@ -103,7 +104,7 @@ def user_info(auth_user_id):
         'email': store['users'][auth_user_id]['email'],
         'name_first': store['users'][auth_user_id]['first'],
         'name_last': store['users'][auth_user_id]['last'],
-        'handle_string': store['users'][auth_user_id]['handle'],
+        'handle_str': store['users'][auth_user_id]['handle'],
     }
 
 def is_global_owner(user_id):
@@ -112,7 +113,7 @@ def is_global_owner(user_id):
         return False
     store = data_store.get()
     global_status = store['users'][user_id]['permissions_id']
-    if global_status == 1:
+    if global_status == std_vars.GLOBAL_OWNER_PERM:
         return True
     else:
         return False
@@ -125,7 +126,7 @@ def is_only_global_owner(u_id):
     store = data_store.get()
     count = 0
     for user_info in store['users'].values():
-        if user_info['permissions_id'] == 1:
+        if user_info['permissions_id'] == std_vars.GLOBAL_OWNER_PERM:
             # This user is a global owner
             count += 1
         if count > 1:
