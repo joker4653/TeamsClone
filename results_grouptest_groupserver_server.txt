@@ -1,0 +1,898 @@
+Loading Datastore...
+ * Serving Flask app 'server' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://127.0.0.1:6080/ (Press CTRL+C to quit)
+127.0.0.1 - - [28/Mar/2022 15:29:58] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/login/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/login/v2 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/login/v2 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/login/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/login/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/logout/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //channels/create/v2 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/logout/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //channels/create/v2 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/login/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/logout/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //channels/create/v2 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/logout/v1 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:58] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channels/create/v2 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channels/create/v2 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/logout/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channels/create/v2 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channel/invite/v2 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channel/invite/v2 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/logout/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channel/invite/v2 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channel/invite/v2 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channel/invite/v2 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/logout/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "GET //channels/list/v2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "GET //channels/list/v2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjMsInNlc3Npb25faWQiOjN9.FeDulwTH1Vfot0WTpGEif5q3v0gXpI8pqs5LHsqbs1s HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/logout/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "GET //channels/listall/v2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "GET //channels/listall/v2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjMsInNlc3Npb25faWQiOjN9.FeDulwTH1Vfot0WTpGEif5q3v0gXpI8pqs5LHsqbs1s HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:29:59] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "GET //channel/details/v2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA&channel_id=1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "GET //channel/details/v2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjMsInNlc3Npb25faWQiOjN9.FeDulwTH1Vfot0WTpGEif5q3v0gXpI8pqs5LHsqbs1s&channel_id=1 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/logout/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "GET //channel/details/v2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA&channel_id=1 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "GET //channel/details/v2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4&channel_id=1 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "GET //channel/details/v2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA&channel_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "GET //channel/details/v2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA&channel_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/join/v2 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/join/v2 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/logout/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/join/v2 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/join/v2 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/join/v2 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/join/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/join/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "GET //channel/details/v2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA&channel_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/addowner/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/addowner/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/removeowner/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/removeowner/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:00] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/removeowner/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/removeowner/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/removeowner/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/addowner/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/removeowner/v1 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/removeowner/v1 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/addowner/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/addowner/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/removeowner/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/removeowner/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/addowner/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/removeowner/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/leave/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/leave/v1 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/invite/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //channel/leave/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST /channel/invite/v2 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //dm/create/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //dm/create/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:01] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //dm/create/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //dm/create/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //dm/create/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "GET //dm/list/v1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //dm/create/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "GET //dm/list/v1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //dm/create/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "DELETE //dm/remove/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //dm/create/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "DELETE //dm/remove/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //dm/create/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "DELETE //dm/remove/v1 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //dm/create/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "DELETE //dm/remove/v1 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //dm/create/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "GET //dm/details/v1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4&dm_id=-999 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //dm/create/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "GET //dm/details/v1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjMsInNlc3Npb25faWQiOjN9.FeDulwTH1Vfot0WTpGEif5q3v0gXpI8pqs5LHsqbs1s&dm_id=1 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //dm/create/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "GET //dm/details/v1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA&dm_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //dm/create/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //dm/leave/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //dm/create/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //dm/leave/v1 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //dm/create/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //dm/leave/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:02] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "DELETE /clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "GET /channel/messages/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/send/v1 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/send/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/send/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/send/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /channel/join/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /channel/join/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "GET /channel/messages/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "GET /channel/messages/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "DELETE /message/remove/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "DELETE /message/remove/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "DELETE /message/remove/v1 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "DELETE /message/remove/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "GET /channel/messages/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "DELETE /message/remove/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "GET /channel/messages/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "PUT /message/edit/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "PUT /message/edit/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "PUT /message/edit/v1 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "PUT /message/edit/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "GET /channel/messages/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "PUT /message/edit/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "GET /channel/messages/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "DELETE /clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /dm/create/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "GET /dm/messages/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /dm/leave/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "DELETE /clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "DELETE /clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /dm/create/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:03] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/senddm/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "GET /dm/messages/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "GET /dm/messages/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "GET /dm/messages/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /dm/leave/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "GET /dm/messages/v1 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /channels/create/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /channel/join/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /channel/join/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:04] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST /message/send/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "GET /channel/messages/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "GET /channel/messages/v2 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "GET /channel/messages/v2 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST /channel/leave/v1 HTTP/1.1" 200 -
+response 400 Bad Request: Email is of invalid format. <Response 143 bytes [400 BAD REQUEST]>
+response 400 Bad Request: This email is already registered. <Response 149 bytes [400 BAD REQUEST]>
+response 400 Bad Request: This email is already registered. <Response 149 bytes [400 BAD REQUEST]>
+response 400 Bad Request: First name must be between 1-50 characters. <Response 159 bytes [400 BAD REQUEST]>
+response 400 Bad Request: First name must be between 1-50 characters. <Response 159 bytes [400 BAD REQUEST]>
+response 400 Bad Request: Last name must be between 1-50 characters. <Response 158 bytes [400 BAD REQUEST]>
+response 400 Bad Request: Last name must be between 1-50 characters. <Response 158 bytes [400 BAD REQUEST]>
+response 400 Bad Request: This email has no registered user. <Response 150 bytes [400 BAD REQUEST]>
+response 400 Bad Request: Incorrect password. <Response 135 bytes [400 BAD REQUEST]>
+response 403 Forbidden: The token provided was invalid. <Response 143 bytes [403 FORBIDDEN]>
+response 403 Forbidden: The token provided was invalid. <Response 143 bytes [403 FORBIDDEN]>
+response 403 Forbidden: The token provided was invalid. <Response 143 bytes [403 FORBIDDEN]>
+response 403 Forbidden: The token provided was invalid. <Response 143 bytes [403 FORBIDDEN]>
+response 400 Bad Request: This channel name is too short, minimum is 1 character. <Response 171 bytes [400 BAD REQUEST]>
+response 400 Bad Request: This channel name is too long, maximum is 20 characters. <Response 172 bytes [400 BAD REQUEST]>
+response 403 Forbidden: The token provided was invalid. <Response 143 bytes [403 FORBIDDEN]>
+response 400 Bad Request: This channel_id does not correspond to an existing channel. <Response 175 bytes [400 BAD REQUEST]>
+response 403 Forbidden: auth_user is not a member of the channel. <Response 153 bytes [403 FORBIDDEN]>
+response 403 Forbidden: The token provided was invalid. <Response 143 bytes [403 FORBIDDEN]>
+response 400 Bad Request: u_id provided is not valid; this user does not exist. <Response 169 bytes [400 BAD REQUEST]>
+response 400 Bad Request: User with user id u_id is already a member of the channel. <Response 174 bytes [400 BAD REQUEST]>
+response 403 Forbidden: The token provided was invalid. <Response 143 bytes [403 FORBIDDEN]>
+response 403 Forbidden: The token provided was invalid. <Response 143 bytes [403 FORBIDDEN]>
+response 400 Bad Request: This channel_id does not correspond to an existing channel. <Response 175 bytes [400 BAD REQUEST]>
+response 403 Forbidden: auth_user is not a member of the channel. <Response 153 bytes [403 FORBIDDEN]>
+response 403 Forbidden: The token provided was invalid. <Response 143 bytes [403 FORBIDDEN]>
+response 403 Forbidden: auth_user is not a member of the channel. <Response 153 bytes [403 FORBIDDEN]>
+response 400 Bad Request: This channel_id does not correspond to an existing channel. <Response 175 bytes [400 BAD REQUEST]>
+response 403 Forbidden: The token provided was invalid. <Response 143 bytes [403 FORBIDDEN]>
+response 403 Forbidden: The token provided was invalid. <Response 143 bytes [403 FORBIDDEN]>
+response 400 Bad Request: auth_user_id is already a member of the channel. <Response 164 bytes [400 BAD REQUEST]>
+response 403 Forbidden: Access Denied. Badgers is a private channel. <Response 156 bytes [403 FORBIDDEN]>
+response 400 Bad Request: This channel_id does not correspond to an existing channel. <Response 175 bytes [400 BAD REQUEST]>
+response 400 Bad Request: u_id provided is not valid; this user does not exist. <Response 169 bytes [400 BAD REQUEST]>
+response 400 Bad Request: User with user id u_id is not an owner of the channel. <Response 170 bytes [400 BAD REQUEST]>
+response 400 Bad Request: User with user id u_id is the only owner of the channel; cannot be removed. <Response 191 bytes [400 BAD REQUEST]>
+response 400 Bad Request: User with user id u_id is the only owner of the channel; cannot be removed. <Response 191 bytes [400 BAD REQUEST]>
+response 403 Forbidden: auth_user does not have owner permissions. <Response 154 bytes [403 FORBIDDEN]>
+response 403 Forbidden: auth_user does not have owner permissions. <Response 154 bytes [403 FORBIDDEN]>
+response 400 Bad Request: This channel_id does not correspond to an existing channel. <Response 175 bytes [400 BAD REQUEST]>
+response 403 Forbidden: The user is not a member of this channel. <Response 153 bytes [403 FORBIDDEN]>
+response 403 Forbidden: auth_user is not a member of the channel. <Response 153 bytes [403 FORBIDDEN]>
+response 400 Bad Request: A user id in the list of members is invalid <Response 159 bytes [400 BAD REQUEST]>
+response 400 Bad Request: Cannot create DM, There exists duplicate user ids in members list <Response 181 bytes [400 BAD REQUEST]>
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA 1
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA 1
+1 1
+response 400 Bad Request: dm_id does not refer to a valid DM <Response 150 bytes [400 BAD REQUEST]>
+response 403 Forbidden: You do not have permission to remove this DM, only the owner does <Response 177 bytes [403 FORBIDDEN]>
+response 403 Forbidden: You do not have permission to remove this DM, only the owner does <Response 177 bytes [403 FORBIDDEN]>
+response 400 Bad Request: dm_id does not refer to a valid DM <Response 150 bytes [400 BAD REQUEST]>
+3 1
+response 403 Forbidden: You are not apart of this DM and cannot interact with it <Response 168 bytes [403 FORBIDDEN]>
+1 1
+response 400 Bad Request: dm_id does not refer to a valid DM <Response 150 bytes [400 BAD REQUEST]>
+3 1
+response 403 Forbidden: You are not apart of this DM and cannot interact with it <Response 168 bytes [403 FORBIDDEN]>
+1 1
+response 403 Forbidden: channel_id is valid and the authorised user is not a member of the channel <Response 186 bytes [403 FORBIDDEN]>
+response 400 Bad Request: channel_id does not refer to a valid channel <Response 160 bytes [400 BAD REQUEST]>
+response 400 Bad Request: length of message is less than 1 or over 1000 characters <Response 172 bytes [400 BAD REQUEST]>
+response 400 Bad Request: length of message is less than 1 or over 1000 characters <Response 172 bytes [400 BAD REQUEST]>
+response 400 Bad Request: message_id does not refer to a valid message within a channel/DM that the authorised user has joined <Response 216 bytes [400 BAD REQUEST]>
+1 2
+response 400 Bad Request: message_id does not refer to a valid message within a channel/DM that the authorised user has joined <Response 216 bytes [400 BAD REQUEST]>
+response 403 Forbidden: None <Response 112 bytes [403 FORBIDDEN]>
+response 400 Bad Request: length of message is over 1000 characters <Response 157 bytes [400 BAD REQUEST]>
+response 400 Bad Request: message_id does not refer to a valid message within a channel/DM that the authorised user has joined <Response 216 bytes [400 BAD REQUEST]>
+response 403 Forbidden: None <Response 112 bytes [403 FORBIDDEN]>
+1 1
+response 400 Bad Request: dm_id does not refer to a valid dm <Response 150 bytes [400 BAD REQUEST]>
+1 1
+1 1
+response 403 Forbidden: dm_id is valid and the authorised user is not a member of the DM <Response 176 bytes [403 FORBIDDEN]>
+1 1
+3 1
+1 1
+1 1
+1 1
+3 1
+3 1
+1 1
+3 1
+3 1
+2 1
+1 1
+3 1
+2 1
+3 1
+1 1
+1 1
+1 1
+2 1
+1 1
+1 1
+1 1
+3 1
+2 1
+1 1
+1 1
+3 1
+3 1
+1 1
+2 1
+3 1
+3 1
+1 1
+2 1
+1 1
+2 1
+2 1
+2 1
+2 1
+1 1
+2 1
+3 1
+1 1
+1 1
+2 1
+2 1
+3 1
+2 1
+3 1
+3 1
+1 1
+1 1
+2 1
+3 1
+2 1
+2 1
+1 1
+2 1
+2 1
+3 1
+2 1
+2 1
+response 400 Bad Request: start is greater than the total number of messages in the DM <Response 176 bytes [400 BAD REQUEST]>
+response 400 Bad Request: This dm_id does not correspond to an existing dm. <Response 165 bytes [400 BAD REQUEST]>
+2 1
+2 1
+response 403 Forbidden: dm_id is valid and the authorised user is not a member of the DM <Response 176 bytes [403 FORBIDDEN]>
+response 400 Bad Request: start is greater than the total number of messages in the channel <Response 181 bytes [400 BAD REQUEST]>
+response 400 Bad Request: This channel_id does not correspond to an existing channel. <Response 175 bytes [400 BAD REQUEST]>
+response 403 Forbidden: channel_id is valid and the authorised user is not a member of the channel127.0.0.1 - - [28/Mar/2022 15:30:05] "GET /channel/messages/v2 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "DELETE /clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "GET //users/all/v1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "GET //user/profile/v1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA&u_id=-999 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "GET //user/profile/v1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA&u_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "PUT //user/profile/setemail/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "GET //user/profile/v1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA&u_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "PUT //user/profile/setemail/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "PUT //user/profile/setname/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "PUT //user/profile/setname/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "PUT //user/profile/setname/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "PUT //user/profile/setname/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "PUT //user/profile/setname/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "PUT //user/profile/setname/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "GET //user/profile/v1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA&u_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "GET //user/profile/v1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA&u_id=2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "PUT //user/profile/sethandle/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "PUT //user/profile/sethandle/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:05] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "PUT //user/profile/sethandle/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "PUT //user/profile/sethandle/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "PUT //user/profile/sethandle/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "GET //user/profile/v1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA&u_id=1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "PUT //user/profile/sethandle/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "PUT //user/profile/sethandle/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "PUT //user/profile/sethandle/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "GET //user/profile/v1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA&u_id=2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "GET //user/profile/v1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA&u_id=3 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //admin/userpermission/change/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //admin/userpermission/change/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //admin/userpermission/change/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //admin/userpermission/change/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //admin/userpermission/change/v1 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //admin/userpermission/change/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //admin/userpermission/change/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "DELETE //admin/user/remove/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "DELETE //admin/user/remove/v1 HTTP/1.1" 400 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "DELETE //admin/user/remove/v1 HTTP/1.1" 403 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "DELETE //clear/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "DELETE //admin/user/remove/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "GET //user/profile/v1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA&u_id=2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "POST //auth/register/v2 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "PUT //user/profile/sethandle/v1 HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "GET //users/all/v1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA HTTP/1.1" 200 -
+127.0.0.1 - - [28/Mar/2022 15:30:06] "DELETE //clear/v1 HTTP/1.1" 200 -
+ <Response 186 bytes [403 FORBIDDEN]>
+response 400 Bad Request: u_id provided is not valid; this user does not exist. <Response 169 bytes [400 BAD REQUEST]>
+response 400 Bad Request: Email is of invalid format. <Response 143 bytes [400 BAD REQUEST]>
+response 400 Bad Request: This email is already registered. <Response 149 bytes [400 BAD REQUEST]>
+response 400 Bad Request: First name must be between 1-50 characters. <Response 159 bytes [400 BAD REQUEST]>
+response 400 Bad Request: First name must be between 1-50 characters. <Response 159 bytes [400 BAD REQUEST]>
+response 400 Bad Request: Last name must be between 1-50 characters. <Response 158 bytes [400 BAD REQUEST]>
+response 400 Bad Request: Last name must be between 1-50 characters. <Response 158 bytes [400 BAD REQUEST]>
+response 400 Bad Request: Handle must be between 3-20 characters <Response 154 bytes [400 BAD REQUEST]>
+response 400 Bad Request: Handle must be between 3-20 characters <Response 154 bytes [400 BAD REQUEST]>
+response 400 Bad Request: Handle must contain only alphanumeric characters. <Response 165 bytes [400 BAD REQUEST]>
+response 400 Bad Request: Handle must contain only alphanumeric characters. <Response 165 bytes [400 BAD REQUEST]>
+response 400 Bad Request: Handle must contain only alphanumeric characters. <Response 165 bytes [400 BAD REQUEST]>
+response 400 Bad Request: This handle is already taken by another user. <Response 161 bytes [400 BAD REQUEST]>
+response 400 Bad Request: u_id provided is not valid; this user does not exist. <Response 169 bytes [400 BAD REQUEST]>
+response 400 Bad Request: User with u_id is the only global owner, cannot be removed. <Response 175 bytes [400 BAD REQUEST]>
+response 400 Bad Request: Invalid permission id <Response 137 bytes [400 BAD REQUEST]>
+response 400 Bad Request: User already has these permissions <Response 150 bytes [400 BAD REQUEST]>
+response 403 Forbidden: Authorised user is not a global owner, cannot remove users. <Response 171 bytes [403 FORBIDDEN]>
+response 400 Bad Request: u_id provided is not valid; this user does not exist. <Response 169 bytes [400 BAD REQUEST]>
+response 400 Bad Request: User with u_id is the only global owner, cannot be removed. <Response 175 bytes [400 BAD REQUEST]>
+response 403 Forbidden: Authorised user is not a global owner, cannot remove users. <Response 171 bytes [403 FORBIDDEN]>

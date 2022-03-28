@@ -1,0 +1,2059 @@
+============================= test session starts ==============================
+platform linux -- Python 3.7.3, pytest-6.2.5, py-1.10.0, pluggy-1.0.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+hypothesis profile 'default' -> database=DirectoryBasedExampleDatabase('/tmp_amd/kamen/export/kamen/3/cs1531/project-automarking/tempstore/.hypothesis/examples')
+rootdir: /tmp_amd/kamen/export/kamen/3/cs1531/project-automarking/tempstore, configfile: pytest.ini
+plugins: forked-1.3.0, xdist-2.2.1, hypothesis-6.1.1, timeout-1.4.2
+collecting ... collected 374 items
+
+http_tests/admin_tests/test_admin_user_remove.py::test_once_removed_user_cant_do_anything FAILED [  0%]
+http_tests/admin_tests/test_admin_user_remove.py::test_messages_after_user_removal_correct_format FAILED [  0%]
+http_tests/admin_tests/test_admin_user_remove.py::test_removed_profile_still_fetchable_with_user_profile FAILED [  0%]
+http_tests/admin_tests/test_admin_user_remove.py::test_removal_removed_from_channel PASSED [  1%]
+http_tests/admin_tests/test_admin_user_remove.py::test_removal_removed_from_dm PASSED [  1%]
+http_tests/admin_tests/test_admin_user_remove.py::test_removal_not_in_users_all FAILED [  1%]
+http_tests/admin_tests/test_admin_user_remove.py::test_email_reusable PASSED [  1%]
+http_tests/admin_tests/test_admin_user_remove.py::test_handle_reusable FAILED [  2%]
+http_tests/admin_tests/test_admin_user_remove.py::test_invalid_user PASSED [  2%]
+http_tests/admin_tests/test_admin_user_remove.py::test_cannot_remove_last_owner PASSED [  2%]
+http_tests/admin_tests/test_admin_user_remove.py::test_cannot_remove_user_nonowner PASSED [  2%]
+http_tests/admin_tests/test_admin_user_remove.py::test_invalid_token PASSED [  3%]
+http_tests/admin_tests/test_admin_userpermission_change.py::test_successful_permission_change FAILED [  3%]
+http_tests/admin_tests/test_admin_userpermission_change.py::test_cannot_demote_last_owner PASSED [  3%]
+http_tests/admin_tests/test_admin_userpermission_change.py::test_nonowner_cant_change_permissions PASSED [  4%]
+http_tests/admin_tests/test_admin_userpermission_change.py::test_invalid_user PASSED [  4%]
+http_tests/admin_tests/test_admin_userpermission_change.py::test_invalid_permission PASSED [  4%]
+http_tests/admin_tests/test_admin_userpermission_change.py::test_same_permission PASSED [  4%]
+http_tests/admin_tests/test_admin_userpermission_change.py::test_invalid_token PASSED [  5%]
+http_tests/auth_tests/test_auth_login.py::test_successful_login PASSED   [  5%]
+http_tests/auth_tests/test_auth_login.py::test_can_have_two_sessions PASSED [  5%]
+http_tests/auth_tests/test_auth_login.py::test_unregistered_user PASSED  [  5%]
+http_tests/auth_tests/test_auth_login.py::test_registered_but_incorrect_password PASSED [  6%]
+http_tests/auth_tests/test_auth_logout.py::test_successful_logout PASSED [  6%]
+http_tests/auth_tests/test_auth_logout.py::test_accesserror_when_already_logged_out PASSED [  6%]
+http_tests/auth_tests/test_auth_register.py::test_invalid_email[@gmail.com] PASSED [  6%]
+http_tests/auth_tests/test_auth_register.py::test_invalid_email[bob] PASSED [  7%]
+http_tests/auth_tests/test_auth_register.py::test_invalid_email[bob@bob@bob.com] PASSED [  7%]
+http_tests/auth_tests/test_auth_register.py::test_invalid_password[12345] PASSED [  7%]
+http_tests/auth_tests/test_auth_register.py::test_invalid_password[] PASSED [  8%]
+http_tests/auth_tests/test_auth_register.py::test_invalid_name_first[] PASSED [  8%]
+http_tests/auth_tests/test_auth_register.py::test_invalid_name_first[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa] PASSED [  8%]
+http_tests/auth_tests/test_auth_register.py::test_invalid_name_last[] PASSED [  8%]
+http_tests/auth_tests/test_auth_register.py::test_invalid_name_last[bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb] PASSED [  9%]
+http_tests/auth_tests/test_auth_register.py::test_duplicate_email PASSED [  9%]
+http_tests/auth_tests/test_auth_register.py::test_removed_user_name FAILED [  9%]
+http_tests/auth_tests/test_auth_register.py::test_successful_registration FAILED [  9%]
+http_tests/auth_tests/test_auth_register.py::test_basic_handle_generated_correctly[Bob-Smith-bobsmith] FAILED [ 10%]
+http_tests/auth_tests/test_auth_register.py::test_basic_handle_generated_correctly[ababababab-cdcdcdcdcdcd-abababababcdcdcdcdcd] FAILED [ 10%]
+http_tests/auth_tests/test_auth_register.py::test_duplicate_handles_generated_correctly[abcdefghij-klmnopqrs-abcdefghijklmnopqrs-abcdefghij-klmnopqrs-abcdefghijklmnopqrs0] FAILED [ 10%]
+http_tests/auth_tests/test_auth_register.py::test_duplicate_handles_generated_correctly[abcdefghij-klmnopqrst-abcdefghijklmnopqrst-abcdefghij-klmnopqrst-abcdefghijklmnopqrst0] FAILED [ 10%]
+http_tests/auth_tests/test_auth_register.py::test_duplicate_handles_generated_correctly[@bcdefgh!j-klmn opqrst-bcdefghjklmnopqrst-bcdefghj-klmnopqrst-bcdefghjklmnopqrst0] FAILED [ 11%]
+http_tests/auth_tests/test_auth_register.py::test_duplicate_handles_generated_correctly[abc-def0-abcdef0-abc-def-abcdef1] FAILED [ 11%]
+http_tests/channel_tests/test_channel_addowner.py::test_channel_owner_can_addowner_when_member PASSED [ 12%]
+http_tests/channel_tests/test_channel_addowner.py::test_global_owner_member_can_addowner PASSED [ 12%]
+http_tests/channel_tests/test_channel_addowner.py::test_channel_owner_cant_addowner_when_non_member PASSED [ 13%]
+http_tests/channel_tests/test_channel_addowner.py::test_non_member_cannot_add_owner FAILED [ 13%]
+http_tests/channel_tests/test_channel_addowner.py::test_global_owner_non_member_cant_addowner_private FAILED [ 13%]
+http_tests/channel_tests/test_channel_addowner.py::test_global_owner_non_member_cant_addowner_public FAILED [ 13%]
+http_tests/channel_tests/test_channel_addowner.py::test_member_cannot_add_owner PASSED [ 14%]
+http_tests/channel_tests/test_channel_addowner.py::test_cannot_addowner_prexisting_channel_owner PASSED [ 14%]
+http_tests/channel_tests/test_channel_addowner.py::test_with_invalid_u_id PASSED [ 14%]
+http_tests/channel_tests/test_channel_addowner.py::test_with_invalid_channel_id PASSED [ 14%]
+http_tests/channel_tests/test_channel_addowner.py::test_invalid_token PASSED [ 15%]
+http_tests/channel_tests/test_channel_details.py::test_member_successful PASSED [ 15%]
+http_tests/channel_tests/test_channel_details.py::test_non_member_not_successful PASSED [ 15%]
+http_tests/channel_tests/test_channel_details.py::test_invalid_channel_id PASSED [ 16%]
+http_tests/channel_tests/test_channel_details.py::test_invalid_token PASSED [ 16%]
+http_tests/channel_tests/test_channel_invite.py::test_duplicate_invite PASSED [ 16%]
+http_tests/channel_tests/test_channel_invite.py::test_invite_global_owner PASSED [ 16%]
+http_tests/channel_tests/test_channel_invite.py::test_invite_global_member PASSED [ 17%]
+http_tests/channel_tests/test_channel_invite.py::test_invitation_from_non_channel_member PASSED [ 17%]
+http_tests/channel_tests/test_channel_invite.py::test_channel_id_invalid PASSED [ 17%]
+http_tests/channel_tests/test_channel_invite.py::test_u_id_invalid PASSED [ 17%]
+http_tests/channel_tests/test_channel_invite.py::test_invalidated_token PASSED [ 18%]
+http_tests/channel_tests/test_channel_join.py::test_global_owner_join_channel_public PASSED [ 18%]
+http_tests/channel_tests/test_channel_join.py::test_global_owner_join_channel_private FAILED [ 18%]
+http_tests/channel_tests/test_channel_join.py::test_global_member_join_public PASSED [ 18%]
+http_tests/channel_tests/test_channel_join.py::test_global_member_cant_join_private PASSED [ 19%]
+http_tests/channel_tests/test_channel_join.py::test_already_joined_channel PASSED [ 19%]
+http_tests/channel_tests/test_channel_join.py::test_join_invalid_channel_id PASSED [ 19%]
+http_tests/channel_tests/test_channel_join.py::test_invalidated_token PASSED [ 20%]
+http_tests/channel_tests/test_channel_leave.py::test_member_leave_channel_successfully FAILED [ 20%]
+http_tests/channel_tests/test_channel_leave.py::test_leave_channel_when_not_member PASSED [ 20%]
+http_tests/channel_tests/test_channel_leave.py::test_invalid_channel_id PASSED [ 20%]
+http_tests/channel_tests/test_channel_leave.py::test_invalid_token PASSED [ 21%]
+http_tests/channel_tests/test_channel_messages.py::test_message_timestamp FAILED [ 21%]
+http_tests/channel_tests/test_channel_messages.py::test_under_fifty_messages_sent FAILED [ 21%]
+http_tests/channel_tests/test_channel_messages.py::test_over_fifty_messages_sent FAILED [ 21%]
+http_tests/channel_tests/test_channel_messages.py::test_removal_by_edit_reflected FAILED [ 22%]
+http_tests/channel_tests/test_channel_messages.py::test_removal_by_deletion_reflected FAILED [ 22%]
+http_tests/channel_tests/test_channel_messages.py::test_input_error_when_start_greater_than_message_num FAILED [ 22%]
+http_tests/channel_tests/test_channel_messages.py::test_access_error_when_user_is_non_member FAILED [ 22%]
+http_tests/channel_tests/test_channel_messages.py::test_input_error_when_channel_id_invalid FAILED [ 23%]
+http_tests/channel_tests/test_channel_messages.py::test_access_error_when_invalid_token_given FAILED [ 23%]
+http_tests/channel_tests/test_channel_removeowner.py::test_owner_can_remove_owner PASSED [ 23%]
+http_tests/channel_tests/test_channel_removeowner.py::test_global_owner_member_can_remove_owner PASSED [ 24%]
+http_tests/channel_tests/test_channel_removeowner.py::test_global_owner_nonmember_cannot_remove_owner FAILED [ 24%]
+http_tests/channel_tests/test_channel_removeowner.py::test_nonmember_cannot_remove_owner PASSED [ 24%]
+http_tests/channel_tests/test_channel_removeowner.py::test_member_cannot_remove_owner PASSED [ 24%]
+http_tests/channel_tests/test_channel_removeowner.py::test_cannot_remove_last_owner PASSED [ 25%]
+http_tests/channel_tests/test_channel_removeowner.py::test_global_owner_cannot_remove_only_owner PASSED [ 25%]
+http_tests/channel_tests/test_channel_removeowner.py::test_cannot_remove_non_owner PASSED [ 25%]
+http_tests/channel_tests/test_channel_removeowner.py::test_invalid_u_id PASSED [ 25%]
+http_tests/channel_tests/test_channel_removeowner.py::test_with_invalid_channel_id PASSED [ 26%]
+http_tests/channel_tests/test_channel_removeowner.py::test_invalidated_token PASSED [ 26%]
+http_tests/channels_tests/test_channels_create.py::test_create_channel[True-andys room] PASSED [ 26%]
+http_tests/channels_tests/test_channels_create.py::test_create_channel[False-andys room] PASSED [ 27%]
+http_tests/channels_tests/test_channels_create.py::test_invalid_channel_name_length[True-] PASSED [ 27%]
+http_tests/channels_tests/test_channels_create.py::test_invalid_channel_name_length[True-I AM NOT A TOY AND ALSO THIS NAME IS TOO LONG] PASSED [ 27%]
+http_tests/channels_tests/test_channels_create.py::test_invalid_channel_name_length[False-] PASSED [ 27%]
+http_tests/channels_tests/test_channels_create.py::test_invalid_channel_name_length[False-I AM NOT A TOY AND ALSO THIS NAME IS TOO LONG] PASSED [ 28%]
+http_tests/channels_tests/test_channels_create.py::test_invalidated_token PASSED [ 28%]
+http_tests/channels_tests/test_channels_list.py::test_when_in_no_channels FAILED [ 28%]
+http_tests/channels_tests/test_channels_list.py::test_when_in_one_channel[True-andy] FAILED [ 28%]
+http_tests/channels_tests/test_channels_list.py::test_when_in_one_channel[False-andy] FAILED [ 29%]
+http_tests/channels_tests/test_channels_list.py::test_when_in_multiple_channels[False-True-ZERG-andy] FAILED [ 29%]
+http_tests/channels_tests/test_channels_list.py::test_when_in_multiple_channels[False-False-ZERG-andy] FAILED [ 29%]
+http_tests/channels_tests/test_channels_list.py::test_when_in_multiple_channels[True-True-ZERG-andy] FAILED [ 29%]
+http_tests/channels_tests/test_channels_list.py::test_when_in_multiple_channels[True-False-ZERG-andy] FAILED [ 30%]
+http_tests/channels_tests/test_channels_list.py::test_list_after_leave_channel FAILED [ 30%]
+http_tests/channels_tests/test_channels_list.py::test_invalidated_token PASSED [ 30%]
+http_tests/channels_tests/test_channels_listall.py::test_when_no_channels FAILED [ 31%]
+http_tests/channels_tests/test_channels_listall.py::test_when_one_channel_exists_private FAILED [ 31%]
+http_tests/channels_tests/test_channels_listall.py::test_when_one_channel_exists_public FAILED [ 31%]
+http_tests/channels_tests/test_channels_listall.py::test_when_multiple_channels_exist FAILED [ 31%]
+http_tests/channels_tests/test_channels_listall.py::test_invalidated_token PASSED [ 32%]
+http_tests/dm_tests/test_dm_create.py::test_successful_dm_creation FAILED [ 32%]
+http_tests/dm_tests/test_dm_create.py::test_dm_name_creation_single FAILED [ 32%]
+http_tests/dm_tests/test_dm_create.py::test_dm_name_creation_multiple FAILED [ 32%]
+http_tests/dm_tests/test_dm_create.py::test_dm_to_invalid_users PASSED   [ 33%]
+http_tests/dm_tests/test_dm_create.py::test_dm_to_users_but_one_invalid PASSED [ 33%]
+http_tests/dm_tests/test_dm_create.py::test_dm_to_users_but_duplicate PASSED [ 33%]
+http_tests/dm_tests/test_dm_create.py::test_invalid_token PASSED         [ 33%]
+http_tests/dm_tests/test_dm_details.py::test_member_successful FAILED    [ 34%]
+http_tests/dm_tests/test_dm_details.py::test_non_member_not_successful PASSED [ 34%]
+http_tests/dm_tests/test_dm_details.py::test_invalid_dm_id PASSED        [ 34%]
+http_tests/dm_tests/test_dm_details.py::test_invalid_token PASSED        [ 35%]
+http_tests/dm_tests/test_dm_leave.py::test_member_leave_dm_successfully PASSED [ 35%]
+http_tests/dm_tests/test_dm_leave.py::test_leave_dm_when_not_member PASSED [ 35%]
+http_tests/dm_tests/test_dm_leave.py::test_invalid_dm_id PASSED          [ 35%]
+http_tests/dm_tests/test_dm_leave.py::test_invalid_token PASSED          [ 36%]
+http_tests/dm_tests/test_dm_list.py::test_when_in_no_dms PASSED          [ 36%]
+http_tests/dm_tests/test_dm_list.py::test_when_in_one_dm FAILED          [ 36%]
+http_tests/dm_tests/test_dm_list.py::test_when_in_multiple_dms FAILED    [ 36%]
+http_tests/dm_tests/test_dm_list.py::test_list_after_leave_dm PASSED     [ 37%]
+http_tests/dm_tests/test_dm_list.py::test_invalidated_token PASSED       [ 37%]
+http_tests/dm_tests/test_dm_messages.py::test_under_fifty_messages_sent FAILED [ 37%]
+http_tests/dm_tests/test_dm_messages.py::test_over_fifty_messages_sent FAILED [ 37%]
+http_tests/dm_tests/test_dm_messages.py::test_removal_by_edit_reflected FAILED [ 38%]
+http_tests/dm_tests/test_dm_messages.py::test_removal_by_deletion_reflected FAILED [ 38%]
+http_tests/dm_tests/test_dm_messages.py::test_input_error_when_start_greater_than_message_num FAILED [ 38%]
+http_tests/dm_tests/test_dm_messages.py::test_access_error_when_user_is_non_member FAILED [ 39%]
+http_tests/dm_tests/test_dm_messages.py::test_input_error_when_dm_id_invalid FAILED [ 39%]
+http_tests/dm_tests/test_dm_messages.py::test_access_error_when_invalid_token_given FAILED [ 39%]
+http_tests/dm_tests/test_dm_remove.py::test_successful_dm_removal PASSED [ 39%]
+http_tests/dm_tests/test_dm_remove.py::test_nonowner_cannot_remove_dm PASSED [ 40%]
+http_tests/dm_tests/test_dm_remove.py::test_owner_nonmember_cannot_remove_dm PASSED [ 40%]
+http_tests/dm_tests/test_dm_remove.py::test_invalid_dm_id PASSED         [ 40%]
+http_tests/dm_tests/test_dm_remove.py::test_invalid_token PASSED         [ 41%]
+http_tests/message_tests/test_message_edit.py::test_original_poster_can_edit_message_channel FAILED [ 41%]
+http_tests/message_tests/test_message_edit.py::test_original_poster_can_edit_message_dm FAILED [ 41%]
+http_tests/message_tests/test_message_edit.py::test_owner_can_edit_members_message_channel FAILED [ 41%]
+http_tests/message_tests/test_message_edit.py::test_owner_can_edit_members_message_dm FAILED [ 42%]
+http_tests/message_tests/test_message_edit.py::test_global_owner_can_edit_members_message_channel FAILED [ 42%]
+http_tests/message_tests/test_message_edit.py::test_global_owner_cant_edit_members_message_dm FAILED [ 42%]
+http_tests/message_tests/test_message_edit.py::test_empty_edit_deletes_message FAILED [ 43%]
+http_tests/message_tests/test_message_edit.py::test_invalid_message_length PASSED [ 43%]
+http_tests/message_tests/test_message_edit.py::test_cannot_edit_deleted_message PASSED [ 43%]
+http_tests/message_tests/test_message_edit.py::test_nonowner_nonposter_cant_edit PASSED [ 43%]
+http_tests/message_tests/test_message_edit.py::test_invalid_token PASSED [ 44%]
+http_tests/message_tests/test_message_meta.py::test_message_ids_unique PASSED [ 44%]
+http_tests/message_tests/test_message_remove.py::test_original_poster_can_remove_message FAILED [ 49%]
+http_tests/message_tests/test_message_remove.py::test_owner_can_remove_members_message FAILED [ 49%]
+http_tests/message_tests/test_message_remove.py::test_global_owner_can_remove_members_message_channel FAILED [ 50%]
+http_tests/message_tests/test_message_remove.py::test_global_owner_cant_remove_members_message_dm FAILED [ 50%]
+http_tests/message_tests/test_message_remove.py::test_cannot_remove_deleted_message PASSED [ 50%]
+http_tests/message_tests/test_message_remove.py::test_nonowner_nonposter_cant_remove_message PASSED [ 50%]
+http_tests/message_tests/test_message_remove.py::test_invalid_token PASSED [ 51%]
+http_tests/message_tests/test_message_send.py::test_valid_message FAILED [ 51%]
+http_tests/message_tests/test_message_send.py::test_nonmember_post PASSED [ 51%]
+http_tests/message_tests/test_message_send.py::test_invalid_channel PASSED [ 51%]
+http_tests/message_tests/test_message_send.py::test_invalid_message[] PASSED [ 52%]
+http_tests/message_tests/test_message_send.py::test_invalid_message[mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm] PASSED [ 52%]
+http_tests/message_tests/test_message_send.py::test_invalid_token PASSED [ 52%]
+http_tests/message_tests/test_message_senddm.py::test_valid_message FAILED [ 52%]
+http_tests/message_tests/test_message_senddm.py::test_nonmember_post PASSED [ 53%]
+http_tests/message_tests/test_message_senddm.py::test_invalid_dm PASSED  [ 53%]
+http_tests/message_tests/test_message_senddm.py::test_invalid_message[] PASSED [ 53%]
+http_tests/message_tests/test_message_senddm.py::test_invalid_message[mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm] PASSED [ 54%]
+http_tests/message_tests/test_message_senddm.py::test_invalid_token PASSED [ 54%]
+http_tests/other_tests/test_clear.py::test_clear_works FAILED            [ 67%]
+http_tests/other_tests/test_users_all.py::test_successful_users_all FAILED [ 75%]
+http_tests/other_tests/test_users_all.py::test_invalid_token PASSED      [ 75%]
+http_tests/user_tests/test_user_profile.py::test_user_profile_valid FAILED [ 90%]
+http_tests/user_tests/test_user_profile.py::test_invalid_user PASSED     [ 90%]
+http_tests/user_tests/test_user_profile.py::test_invalid_token PASSED    [ 91%]
+http_tests/user_tests/test_user_profile_setemail.py::test_successful_email_change FAILED [ 91%]
+http_tests/user_tests/test_user_profile_setemail.py::test_cannot_change_to_taken_email PASSED [ 91%]
+http_tests/user_tests/test_user_profile_setemail.py::test_invalid_email[] PASSED [ 91%]
+http_tests/user_tests/test_user_profile_setemail.py::test_invalid_email[bob] PASSED [ 92%]
+http_tests/user_tests/test_user_profile_setemail.py::test_invalid_email[ab.com] PASSED [ 92%]
+http_tests/user_tests/test_user_profile_setemail.py::test_invalid_email[@gmail.com] PASSED [ 92%]
+http_tests/user_tests/test_user_profile_setemail.py::test_invalid_email[ab@ab@gmail.com] PASSED [ 93%]
+http_tests/user_tests/test_user_profile_setemail.py::test_invalid_token PASSED [ 93%]
+http_tests/user_tests/test_user_profile_sethandle.py::test_successful_handle_change FAILED [ 93%]
+http_tests/user_tests/test_user_profile_sethandle.py::test_cannot_change_to_taken_handle PASSED [ 93%]
+http_tests/user_tests/test_user_profile_sethandle.py::test_invalid_handle[] PASSED [ 94%]
+http_tests/user_tests/test_user_profile_sethandle.py::test_invalid_handle[a] PASSED [ 94%]
+http_tests/user_tests/test_user_profile_sethandle.py::test_invalid_handle[aa] PASSED [ 94%]
+http_tests/user_tests/test_user_profile_sethandle.py::test_invalid_handle[aaaaaaaaaaaaaaaaaaaaa] PASSED [ 94%]
+http_tests/user_tests/test_user_profile_sethandle.py::test_invalid_handle[new handle] PASSED [ 95%]
+http_tests/user_tests/test_user_profile_sethandle.py::test_invalid_handle[newh@ndle] PASSED [ 95%]
+http_tests/user_tests/test_user_profile_sethandle.py::test_invalid_token PASSED [ 95%]
+http_tests/user_tests/test_user_profile_setname.py::test_user_profile_setname_valid_name FAILED [ 95%]
+http_tests/user_tests/test_user_profile_setname.py::test_invalid_name[-] PASSED [ 96%]
+http_tests/user_tests/test_user_profile_setname.py::test_invalid_name[-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM] PASSED [ 96%]
+http_tests/user_tests/test_user_profile_setname.py::test_invalid_name[PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP-] PASSED [ 96%]
+http_tests/user_tests/test_user_profile_setname.py::test_invalid_name[PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM] PASSED [ 97%]
+http_tests/user_tests/test_user_profile_setname.py::test_invalid_token PASSED [ 97%]
+
+====== Marks recorded: 63.20 ======
+
+
+=================================== FAILURES ===================================
+___________________ test_once_removed_user_cant_do_anything ____________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+user_zerg = User(email='zerg.thedestroyer@zergworld.com', password='!!qazwsx', name_first='lord', name_last='zerg', u_id=2, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+ctx = None
+
+    def test_once_removed_user_cant_do_anything(user_woody, user_zerg, woodys_public_toybox, ctx):
+        admin_user_remove(user_woody.token, user_zerg.u_id, ctx)
+    
+        with pytest.raises(AccessError):
+>           auth_logout(user_zerg.token, ctx)
+E           Failed: DID NOT RAISE <class 'http_tests.error.AccessError'>
+
+http_tests/admin_tests/test_admin_user_remove.py:22: Failed
+_______________ test_messages_after_user_removal_correct_format ________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+user_zerg = User(email='zerg.thedestroyer@zergworld.com', password='!!qazwsx', name_first='lord', name_last='zerg', u_id=2, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+message_factory = <function message_factory.<locals>.make_message at 0x7f30b65359d8>
+ctx = None
+
+    def test_messages_after_user_removal_correct_format(user_woody, user_zerg, woodys_public_toybox, message_factory, ctx):
+        channel_join(user_zerg.token, woodys_public_toybox.channel_id, ctx)
+        message_factory(user_zerg, woodys_public_toybox, 'hi')
+    
+        admin_user_remove(user_woody.token, user_zerg.u_id, ctx)
+    
+>       zergs_msg = channel_messages(user_woody.token, woodys_public_toybox.channel_id, 0, ctx)['messages'][0]
+
+http_tests/admin_tests/test_admin_user_remove.py:34: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:36: in channel_messages
+    token=token, channel_id=channel_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+____________ test_removed_profile_still_fetchable_with_user_profile ____________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+user_zerg = User(email='zerg.thedestroyer@zergworld.com', password='!!qazwsx', name_first='lord', name_last='zerg', u_id=2, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+ctx = None
+
+    def test_removed_profile_still_fetchable_with_user_profile(user_woody, user_zerg, ctx):
+        admin_user_remove(user_woody.token, user_zerg.u_id, ctx)
+    
+>       profile = user_profile(user_woody.token, user_zerg.u_id, ctx)['user']
+E       KeyError: 'user'
+
+http_tests/admin_tests/test_admin_user_remove.py:41: KeyError
+________________________ test_removal_not_in_users_all _________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+user_zerg = User(email='zerg.thedestroyer@zergworld.com', password='!!qazwsx', name_first='lord', name_last='zerg', u_id=2, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+ctx = None
+
+    def test_removal_not_in_users_all(user_woody, user_zerg, ctx):
+        admin_user_remove(user_woody.token, user_zerg.u_id, ctx)
+    
+>       users = users_all(user_woody.token, ctx)['users']
+E       TypeError: list indices must be integers or slices, not str
+
+http_tests/admin_tests/test_admin_user_remove.py:67: TypeError
+_____________________________ test_handle_reusable _____________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+user_zerg = User(email='zerg.thedestroyer@zergworld.com', password='!!qazwsx', name_first='lord', name_last='zerg', u_id=2, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+ctx = None
+
+    def test_handle_reusable(user_woody, user_zerg, ctx):
+        admin_user_remove(user_woody.token, user_zerg.u_id, ctx)
+    
+        session = auth_register(user_zerg.email, user_zerg.password, user_zerg.name_first, user_zerg.name_last, ctx)
+    
+>       assert user_profile(session['token'], session['auth_user_id'], ctx)['user']['handle_str'] == user_zerg.handle_str
+E       KeyError: 'user'
+
+http_tests/admin_tests/test_admin_user_remove.py:84: KeyError
+______________________ test_successful_permission_change _______________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+user_buzz = User(email='buzz.lightyear@starcommand.com', password='qazwsx@@', name_first='buzz', name_last='lightyear', u_id=2, to...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+ctx = None
+
+    def test_successful_permission_change(user_woody, user_buzz, ctx):
+        admin_userpermission_change(user_woody.token, user_buzz.u_id, Permissions.DREAMS_OWNER, ctx)
+    
+        # with this newfound power, buzz betrays woody (just like in the movie)
+        # this should succeed
+>       assert admin_userpermission_change(user_buzz.token, user_woody.u_id, Permissions.DREAMS_MEMBER, ctx) is not None
+E       AssertionError: assert None is not None
+E        +  where None = admin_userpermission_change('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', 1, 2, None)
+E        +    where 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4' = User(email='buzz.lightyear@starcommand.com', password='qazwsx@@', name_first='buzz', name_last='lightyear', u_id=2, to...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='').token
+E        +    and   1 = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='').u_id
+E        +    and   2 = Permissions.DREAMS_MEMBER
+
+http_tests/admin_tests/test_admin_userpermission_change.py:20: AssertionError
+____________________________ test_removed_user_name ____________________________
+
+ctx = None
+
+    def test_removed_user_name(ctx):
+        session = auth_register('abc@gmail.com', 'password1', 'Removed', 'user', ctx)
+>       profile = user_profile(session['token'], session['auth_user_id'], ctx)['user']
+E       KeyError: 'user'
+
+http_tests/auth_tests/test_auth_register.py:55: KeyError
+_________________________ test_successful_registration _________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    def test_successful_registration(user_woody, ctx):
+>       woody_prof = user_profile(user_woody.token, user_woody.u_id, ctx)['user']
+E       KeyError: 'user'
+
+http_tests/auth_tests/test_auth_register.py:62: KeyError
+__________ test_basic_handle_generated_correctly[Bob-Smith-bobsmith] ___________
+
+name_first = 'Bob', name_last = 'Smith', expected_handle = 'bobsmith'
+ctx = None
+
+    @pytest.mark.parametrize('name_first, name_last, expected_handle', [
+        ('Bob', 'Smith', 'bobsmith'),
+        ('ab' * 5, 'cd' * 6, f'{"ab" * 5}{"cd" * 5}')
+    ])
+    def test_basic_handle_generated_correctly(name_first, name_last, expected_handle, ctx):
+        session = auth_register('bob.jane@gmail.com', '~~qazwsx', name_first, name_last, ctx)
+    
+>       actual_handle = user_profile(session['token'], session['auth_user_id'], ctx)['user']['handle_str']
+E       KeyError: 'user'
+
+http_tests/auth_tests/test_auth_register.py:78: KeyError
+_ test_basic_handle_generated_correctly[ababababab-cdcdcdcdcdcd-abababababcdcdcdcdcd] _
+
+name_first = 'ababababab', name_last = 'cdcdcdcdcdcd'
+expected_handle = 'abababababcdcdcdcdcd', ctx = None
+
+    @pytest.mark.parametrize('name_first, name_last, expected_handle', [
+        ('Bob', 'Smith', 'bobsmith'),
+        ('ab' * 5, 'cd' * 6, f'{"ab" * 5}{"cd" * 5}')
+    ])
+    def test_basic_handle_generated_correctly(name_first, name_last, expected_handle, ctx):
+        session = auth_register('bob.jane@gmail.com', '~~qazwsx', name_first, name_last, ctx)
+    
+>       actual_handle = user_profile(session['token'], session['auth_user_id'], ctx)['user']['handle_str']
+E       KeyError: 'user'
+
+http_tests/auth_tests/test_auth_register.py:78: KeyError
+_ test_duplicate_handles_generated_correctly[abcdefghij-klmnopqrs-abcdefghijklmnopqrs-abcdefghij-klmnopqrs-abcdefghijklmnopqrs0] _
+
+first1 = 'abcdefghij', last1 = 'klmnopqrs', handle1 = 'abcdefghijklmnopqrs'
+first2 = 'abcdefghij', last2 = 'klmnopqrs', handle2 = 'abcdefghijklmnopqrs0'
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    @pytest.mark.parametrize('first1, last1, handle1, first2, last2, handle2', [
+        ('abcdefghij', 'klmnopqrs', 'abcdefghijklmnopqrs', 'abcdefghij', 'klmnopqrs', 'abcdefghijklmnopqrs0'),
+        ('abcdefghij', 'klmnopqrst', 'abcdefghijklmnopqrst', 'abcdefghij', 'klmnopqrst', 'abcdefghijklmnopqrst0'),
+        ('@bcdefgh!j', 'klmn opqrst', 'bcdefghjklmnopqrst', 'bcdefghj', 'klmnopqrst', 'bcdefghjklmnopqrst0'),
+        ('abc', 'def0', 'abcdef0', 'abc', 'def', 'abcdef1'),
+    ])
+    def test_duplicate_handles_generated_correctly(first1, last1, handle1, first2, last2, handle2, woodys_public_toybox, user_woody, ctx):
+        email1 = 'blah1@email.com'
+        email2 = 'blah2@email.com'
+    
+        auth_register('blah3@email.com', 'password1', 'abc', 'def', ctx)
+    
+        user1 = auth_register(email1, 'password1', first1, last1, ctx)
+>       assert handle1 == user_profile(user1['token'], user1['auth_user_id'], ctx)['user']['handle_str']
+E       KeyError: 'user'
+
+http_tests/auth_tests/test_auth_register.py:96: KeyError
+_ test_duplicate_handles_generated_correctly[abcdefghij-klmnopqrst-abcdefghijklmnopqrst-abcdefghij-klmnopqrst-abcdefghijklmnopqrst0] _
+
+first1 = 'abcdefghij', last1 = 'klmnopqrst', handle1 = 'abcdefghijklmnopqrst'
+first2 = 'abcdefghij', last2 = 'klmnopqrst', handle2 = 'abcdefghijklmnopqrst0'
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    @pytest.mark.parametrize('first1, last1, handle1, first2, last2, handle2', [
+        ('abcdefghij', 'klmnopqrs', 'abcdefghijklmnopqrs', 'abcdefghij', 'klmnopqrs', 'abcdefghijklmnopqrs0'),
+        ('abcdefghij', 'klmnopqrst', 'abcdefghijklmnopqrst', 'abcdefghij', 'klmnopqrst', 'abcdefghijklmnopqrst0'),
+        ('@bcdefgh!j', 'klmn opqrst', 'bcdefghjklmnopqrst', 'bcdefghj', 'klmnopqrst', 'bcdefghjklmnopqrst0'),
+        ('abc', 'def0', 'abcdef0', 'abc', 'def', 'abcdef1'),
+    ])
+    def test_duplicate_handles_generated_correctly(first1, last1, handle1, first2, last2, handle2, woodys_public_toybox, user_woody, ctx):
+        email1 = 'blah1@email.com'
+        email2 = 'blah2@email.com'
+    
+        auth_register('blah3@email.com', 'password1', 'abc', 'def', ctx)
+    
+        user1 = auth_register(email1, 'password1', first1, last1, ctx)
+>       assert handle1 == user_profile(user1['token'], user1['auth_user_id'], ctx)['user']['handle_str']
+E       KeyError: 'user'
+
+http_tests/auth_tests/test_auth_register.py:96: KeyError
+_ test_duplicate_handles_generated_correctly[@bcdefgh!j-klmn opqrst-bcdefghjklmnopqrst-bcdefghj-klmnopqrst-bcdefghjklmnopqrst0] _
+
+first1 = '@bcdefgh!j', last1 = 'klmn opqrst', handle1 = 'bcdefghjklmnopqrst'
+first2 = 'bcdefghj', last2 = 'klmnopqrst', handle2 = 'bcdefghjklmnopqrst0'
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    @pytest.mark.parametrize('first1, last1, handle1, first2, last2, handle2', [
+        ('abcdefghij', 'klmnopqrs', 'abcdefghijklmnopqrs', 'abcdefghij', 'klmnopqrs', 'abcdefghijklmnopqrs0'),
+        ('abcdefghij', 'klmnopqrst', 'abcdefghijklmnopqrst', 'abcdefghij', 'klmnopqrst', 'abcdefghijklmnopqrst0'),
+        ('@bcdefgh!j', 'klmn opqrst', 'bcdefghjklmnopqrst', 'bcdefghj', 'klmnopqrst', 'bcdefghjklmnopqrst0'),
+        ('abc', 'def0', 'abcdef0', 'abc', 'def', 'abcdef1'),
+    ])
+    def test_duplicate_handles_generated_correctly(first1, last1, handle1, first2, last2, handle2, woodys_public_toybox, user_woody, ctx):
+        email1 = 'blah1@email.com'
+        email2 = 'blah2@email.com'
+    
+        auth_register('blah3@email.com', 'password1', 'abc', 'def', ctx)
+    
+        user1 = auth_register(email1, 'password1', first1, last1, ctx)
+>       assert handle1 == user_profile(user1['token'], user1['auth_user_id'], ctx)['user']['handle_str']
+E       KeyError: 'user'
+
+http_tests/auth_tests/test_auth_register.py:96: KeyError
+_ test_duplicate_handles_generated_correctly[abc-def0-abcdef0-abc-def-abcdef1] _
+
+first1 = 'abc', last1 = 'def0', handle1 = 'abcdef0', first2 = 'abc'
+last2 = 'def', handle2 = 'abcdef1'
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    @pytest.mark.parametrize('first1, last1, handle1, first2, last2, handle2', [
+        ('abcdefghij', 'klmnopqrs', 'abcdefghijklmnopqrs', 'abcdefghij', 'klmnopqrs', 'abcdefghijklmnopqrs0'),
+        ('abcdefghij', 'klmnopqrst', 'abcdefghijklmnopqrst', 'abcdefghij', 'klmnopqrst', 'abcdefghijklmnopqrst0'),
+        ('@bcdefgh!j', 'klmn opqrst', 'bcdefghjklmnopqrst', 'bcdefghj', 'klmnopqrst', 'bcdefghjklmnopqrst0'),
+        ('abc', 'def0', 'abcdef0', 'abc', 'def', 'abcdef1'),
+    ])
+    def test_duplicate_handles_generated_correctly(first1, last1, handle1, first2, last2, handle2, woodys_public_toybox, user_woody, ctx):
+        email1 = 'blah1@email.com'
+        email2 = 'blah2@email.com'
+    
+        auth_register('blah3@email.com', 'password1', 'abc', 'def', ctx)
+    
+        user1 = auth_register(email1, 'password1', first1, last1, ctx)
+>       assert handle1 == user_profile(user1['token'], user1['auth_user_id'], ctx)['user']['handle_str']
+E       KeyError: 'user'
+
+http_tests/auth_tests/test_auth_register.py:96: KeyError
+_______________________ test_non_member_cannot_add_owner _______________________
+
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+user_buzz = User(email='buzz.lightyear@starcommand.com', password='qazwsx@@', name_first='buzz', name_last='lightyear', u_id=2, to...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+ctx = None
+
+    def test_non_member_cannot_add_owner(woodys_public_toybox, user_buzz, ctx):
+        with pytest.raises(AccessError):
+>           channel_addowner(user_buzz.token, woodys_public_toybox.channel_id, user_buzz.u_id, ctx)
+
+http_tests/channel_tests/test_channel_addowner.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:69: in channel_addowner
+    token=token, channel_id=channel_id, u_id=u_id
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [400]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+>           raise error.InputError()
+E           http_tests.error.InputError: 400 Bad Request: None
+
+http_tests/fakepi/util.py:68: InputError
+______________ test_global_owner_non_member_cant_addowner_private ______________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+zergs_private_lair = Channel(name='zergs lair', is_public=False, channel_id=1, owner_members=[2], all_members=[])
+ctx = None
+
+    def test_global_owner_non_member_cant_addowner_private(user_woody, zergs_private_lair, ctx):
+        with pytest.raises(AccessError):
+>           channel_addowner(user_woody.token, zergs_private_lair.channel_id, user_woody.u_id, ctx)
+
+http_tests/channel_tests/test_channel_addowner.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:69: in channel_addowner
+    token=token, channel_id=channel_id, u_id=u_id
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [400]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+>           raise error.InputError()
+E           http_tests.error.InputError: 400 Bad Request: None
+
+http_tests/fakepi/util.py:68: InputError
+______________ test_global_owner_non_member_cant_addowner_public _______________
+
+user_buzz = User(email='buzz.lightyear@starcommand.com', password='qazwsx@@', name_first='buzz', name_last='lightyear', u_id=1, to...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[2], all_members=[])
+ctx = None
+
+    def test_global_owner_non_member_cant_addowner_public(user_buzz, woodys_public_toybox, ctx):
+        with pytest.raises(AccessError):
+>           channel_addowner(user_buzz.token, woodys_public_toybox.channel_id, user_buzz.u_id, ctx)
+
+http_tests/channel_tests/test_channel_addowner.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:69: in channel_addowner
+    token=token, channel_id=channel_id, u_id=u_id
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [400]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+>           raise error.InputError()
+E           http_tests.error.InputError: 400 Bad Request: None
+
+http_tests/fakepi/util.py:68: InputError
+____________________ test_global_owner_join_channel_private ____________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+zergs_private_lair = Channel(name='zergs lair', is_public=False, channel_id=1, owner_members=[2], all_members=[])
+ctx = None
+
+    def test_global_owner_join_channel_private(user_woody, zergs_private_lair, ctx):
+>       channel_join(user_woody.token, zergs_private_lair.channel_id, ctx)
+
+http_tests/channel_tests/test_channel_join.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:58: in channel_join
+    token=token, channel_id=channel_id
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [403]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+>           raise error.AccessError()
+E           http_tests.error.AccessError: 403 Forbidden: None
+
+http_tests/fakepi/util.py:70: AccessError
+____________________ test_member_leave_channel_successfully ____________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+ctx = None
+
+    def test_member_leave_channel_successfully(user_woody, woodys_public_toybox, ctx):
+        channel_leave(user_woody.token, woodys_public_toybox.channel_id, ctx)
+        chs = channels_list(user_woody.token, ctx)
+    
+>       assert chs['channels'] == []
+E       TypeError: list indices must be integers or slices, not str
+
+http_tests/channel_tests/test_channel_leave.py:19: TypeError
+____________________________ test_message_timestamp ____________________________
+
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    def test_message_timestamp(woodys_public_toybox, user_woody, ctx):
+        expected_time = utc_now()
+        message_send(user_woody.token, woodys_public_toybox.channel_id, 'you are a toy', ctx)
+>       ch_msgs = channel_messages(user_woody.token, woodys_public_toybox.channel_id, 0, ctx)
+
+http_tests/channel_tests/test_channel_messages.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:36: in channel_messages
+    token=token, channel_id=channel_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+________________________ test_under_fifty_messages_sent ________________________
+
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    def test_under_fifty_messages_sent(woodys_public_toybox, user_woody, ctx):
+        message_ids = [
+            message_send(user_woody.token, woodys_public_toybox.channel_id, 'you are a toy', ctx)['message_id'] for x in
+            range(10)
+        ]
+    
+>       ch_msgs = channel_messages(user_woody.token, woodys_public_toybox.channel_id, 0, ctx)
+
+http_tests/channel_tests/test_channel_messages.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:36: in channel_messages
+    token=token, channel_id=channel_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+________________________ test_over_fifty_messages_sent _________________________
+
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    def test_over_fifty_messages_sent(woodys_public_toybox, user_woody, ctx):
+        message_ids = [
+            message_send(user_woody.token, woodys_public_toybox.channel_id, 'you are a toy', ctx)['message_id'] for x in
+            range(51)
+        ]
+        message_ids.reverse()
+    
+>       ch_msgs = channel_messages(user_woody.token, woodys_public_toybox.channel_id, 0, ctx)
+
+http_tests/channel_tests/test_channel_messages.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:36: in channel_messages
+    token=token, channel_id=channel_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+________________________ test_removal_by_edit_reflected ________________________
+
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    def test_removal_by_edit_reflected(woodys_public_toybox, user_woody, ctx):
+        msg = message_send(user_woody.token, woodys_public_toybox.channel_id, 'you are a toy maybe?', ctx)['message_id']
+    
+>       ch_msgs = channel_messages(user_woody.token, woodys_public_toybox.channel_id, 0, ctx)
+
+http_tests/channel_tests/test_channel_messages.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:36: in channel_messages
+    token=token, channel_id=channel_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+______________________ test_removal_by_deletion_reflected ______________________
+
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    def test_removal_by_deletion_reflected(woodys_public_toybox, user_woody, ctx):
+        msg = message_send(user_woody.token, woodys_public_toybox.channel_id, 'you are a toy maybe?', ctx)['message_id']
+    
+>       ch_msgs = channel_messages(user_woody.token, woodys_public_toybox.channel_id, 0, ctx)
+
+http_tests/channel_tests/test_channel_messages.py:71: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:36: in channel_messages
+    token=token, channel_id=channel_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+_____________ test_input_error_when_start_greater_than_message_num _____________
+
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    def test_input_error_when_start_greater_than_message_num(woodys_public_toybox, user_woody, ctx):
+        with pytest.raises(InputError):
+>           channel_messages(user_woody.token, woodys_public_toybox.channel_id, 21389429, ctx)
+
+http_tests/channel_tests/test_channel_messages.py:85: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:36: in channel_messages
+    token=token, channel_id=channel_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+__________________ test_access_error_when_user_is_non_member ___________________
+
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+user_zerg = User(email='zerg.thedestroyer@zergworld.com', password='!!qazwsx', name_first='lord', name_last='zerg', u_id=2, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+ctx = None
+
+    def test_access_error_when_user_is_non_member(woodys_public_toybox, user_zerg, ctx):
+        with pytest.raises(AccessError):
+>           channel_messages(user_zerg.token, woodys_public_toybox.channel_id, 0, ctx)
+
+http_tests/channel_tests/test_channel_messages.py:90: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:36: in channel_messages
+    token=token, channel_id=channel_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+___________________ test_input_error_when_channel_id_invalid ___________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    def test_input_error_when_channel_id_invalid(user_woody, ctx):
+        with pytest.raises(InputError):
+>           channel_messages(user_woody.token, -1, 0, ctx)
+
+http_tests/channel_tests/test_channel_messages.py:95: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:36: in channel_messages
+    token=token, channel_id=channel_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+__________________ test_access_error_when_invalid_token_given __________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+ctx = None
+
+    def test_access_error_when_invalid_token_given(user_woody, woodys_public_toybox, ctx):
+        auth_logout(user_woody.token, ctx)
+        with pytest.raises(AccessError):
+>           channel_messages(user_woody.token, woodys_public_toybox.channel_id, 0, ctx)
+
+http_tests/channel_tests/test_channel_messages.py:101: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:36: in channel_messages
+    token=token, channel_id=channel_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+_______________ test_global_owner_nonmember_cannot_remove_owner ________________
+
+user_zerg = User(email='zerg.thedestroyer@zergworld.com', password='!!qazwsx', name_first='lord', name_last='zerg', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=2, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[2], all_members=[])
+user_buzz = User(email='buzz.lightyear@starcommand.com', password='qazwsx@@', name_first='buzz', name_last='lightyear', u_id=3, to...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjMsInNlc3Npb25faWQiOjN9.FeDulwTH1Vfot0WTpGEif5q3v0gXpI8pqs5LHsqbs1s', handle_str='')
+ctx = None
+
+    def test_global_owner_nonmember_cannot_remove_owner(user_zerg, user_woody, woodys_public_toybox, user_buzz, ctx):
+        channel_invite(user_woody.token, woodys_public_toybox.channel_id, user_buzz.u_id, ctx)
+    
+        channel_addowner(user_woody.token, woodys_public_toybox.channel_id, user_buzz.u_id, ctx)
+    
+        with pytest.raises(AccessError):
+>           channel_removeowner(user_zerg.token, woodys_public_toybox.channel_id, user_buzz.u_id, ctx)
+E           Failed: DID NOT RAISE <class 'http_tests.error.AccessError'>
+
+http_tests/channel_tests/test_channel_removeowner.py:46: Failed
+___________________________ test_when_in_no_channels ___________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    def test_when_in_no_channels(user_woody, ctx):
+>       assert channels_list(user_woody.token, ctx)['channels'] == []
+E       TypeError: list indices must be integers or slices, not str
+
+http_tests/channels_tests/test_channels_list.py:16: TypeError
+_____________________ test_when_in_one_channel[True-andy] ______________________
+
+name = 'andy', is_public = True
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    @pytest.mark.parametrize('name', ['andy'])
+    @pytest.mark.parametrize('is_public', [True, False])
+    def test_when_in_one_channel(name, is_public, user_woody, ctx):
+        ch = channels_create(user_woody.token, name, is_public, ctx)['channel_id']
+    
+        deets = {'channel_id': ch, 'name': name}
+    
+>       assert deets in channels_list(user_woody.token, ctx)['channels']
+E       TypeError: list indices must be integers or slices, not str
+
+http_tests/channels_tests/test_channels_list.py:26: TypeError
+_____________________ test_when_in_one_channel[False-andy] _____________________
+
+name = 'andy', is_public = False
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    @pytest.mark.parametrize('name', ['andy'])
+    @pytest.mark.parametrize('is_public', [True, False])
+    def test_when_in_one_channel(name, is_public, user_woody, ctx):
+        ch = channels_create(user_woody.token, name, is_public, ctx)['channel_id']
+    
+        deets = {'channel_id': ch, 'name': name}
+    
+>       assert deets in channels_list(user_woody.token, ctx)['channels']
+E       TypeError: list indices must be integers or slices, not str
+
+http_tests/channels_tests/test_channels_list.py:26: TypeError
+_____________ test_when_in_multiple_channels[False-True-ZERG-andy] _____________
+
+name1 = 'andy', name2 = 'ZERG', is_public1 = True, is_public2 = False
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    @pytest.mark.parametrize('name1', ['andy'])
+    @pytest.mark.parametrize('name2', ['ZERG'])
+    @pytest.mark.parametrize('is_public1', [True, False])
+    @pytest.mark.parametrize('is_public2', [False, True])
+    def test_when_in_multiple_channels(name1, name2, is_public1, is_public2, user_woody, ctx):
+        ch_1 = channels_create(user_woody.token, name1, is_public1, ctx)['channel_id']
+        ch_2 = channels_create(user_woody.token, name2, is_public2, ctx)['channel_id']
+    
+        expected_joined = [{'channel_id': ch_1, 'name': name1}, {'channel_id': ch_2, 'name': name2}]
+>       joined = channels_list(user_woody.token, ctx)['channels']
+E       TypeError: list indices must be integers or slices, not str
+
+http_tests/channels_tests/test_channels_list.py:38: TypeError
+____________ test_when_in_multiple_channels[False-False-ZERG-andy] _____________
+
+name1 = 'andy', name2 = 'ZERG', is_public1 = False, is_public2 = False
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    @pytest.mark.parametrize('name1', ['andy'])
+    @pytest.mark.parametrize('name2', ['ZERG'])
+    @pytest.mark.parametrize('is_public1', [True, False])
+    @pytest.mark.parametrize('is_public2', [False, True])
+    def test_when_in_multiple_channels(name1, name2, is_public1, is_public2, user_woody, ctx):
+        ch_1 = channels_create(user_woody.token, name1, is_public1, ctx)['channel_id']
+        ch_2 = channels_create(user_woody.token, name2, is_public2, ctx)['channel_id']
+    
+        expected_joined = [{'channel_id': ch_1, 'name': name1}, {'channel_id': ch_2, 'name': name2}]
+>       joined = channels_list(user_woody.token, ctx)['channels']
+E       TypeError: list indices must be integers or slices, not str
+
+http_tests/channels_tests/test_channels_list.py:38: TypeError
+_____________ test_when_in_multiple_channels[True-True-ZERG-andy] ______________
+
+name1 = 'andy', name2 = 'ZERG', is_public1 = True, is_public2 = True
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    @pytest.mark.parametrize('name1', ['andy'])
+    @pytest.mark.parametrize('name2', ['ZERG'])
+    @pytest.mark.parametrize('is_public1', [True, False])
+    @pytest.mark.parametrize('is_public2', [False, True])
+    def test_when_in_multiple_channels(name1, name2, is_public1, is_public2, user_woody, ctx):
+        ch_1 = channels_create(user_woody.token, name1, is_public1, ctx)['channel_id']
+        ch_2 = channels_create(user_woody.token, name2, is_public2, ctx)['channel_id']
+    
+        expected_joined = [{'channel_id': ch_1, 'name': name1}, {'channel_id': ch_2, 'name': name2}]
+>       joined = channels_list(user_woody.token, ctx)['channels']
+E       TypeError: list indices must be integers or slices, not str
+
+http_tests/channels_tests/test_channels_list.py:38: TypeError
+_____________ test_when_in_multiple_channels[True-False-ZERG-andy] _____________
+
+name1 = 'andy', name2 = 'ZERG', is_public1 = False, is_public2 = True
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    @pytest.mark.parametrize('name1', ['andy'])
+    @pytest.mark.parametrize('name2', ['ZERG'])
+    @pytest.mark.parametrize('is_public1', [True, False])
+    @pytest.mark.parametrize('is_public2', [False, True])
+    def test_when_in_multiple_channels(name1, name2, is_public1, is_public2, user_woody, ctx):
+        ch_1 = channels_create(user_woody.token, name1, is_public1, ctx)['channel_id']
+        ch_2 = channels_create(user_woody.token, name2, is_public2, ctx)['channel_id']
+    
+        expected_joined = [{'channel_id': ch_1, 'name': name1}, {'channel_id': ch_2, 'name': name2}]
+>       joined = channels_list(user_woody.token, ctx)['channels']
+E       TypeError: list indices must be integers or slices, not str
+
+http_tests/channels_tests/test_channels_list.py:38: TypeError
+________________________ test_list_after_leave_channel _________________________
+
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+user_buzz = User(email='buzz.lightyear@starcommand.com', password='qazwsx@@', name_first='buzz', name_last='lightyear', u_id=2, to...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+ctx = None
+
+    def test_list_after_leave_channel(woodys_public_toybox, user_woody, user_buzz, ctx):
+        channel_invite(user_woody.token, woodys_public_toybox.channel_id, user_buzz.u_id, ctx)
+        channel_leave(user_buzz.token, woodys_public_toybox.channel_id, ctx)
+    
+>       assert channels_list(user_buzz.token, ctx)['channels'] == []
+E       TypeError: list indices must be integers or slices, not str
+
+http_tests/channels_tests/test_channels_list.py:47: TypeError
+____________________________ test_when_no_channels _____________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    def test_when_no_channels(user_woody, ctx):
+>       assert channels_listall(user_woody.token, ctx)['channels'] == []
+E       TypeError: list indices must be integers or slices, not str
+
+http_tests/channels_tests/test_channels_listall.py:15: TypeError
+_____________________ test_when_one_channel_exists_private _____________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+zergs_private_lair = Channel(name='zergs lair', is_public=False, channel_id=1, owner_members=[2], all_members=[])
+ctx = None
+
+    def test_when_one_channel_exists_private(user_woody, zergs_private_lair, ctx):
+        channel_detail = {'channel_id': zergs_private_lair.channel_id, 'name': zergs_private_lair.name}
+    
+>       assert channel_detail in channels_listall(user_woody.token, ctx)['channels']
+E       TypeError: list indices must be integers or slices, not str
+
+http_tests/channels_tests/test_channels_listall.py:21: TypeError
+_____________________ test_when_one_channel_exists_public ______________________
+
+user_zerg = User(email='zerg.thedestroyer@zergworld.com', password='!!qazwsx', name_first='lord', name_last='zerg', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[2], all_members=[])
+ctx = None
+
+    def test_when_one_channel_exists_public(user_zerg, woodys_public_toybox, ctx):
+        channel_detail = {'channel_id': woodys_public_toybox.channel_id, 'name': woodys_public_toybox.name}
+    
+>       assert channel_detail in channels_listall(user_zerg.token, ctx)['channels']
+E       TypeError: list indices must be integers or slices, not str
+
+http_tests/channels_tests/test_channels_listall.py:27: TypeError
+______________________ test_when_multiple_channels_exist _______________________
+
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+zergs_private_lair = Channel(name='zergs lair', is_public=False, channel_id=2, owner_members=[2], all_members=[])
+user_buzz = User(email='buzz.lightyear@starcommand.com', password='qazwsx@@', name_first='buzz', name_last='lightyear', u_id=3, to...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjMsInNlc3Npb25faWQiOjN9.FeDulwTH1Vfot0WTpGEif5q3v0gXpI8pqs5LHsqbs1s', handle_str='')
+ctx = None
+
+    def test_when_multiple_channels_exist(woodys_public_toybox, zergs_private_lair, user_buzz, ctx):
+        expected_chs = [
+            {'channel_id': woodys_public_toybox.channel_id, 'name': woodys_public_toybox.name},
+            {'channel_id': zergs_private_lair.channel_id, 'name': zergs_private_lair.name}
+        ]
+    
+>       chs = channels.channels_listall(user_buzz.token, ctx)['channels']
+E       TypeError: list indices must be integers or slices, not str
+
+http_tests/channels_tests/test_channels_listall.py:36: TypeError
+_________________________ test_successful_dm_creation __________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+user_buzz = User(email='buzz.lightyear@starcommand.com', password='qazwsx@@', name_first='buzz', name_last='lightyear', u_id=2, to...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+ctx = None
+
+    def test_successful_dm_creation(user_woody, user_buzz, ctx):
+        a_dm = dm_create(user_woody.token, [user_buzz.u_id], ctx)
+    
+        woodys_dms = dm_list(user_woody.token, ctx)
+        buzzs_dms = dm_list(user_buzz.token, ctx)
+    
+>       assert woodys_dms['dms'][0]['dm_id'] == a_dm['dm_id']
+E       IndexError: list index out of range
+
+http_tests/dm_tests/test_dm_create.py:20: IndexError
+_________________________ test_dm_name_creation_single _________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    def test_dm_name_creation_single(user_woody, ctx):
+        the_dm = dm_create(user_woody.token, [], ctx)
+        dm_deets = dm_details(user_woody.token, the_dm['dm_id'], ctx)
+    
+>       assert dm_deets['name'] == user_woody.handle_str
+E       AssertionError: assert 'sheriffwoody, sheriffwoody' == ''
+E         + sheriffwoody, sheriffwoody
+
+http_tests/dm_tests/test_dm_create.py:28: AssertionError
+________________________ test_dm_name_creation_multiple ________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+user_buzz = User(email='buzz.lightyear@starcommand.com', password='qazwsx@@', name_first='buzz', name_last='lightyear', u_id=2, to...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+ctx = None
+
+    def test_dm_name_creation_multiple(user_woody, user_buzz, ctx):
+        the_dm = dm_create(user_woody.token, [user_buzz.u_id], ctx)
+        dm_deets = dm_details(user_woody.token, the_dm['dm_id'], ctx)
+    
+>       assert dm_deets['name'] == ', '.join(sorted([user_woody.handle_str, user_buzz.handle_str]))
+E       AssertionError: assert 'sheriffwoody, buzzlightyear, sheriffwoody' == ', '
+E         - , 
+E         + sheriffwoody, buzzlightyear, sheriffwoody
+
+http_tests/dm_tests/test_dm_create.py:35: AssertionError
+____________________________ test_member_successful ____________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+user_buzz = User(email='buzz.lightyear@starcommand.com', password='qazwsx@@', name_first='buzz', name_last='lightyear', u_id=2, to...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+woody_and_buzz_dm = DM(owner=1, members=[2], name='sheriffwoody, buzzlightyear, sheriffwoody', dm_id=1)
+ctx = None
+
+    def test_member_successful(user_woody, user_buzz, woody_and_buzz_dm, ctx):
+        dm_deets = dm_details(user_buzz.token, woody_and_buzz_dm.dm_id, ctx)
+    
+        assert dm_deets['name'] == woody_and_buzz_dm.name
+    
+>       sorted_members = sorted(dm_deets['members'], key=lambda m: m['handle_str'])
+
+http_tests/dm_tests/test_dm_details.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+m = {'email': 'sheriff.woody@andysroom.com', 'handle_string': 'sheriffwoody', 'name_first': 'sheriff', 'name_last': 'woody', ...}
+
+>   sorted_members = sorted(dm_deets['members'], key=lambda m: m['handle_str'])
+E   KeyError: 'handle_str'
+
+http_tests/dm_tests/test_dm_details.py:19: KeyError
+_____________________________ test_when_in_one_dm ______________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woody_and_buzz_dm = DM(owner=1, members=[2], name='sheriffwoody, buzzlightyear, sheriffwoody', dm_id=1)
+ctx = None
+
+    def test_when_in_one_dm(user_woody, woody_and_buzz_dm, ctx):
+        dms = dm_list(user_woody.token, ctx)
+    
+>       assert dms == {'dms': [{'name': woody_and_buzz_dm.name, 'dm_id': woody_and_buzz_dm.dm_id}]}
+E       AssertionError: assert {'dms': []} == {'dms': [{'dm_id': 1, 'name': 'sheriffwoody, buzzlightyear, sheriffwoody'}]}
+E         Differing items:
+E         {'dms': []} != {'dms': [{'dm_id': 1, 'name': 'sheriffwoody, buzzlightyear, sheriffwoody'}]}
+E         Full diff:
+E         - {'dms': [{'dm_id': 1, 'name': 'sheriffwoody, buzzlightyear, sheriffwoody'}]}
+E         + {'dms': []}
+
+http_tests/dm_tests/test_dm_list.py:21: AssertionError
+__________________________ test_when_in_multiple_dms ___________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+dm_factory = <function dm_factory.<locals>.make_dm at 0x7f30b6419378>
+ctx = None
+
+    def test_when_in_multiple_dms(user_woody, dm_factory, ctx):
+        dm_1 = dm_factory(user_woody, [])
+        dm_2 = dm_factory(user_woody, [])
+    
+        expected = [{'dm_id': dm_1.dm_id, 'name': dm_1.name}, {'dm_id': dm_2.dm_id, 'name': dm_2.name}]
+        actual = dm_list(user_woody.token, ctx)['dms']
+    
+>       assert sorted(actual, key=lambda d: d['dm_id']) == sorted(expected, key=lambda d: d['dm_id'])
+E       AssertionError: assert [] == [{'dm_id': 1, 'name': 'sheriffwoody, sheriffwoody'},\n {'dm_id': 2, 'name': 'sheriffwoody, sheriffwoody'}]
+E         Right contains 2 more items, first extra item: {'dm_id': 1, 'name': 'sheriffwoody, sheriffwoody'}
+E         Full diff:
+E           [
+E         +  ,
+E         -  {'dm_id': 1,
+E         -   'name': 'sheriffwoody, sheriffwoody'},
+E         -  {'dm_id': 2,
+E         -   'name': 'sheriffwoody, sheriffwoody'},
+E           ]
+
+http_tests/dm_tests/test_dm_list.py:31: AssertionError
+________________________ test_under_fifty_messages_sent ________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woody_and_buzz_dm = DM(owner=1, members=[2], name='sheriffwoody, buzzlightyear, sheriffwoody', dm_id=1)
+ctx = None
+
+    def test_under_fifty_messages_sent(user_woody, woody_and_buzz_dm, ctx):
+        message_ids = [
+            message_senddm(user_woody.token, woody_and_buzz_dm.dm_id, 'you are a toy', ctx)['message_id'] for x in
+            range(10)
+        ]
+    
+>       dm_msgs = dm_messages(user_woody.token, woody_and_buzz_dm.dm_id, 0, ctx)
+
+http_tests/dm_tests/test_dm_messages.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/dm.py:70: in dm_messages
+    token=token, dm_id=dm_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+________________________ test_over_fifty_messages_sent _________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woody_and_buzz_dm = DM(owner=1, members=[2], name='sheriffwoody, buzzlightyear, sheriffwoody', dm_id=1)
+ctx = None
+
+    def test_over_fifty_messages_sent(user_woody, woody_and_buzz_dm, ctx):
+        message_ids = [
+            message_senddm(user_woody.token, woody_and_buzz_dm.dm_id, 'you are a toy', ctx)['message_id'] for x in
+            range(51)
+        ]
+        message_ids.reverse()
+    
+>       dm_msgs = dm_messages(user_woody.token, woody_and_buzz_dm.dm_id, 0, ctx)
+
+http_tests/dm_tests/test_dm_messages.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/dm.py:70: in dm_messages
+    token=token, dm_id=dm_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+________________________ test_removal_by_edit_reflected ________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woody_and_buzz_dm = DM(owner=1, members=[2], name='sheriffwoody, buzzlightyear, sheriffwoody', dm_id=1)
+ctx = None
+
+    def test_removal_by_edit_reflected(user_woody, woody_and_buzz_dm, ctx):
+        msg = message_senddm(user_woody.token, woody_and_buzz_dm.dm_id, 'you are a toy maybe?', ctx)['message_id']
+    
+>       dm_msgs = dm_messages(user_woody.token, woody_and_buzz_dm.dm_id, 0, ctx)
+
+http_tests/dm_tests/test_dm_messages.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/dm.py:70: in dm_messages
+    token=token, dm_id=dm_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+______________________ test_removal_by_deletion_reflected ______________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woody_and_buzz_dm = DM(owner=1, members=[2], name='sheriffwoody, buzzlightyear, sheriffwoody', dm_id=1)
+ctx = None
+
+    def test_removal_by_deletion_reflected(user_woody, woody_and_buzz_dm, ctx):
+        msg = message_senddm(user_woody.token, woody_and_buzz_dm.dm_id, 'you are a toy maybe?', ctx)['message_id']
+    
+>       ch_msgs = dm_messages(user_woody.token, woody_and_buzz_dm.dm_id, 0, ctx)
+
+http_tests/dm_tests/test_dm_messages.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/dm.py:70: in dm_messages
+    token=token, dm_id=dm_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+_____________ test_input_error_when_start_greater_than_message_num _____________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woody_and_buzz_dm = DM(owner=1, members=[2], name='sheriffwoody, buzzlightyear, sheriffwoody', dm_id=1)
+ctx = None
+
+    def test_input_error_when_start_greater_than_message_num(user_woody, woody_and_buzz_dm, ctx):
+        with pytest.raises(InputError):
+>           dm_messages(user_woody.token, woody_and_buzz_dm.dm_id, 21389429, ctx)
+
+http_tests/dm_tests/test_dm_messages.py:78: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/dm.py:70: in dm_messages
+    token=token, dm_id=dm_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+__________________ test_access_error_when_user_is_non_member ___________________
+
+user_zerg = User(email='zerg.thedestroyer@zergworld.com', password='!!qazwsx', name_first='lord', name_last='zerg', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woody_and_buzz_dm = DM(owner=2, members=[3], name='sheriffwoody, buzzlightyear, sheriffwoody', dm_id=1)
+ctx = None
+
+    def test_access_error_when_user_is_non_member(user_zerg, woody_and_buzz_dm, ctx):
+        with pytest.raises(AccessError):
+>           dm_messages(user_zerg.token, woody_and_buzz_dm.dm_id, 0, ctx)
+
+http_tests/dm_tests/test_dm_messages.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/dm.py:70: in dm_messages
+    token=token, dm_id=dm_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+_____________________ test_input_error_when_dm_id_invalid ______________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    def test_input_error_when_dm_id_invalid(user_woody, ctx):
+        with pytest.raises(InputError):
+>           dm_messages(user_woody.token, -1, 0, ctx)
+
+http_tests/dm_tests/test_dm_messages.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/dm.py:70: in dm_messages
+    token=token, dm_id=dm_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+__________________ test_access_error_when_invalid_token_given __________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woody_and_buzz_dm = DM(owner=1, members=[2], name='sheriffwoody, buzzlightyear, sheriffwoody', dm_id=1)
+ctx = None
+
+    def test_access_error_when_invalid_token_given(user_woody, woody_and_buzz_dm, ctx):
+        auth_logout(user_woody.token, ctx)
+        with pytest.raises(AccessError):
+>           dm_messages(user_woody.token, woody_and_buzz_dm.dm_id, 0, ctx)
+
+http_tests/dm_tests/test_dm_messages.py:94: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/dm.py:70: in dm_messages
+    token=token, dm_id=dm_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+________________ test_original_poster_can_edit_message_channel _________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+message_factory = <function message_factory.<locals>.make_message at 0x7f30b64e2b70>
+ctx = None
+
+    def test_original_poster_can_edit_message_channel(user_woody, woodys_public_toybox, message_factory, ctx):
+        a_msg = message_factory(user_woody, woodys_public_toybox)
+    
+        message_edit(user_woody.token, a_msg.message_id, 'hi', ctx)
+    
+>       ch_msgs = channel_messages(user_woody.token, woodys_public_toybox.channel_id, 0, ctx)
+
+http_tests/message_tests/test_message_edit.py:21: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:36: in channel_messages
+    token=token, channel_id=channel_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+___________________ test_original_poster_can_edit_message_dm ___________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woody_and_buzz_dm = DM(owner=1, members=[2], name='sheriffwoody, buzzlightyear, sheriffwoody', dm_id=1)
+message_factory = <function message_factory.<locals>.make_message at 0x7f30b6406950>
+ctx = None
+
+    def test_original_poster_can_edit_message_dm(user_woody, woody_and_buzz_dm, message_factory, ctx):
+        a_msg = message_factory(user_woody, woody_and_buzz_dm)
+    
+>       message_edit(user_woody.token, a_msg.message_id, 'hi', ctx)
+
+http_tests/message_tests/test_message_edit.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/message.py:35: in message_edit
+    token=token, message_id=message_id, message=msg_content
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+_________________ test_owner_can_edit_members_message_channel __________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+user_buzz = User(email='buzz.lightyear@starcommand.com', password='qazwsx@@', name_first='buzz', name_last='lightyear', u_id=2, to...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+message_factory = <function message_factory.<locals>.make_message at 0x7f30b64f3ae8>
+ctx = None
+
+    def test_owner_can_edit_members_message_channel(user_woody, woodys_public_toybox, user_buzz, message_factory, ctx):
+        channel_join(user_buzz.token, woodys_public_toybox.channel_id, ctx)
+        buzzs_msg = message_factory(user_buzz, woodys_public_toybox)
+    
+        message_edit(user_woody.token, buzzs_msg.message_id, 'hi', ctx)
+    
+>       ch_msgs = channel_messages(user_woody.token, woodys_public_toybox.channel_id, 0, ctx)
+
+http_tests/message_tests/test_message_edit.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:36: in channel_messages
+    token=token, channel_id=channel_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+____________________ test_owner_can_edit_members_message_dm ____________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woody_and_buzz_dm = DM(owner=1, members=[2], name='sheriffwoody, buzzlightyear, sheriffwoody', dm_id=1)
+user_buzz = User(email='buzz.lightyear@starcommand.com', password='qazwsx@@', name_first='buzz', name_last='lightyear', u_id=2, to...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+message_factory = <function message_factory.<locals>.make_message at 0x7f30b64038c8>
+ctx = None
+
+    def test_owner_can_edit_members_message_dm(user_woody, woody_and_buzz_dm, user_buzz, message_factory, ctx):
+        buzzs_msg = message_factory(user_buzz, woody_and_buzz_dm)
+    
+>       message_edit(user_woody.token, buzzs_msg.message_id, 'hi', ctx)
+
+http_tests/message_tests/test_message_edit.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/message.py:35: in message_edit
+    token=token, message_id=message_id, message=msg_content
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+______________ test_global_owner_can_edit_members_message_channel ______________
+
+user_zerg = User(email='zerg.thedestroyer@zergworld.com', password='!!qazwsx', name_first='lord', name_last='zerg', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=2, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[2], all_members=[])
+message_factory = <function message_factory.<locals>.make_message at 0x7f30b643c158>
+ctx = None
+
+    def test_global_owner_can_edit_members_message_channel(user_zerg, user_woody, woodys_public_toybox, message_factory, ctx):
+        woodys_msg = message_factory(user_woody, woodys_public_toybox)
+        channel_join(user_zerg.token, woodys_public_toybox.channel_id, ctx)
+>       message_edit(user_zerg.token, woodys_msg.message_id, 'hi', ctx)
+
+http_tests/message_tests/test_message_edit.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/message.py:35: in message_edit
+    token=token, message_id=message_id, message=msg_content
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [403]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+>           raise error.AccessError()
+E           http_tests.error.AccessError: 403 Forbidden: None
+
+http_tests/fakepi/util.py:70: AccessError
+________________ test_global_owner_cant_edit_members_message_dm ________________
+
+user_buzz = User(email='buzz.lightyear@starcommand.com', password='qazwsx@@', name_first='buzz', name_last='lightyear', u_id=1, to...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=2, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+woody_and_buzz_dm = DM(owner=2, members=[1], name='sheriffwoody, buzzlightyear, sheriffwoody', dm_id=1)
+message_factory = <function message_factory.<locals>.make_message at 0x7f30b641c488>
+ctx = None
+
+    def test_global_owner_cant_edit_members_message_dm(user_buzz, user_woody, woody_and_buzz_dm, message_factory, ctx):
+        woodys_msg = message_factory(user_woody, woody_and_buzz_dm)
+        with pytest.raises(AccessError):
+>           message_edit(user_buzz.token, woodys_msg.message_id, 'hi', ctx)
+
+http_tests/message_tests/test_message_edit.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/message.py:35: in message_edit
+    token=token, message_id=message_id, message=msg_content
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+_______________________ test_empty_edit_deletes_message ________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+message_factory = <function message_factory.<locals>.make_message at 0x7f30b64dd400>
+ctx = None
+
+    def test_empty_edit_deletes_message(user_woody, woodys_public_toybox, message_factory, ctx):
+        woodys_msg = message_factory(user_woody, woodys_public_toybox)
+        message_edit(user_woody.token, woodys_msg.message_id, '', ctx)
+    
+>       ch_msgs = channel_messages(user_woody.token, woodys_public_toybox.channel_id, 0, ctx)
+
+http_tests/message_tests/test_message_edit.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:36: in channel_messages
+    token=token, channel_id=channel_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+___________________ test_original_poster_can_remove_message ____________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+message_factory = <function message_factory.<locals>.make_message at 0x7f30b640f840>
+ctx = None
+
+    def test_original_poster_can_remove_message(user_woody, woodys_public_toybox, message_factory, ctx):
+        a_msg = message_factory(user_woody, woodys_public_toybox)
+    
+        message_remove(user_woody.token, a_msg.message_id, ctx)
+    
+>       ch_msgs = channel_messages(user_woody.token, woodys_public_toybox.channel_id, 0, ctx)
+
+http_tests/message_tests/test_message_remove.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:36: in channel_messages
+    token=token, channel_id=channel_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+____________________ test_owner_can_remove_members_message _____________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+user_buzz = User(email='buzz.lightyear@starcommand.com', password='qazwsx@@', name_first='buzz', name_last='lightyear', u_id=2, to...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+message_factory = <function message_factory.<locals>.make_message at 0x7f30b643c620>
+ctx = None
+
+    def test_owner_can_remove_members_message(user_woody, woodys_public_toybox, user_buzz, message_factory, ctx):
+        channel_join(user_buzz.token, woodys_public_toybox.channel_id, ctx)
+        buzzs_msg = message_factory(user_buzz, woodys_public_toybox)
+    
+        message_remove(user_woody.token, buzzs_msg.message_id, ctx)
+    
+>       ch_msgs = channel_messages(user_woody.token, woodys_public_toybox.channel_id, 0, ctx)
+
+http_tests/message_tests/test_message_remove.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:36: in channel_messages
+    token=token, channel_id=channel_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+_____________ test_global_owner_can_remove_members_message_channel _____________
+
+user_zerg = User(email='zerg.thedestroyer@zergworld.com', password='!!qazwsx', name_first='lord', name_last='zerg', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=2, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[2], all_members=[])
+message_factory = <function message_factory.<locals>.make_message at 0x7f30b653a1e0>
+ctx = None
+
+    def test_global_owner_can_remove_members_message_channel(user_zerg, user_woody, woodys_public_toybox, message_factory, ctx):
+        woodys_msg = message_factory(user_woody, woodys_public_toybox)
+        channel_join(user_zerg.token, woodys_public_toybox.channel_id, ctx)
+>       message_remove(user_zerg.token, woodys_msg.message_id, ctx)
+
+http_tests/message_tests/test_message_remove.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/message.py:24: in message_remove
+    token=token, message_id=message_id
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [403]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+>           raise error.AccessError()
+E           http_tests.error.AccessError: 403 Forbidden: None
+
+http_tests/fakepi/util.py:70: AccessError
+_______________ test_global_owner_cant_remove_members_message_dm _______________
+
+user_buzz = User(email='buzz.lightyear@starcommand.com', password='qazwsx@@', name_first='buzz', name_last='lightyear', u_id=1, to...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=2, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+woody_and_buzz_dm = DM(owner=2, members=[1], name='sheriffwoody, buzzlightyear, sheriffwoody', dm_id=1)
+message_factory = <function message_factory.<locals>.make_message at 0x7f30b643c378>
+ctx = None
+
+    def test_global_owner_cant_remove_members_message_dm(user_buzz, user_woody, woody_and_buzz_dm, message_factory, ctx):
+        woodys_msg = message_factory(user_woody, woody_and_buzz_dm)
+        with pytest.raises(AccessError):
+>           message_remove(user_buzz.token, woodys_msg.message_id, ctx)
+
+http_tests/message_tests/test_message_remove.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/message.py:24: in message_remove
+    token=token, message_id=message_id
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+______________________________ test_valid_message ______________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woodys_public_toybox = Channel(name='woodys toybox', is_public=True, channel_id=1, owner_members=[1], all_members=[])
+ctx = None
+
+    def test_valid_message(user_woody, woodys_public_toybox, ctx):
+        msg_text = 'hello, world'
+        msg = message_send(user_woody.token, woodys_public_toybox.channel_id, msg_text, ctx)
+    
+>       ch_msgs = channel_messages(user_woody.token, woodys_public_toybox.channel_id, 0, ctx)
+
+http_tests/message_tests/test_message_send.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/channel.py:36: in channel_messages
+    token=token, channel_id=channel_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+______________________________ test_valid_message ______________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+woody_and_buzz_dm = DM(owner=1, members=[2], name='sheriffwoody, buzzlightyear, sheriffwoody', dm_id=1)
+ctx = None
+
+    def test_valid_message(user_woody, woody_and_buzz_dm, ctx):
+        msg_text = 'hello, world'
+        msg = message_senddm(user_woody.token, woody_and_buzz_dm.dm_id, msg_text, ctx)
+    
+>       ch_msgs = dm_messages(user_woody.token, woody_and_buzz_dm.dm_id, 0, ctx)
+
+http_tests/message_tests/test_message_senddm.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/dm.py:70: in dm_messages
+    token=token, dm_id=dm_id, start=start
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+_______________________________ test_clear_works _______________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+user_factory = <function user_factory.<locals>.make_user at 0x7f30b643c400>
+ctx = None
+
+    def test_clear_works(user_woody, user_factory, ctx):
+        # an existing user can do something
+        assert users_all(user_woody.token, ctx) is not None
+    
+        clear(ctx)
+    
+        with pytest.raises(AccessError):
+            #  ex-existing user now can't do the original action because they don't exist
+>           users_all(user_woody.token, ctx)
+
+http_tests/other_tests/test_clear.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+http_tests/fakepi/other.py:13: in users_all
+    token=token
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+res = <Response [500]>
+
+    def parse_response(res):
+        if res.status_code in [200, 201]:
+            return res.json()
+        elif res.status_code == 400:
+            raise error.InputError()
+        elif res.status_code == 403:
+            raise error.AccessError()
+        else:
+>           raise Exception(res)
+E           Exception: <Response [500]>
+
+http_tests/fakepi/util.py:72: Exception
+__________________________ test_successful_users_all ___________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+user_buzz = User(email='buzz.lightyear@starcommand.com', password='qazwsx@@', name_first='buzz', name_last='lightyear', u_id=2, to...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjIsInNlc3Npb25faWQiOjJ9.e0YwR8u7aimDKxpeEz5SswDytI1vQru3KNe0zwoWsV4', handle_str='')
+ctx = None
+
+    def test_successful_users_all(user_woody, user_buzz, ctx):
+>       users = users_all(user_woody.token, ctx)['users']
+E       TypeError: list indices must be integers or slices, not str
+
+http_tests/other_tests/test_users_all.py:15: TypeError
+___________________________ test_user_profile_valid ____________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    def test_user_profile_valid(user_woody, ctx):
+>       deets = user_profile(user_woody.token, user_woody.u_id, ctx)['user']
+E       KeyError: 'user'
+
+http_tests/user_tests/test_user_profile.py:15: KeyError
+_________________________ test_successful_email_change _________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    def test_successful_email_change(user_woody, ctx):
+        new_email = 'toystory3@pixar.com'
+        user_profile_setemail(user_woody.token, new_email, ctx)
+    
+>       deets = user_profile(user_woody.token, user_woody.u_id, ctx)['user']
+E       KeyError: 'user'
+
+http_tests/user_tests/test_user_profile_setemail.py:18: KeyError
+________________________ test_successful_handle_change _________________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    def test_successful_handle_change(user_woody, ctx):
+        new_handle = 'www'
+        user_profile_sethandle(user_woody.token, new_handle, ctx)
+    
+>       deets = user_profile(user_woody.token, user_woody.u_id, ctx)['user']
+E       KeyError: 'user'
+
+http_tests/user_tests/test_user_profile_sethandle.py:18: KeyError
+_____________________ test_user_profile_setname_valid_name _____________________
+
+user_woody = User(email='sheriff.woody@andysroom.com', password='qazwsx!!', name_first='sheriff', name_last='woody', u_id=1, token=...iOiJIUzI1NiJ9.eyJhdXRoX3VzZXJfaWQiOjEsInNlc3Npb25faWQiOjF9.o9u0BkCU2NC71jbMWivRKfGjP-oq9AUZt95pJRPOpCA', handle_str='')
+ctx = None
+
+    def test_user_profile_setname_valid_name(user_woody, ctx):
+        #  woody became japanese with family coming first
+        user_profile_setname(user_woody.token, user_woody.name_last, user_woody.name_first, ctx)
+    
+>       deets = user_profile(user_woody.token, user_woody.u_id, ctx)['user']
+E       KeyError: 'user'
+
+http_tests/user_tests/test_user_profile_setname.py:18: KeyError
+=========================== short test summary info ============================
+FAILED http_tests/admin_tests/test_admin_user_remove.py::test_once_removed_user_cant_do_anything
+FAILED http_tests/admin_tests/test_admin_user_remove.py::test_messages_after_user_removal_correct_format
+FAILED http_tests/admin_tests/test_admin_user_remove.py::test_removed_profile_still_fetchable_with_user_profile
+FAILED http_tests/admin_tests/test_admin_user_remove.py::test_removal_not_in_users_all
+FAILED http_tests/admin_tests/test_admin_user_remove.py::test_handle_reusable
+FAILED http_tests/admin_tests/test_admin_userpermission_change.py::test_successful_permission_change
+FAILED http_tests/auth_tests/test_auth_register.py::test_removed_user_name - ...
+FAILED http_tests/auth_tests/test_auth_register.py::test_successful_registration
+FAILED http_tests/auth_tests/test_auth_register.py::test_basic_handle_generated_correctly[Bob-Smith-bobsmith]
+FAILED http_tests/auth_tests/test_auth_register.py::test_basic_handle_generated_correctly[ababababab-cdcdcdcdcdcd-abababababcdcdcdcdcd]
+FAILED http_tests/auth_tests/test_auth_register.py::test_duplicate_handles_generated_correctly[abcdefghij-klmnopqrs-abcdefghijklmnopqrs-abcdefghij-klmnopqrs-abcdefghijklmnopqrs0]
+FAILED http_tests/auth_tests/test_auth_register.py::test_duplicate_handles_generated_correctly[abcdefghij-klmnopqrst-abcdefghijklmnopqrst-abcdefghij-klmnopqrst-abcdefghijklmnopqrst0]
+FAILED http_tests/auth_tests/test_auth_register.py::test_duplicate_handles_generated_correctly[@bcdefgh!j-klmn opqrst-bcdefghjklmnopqrst-bcdefghj-klmnopqrst-bcdefghjklmnopqrst0]
+FAILED http_tests/auth_tests/test_auth_register.py::test_duplicate_handles_generated_correctly[abc-def0-abcdef0-abc-def-abcdef1]
+FAILED http_tests/channel_tests/test_channel_addowner.py::test_non_member_cannot_add_owner
+FAILED http_tests/channel_tests/test_channel_addowner.py::test_global_owner_non_member_cant_addowner_private
+FAILED http_tests/channel_tests/test_channel_addowner.py::test_global_owner_non_member_cant_addowner_public
+FAILED http_tests/channel_tests/test_channel_join.py::test_global_owner_join_channel_private
+FAILED http_tests/channel_tests/test_channel_leave.py::test_member_leave_channel_successfully
+FAILED http_tests/channel_tests/test_channel_messages.py::test_message_timestamp
+FAILED http_tests/channel_tests/test_channel_messages.py::test_under_fifty_messages_sent
+FAILED http_tests/channel_tests/test_channel_messages.py::test_over_fifty_messages_sent
+FAILED http_tests/channel_tests/test_channel_messages.py::test_removal_by_edit_reflected
+FAILED http_tests/channel_tests/test_channel_messages.py::test_removal_by_deletion_reflected
+FAILED http_tests/channel_tests/test_channel_messages.py::test_input_error_when_start_greater_than_message_num
+FAILED http_tests/channel_tests/test_channel_messages.py::test_access_error_when_user_is_non_member
+FAILED http_tests/channel_tests/test_channel_messages.py::test_input_error_when_channel_id_invalid
+FAILED http_tests/channel_tests/test_channel_messages.py::test_access_error_when_invalid_token_given
+FAILED http_tests/channel_tests/test_channel_removeowner.py::test_global_owner_nonmember_cannot_remove_owner
+FAILED http_tests/channels_tests/test_channels_list.py::test_when_in_no_channels
+FAILED http_tests/channels_tests/test_channels_list.py::test_when_in_one_channel[True-andy]
+FAILED http_tests/channels_tests/test_channels_list.py::test_when_in_one_channel[False-andy]
+FAILED http_tests/channels_tests/test_channels_list.py::test_when_in_multiple_channels[False-True-ZERG-andy]
+FAILED http_tests/channels_tests/test_channels_list.py::test_when_in_multiple_channels[False-False-ZERG-andy]
+FAILED http_tests/channels_tests/test_channels_list.py::test_when_in_multiple_channels[True-True-ZERG-andy]
+FAILED http_tests/channels_tests/test_channels_list.py::test_when_in_multiple_channels[True-False-ZERG-andy]
+FAILED http_tests/channels_tests/test_channels_list.py::test_list_after_leave_channel
+FAILED http_tests/channels_tests/test_channels_listall.py::test_when_no_channels
+FAILED http_tests/channels_tests/test_channels_listall.py::test_when_one_channel_exists_private
+FAILED http_tests/channels_tests/test_channels_listall.py::test_when_one_channel_exists_public
+FAILED http_tests/channels_tests/test_channels_listall.py::test_when_multiple_channels_exist
+FAILED http_tests/dm_tests/test_dm_create.py::test_successful_dm_creation - I...
+FAILED http_tests/dm_tests/test_dm_create.py::test_dm_name_creation_single - ...
+FAILED http_tests/dm_tests/test_dm_create.py::test_dm_name_creation_multiple
+FAILED http_tests/dm_tests/test_dm_details.py::test_member_successful - KeyEr...
+FAILED http_tests/dm_tests/test_dm_list.py::test_when_in_one_dm - AssertionEr...
+FAILED http_tests/dm_tests/test_dm_list.py::test_when_in_multiple_dms - Asser...
+FAILED http_tests/dm_tests/test_dm_messages.py::test_under_fifty_messages_sent
+FAILED http_tests/dm_tests/test_dm_messages.py::test_over_fifty_messages_sent
+FAILED http_tests/dm_tests/test_dm_messages.py::test_removal_by_edit_reflected
+FAILED http_tests/dm_tests/test_dm_messages.py::test_removal_by_deletion_reflected
+FAILED http_tests/dm_tests/test_dm_messages.py::test_input_error_when_start_greater_than_message_num
+FAILED http_tests/dm_tests/test_dm_messages.py::test_access_error_when_user_is_non_member
+FAILED http_tests/dm_tests/test_dm_messages.py::test_input_error_when_dm_id_invalid
+FAILED http_tests/dm_tests/test_dm_messages.py::test_access_error_when_invalid_token_given
+FAILED http_tests/message_tests/test_message_edit.py::test_original_poster_can_edit_message_channel
+FAILED http_tests/message_tests/test_message_edit.py::test_original_poster_can_edit_message_dm
+FAILED http_tests/message_tests/test_message_edit.py::test_owner_can_edit_members_message_channel
+FAILED http_tests/message_tests/test_message_edit.py::test_owner_can_edit_members_message_dm
+FAILED http_tests/message_tests/test_message_edit.py::test_global_owner_can_edit_members_message_channel
+FAILED http_tests/message_tests/test_message_edit.py::test_global_owner_cant_edit_members_message_dm
+FAILED http_tests/message_tests/test_message_edit.py::test_empty_edit_deletes_message
+FAILED http_tests/message_tests/test_message_remove.py::test_original_poster_can_remove_message
+FAILED http_tests/message_tests/test_message_remove.py::test_owner_can_remove_members_message
+FAILED http_tests/message_tests/test_message_remove.py::test_global_owner_can_remove_members_message_channel
+FAILED http_tests/message_tests/test_message_remove.py::test_global_owner_cant_remove_members_message_dm
+FAILED http_tests/message_tests/test_message_send.py::test_valid_message - Ex...
+FAILED http_tests/message_tests/test_message_senddm.py::test_valid_message - ...
+FAILED http_tests/other_tests/test_clear.py::test_clear_works - Exception: <R...
+FAILED http_tests/other_tests/test_users_all.py::test_successful_users_all - ...
+FAILED http_tests/user_tests/test_user_profile.py::test_user_profile_valid - ...
+FAILED http_tests/user_tests/test_user_profile_setemail.py::test_successful_email_change
+FAILED http_tests/user_tests/test_user_profile_sethandle.py::test_successful_handle_change
+FAILED http_tests/user_tests/test_user_profile_setname.py::test_user_profile_setname_valid_name
+================= 74 failed, 136 passed, 164 skipped in 19.63s =================
