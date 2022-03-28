@@ -5,6 +5,7 @@ from src.data_store import data_store
 from src.error import InputError, AccessError
 from src.data_json import write_data
 from src.other import valid_user_id, create_token, validate_token
+import src.std_vars as std_vars
 
 def auth_login_v1(email, password):
     '''
@@ -174,14 +175,14 @@ def validate_input(email, password, first, last):
     elif check_duplicate(email, 'email') != False:
         raise InputError("This email is already registered.")
     # Check the password isn't too short.
-    elif len(password) < 6:
+    elif len(password) < std_vars.MIN_PASSWORD_LEN:
         raise InputError("This password is too short.")
     # Check first name is within legal bounds.
-    elif len(first) < 1 or len(first) > 50:
-        raise InputError("First name must be between 1-50 characters.") 
+    if len(first) < std_vars.MIN_NAME_LEN_FIRST or len(first) > std_vars.MAX_NAME_LEN_FIRST:
+        raise InputError(f"First name must be between {std_vars.MIN_NAME_LEN_FIRST}-{std_vars.MAX_NAME_LEN_FIRST} characters.")
     # Check last name is within legal bounds.
-    elif len(last) < 1 or len(last) > 50:
-        raise InputError("Last name must be between 1-50 characters.") 
+    if len(last) < std_vars.MIN_NAME_LEN_LAST or len(last) > std_vars.MAX_NAME_LEN_LAST:
+        raise InputError(f"Last name must be between {std_vars.MIN_NAME_LEN_LAST}-{std_vars.MAX_NAME_LEN_LAST} characters.")
 
 
 
@@ -201,7 +202,7 @@ def create_new_handle(first, last):
     # Create concatenate first and last name to get an handle.
     new_handle = f"{first.lower()}{last.lower()}"
     new_handle = ''.join(char for char in new_handle if char.isalnum())
-    new_handle = new_handle[0:20]
+    new_handle = new_handle[0:std_vars.MAX_LEN_HANDLE]
     # Add number if necessary. 
     if not check_duplicate(new_handle, 'handle'):
         unique = True
@@ -221,8 +222,8 @@ def choose_permissions():
     store = data_store.get()
     if store['users'] == {}:
         # This is the first user created.
-        return 1
-    return 2
+        return std_vars.GLOBAL_OWNER_PERM
+    return std_vars.MEMBER_PERM
 
 def create_new_id():
     '''Generates a new integer id that was previously unused.'''

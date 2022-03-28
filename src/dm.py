@@ -75,12 +75,12 @@ def dm_create(token, u_ids):
     user_list = []
     handle_list = []
     owner_handle = user_info(owner_id)
-    dm_name = (owner_handle['handle_string'] + ", ")
+    dm_name = (owner_handle['handle_str'] + ", ")
 
     # create alphabetical name
     for member in sorted_ids:
         member_handle = user_info(member)
-        handle_list.append(member_handle['handle_string'])
+        handle_list.append(member_handle['handle_str'])
 
     handles_sorted = sorted(handle_list)
     
