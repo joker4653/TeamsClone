@@ -38,7 +38,9 @@ def users_all_v1(token):
     for u in data['users']:
         if data['users'][u]['removed'] == False:
             user_list.append(user_info(data['users'][u]['id']))
-    return user_list
+    return {
+        'users': user_list
+    }
 
 def user_profile_v1(token, u_id):
     '''
@@ -65,7 +67,9 @@ def user_profile_v1(token, u_id):
     if not valid_user_id(u_id):
         raise InputError("u_id provided is not valid; this user does not exist.")
     
-    return user_info(u_id)
+    return {
+        'user': user_info(u_id)
+    }
 
 
 def user_profile_setname_v1(token, name_first, name_last):
