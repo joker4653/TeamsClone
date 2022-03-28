@@ -181,7 +181,7 @@ authorised user is not already a channel member and is not a global owner.
     
     store = data_store.get()
     curr_channel = store['channels'][channel_id]
-    if not curr_channel['is_public']:
+    if not curr_channel['is_public'] and store['users'][auth_user_id]['permissions_id'] != 1:
         raise AccessError(f"Access Denied. {curr_channel['name']} is a private channel.")
     else:
         store['channels'][channel_id]['user_ids'].append(user_info(auth_user_id))
