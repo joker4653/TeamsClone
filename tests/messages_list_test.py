@@ -15,7 +15,7 @@ def process_test_request(route, method, inputs=None):
     elif method == 'delete':
         return requests.delete(config.url + route, json = inputs)
     elif method == 'get':
-        return requests.get(config.url + route, json = inputs)
+        return requests.get(config.url + route, params = inputs)
     elif method == 'put':
         return requests.put(config.url + route, json = inputs)
 
