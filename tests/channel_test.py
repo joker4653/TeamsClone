@@ -301,17 +301,6 @@ def test_join_success(example_user_id):
     channel_details = json.loads(response2.text)
     assert len(channel_details['all_members']) == 3
 
-def test_join_global_owner_private_channel(example_user_id):
-    create_channel = process_test_request(route="/channels/create/v2", method='post', inputs={'token': example_user_id[0].get('token'), 'name': "Badgers", 'is_public': False})
-    new_channel = create_channel.json()
-    process_test_request(route="/admin/userpermission/change/v1", method='post', inputs={
-        'token': example_user_id[0].get('token'), 
-        'u_id': example_user_id[1].get('auth_user_id'), 
-        'permission_id': 1
-    })
-    response = process_test_request(route="/channel/join/v2", method='post', inputs={'token': example_user_id[1].get('token'), 'channel_id': new_channel.get('channel_id')})
-    assert response.status_code == 200
-
 # channel/addowner/v1 tests
 def test_add_owner_invalid_channel_id(example_user_id):
     # no channels created so any channel_id is invalid.
