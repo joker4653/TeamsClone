@@ -6,20 +6,20 @@ from src.data_json import write_data
 
 def is_member(user_id, channel_id):
     '''Check if a user is in a channel. Return True if in channel, False if not in.'''
-    if valid_channel_id(channel_id):
-        store = data_store.get()
-        user_ids = store['channels'][channel_id]['user_ids']
+    #if valid_channel_id(channel_id):
+    store = data_store.get()
+    user_ids = store['channels'][channel_id]['user_ids']
     if any(user['u_id'] == user_id for user in user_ids):
             return True
     return False
 
 def is_owner(user_id, channel_id):
     '''Check if a user is an owner of a channel. Return True if user is an owner, return False otherwise.'''
-    if valid_channel_id(channel_id):
-        store = data_store.get()
-        owner_ids = store['channels'][channel_id]['channel_owner_ids']
-        if any(owner['u_id'] == user_id for owner in owner_ids):
-            return True
+    #if valid_channel_id(channel_id):
+    store = data_store.get()
+    owner_ids = store['channels'][channel_id]['channel_owner_ids']
+    if any(owner['u_id'] == user_id for owner in owner_ids):
+        return True
     return False
 
 
@@ -84,8 +84,6 @@ def channel_details_v1(auth_user_id, channel_id):
     '''
     if not valid_channel_id(channel_id):
         raise InputError("This channel_id does not correspond to an existing channel.")
-    if not valid_user_id(auth_user_id):
-        raise AccessError("auth_user_id provided is not valid; this user does not exist.")
     if not is_member(auth_user_id, channel_id):
         raise AccessError("auth_user is not a member of the channel.")
 
@@ -122,8 +120,6 @@ def channel_messages_v1(auth_user_id, channel_id, start):
             'end': [The end index of reading.]
         } 
     '''
-    if not valid_user_id(auth_user_id):
-        raise AccessError("auth_user_id provided is not valid; this user does not exist.")    
     if not valid_channel_id(channel_id):
         raise InputError("This channel_id does not correspond to an existing channel.")
     if not is_member(auth_user_id, channel_id):
@@ -149,9 +145,6 @@ def channel_messages_v1(auth_user_id, channel_id, start):
         "start": start,
         "end": end
     }
-
-
-    
     
 def channel_join_v1(auth_user_id, channel_id):
     '''
@@ -172,8 +165,6 @@ authorised user is not already a channel member and is not a global owner.
         Returns {} always.
     '''
 
-    if not valid_user_id(auth_user_id):
-        raise AccessError("auth_user_id provided is not valid; this user does not exist.")
     if not valid_channel_id(channel_id):
         raise InputError("This channel_id does not correspond to an existing channel.")
     if is_member(auth_user_id, channel_id):

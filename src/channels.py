@@ -19,8 +19,6 @@ def channels_list_v1(auth_user_id):
             'channels': [A list of the channels.]
         } 
     '''
-    if valid_user_id(auth_user_id) == False:
-        raise AccessError("auth_user_id provided is not valid; this user does not exist.")
     data = data_store.get()
     new_list = []
     for c in data['channels']:
@@ -55,8 +53,6 @@ def channels_listall_v1(auth_user_id):
         } 
 
     '''
-    if valid_user_id(auth_user_id) == False:
-        raise AccessError("auth_user_id provided is not valid; this user does not exist.")
     data = data_store.get()
     new_list = []
     for c in data['channels']:

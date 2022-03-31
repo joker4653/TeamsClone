@@ -13,7 +13,6 @@ from src.data_json import write_data
 
 def is_member(user_id, dm_id):
     '''Check if a user is in a dm. Return True if in dm, False if not in.'''
-    print(user_id, dm_id)
     if valid_dm_id(dm_id):
         store = data_store.get()
         user_ids = store['dms'][dm_id]['user_ids']
