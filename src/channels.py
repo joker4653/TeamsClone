@@ -36,7 +36,9 @@ def channels_list_v1(auth_user_id):
                 new_list.append(new_channel)
 
 
-    return new_list
+    return {
+        'channels': new_list
+    }
 
 def channels_listall_v1(auth_user_id):
     '''
