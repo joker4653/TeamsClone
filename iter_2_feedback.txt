@@ -1,0 +1,14 @@
+Hey Badgers, this file contains some feedback that we got from Simon. Everything here is easy-to-fix stuff that will improve our marks for the non-performance sections of the project.
+
+
+Things to fix in iteration 3:
+ - TESTS - each function must have it's own test file eg. channel_create_tests.py, user_setemail_tests.py, etc.
+ - TESTS - we didn't write even close to enough tests, hopefully when we work on improving our coverage this will be fixed.
+
+ - ISSUES - every time you make an issue, remember to:
+                - add a description to the issue (easily done in issues->list).
+                - assign it to yourself.
+                
+ - STYLE - DON'T do this:   if function(arg1, arg2) == True:, if function(arg1, arg2) == False:
+         - do this instead: if function(arg1, arg2):, if not function(arg1, arg2):
+
