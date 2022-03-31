@@ -1,12 +1,12 @@
-Laura - auth_login_v2, auth_register_v2, clear_v2, auth_logout_v2, channel_leave_v1, auth/logout/v1, admin/user/remove/v1
+Laura - notifications/get/v1, search/v1, auth/passwordreset/request/v1, auth/passwordreset/reset/v1, requirements-elicitation, requirements-validation
 
-Joseph - channels_list, channels_listall, dm/create/v1, dm/list/v1/ dm/details/v1, dm/remove/v1, dm/leave/v1
+Joseph - message/sendlater/v1, message/sendlaterdm/v1
 
-Sagar - channel_details_v1, channel_join_v1, channel_details_v2, channel_join_v2, user/all/v1, user/profile/v1, user/profile/setemail/v1, admin/userpermission/change/v1
+Sagar - standup/start/v1, standup/active/v1, standup/send/v1, design-conceptual-modelling
 
-Nicholas - channel_create_v2, channel_invite_v2, channel_add_owner_v1, channel_remove_owner_v1, user/profile/setname/v2, user/profile/sethandle/v1
+Nicholas - message/pin/v1, message/unpin/v1, userprofile/uploadphoto/v1, user/stats/v1, requirements-analysis-specification-use-cases
 
-Rumman - channel_messages_v1, channel_messages_v1, message_send_v1, message_edit_v1, message_remove_v1, dm/message/c1s, message/senddm/v1
+Rumman - message/share/v1, message/react/v1, message/unreact/v1, design-interface-design, 
 
-
+Unbound - users/stats/v1
 
