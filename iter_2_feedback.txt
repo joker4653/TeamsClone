@@ -4,6 +4,7 @@ Hey Badgers, this file contains some feedback that we got from Simon. Everything
 Things to fix in iteration 3:
  - TESTS - each function must have it's own test file eg. channel_create_tests.py, user_setemail_tests.py, etc.
  - TESTS - we didn't write even close to enough tests, hopefully when we work on improving our coverage this will be fixed.
+ - TEST - no redundant comments in tests (eg. #Access error).
 
  - ISSUES - every time you make an issue, remember to:
                 - add a description to the issue (easily done in issues->list).
