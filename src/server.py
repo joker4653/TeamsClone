@@ -149,10 +149,10 @@ def handle_channel_invite():
 
 @APP.route("/channel/messages/v2", methods=['GET'])
 def handle_channel_messages():
-    params = request.get_json()
+    params = request.args
     token = params.get('token', None)
-    channel_id = params.get('channel_id', None)
-    start = params.get('start', None)
+    channel_id = int(params.get('channel_id', None))
+    start = int(params.get('start', None))
 
     auth_user_id = other.validate_token(token)
     if not auth_user_id:
@@ -308,10 +308,10 @@ def handle_dm_leave():
 
 @APP.route("/dm/messages/v1", methods=['GET'])
 def handle_dm_messages():
-    params = request.get_json()
+    params = request.args
     token = params.get('token', None)
-    dm_id = params.get('dm_id', None)
-    start = params.get('start', None)
+    dm_id = int(params.get('dm_id', None))
+    start = int(params.get('start', None))
 
     auth_user_id = other.validate_token(token)
     if auth_user_id == False:
