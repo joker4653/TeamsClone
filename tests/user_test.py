@@ -296,7 +296,14 @@ def test_user_remove_auth_user_not_global_owner(example_user_id):
     })
     assert response.status_code == 403
 
-def test_user_remove_success(example_user_id):
+def test_user_remove_success(example_user_id, example_channels):
+    u_id = [example_user_id[1]['auth_user_id']]
+    process_test_request(route = '/dm/create/v1', method = 'post', inputs= {'token': example_user_id[0].get('token'), 'u_ids': u_id})
+    process_test_request("message/send/v1", "post", {
+        "token": example_user_id[1].get("token"),
+        "channel_id": example_channels[0].get('channel_id'),
+        "message": "hello badgers this is a test!"
+    })
     response1 = process_test_request(route="/admin/user/remove/v1", method='delete', inputs={
         'token': example_user_id[0].get('token'), 
         'u_id': example_user_id[1].get('auth_user_id')
