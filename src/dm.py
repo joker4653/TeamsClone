@@ -139,9 +139,7 @@ def dm_list_v1(token):
     for c in data['dms']:
         for dm_owner in data['dms'][c]['dm_owner_id']:
             ''' check owner status and if user is a member'''
-            if (dm_owner == auth_user_id or 
-            is_member(auth_user_id, c) == True
-            ):
+            if dm_owner == auth_user_id or is_member(auth_user_id, c):
                 new_dm = {
                             'dm_id': c, 
                             'name' : data['dms'][c]['name']
@@ -180,7 +178,7 @@ creator
     
     store = data_store.get()
 
-    if valid_dm_id(dm_id) == False:
+    if not valid_dm_id(dm_id):
         raise InputError(f"dm_id does not refer to a valid DM")
 
     # DM is valid but auth_user is not the owner
@@ -188,7 +186,7 @@ creator
         raise AccessError(f"You do not have permission to remove this DM, only the owner does")
 
     # DM is valid but auth_user is not in the DM
-    if is_member(auth_user_id, dm_id) == False:
+    if not is_member(auth_user_id, dm_id):
         raise AccessError(f"You are not a part of this DM and cannot interact with it")
 
     # now can remove channel and update json
@@ -224,10 +222,10 @@ def dm_details_v1(token, dm_id):
     if auth_user_id == False:
         raise AccessError(f"This token is invalid")
 
-    if valid_dm_id(dm_id) == False:
+    if not valid_dm_id(dm_id):
         raise InputError(f"dm_id does not refer to a valid DM") 
 
-    if is_member(auth_user_id, dm_id) == False:
+    if not is_member(auth_user_id, dm_id):
         raise AccessError(f"You are not apart of this DM and cannot interact with it")  
     
     return {
@@ -258,10 +256,10 @@ def dm_leave_v1(token,dm_id):
     if auth_user_id == False:
         raise AccessError(f"This token is invalid")
 
-    if valid_dm_id(dm_id) == False:
+    if not valid_dm_id(dm_id):
         raise InputError(f"dm_id does not refer to a valid DM") 
 
-    if is_member(auth_user_id, dm_id) == False:
+    if not is_member(auth_user_id, dm_id):
         raise AccessError(f"You are not apart of this DM and cannot interact with it")   
 
 

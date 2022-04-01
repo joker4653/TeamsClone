@@ -36,7 +36,7 @@ def auth_login_v1(email, password):
             break
    
     # Check the email has a registered user. 
-    if found == False:
+    if not found:
         raise InputError("This email has no registered user.")
    
     # Check password is correct. 
@@ -191,7 +191,7 @@ def check_duplicate(new, field):
     store = data_store.get()
     for user in store['users'].values():
         # Check if the user field is the same as new.
-        if user[field] == new and user['removed'] == False:
+        if user[field] == new and not user['removed']:
             # This new entry is a duplicate.
             return True
     return False
