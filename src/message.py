@@ -13,83 +13,93 @@ from src.dm import is_member as d_is_member
 from src.dm import is_owner as d_is_owner
 '''
 Message format:
-	message_dict = {
-		"message_id": message_id,
-		"u_id": auth_user_id,
-		"message": message,
-		"time_sent": time_sent
-	}
+    message_dict = {
+        "message_id": message_id,
+        "u_id": auth_user_id,
+        "message": message,
+        "time_sent": time_sent
+    }
 '''
 
 def message_find(message_id):
-	store = data_store.get()
+    '''
+        Takes a message_id. Returns False if message_id is not valid.
+        Else will return a tuple A of length 3.
+            * A[0] holds the id of the channel or the dm the message is in.
+            * A[1] holds the index in the messages list of that correspoding channel
+            or DM where the message is located
+            * A[2] holds a string telling us whether the message is in a channel
+            of DM.
+        Message is accessed through `message_dict = store[A[2]]["messages"][A[1]]`
+    '''
+    store = data_store.get()
 
-	channels = store["channels"]
-	for id, info in channels.items():
-		for i, message in enumerate(info["messages"]):
-			if message["message_id"] == message_id:
-				return (id, i, "channels")
+    channels = store["channels"]
+    for id, info in channels.items():
+        for i, message in enumerate(info["messages"]):
+            if message["message_id"] == message_id:
+                return (id, i, "channels")
 
-	dms = store["dms"]
-	for id, info in dms.items():
-		for i, message in enumerate(info["messages"]):
-			if message["message_id"] == message_id:
-				return (id, i, "dms")
+    dms = store["dms"]
+    for id, info in dms.items():
+        for i, message in enumerate(info["messages"]):
+            if message["message_id"] == message_id:
+                return (id, i, "dms")
 
-	return False
+    return False
 
 
 def assign_message_id(store):
-	maximum = 1
-	minimum = 1
-	for channel in store["channels"].values():
-		ids = [message["message_id"] for message in channel["messages"]]
-		maximum = max(max(ids, default=1), maximum)
-		minimum = min(min(ids, default=1), minimum)
+    maximum = 1
+    minimum = 1
+    for channel in store["channels"].values():
+        ids = [message["message_id"] for message in channel["messages"]]
+        maximum = max(max(ids, default=1), maximum)
+        minimum = min(min(ids, default=1), minimum)
 
-	for dm in store["dms"].values():
-		ids = [message["message_id"] for message in dm["messages"]]
-		maximum = max(max(ids, default=1), maximum)
-		minimum = min(min(ids, default=1), minimum)
-	
-	if minimum > 1:
-		return minimum - 1
-	else:
-		return maximum + 1
+    for dm in store["dms"].values():
+        ids = [message["message_id"] for message in dm["messages"]]
+        maximum = max(max(ids, default=1), maximum)
+        minimum = min(min(ids, default=1), minimum)
+    
+    if minimum > 1:
+        return minimum - 1
+    else:
+        return maximum + 1
 
 
 def send_message(auth_user_id, id, message, dm_or_channel):
-	if dm_or_channel == "channels":
-		if not valid_channel_id(id):
-			raise InputError("channel_id does not refer to a valid channel")
-		if not c_is_member(auth_user_id, id):
-			raise AccessError("channel_id is valid and the authorised user is not a member of the channel")
-	elif dm_or_channel == "dms":
-		if not valid_dm_id(id):
-			raise InputError("dm_id does not refer to a valid dm")
-		if not d_is_member(auth_user_id, id):
-			raise AccessError("dm_id is valid and the authorised user is not a member of the DM")
+    if dm_or_channel == "channels":
+        if not valid_channel_id(id):
+            raise InputError("channel_id does not refer to a valid channel")
+        if not c_is_member(auth_user_id, id):
+            raise AccessError("channel_id is valid and the authorised user is not a member of the channel")
+    elif dm_or_channel == "dms":
+        if not valid_dm_id(id):
+            raise InputError("dm_id does not refer to a valid dm")
+        if not d_is_member(auth_user_id, id):
+            raise AccessError("dm_id is valid and the authorised user is not a member of the DM")
 
-	if len(message) not in range(1,1001):
-		raise InputError("length of message is less than 1 or over 1000 characters")
+    if len(message) not in range(1,1001):
+        raise InputError("length of message is less than 1 or over 1000 characters")
 
-	store = data_store.get()
-	message_id = assign_message_id(store)
-	
-	# Get UTC timestamp
-	time_sent = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp()
-	time_sent = int(time_sent)
+    store = data_store.get()
+    message_id = assign_message_id(store)
+    
+    # Get UTC timestamp
+    time_sent = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp()
+    time_sent = int(time_sent)
 
-	message_dict = {
-		"message_id": message_id,
-		"u_id": auth_user_id,
-		"message": message,
-		"time_sent": time_sent
-	}
-	store[dm_or_channel][id]["messages"].insert(0, message_dict)
-	data_store.set(store)
-	write_data(data_store)
-	return {"message_id": message_id}
+    message_dict = {
+        "message_id": message_id,
+        "u_id": auth_user_id,
+        "message": message,
+        "time_sent": time_sent
+    }
+    store[dm_or_channel][id]["messages"].insert(0, message_dict)
+    data_store.set(store)
+    write_data(data_store)
+    return {"message_id": message_id}
 
 
 
@@ -176,7 +186,7 @@ channel/DM that the authorised user has joined.
 
     if (not c_is_member(auth_user_id, channel_dm_id)) and (not d_is_member(auth_user_id, channel_dm_id)):
         raise InputError("message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
-	
+    
     if not (c_is_owner(auth_user_id, channel_dm_id)) and not (d_is_owner(auth_user_id, channel_dm_id)):
         if store[message_type][channel_dm_id]["messages"][index]["u_id"] != auth_user_id:
             raise AccessError
@@ -213,7 +223,7 @@ channel/DM that the authorised user has joined.
     message_info = message_find(message_id)
     if not message_info:
         raise InputError("message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
-	
+    
     channel_dm_id = message_info[0]
     index = message_info[1]
     message_type = message_info[2]
