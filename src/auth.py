@@ -154,9 +154,8 @@ def auth_logout_v1(token):
 
     store = data_store.get()
 
-    if session_id in store['users'][user_id]['sessions']:
-        # Remove session id.
-        store['users'][user_id]['sessions'].remove(session_id)
+    # Remove session id.
+    store['users'][user_id]['sessions'].remove(session_id)
 
     data_store.set(store)
     write_data(data_store)
@@ -210,7 +209,7 @@ def create_new_handle(first, last):
         unique = False
     num = 0
     while not unique:
-        if check_duplicate(f"{new_handle}{num}", 'handle') == False:
+        if not check_duplicate(f"{new_handle}{num}", 'handle'):
             unique = True
             new_handle = f"{new_handle}{num}"
         else:
