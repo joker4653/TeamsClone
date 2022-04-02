@@ -36,7 +36,7 @@ def auth_login_v1(email, password):
             break
    
     # Check the email has a registered user. 
-    if found == False:
+    if not found:
         raise InputError("This email has no registered user.")
    
     # Check password is correct. 
@@ -154,9 +154,8 @@ def auth_logout_v1(token):
 
     store = data_store.get()
 
-    if session_id in store['users'][user_id]['sessions']:
-        # Remove session id.
-        store['users'][user_id]['sessions'].remove(session_id)
+    # Remove session id.
+    store['users'][user_id]['sessions'].remove(session_id)
 
     data_store.set(store)
     write_data(data_store)
@@ -192,7 +191,7 @@ def check_duplicate(new, field):
     store = data_store.get()
     for user in store['users'].values():
         # Check if the user field is the same as new.
-        if user[field] == new and user['removed'] == False:
+        if user[field] == new and not user['removed']:
             # This new entry is a duplicate.
             return True
     return False
@@ -210,7 +209,7 @@ def create_new_handle(first, last):
         unique = False
     num = 0
     while not unique:
-        if check_duplicate(f"{new_handle}{num}", 'handle') == False:
+        if not check_duplicate(f"{new_handle}{num}", 'handle'):
             unique = True
             new_handle = f"{new_handle}{num}"
         else:

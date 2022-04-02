@@ -155,7 +155,7 @@ def handle_channel_messages():
     start = int(params.get('start', None))
 
     auth_user_id = other.validate_token(token)
-    if not auth_user_id:
+    if auth_user_id == False:
         raise AccessError("The token provided was invalid.")
 
     return dumps(channel.channel_messages_v1(auth_user_id, channel_id, start))

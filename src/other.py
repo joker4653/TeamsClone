@@ -109,8 +109,6 @@ def user_info(auth_user_id):
 
 def is_global_owner(user_id):
     '''Return true if a user is a global owner, return false otherwise.'''
-    if not valid_user_id(user_id):
-        return False
     store = data_store.get()
     global_status = store['users'][user_id]['permissions_id']
     if global_status == std_vars.GLOBAL_OWNER_PERM:

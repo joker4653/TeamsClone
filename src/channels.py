@@ -19,16 +19,12 @@ def channels_list_v1(auth_user_id):
             'channels': [A list of the channels.]
         } 
     '''
-    if valid_user_id(auth_user_id) == False:
-        raise AccessError("auth_user_id provided is not valid; this user does not exist.")
     data = data_store.get()
     new_list = []
     for c in data['channels']:
         for channels_owner in data['channels'][c]['channel_owner_ids']:
             ''' check owner status and if user is a member'''
-            if (channels_owner == auth_user_id or 
-            is_member(auth_user_id, c) == True
-            ):
+            if channels_owner == auth_user_id or is_member(auth_user_id, c):
                 new_channel = {
                             'channel_id': c, 
                             'name' : data['channels'][c]['name']
@@ -55,8 +51,6 @@ def channels_listall_v1(auth_user_id):
         } 
 
     '''
-    if valid_user_id(auth_user_id) == False:
-        raise AccessError("auth_user_id provided is not valid; this user does not exist.")
     data = data_store.get()
     new_list = []
     for c in data['channels']:
