@@ -4,10 +4,9 @@ from tests.process_request import process_test_request
 
 def test_channel_and_dm_ids_invalid(example_user_id, example_channels, example_dms):
     # Both -1
-    inputs = {    }
+    inputs = {}
     response = process_test_request("message/share/v1", "post", inputs)
     assert response.status_code == 400
-
 
 def test_both_dm_and_channel_ids_provided():
     inputs = {}
