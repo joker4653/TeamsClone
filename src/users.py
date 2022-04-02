@@ -36,7 +36,7 @@ def users_all_v1(token):
     data = data_store.get()
     user_list = []
     for u in data['users']:
-        if data['users'][u]['removed'] == False:
+        if not data['users'][u]['removed']:
             user_list.append(user_info(data['users'][u]['id']))
     return {
         'users': user_list
