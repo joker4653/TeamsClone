@@ -252,3 +252,20 @@ def message_unreact_v1(user_id, message_id, react_id):
 
 def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
     return {}
+
+def message_pin_v1(auth_user_id, message_id):
+    message_info = message_find(message_id)
+    message_stream = message_info[2]
+    channel_or_dm_id = message_info[0]
+
+    if not message_info:
+        raise InputError("message_id does not refer to a valid message.")
+    if message_stream == "channels":
+        if not c_is_member(auth_user_id, channel_or_dm_id):
+            raise InputError("message_id does not refer to a valid message within a channel that the authorised user has joined.")
+    else:
+        assert message_stream == "dms"
+        if not d_is_member(auth_user_id, channel_or_dm_id):
+            raise InputError("message_id does not refer to a valid message within a DM that the authorised user has joined.")
+    return {        
+    }
