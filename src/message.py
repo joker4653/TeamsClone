@@ -245,9 +245,41 @@ channel/DM that the authorised user has joined.
 
 
 def message_react_v1(user_id, message_id, react_id):
+    '''
+    InputError when any of:
+     - message_id is not a valid message within a channel or DM that the authorised user has joined
+     - react_id is not a valid react ID - currently, the only valid react ID the frontend has is 1
+     - the message already contains a react with ID react_id from the authorised user
+    '''
+    found_message = message_find(message_id)
+    if not found_message:
+        raise InputError("message_id is not a valid message within a channel or DM that the authorised user has joined")
+    dm_channel_id = found_message[0]
+    if found_message[2] == "channels":
+        if not c_is_member(user_id, dm_channel_id):
+            raise InputError("message_id is not a valid message within a channel or DM that the authorised user has joined")
+    if found_message[2] == "dms":
+        if not d_is_member(user_id, dm_channel_id):
+            raise InputError("message_id is not a valid message within a channel or DM that the authorised user has joined")
+
+    # TODO: Somehow check react_ids
+
     return {}
 
 def message_unreact_v1(user_id, message_id, react_id):
+    found_message = message_find(message_id)
+    if not found_message:
+        raise InputError("message_id is not a valid message within a channel or DM that the authorised user has joined")
+    dm_channel_id = found_message[0]
+    if found_message[2] == "channels":
+        if not c_is_member(user_id, dm_channel_id):
+            raise InputError("message_id is not a valid message within a channel or DM that the authorised user has joined")
+    if found_message[2] == "dms":
+        if not d_is_member(user_id, dm_channel_id):
+            raise InputError("message_id is not a valid message within a channel or DM that the authorised user has joined")
+
+    # TODO: Somehow check react_ids
+
     return {}
 
 def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
