@@ -329,11 +329,55 @@ def handle_message_senddm():
     messages = params.get('message', None)
 
     user_id = other.validate_token(token)
-    if user_id == False:
+    if not user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     
     return dumps(message.message_senddm_v1(user_id, dm_id, messages))
+
+
+@APP.route("/message/share/v1", methods=['POST'])
+def handle_message_share():
+    params = request.json
+    token = params.get('token', None)
+    og_message_id = params.get('og_message_id', None)
+    message = params.get('message', None)
+    channel_id = params.get('channel_id', None)
+    dm_id = params.get('dm_id', None)
+
+    user_id = other.validate_token(token)
+    if not user_id:
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(message.message_share_v1(user_id, og_message_id, message, channel_id, dm_id))
+    
+
+@APP.route("/message/react/v1", methods=['POST'])
+def handle_message_react():
+    params = request.json
+    token = params.get('token', None)
+    message_id = params.get('message_id', None)
+    react_id = params.get('react_id', None)
+
+    user_id = other.validate_token(token)
+    if not user_id:
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(message.message_react_v1(user_id, message_id, react_id))
+
+
+@APP.route("/message/unreact/v1", methods=['POST'])
+def handle_message_unreact():
+    params = request.json
+    token = params.get('token', None)
+    message_id = params.get('message_id', None)
+    react_id = params.get('react_id', None)
+
+    user_id = other.validate_token(token)
+    if not user_id:
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(message.message_unreact_v1(user_id, message_id, react_id))
 
 
 @APP.route("/users/all/v1", methods=['GET'])

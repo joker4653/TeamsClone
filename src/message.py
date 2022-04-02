@@ -242,3 +242,13 @@ channel/DM that the authorised user has joined.
     data_store.set(store)
     write_data(data_store)
     return {}
+
+
+def message_react_v1(user_id, message_id, react_id):
+    return {}
+
+def message_unreact_v1(user_id, message_id, react_id):
+    return {}
+
+def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
+    return {}
