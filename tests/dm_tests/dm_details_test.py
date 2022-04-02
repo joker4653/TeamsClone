@@ -1,14 +1,6 @@
 '''All test for dm/details/v1.'''
 
-from cmath import e
-from csv import unix_dialect
-from stat import UF_HIDDEN
-from flask import request
-import pytest
-import requests
 import json
-from src import config
-from src.dm import dm_details_v1
 from tests.process_request import process_test_request
 
 
