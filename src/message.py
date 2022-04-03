@@ -285,4 +285,46 @@ def message_unreact_v1(user_id, message_id, react_id):
     return {}
 
 def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
-    return {}
+    if channel_id == -1 and dm_id == -1:
+        raise InputError("both channel_id and dm_id are invalid")
+    if channel_id != -1 and dm_id != -1:
+        raise InputError("both channel_id and dm_id are invalid")
+    if not (valid_channel_id(channel_id) or valid_dm_id(dm_id)):
+        raise InputError("both channel_id and dm_id are invalid")
+
+    if not (c_is_member(user_id, channel_id) or d_is_member(user_id, dm_id)):
+        raise AccessError("the pair of channel_id and dm_id are valid and the authorised user has not joined the channel or DM they are trying to share the message to")
+
+    found_message = message_find(og_message_id)
+    if not found_message:
+        raise InputError("og_message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
+    
+    channels_or_dms = found_message[2]
+    channel_dm_id = found_message[0]
+    message_index = found_message[1]
+    if (channel_dm_id != channel_id) and (channel_dm_id != dm_id):
+        raise InputError("og_message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
+    if len(message) > 1000:
+        raise InputError("length of message is more than 1000 characters")
+    
+    # All possible errors have been checked.
+    og_message = store[channels_or_dms][channel_dm_id]["messages"][message_index]["message"]
+
+    store = data_store.get()
+    shared_message_id = assign_message_id(store)
+    
+    # Get UTC timestamp
+    time_sent = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp()
+    time_sent = int(time_sent)
+
+    message_dict = {
+        "message_id": shared_message_id,
+        "u_id": user_id,
+        "message": f"{message}: {og_message}",
+        "time_sent": time_sent
+    }
+    store[channels_or_dms][channel_dm_id]["messages"].insert(0, message_dict)
+    data_store.set(store)
+    write_data(data_store)
+   
+    return {"shared_message_id": shared_message_id}
