@@ -32,7 +32,7 @@ def message_find(message_id):
             or DM where the message is located
             * A[2] holds a string telling us whether the message is in a channel
             of DM.
-        Message is accessed through `message_dict = store[A[2]]["messages"][A[1]]`
+        Message is accessed through `message_dict = store[A[2]][A[0]]["messages"][A[1]]`
     '''
     store = data_store.get()
 
