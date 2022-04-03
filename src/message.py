@@ -299,16 +299,16 @@ def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
     if not found_message:
         raise InputError("og_message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
     
-    channels_or_dms = found_message[2]
     channel_dm_id = found_message[0]
     message_index = found_message[1]
+    channel_or_dm = found_message[2]
     if (channel_dm_id != channel_id) and (channel_dm_id != dm_id):
         raise InputError("og_message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
     if len(message) > 1000:
         raise InputError("length of message is more than 1000 characters")
     
     # All possible errors have been checked.
-    og_message = store[channels_or_dms][channel_dm_id]["messages"][message_index]["message"]
+    og_message = store[channel_or_dm][channel_dm_id]["messages"][message_index]["message"]
 
     store = data_store.get()
     shared_message_id = assign_message_id(store)
@@ -323,7 +323,7 @@ def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
         "message": f"{message}: {og_message}",
         "time_sent": time_sent
     }
-    store[channels_or_dms][channel_dm_id]["messages"].insert(0, message_dict)
+    store[channel_or_dm][channel_dm_id]["messages"].insert(0, message_dict)
     data_store.set(store)
     write_data(data_store)
    
