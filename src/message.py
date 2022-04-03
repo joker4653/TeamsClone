@@ -308,10 +308,9 @@ def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
         raise InputError("length of message is more than 1000 characters")
     
     # All possible errors have been checked.
-    og_message = store[channel_or_dm][channel_dm_id]["messages"][message_index]["message"]
-
     store = data_store.get()
     shared_message_id = assign_message_id(store)
+    og_message = store[channel_or_dm][channel_dm_id]["messages"][message_index]["message"]
     
     # Get UTC timestamp
     time_sent = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp()
