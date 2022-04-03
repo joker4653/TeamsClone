@@ -77,3 +77,26 @@ def example_channels(example_user_id) -> list:
 
     # NOTE: global owners have owner permissions i.e. a global owner can do anything an owner can do.
     return [new_channel1, new_channel2]
+
+@pytest.fixture
+def example_dms(example_user_id) -> list:
+    create_dm1 = process_test_request(route="/dm/create/v1", method='post', inputs={
+        'token': example_user_id[0].get('token'), 
+        'u_ids': {example_user_id[1].get('token')}, 
+    })
+    dm1 = create_dm1.json()
+    create_dm2 = process_test_request(route="/dm/create/v1", method='post', inputs={
+        'token': example_user_id[1].get('token'), 
+        'u_ids': {example_user_id[0].get('token'),  example_user_id[2].get('token')}
+    })
+    dm2 = create_dm2.json()
+
+    # dm1:
+    #   owners: example_user_id[0], 
+    #   members: example_user_id[0] & example_user_id[1],
+
+    # dm2: 
+    #   owners: example_user_id[1]
+    #   members: example_user_id[1] & example_user_id[0] & example_user_id[2],
+    #   global owners: example_user_id[0]
+    return [dm1, dm2]
