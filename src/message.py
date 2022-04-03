@@ -18,6 +18,8 @@ Message format:
         "u_id": auth_user_id,
         "message": message,
         "time_sent": time_sent
+        "reacts": { react_id: [u_ids] }
+        "is_pinned": True/False
     }
 '''
 
