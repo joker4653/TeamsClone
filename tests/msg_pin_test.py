@@ -19,7 +19,7 @@ def test_pin_message_invalid_token(example_user_id, example_channels):
     assert response2.status_code == 403
     
 
-def test_pin_message_invalid_message_id(example_user_id, example_channels):
+def test_pin_message_invalid_message_id(example_user_id):
     # No messages created, any message_id will be invalid.
     response = process_test_request(route="/message/pin/v1", method='post', inputs={
         'token': example_user_id[0].get('token'), 
@@ -96,7 +96,7 @@ def test_pin_message_success(example_user_id, example_channels):
         "start": 0
     })
     messages = response3.json()
-    for message in messages:
+    for message in messages['messages']:
         if message['message_id'] == message_id.get('message_id'):
             assert message['is_pinned']
     
