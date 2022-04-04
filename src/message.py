@@ -277,10 +277,12 @@ def message_pin_v1(auth_user_id, message_id):
             raise AccessError("message_id refers to a valid message in a joined DM and the authorised user does not have owner permissions in the DM.")
     
     store = data_store.get()
-    if store[message_stream][channel_dm_id]['messages'][message_index]['is_pinned']:
+    if store[message_stream][channel_dm_id]["messages"][message_index]["is_pinned"]:
         raise InputError("message with message_id is already pinned.")
     else: 
-        store[message_stream][channel_dm_id]['messages'][message_index]['is_pinned'] = True
+        store[message_stream][channel_dm_id]["messages"][message_index]["is_pinned"] = True
 
+    data_store.set(store)
+    write_data(data_store)
     return {        
     }
