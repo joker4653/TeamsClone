@@ -1,16 +1,17 @@
 '''All tests for message/pin/v1.'''
 
-from email import message
 from tests.process_request import process_test_request
 
 
 def test_pin_message_invalid_token(example_user_id, example_messages):
-    process_test_request(route="/auth/logout/v1", method='post', inputs={'token': example_user_id[0].get('token')})
-    response2 = process_test_request(route="/message/pin/v1", method='post', inputs={
+    process_test_request(route="/auth/logout/v1", method='post', inputs={
+        'token': example_user_id[0].get('token')
+    })
+    response = process_test_request(route="/message/pin/v1", method='post', inputs={
         'token': example_user_id[0].get('token'), 
         'message_id': example_messages[0].get('message_id')
     })
-    assert response2.status_code == 403
+    assert response.status_code == 403
     
 
 def test_pin_message_invalid_message_id(example_user_id):
