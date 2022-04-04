@@ -96,7 +96,5 @@ def test_pin_message_success(example_user_id, example_channels):
         "start": 0
     })
     messages = response3.json()
-    for message in messages['messages']:
-        if message['message_id'] == message_id.get('message_id'):
-            assert message['is_pinned']
+    assert messages['messages'][0]['is_pinned']
     
