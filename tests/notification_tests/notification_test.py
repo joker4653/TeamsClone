@@ -11,14 +11,14 @@ def test_notifications_invalid_token(example_user_id):
         'token': example_user_id[0].get('token')
     })
     response = process_test_request(route="/notifications/get/v1", method='get', inputs={
-        'token': example_user_id[0].get('token'))
+        'token': example_user_id[0].get('token')
     })
     assert response.status_code == 403
 
 
 def test_notifications_no_notifications(example_user_id):
     response = process_test_request(route="/notifications/get/v1", method='get', inputs={
-        'token': example_user_id[0].get('token'))
+        'token': example_user_id[0].get('token')
     })
 
     assert response.status_code == 200
@@ -39,23 +39,23 @@ def test_notifications_one_added(example_user_id):
 
     process_test_request(route="/channel/invite/v2", method='post', inputs={
         'token': example_user_id[0].get('token'), 
-        'channel_id': new_channel2.get('channel_id'), 
+        'channel_id': new_channel1.get('channel_id'), 
         'u_id': example_user_id[1].get('auth_user_id')
     })
 
     
     response = process_test_request(route="/notifications/get/v1", method='get', inputs={
-        'token': example_user_id[1].get('token'))
+        'token': example_user_id[1].get('token')
     })
     assert response.status_code == 200
     notifications = json.loads(response.text)
     notifications = notifications.get('notifications')
     assert len(notifications) == 1
 
-    assert notifications.get('channel_id') != -1
-    assert notifications.get('dm_id') == -1
+    assert notifications[0].get('channel_id') != -1
+    assert notifications[0].get('dm_id') == -1
 
-    assert isinstance(notifications.get('notification_message'), str)
+    assert isinstance(notifications[0].get('notification_message'), str)
 
 
 def test_notifications_three_types(example_user_id):
@@ -65,32 +65,44 @@ def test_notifications_three_types(example_user_id):
         'is_public': False
     })
     new_channel1 = create_channel1.json()
-    
+   
+    # put user in a channel. 
     process_test_request(route="/channel/invite/v2", method='post', inputs={
         'token': example_user_id[0].get('token'), 
-        'channel_id': new_channel2.get('channel_id'), 
+        'channel_id': new_channel1.get('channel_id'), 
         'u_id': example_user_id[1].get('auth_user_id')
     })
 
-
-    # 
-
+    response1 = process_test_request(route="/user/profile/v1", method='get', inputs={'token': example_user_id[0].get('token'), 'u_id': example_user_id[1].get('auth_user_id')})
+    user_info = json.loads(response1.text)
+    user_info = user_info.get('user')
     
-    response = process_test_request(route="/notifications/get/v1", method='get', inputs={
-        'token': example_user_id[1].get('token'))
+
+    # Send a tagged message.
+    response2 = process_test_request("message/send/v1", "post", {
+        "token": example_user_id[0].get("token"),
+        "channel_id": new_channel1.get('channel_id'),
+        "message": f"Hey, @{user_info['handle_str']}!"
     })
+    data1 = response2.json() 
+    message_id = data1['message_id']
 
+    # React to the message
+    process_test_request("message/react/v1", "post", {
+        "token": example_user_id[0].get("token"),
+        "message_id": message_id,
+        "react_id": 1
+    })
+ 
+    response4 = process_test_request(route="/notifications/get/v1", method='get', inputs={
+        'token': example_user_id[1].get('token')
+    })
+    assert response4.status_code == 200
 
+    notifications = json.loads(response4.text)
+    notifications = notifications.get('notifications')
+    assert len(notifications) == 3
 
-def test_notifications_one_react():
-
-
-
-
-
-
-
-def test_notifications_twenty_one_notifications():
-
-
-
+def test_clear():
+    process_test_request(route="/clear/v1", method='delete')
+    
