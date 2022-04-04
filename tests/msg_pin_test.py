@@ -46,7 +46,7 @@ def test_pin_message_already_pinned(example_user_id, example_channels):
     })
     assert response3.status_code == 400
 
-def test_pin_message_auth_user_not_owner_in_channel_or_dm(example_user_id, example_channels):
+def test_pin_message_auth_user_not_member_in_channel_or_dm(example_user_id, example_channels):
     response1 = process_test_request("message/send/v1", "post", {
         "token": example_user_id[0].get("token"),
         "channel_id": example_channels[0].get('channel_id'),
@@ -60,12 +60,22 @@ def test_pin_message_auth_user_not_owner_in_channel_or_dm(example_user_id, examp
         'message_id': message_id.get('message_id')
     })
 
+    assert response2.status_code == 400
+
+def test_pin_message_auth_user_not_owner_in_channel_or_dm(example_user_id, example_channels):
+    response1 = process_test_request("message/send/v1", "post", {
+        "token": example_user_id[0].get("token"),
+        "channel_id": example_channels[0].get('channel_id'),
+        "message": "good message"
+    })
+    message_id = response1.json()
+
     # example_user_id[1] is a member but does not have owner permissions.
-    response3 = process_test_request(route="/message/pin/v1", method='post', inputs={
+    response2 = process_test_request(route="/message/pin/v1", method='post', inputs={
         'token': example_user_id[1].get('token'), 
         'message_id': message_id.get('message_id')
     })
-    assert response2.status_code == response3.status_code == 400
+    assert response2.status_code == 403
 
 def test_pin_message_success(example_user_id, example_channels):
     response1 = process_test_request("message/send/v1", "post", {
