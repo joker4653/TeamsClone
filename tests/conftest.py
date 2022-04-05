@@ -65,6 +65,18 @@ def example_channels(example_user_id) -> list:
         'u_id': example_user_id[2].get('auth_user_id')
     })
 
+    create_channel3 = process_test_request(route="/channels/create/v2", method='post', inputs={
+        'token': example_user_id[1].get('token'), 
+        'name': "a good channel", 
+        'is_public': True
+    })
+    new_channel3 = create_channel3.json()
+    process_test_request(route="/channel/invite/v2", method='post', inputs={
+        'token': example_user_id[1].get('token'), 
+        'channel_id': new_channel3.get('channel_id'), 
+        'u_id': example_user_id[2].get('auth_user_id')
+    })
+
     # new_channel1:
     #   owners: example_user_id[0], 
     #   members: example_user_id[0] & example_user_id[1],
@@ -75,19 +87,24 @@ def example_channels(example_user_id) -> list:
     #   members: example_user_id[0] & example_user_id[1] & example_user_id[2],
     #   global owners: example_user_id[0]
 
+    # new_channel3:
+    #   owners: example_user_id[1]
+    #   members: example_user_id[1] & example_user_id[2],
+    #   global owners: none 
+
     # NOTE: global owners have owner permissions i.e. a global owner can do anything an owner can do.
-    return [new_channel1, new_channel2]
+    return [new_channel1, new_channel2, new_channel3]
 
 @pytest.fixture
 def example_dms(example_user_id) -> list:
-    u_ids1 = [example_user_id[0].get('auth_user_id'), example_user_id[1].get('auth_user_id')]
+    u_ids1 = [example_user_id[0].get('auth_user_id')]
     dm1 = process_test_request(route = '/dm/create/v1', method = 'post', inputs= {
         'token': example_user_id[1].get('token'), 
         'u_ids' : u_ids1
     })
     new_dm1 = dm1.json()
 
-    u_ids2 = [example_user_id[1].get('auth_user_id'), example_user_id[2].get('auth_user_id')]
+    u_ids2 = [example_user_id[2].get('auth_user_id')]
     dm2 = process_test_request(route = '/dm/create/v1', method = 'post', inputs= {
         'token': example_user_id[1].get('token'), 
         'u_ids' : u_ids2
