@@ -86,3 +86,22 @@ def test_user_remove_success(example_user_id, example_channels):
     users = get_users.json()
     for user in users['users']:
         assert user['u_id'] != removed_u_id
+
+def test_removed_user_cant_do_anything(example_user_id, example_channels):
+    response1 = process_test_request(route="/admin/user/remove/v1", method='delete', inputs={
+        'token': example_user_id[0].get('token'), 
+        'u_id': example_user_id[1].get('auth_user_id')
+    })
+    assert response1.status_code == 200
+
+    # Check that removed user cannot create a channel or dm.
+    response2 = process_test_request(route="/channels/create/v2", method='post', inputs={
+        'token': example_user_id[1].get('token'), 
+        'name': "invalid", 
+        'is_public': True
+    })    
+    response3 = process_test_request(route = '/dm/create/v1', method = 'post', inputs= {
+        'token': example_user_id[1].get('token'), 
+        'u_ids': [example_user_id[0].get('auth_user_id')]
+    })
+    assert response2.status_code == response3.status_code == 403
