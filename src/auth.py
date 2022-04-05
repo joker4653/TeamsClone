@@ -44,13 +44,13 @@ def auth_login_v1(email, password):
         raise InputError("Incorrect password.")
 
     # Choose a new session id. 
-    store = data_store.get()
     session_id = store['sessions_no']
     store['sessions_no'] += 1
     
     # Add session id to user's sessions.
     user['sessions'].append(session_id)
 
+    data_store.set(store)
     write_data(data_store)
 
     # Generate jwt token.
@@ -112,6 +112,7 @@ def auth_register_v1(email, password, name_first, name_last):
         'last': name_last,
         'permissions_id': permissions,
         'sessions': [session_id],
+        'notifications': [],
         'removed': False
     }
     

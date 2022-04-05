@@ -12,3 +12,6 @@
 
 * channel/removeowner/v1
     - The original owner (creator) of a channel can be removed by subsequent owners.
+
+* notifications/get/v1
+    - Re. tagging: If a message that already has a tag is edited and the tag remains, a new notification is sent.
