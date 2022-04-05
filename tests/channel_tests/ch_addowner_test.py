@@ -58,6 +58,22 @@ def test_add_owner_auth_user_not_an_owner(example_user_id, example_channels):
     })
     assert response.status_code == 403
 
+def test_add_owner_auth_user_not_a_member(example_user_id, example_channels):
+    response = process_test_request(route="/channel/addowner/v1", method='post', inputs={
+        'token': example_user_id[2].get('token'), 
+        'channel_id': example_channels[0].get('channel_id'), 
+        'u_id': example_user_id[1].get('auth_user_id')
+    })
+    assert response.status_code == 403
+
+def test_add_owner_auth_user_is_global_owner_but_not_member(example_user_id, example_channels):
+    response = process_test_request(route="/channel/addowner/v1", method='post', inputs={
+        'token': example_user_id[0].get('token'), 
+        'channel_id': example_channels[2].get('channel_id'), 
+        'u_id': example_user_id[2].get('auth_user_id')
+    })
+    assert response.status_code == 403
+
 def test_add_multiple_owners(example_user_id, example_channels):
     response1 = process_test_request(route="/channel/addowner/v1", method='post', inputs={
         'token': example_user_id[1].get('token'), 
