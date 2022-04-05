@@ -389,7 +389,19 @@ def handle_message_pin():
     if not user_id:
         raise AccessError("The token provided was invalid.")
 
-    return dumps(message.message_pin_v1(user_id, message_id))
+    return dumps(message.message_pin_unpin_v1(user_id, message_id, True))
+
+@APP.route("/message/unpin/v1", methods=['POST'])
+def handle_message_unpin():
+    params = request.json
+    token = params.get('token', None)
+    message_id = params.get('message_id', None)
+
+    user_id = other.validate_token(token)
+    if not user_id:
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(message.message_pin_unpin_v1(user_id, message_id, False))
 
 
 @APP.route("/users/all/v1", methods=['GET'])

@@ -255,7 +255,7 @@ def message_unreact_v1(user_id, message_id, react_id):
 def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
     return {}
 
-def message_pin_v1(auth_user_id, message_id):
+def message_pin_unpin_v1(auth_user_id, message_id, pin):
     message_info = message_find(message_id)
     if not message_info:
         raise InputError("message_id does not refer to a valid message.")
@@ -277,10 +277,15 @@ def message_pin_v1(auth_user_id, message_id):
             raise AccessError("message_id refers to a valid message in a joined DM and the authorised user does not have owner permissions in the DM.")
     
     store = data_store.get()
-    if store[message_stream][channel_dm_id]["messages"][message_index]["is_pinned"]:
+    # Trying to pin a pinned message.
+    if store[message_stream][channel_dm_id]["messages"][message_index]["is_pinned"] and pin:
         raise InputError("message with message_id is already pinned.")
-    else: 
-        store[message_stream][channel_dm_id]["messages"][message_index]["is_pinned"] = True
+
+    # Trying to unpin a message that is not already pinned.
+    if not store[message_stream][channel_dm_id]["messages"][message_index]["is_pinned"] and not pin:
+        raise InputError("message with message_id is not already pinned.")
+
+    store[message_stream][channel_dm_id]["messages"][message_index]["is_pinned"] = pin
 
     data_store.set(store)
     write_data(data_store)
