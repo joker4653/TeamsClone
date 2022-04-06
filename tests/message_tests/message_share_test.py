@@ -31,32 +31,62 @@ def test_both_dm_and_channel_ids_provided(example_user_id, example_channels, exa
     response = process_test_request("message/share/v1", "post", inputs)
     assert response.status_code == 400
 
+def test_channel_id_provided_is_invalid(example_user_id, example_messages):
+    inputs = {
+        "token": example_user_id[0].get("token"),
+        "og_message_id": example_messages[0].get("message_id"),
+        "message": "Hello",
+        "channel_id": 331,
+        "dm_id": -1
+    }
+    response = process_test_request("message/share/v1", "post", inputs)
+    assert response.status_code == 400
+
+def test_dm_id_provided_is_invalid(example_user_id, example_messages):
+    inputs = {
+        "token": example_user_id[0].get("token"),
+        "og_message_id": example_messages[0].get("message_id"),
+        "message": "Hello",
+        "channel_id": -1,
+        "dm_id": 331
+    }
+    response = process_test_request("message/share/v1", "post", inputs)
+    assert response.status_code == 400
 
 def test_og_message_id_not_valid(example_user_id, example_channels, example_dms):
-    inputs = {
+    response = process_test_request("message/share/v1", "post", {
         "token": example_user_id[0].get("token"),
         "og_message_id": 1, # No message has been sent
         "message": "Hello",
         "channel_id": example_channels[0].get("channel_id"),
         "dm_id": -1
-    }
-    response = process_test_request("message/share/v1", "post", inputs)
+    })
     assert response.status_code == 400
-    inputs = {
+    response = process_test_request("message/share/v1", "post", {
         "token": example_user_id[1].get("token"),
         "og_message_id": 1, # No message has been sent
         "message": "Hello",
         "channel_id": -1,
         "dm_id": example_dms[1].get("dm_id")
-    }
-    response = process_test_request("message/share/v1", "post", inputs)
+    })
     assert response.status_code == 400
 
 
-def test_message_length_too_long(example_user_id, example_channels, example_dms):
-    inputs = {
+def test_og_message_id_valid_but_not_in_valid_channel_or_dm(example_user_id, example_channels, example_dms, example_messages):
+    response = process_test_request("message/share/v1", "post", {
         "token": example_user_id[1].get("token"),
-        "og_message_id": 1, # No message has been sent
+        "og_message_id": example_messages[0].get("message_id"),
+        "message": "Hello",
+        "channel_id": example_channels[1].get("channel_id"),
+        "dm_id": -1
+    })
+    assert response.status_code == 400
+
+
+def test_message_length_too_long(example_user_id, example_dms, example_messages):
+    inputs = {
+        "token": example_user_id[2].get("token"),
+        "og_message_id": example_messages[3].get("message_id"),
         "message": ''.join([random.choice(string.ascii_letters) for i in range(1002)]),
         "channel_id": -1,
         "dm_id": example_dms[1].get("dm_id")
@@ -65,7 +95,7 @@ def test_message_length_too_long(example_user_id, example_channels, example_dms)
     assert response.status_code == 400
 
 
-def test_user_not_in_valid_dm_or_channel(example_user_id, example_channels, example_dms, example_messages):
+def test_user_doesnt_belong_to_the_valid_dm_or_channel(example_user_id, example_channels, example_dms, example_messages):
     response = process_test_request("message/share/v1", "post", {
         "token": example_user_id[2].get("token"),
         "og_message_id": example_messages[0].get("message_id"),
