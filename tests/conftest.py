@@ -65,6 +65,18 @@ def example_channels(example_user_id) -> list:
         'u_id': example_user_id[2].get('auth_user_id')
     })
 
+    create_channel3 = process_test_request(route="/channels/create/v2", method='post', inputs={
+        'token': example_user_id[1].get('token'), 
+        'name': "a good channel", 
+        'is_public': True
+    })
+    new_channel3 = create_channel3.json()
+    process_test_request(route="/channel/invite/v2", method='post', inputs={
+        'token': example_user_id[1].get('token'), 
+        'channel_id': new_channel3.get('channel_id'), 
+        'u_id': example_user_id[2].get('auth_user_id')
+    })
+
     # new_channel1:
     #   owners: example_user_id[0], 
     #   members: example_user_id[0] & example_user_id[1],
@@ -75,28 +87,99 @@ def example_channels(example_user_id) -> list:
     #   members: example_user_id[0] & example_user_id[1] & example_user_id[2],
     #   global owners: example_user_id[0]
 
+    # new_channel3:
+    #   owners: example_user_id[1]
+    #   members: example_user_id[1] & example_user_id[2],
+    #   global owners: none 
+
     # NOTE: global owners have owner permissions i.e. a global owner can do anything an owner can do.
-    return [new_channel1, new_channel2]
+    return [new_channel1, new_channel2, new_channel3]
 
 @pytest.fixture
 def example_dms(example_user_id) -> list:
-    create_dm1 = process_test_request(route="/dm/create/v1", method='post', inputs={
-        'token': example_user_id[0].get('token'), 
-        'u_ids': [example_user_id[1].get('auth_user_id')], 
-    })
-    dm1 = create_dm1.json()
-    create_dm2 = process_test_request(route="/dm/create/v1", method='post', inputs={
+    u_ids1 = [example_user_id[0].get('auth_user_id')]
+    dm1 = process_test_request(route = '/dm/create/v1', method = 'post', inputs= {
         'token': example_user_id[1].get('token'), 
-        'u_ids': [example_user_id[0].get('auth_user_id'),  example_user_id[2].get('auth_user_id')]
+        'u_ids' : u_ids1
     })
-    dm2 = create_dm2.json()
+    new_dm1 = dm1.json()
 
-    # dm1:
-    #   owners: example_user_id[0], 
-    #   members: example_user_id[0] & example_user_id[1],
+    u_ids2 = [example_user_id[2].get('auth_user_id')]
+    dm2 = process_test_request(route = '/dm/create/v1', method = 'post', inputs= {
+        'token': example_user_id[1].get('token'), 
+        'u_ids' : u_ids2
+    })
+    new_dm2 = dm2.json()
 
-    # dm2: 
+    # new_dm1:
     #   owners: example_user_id[1]
-    #   members: example_user_id[1] & example_user_id[0] & example_user_id[2],
+    #   members: example_user_id[1] & example_user_id[0]
     #   global owners: example_user_id[0]
-    return [dm1, dm2]
+
+    # new_dm2:
+    #   owners: example_user_id[1]
+    #   members: example_user_id[1] & example_user_id[2]
+    #   global owners: none
+
+    return [new_dm1, new_dm2]
+
+@pytest.fixture
+def example_messages(example_user_id, example_channels, example_dms) -> list:
+    message1 = process_test_request("message/send/v1", "post", {
+        "token": example_user_id[0].get("token"),
+        "channel_id": example_channels[0].get('channel_id'),
+        "message": "this is a message"
+    })
+    new_channel_message1 = message1.json()
+
+    message2 = process_test_request("message/send/v1", "post", {
+        "token": example_user_id[2].get("token"),
+        "channel_id": example_channels[1].get('channel_id'),
+        "message": "I love comp1531!"
+    })
+    new_channel_message2 = message2.json()
+
+    message3 = process_test_request("message/senddm/v1", "post", {
+        "token": example_user_id[0].get("token"),
+        "dm_id": example_dms[0].get('dm_id'),
+        "message": "first dm message"
+    })
+    new_dm_message3 = message3.json()
+
+    message4 = process_test_request("message/senddm/v1", "post", {
+        "token": example_user_id[1].get("token"),
+        "dm_id": example_dms[1].get('dm_id'),
+        "message": "another dm message"
+    })
+    new_dm_message4 = message4.json()
+
+    # new_channel_message1:
+    #   sent in: example_channels[0]
+    #   message sender: example_user_id[0]
+    #   channel details:
+    #   owners: example_user_id[0]
+    #   members: example_user_id[0] & example_user_id[1]
+    #   global owners: example_user_id[0]
+
+    # new_channel_message_2:
+    #   sent in: example_channels[1]
+    #   message sender: example_user_id[2]
+    #   owners: example_user_id[1]
+    #   members: example_user_id[0] & example_user_id[1] & example_user_id[2]
+    #   global owners: example_user_id[0]
+
+    # new_dm_message_3:
+    #   sent in: example_dms[0]
+    #   message sender: example_user_id[0]
+    #   owners: example_user_id[1]
+    #   members: example_user_id[0] & example_user_id[1]
+    #   global owners: example_user_id[0]
+
+    # new_dm_message_4:
+    #   sent in: example_dms[1]
+    #   message sender: example_user_id[1]
+    #   owners: example_user_id[1]
+    #   members: example_user_id[1] & example_user_id[2]
+    #   global owners: none
+
+    return [new_channel_message1, new_channel_message2, new_dm_message3, new_dm_message4]
