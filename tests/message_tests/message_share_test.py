@@ -1,4 +1,3 @@
-from py import process
 from tests.process_request import process_test_request
 import string
 import random
