@@ -5,7 +5,7 @@ from flask import Flask, request
 from flask_cors import CORS
 
 from src.error import InputError, AccessError
-from src import config, auth, channel
+from src import config, auth, channel, notifications
 from src import channels, other, message, dm, users
 
 def quit_gracefully(*args):
@@ -442,6 +442,13 @@ def handle_admin_changeperms():
     permission_id = params.get('permission_id', None)
 
     return dumps(users.admin_userpermission_change_v1(token, u_id, permission_id))
+
+@APP.route("/notifications/get/v1", methods=['GET'])
+def handle_notifications_get():
+    params = request.args
+    token = params.get('token', None)
+
+    return dumps(notifications.notif_get_v1(token))
 
 #### NO NEED TO MODIFY BELOW THIS POINT
 

@@ -23,8 +23,9 @@ def test_notifications_no_notifications(example_user_id):
 
     assert response.status_code == 200
 
-    notifications = json.loads(response.text)
-    assert len(notifications.get('notifications')) == 0
+    notifications_dict = json.loads(response.text)
+    notifications = notifications_dict['notifications']
+    assert len(notifications) == 0
 
 
 
@@ -48,8 +49,8 @@ def test_notifications_one_added(example_user_id):
         'token': example_user_id[1].get('token')
     })
     assert response.status_code == 200
-    notifications = json.loads(response.text)
-    notifications = notifications.get('notifications')
+    notifications_dict = json.loads(response.text)
+    notifications = notifications_dict['notifications']
     assert len(notifications) == 1
 
     assert notifications[0].get('channel_id') != -1
@@ -80,7 +81,7 @@ def test_notifications_three_types(example_user_id):
 
     # Send a tagged message.
     response2 = process_test_request("message/send/v1", "post", {
-        "token": example_user_id[0].get("token"),
+        "token": example_user_id[1].get("token"),
         "channel_id": new_channel1.get('channel_id'),
         "message": f"Hey, @{user_info['handle_str']}!"
     })
@@ -99,10 +100,10 @@ def test_notifications_three_types(example_user_id):
     })
     assert response4.status_code == 200
 
-    notifications = json.loads(response4.text)
-    notifications = notifications.get('notifications')
+    notifications_dict = json.loads(response4.text)
+    notifications = notifications_dict['notifications']
     assert len(notifications) == 3
 
 def test_clear():
     process_test_request(route="/clear/v1", method='delete')
-    
+

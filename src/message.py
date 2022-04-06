@@ -26,6 +26,7 @@ Message format:
     }
 '''
 
+
 def message_find(message_id):
     '''
         Takes a message_id. Returns False if message_id is not valid.
@@ -291,7 +292,6 @@ def message_react_v1(user_id, message_id, react_id):
 
     store = data_store.get()
     message_dict = store[found_message[2]][found_message[0]]["messages"][found_message[1]]
-    
     generate_notif(message_dict['u_id'], user_id, found_message[0], found_message[2], 'react', False)
 
     return {}

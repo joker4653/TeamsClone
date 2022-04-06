@@ -104,8 +104,9 @@ def dm_create(token, u_ids):
     data_store.set(store)
     write_data(data_store)
    
-    generate_notif(u_ids[0], owner_id, new_dm_id, 'dms', 'add', False)
-    generate_notif(u_ids[1], owner_id, new_dm_id, 'dms', 'add', False)
+    generate_notif(sorted_ids[0], owner_id, new_dm_id, 'dms', 'add', False)
+    if len(sorted_ids) > 1:
+        generate_notif(sorted_ids[1], owner_id, new_dm_id, 'dms', 'add', False)
 
     return {
         'dm_id': new_dm_id
