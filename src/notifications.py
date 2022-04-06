@@ -1,4 +1,3 @@
-
 from src.data_store import data_store
 from src.error import AccessError
 from src.data_json import write_data
@@ -66,6 +65,4 @@ def generate_notif(user_id, sender_id, channel_dm_id, channel_or_dm, trigger, me
     data_store.set(store)
     write_data(data_store)
 
-    print(f"state of notifications!!! '4321 {store['users'][user_id]['notifications']} 1234'")
-    
 
