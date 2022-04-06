@@ -5,12 +5,15 @@ from operator import index
 
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import valid_user_id, valid_channel_id, user_info, valid_dm_id
+from src.other import valid_user_id, valid_channel_id, user_info, valid_dm_id, find_tags
 from src.data_json import write_data
 from src.channel import is_member as c_is_member
 from src.channel import is_owner as c_is_owner
 from src.dm import is_member as d_is_member
 from src.dm import is_owner as d_is_owner
+from src.notifications import generate_notif
+
+
 '''
 Message format:
     message_dict = {
@@ -70,16 +73,28 @@ def assign_message_id(store):
         return maximum + 1
 
 
-def send_message(auth_user_id, id, message, dm_or_channel):
+def notify_tags(message, sender_id, channel_dm_id, channel_or_dm):
+    '''Find all tagged users in a message and send them a notification.'''
+    tagged = find_tags(message)
+
+    if tagged == []:
+        return
+
+    for u_id in tagged:
+        generate_notif(u_id, sender_id, channel_dm_id, channel_or_dm, 'tag', message)
+
+
+
+def send_message(auth_user_id, channel_dm_id, message, dm_or_channel):
     if dm_or_channel == "channels":
-        if not valid_channel_id(id):
+        if not valid_channel_id(channel_dm_id):
             raise InputError("channel_id does not refer to a valid channel")
-        if not c_is_member(auth_user_id, id):
+        if not c_is_member(auth_user_id, channel_dm_id):
             raise AccessError("channel_id is valid and the authorised user is not a member of the channel")
     elif dm_or_channel == "dms":
-        if not valid_dm_id(id):
+        if not valid_dm_id(channel_dm_id):
             raise InputError("dm_id does not refer to a valid dm")
-        if not d_is_member(auth_user_id, id):
+        if not d_is_member(auth_user_id, channel_dm_id):
             raise AccessError("dm_id is valid and the authorised user is not a member of the DM")
 
     if len(message) not in range(1,1001):
@@ -87,7 +102,7 @@ def send_message(auth_user_id, id, message, dm_or_channel):
 
     store = data_store.get()
     message_id = assign_message_id(store)
-    
+
     # Get UTC timestamp
     time_sent = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp()
     time_sent = int(time_sent)
@@ -98,9 +113,13 @@ def send_message(auth_user_id, id, message, dm_or_channel):
         "message": message,
         "time_sent": time_sent
     }
-    store[dm_or_channel][id]["messages"].insert(0, message_dict)
+    store[dm_or_channel][channel_dm_id]["messages"].insert(0, message_dict)
     data_store.set(store)
     write_data(data_store)
+
+    # Notify tags.
+    notify_tags(message, auth_user_id, channel_dm_id, dm_or_channel)
+
     return {"message_id": message_id}
 
 
@@ -199,6 +218,10 @@ channel/DM that the authorised user has joined.
         store["channels"][channel_dm_id]["messages"][index]["message"] = message
     data_store.set(store)
     write_data(data_store)
+
+    # Notify tags.
+    notify_tags(message, auth_user_id, channel_dm_id, "channels")
+
     return {}
 
 
@@ -266,6 +289,11 @@ def message_react_v1(user_id, message_id, react_id):
 
     # TODO: Somehow check react_ids
 
+    store = data_store.get()
+    message_dict = store[found_message[2]][found_message[0]]["messages"][found_message[1]]
+    
+    generate_notif(message_dict['u_id'], user_id, found_message[0], found_message[2], 'react', False)
+
     return {}
 
 def message_unreact_v1(user_id, message_id, react_id):
@@ -325,5 +353,8 @@ def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
     store[channel_or_dm][channel_dm_id]["messages"].insert(0, message_dict)
     data_store.set(store)
     write_data(data_store)
+    
+    # Notify tags.
+    notify_tags(message, user_id, channel_dm_id, channel_or_dm)
    
     return {"shared_message_id": shared_message_id}

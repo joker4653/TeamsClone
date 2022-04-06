@@ -10,15 +10,15 @@ def notif_get_v1(token):
 
     return notifications
 
-def generate_notif(user_id, handle, channel_dm_id, channel_or_dm, trigger, message):
+def generate_notif(user_id, sender_id, channel_dm_id, channel_or_dm, trigger, message_sent):
     """
     Inputs:
     - user_id       (str):  The id of the user the notification is for.
-    - handle        (str):  The handle of the user who caused the notification.
+    - sender_id     (str):  The id of the user who caused the notification.
     - channel_dm_id (int):  The id of the channel or dm in which the trigger took place.
     - channel_or_dm (str):  Either 'channels' or 'dms' depending on where the trigger took place.
     - trigger       (str):  'tag', 'react', or 'add', depending on where the trigger took place.
-    - message       (str):  The message sent, if needed. Otherwise, False.
+    - message_sent  (str):  The message sent, if needed. Otherwise, False.
 
     """
     # Figure out channel or dm.
@@ -32,9 +32,10 @@ def generate_notif(user_id, handle, channel_dm_id, channel_or_dm, trigger, messa
     # Create message.
     store = data_store.get()
     name = store[dm_or_channel][channel_dm_id]["name"]
+    handle = store['users'][sender_id]['handle']
     
     if trigger == 'tag':
-        message = f"{handle} tagged you in {name}: {message[:20]}"
+        message = f"{handle} tagged you in {name}: {message_sent[:20]}"
     elif trigger == 'react':
         message = f"{handle} reacted to your message in {name}"
     else:

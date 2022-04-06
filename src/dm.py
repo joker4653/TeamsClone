@@ -1,15 +1,11 @@
 '''Direct messaging functions'''
-"""
-from src.other import valid_dm_id
-from src.data_store import data_store
-"""
 
 from unicodedata import name
 from src.error import AccessError, InputError
 from src.other import valid_dm_id, valid_user_id, validate_token, user_info
 from src.data_store import data_store
 from src.data_json import write_data
-
+from src.notifications import generate_notif
 
 def is_member(user_id, dm_id):
     '''Check if a user is in a dm. Return True if in dm, False if not in.'''
@@ -107,6 +103,9 @@ def dm_create(token, u_ids):
     store['dms'][new_dm_id] = new_dm_dictionary
     data_store.set(store)
     write_data(data_store)
+   
+    generate_notif(u_ids[0], owner_id, new_dm_id, 'dms', 'add', False)
+    generate_notif(u_ids[1], owner_id, new_dm_id, 'dms', 'add', False)
 
     return {
         'dm_id': new_dm_id
