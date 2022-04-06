@@ -82,12 +82,12 @@ def example_channels(example_user_id) -> list:
 def example_dms(example_user_id) -> list:
     create_dm1 = process_test_request(route="/dm/create/v1", method='post', inputs={
         'token': example_user_id[0].get('token'), 
-        'u_ids': {example_user_id[1].get('token')}, 
+        'u_ids': [example_user_id[1].get('auth_user_id')], 
     })
     dm1 = create_dm1.json()
     create_dm2 = process_test_request(route="/dm/create/v1", method='post', inputs={
         'token': example_user_id[1].get('token'), 
-        'u_ids': {example_user_id[0].get('token'),  example_user_id[2].get('token')}
+        'u_ids': [example_user_id[0].get('auth_user_id'),  example_user_id[2].get('auth_user_id')]
     })
     dm2 = create_dm2.json()
 
