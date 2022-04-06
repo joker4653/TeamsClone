@@ -4,7 +4,7 @@ from src.data_store import data_store
 from src.error import InputError, AccessError
 from src.other import user_info, valid_user_id, validate_token, is_only_global_owner
 from src.data_json import write_data
-from src.auth import check_duplicate
+from src.auth import check_duplicate, auth_logout_v1
 from src.channel import is_global_owner
 from src.channel import is_owner as is_channel_owner
 from src.channel import is_member as is_channel_member
@@ -225,6 +225,7 @@ def admin_user_remove_v1(token, u_id):
     # Update details for removed user.
     removed_user['first'] = "Removed"
     removed_user['last'] = "user"
+    removed_user['sessions'] = []
 
     data_store.set(store)
     write_data(data_store)
