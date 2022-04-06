@@ -1,4 +1,3 @@
-import json
 from tests.process_request import process_test_request
 
 '''

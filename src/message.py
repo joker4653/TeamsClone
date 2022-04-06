@@ -330,13 +330,16 @@ def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
     if not (valid_channel_id(channel_id) or valid_dm_id(dm_id)):
         raise InputError("both channel_id and dm_id are invalid")
 
-    if not (c_is_member(user_id, channel_id) or d_is_member(user_id, dm_id)):
-        raise AccessError("the pair of channel_id and dm_id are valid and the authorised user has not joined the channel or DM they are trying to share the message to")
-
+    if channel_id == -1:
+        if not d_is_member(user_id, dm_id):
+            raise AccessError("the pair of channel_id and dm_id are valid and the authorised user has not joined the channel or DM they are trying to share the message to")
+    if dm_id == -1:
+        if not c_is_member(user_id, channel_id):
+            raise AccessError("the pair of channel_id and dm_id are valid and the authorised user has not joined the channel or DM they are trying to share the message to")
+    
     found_message = message_find(og_message_id)
     if not found_message:
         raise InputError("og_message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
-    
     channel_dm_id = found_message[0]
     message_index = found_message[1]
     channel_or_dm = found_message[2]

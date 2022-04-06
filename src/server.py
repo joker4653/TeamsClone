@@ -341,7 +341,7 @@ def handle_message_share():
     params = request.json
     token = params.get('token', None)
     og_message_id = params.get('og_message_id', None)
-    message = params.get('message', None)
+    message_ = params.get('message', None)
     channel_id = params.get('channel_id', None)
     dm_id = params.get('dm_id', None)
 
@@ -349,7 +349,7 @@ def handle_message_share():
     if not user_id:
         raise AccessError("The token provided was invalid.")
 
-    return dumps(message.message_share_v1(user_id, og_message_id, message, channel_id, dm_id))
+    return dumps(message.message_share_v1(user_id, og_message_id, message_, channel_id, dm_id))
     
 
 @APP.route("/message/react/v1", methods=['POST'])
