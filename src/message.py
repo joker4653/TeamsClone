@@ -5,7 +5,7 @@ from operator import index
 
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import valid_user_id, valid_channel_id, user_info, valid_dm_id, find_tags
+from src.other import is_global_owner, valid_user_id, valid_channel_id, user_info, valid_dm_id, find_tags
 from src.data_json import write_data
 from src.channel import is_member as c_is_member
 from src.channel import is_owner as c_is_owner
@@ -21,7 +21,6 @@ Message format:
         "u_id": auth_user_id,
         "message": message,
         "time_sent": time_sent
-        "reacts": { react_id: [u_ids] }
         "is_pinned": True/False
     }
 '''
@@ -112,7 +111,8 @@ def send_message(auth_user_id, channel_dm_id, message, dm_or_channel):
         "message_id": message_id,
         "u_id": auth_user_id,
         "message": message,
-        "time_sent": time_sent
+        "time_sent": time_sent,
+        "is_pinned": False,
     }
     store[dm_or_channel][channel_dm_id]["messages"].insert(0, message_dict)
     data_store.set(store)
@@ -312,6 +312,44 @@ def message_unreact_v1(user_id, message_id, react_id):
 
     return {}
 
+def message_pin_unpin_v1(auth_user_id, message_id, pin):
+    message_info = message_find(message_id)
+    if not message_info:
+        raise InputError("message_id does not refer to a valid message.")
+    
+    channel_dm_id = message_info[0]
+    message_index = message_info[1]
+    message_stream = message_info[2]
+
+    if message_stream == "channels":
+        if not c_is_member(auth_user_id, channel_dm_id):
+            raise InputError("message_id does not refer to a valid message within a channel that the authorised user has joined.")
+        if not c_is_owner(auth_user_id, channel_dm_id) and not is_global_owner(auth_user_id):
+            raise AccessError("message_id refers to a valid message in a joined channel and the authorised user does not have owner permissions in the channel.")
+    else:
+        assert message_stream == "dms"
+        if not d_is_member(auth_user_id, channel_dm_id):
+            raise InputError("message_id does not refer to a valid message within a DM that the authorised user has joined.")
+        if not d_is_owner(auth_user_id, channel_dm_id) and not is_global_owner(auth_user_id):
+            raise AccessError("message_id refers to a valid message in a joined DM and the authorised user does not have owner permissions in the DM.")
+    
+    store = data_store.get()
+    # Trying to pin a pinned message.
+    if store[message_stream][channel_dm_id]["messages"][message_index]["is_pinned"] and pin:
+        raise InputError("message with message_id is already pinned.")
+
+    # Trying to unpin a message that is not already pinned.
+    if not store[message_stream][channel_dm_id]["messages"][message_index]["is_pinned"] and not pin:
+        raise InputError("message with message_id is not already pinned.")
+
+    store[message_stream][channel_dm_id]["messages"][message_index]["is_pinned"] = pin
+
+    data_store.set(store)
+    write_data(data_store)
+    return {        
+    }
+
+
 def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
     if channel_id == -1 and dm_id == -1:
         raise InputError("both channel_id and dm_id are invalid")
@@ -320,13 +358,16 @@ def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
     if not (valid_channel_id(channel_id) or valid_dm_id(dm_id)):
         raise InputError("both channel_id and dm_id are invalid")
 
-    if not (c_is_member(user_id, channel_id) or d_is_member(user_id, dm_id)):
-        raise AccessError("the pair of channel_id and dm_id are valid and the authorised user has not joined the channel or DM they are trying to share the message to")
-
+    if channel_id == -1:
+        if not d_is_member(user_id, dm_id):
+            raise AccessError("the pair of channel_id and dm_id are valid and the authorised user has not joined the channel or DM they are trying to share the message to")
+    if dm_id == -1:
+        if not c_is_member(user_id, channel_id):
+            raise AccessError("the pair of channel_id and dm_id are valid and the authorised user has not joined the channel or DM they are trying to share the message to")
+    
     found_message = message_find(og_message_id)
     if not found_message:
         raise InputError("og_message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
-    
     channel_dm_id = found_message[0]
     message_index = found_message[1]
     channel_or_dm = found_message[2]
