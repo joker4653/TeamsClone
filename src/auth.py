@@ -4,7 +4,7 @@ import hashlib
 from src.data_store import data_store
 from src.error import InputError, AccessError
 from src.data_json import write_data
-from src.other import valid_user_id, create_token, validate_token
+from src.other import valid_user_id, create_token, validate_token, check_duplicate
 import src.std_vars as std_vars
 
 def auth_login_v1(email, password):
@@ -32,8 +32,9 @@ def auth_login_v1(email, password):
     for user in store['users'].values():
         if user['email'] == email:
             # This is the correct user.
-            found = True
-            break
+            if not user['removed']:
+                found = True
+                break
    
     # Check the email has a registered user. 
     if not found:
@@ -44,13 +45,13 @@ def auth_login_v1(email, password):
         raise InputError("Incorrect password.")
 
     # Choose a new session id. 
-    store = data_store.get()
     session_id = store['sessions_no']
     store['sessions_no'] += 1
     
     # Add session id to user's sessions.
     user['sessions'].append(session_id)
 
+    data_store.set(store)
     write_data(data_store)
 
     # Generate jwt token.
@@ -112,6 +113,7 @@ def auth_register_v1(email, password, name_first, name_last):
         'last': name_last,
         'permissions_id': permissions,
         'sessions': [session_id],
+        'notifications': [],
         'removed': False
     }
     
@@ -185,16 +187,6 @@ def validate_input(email, password, first, last):
 
 
 
-
-def check_duplicate(new, field):
-    '''Goes through the users in data store and returns True if new already has a registered entry in users[field].'''
-    store = data_store.get()
-    for user in store['users'].values():
-        # Check if the user field is the same as new.
-        if user[field] == new and not user['removed']:
-            # This new entry is a duplicate.
-            return True
-    return False
 
 def create_new_handle(first, last):
     '''Generates a new unique user handle from the given first and last name.'''

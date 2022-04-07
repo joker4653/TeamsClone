@@ -107,6 +107,20 @@ def user_info(auth_user_id):
         'handle_str': store['users'][auth_user_id]['handle'],
     }
 
+def check_duplicate(new, field, get_id=False):
+    '''Goes through the users in data store and returns True if new already has a registered entry in users[field].'''
+    store = data_store.get()
+    for user in store['users'].values():
+        # Check if the user field is the same as new.
+        if user[field] == new and not user['removed']:
+            # This new entry is a duplicate.
+            if get_id:
+                return True, user['id']
+            return True
+    if get_id:
+        return False, -1
+    return False
+
 def is_global_owner(user_id):
     '''Return true if a user is a global owner, return false otherwise.'''
     store = data_store.get()
@@ -130,3 +144,32 @@ def is_only_global_owner(u_id):
         if count > 1:
             return False
     return True
+
+def check_tag(tagged, tag):
+    # Check tag.
+    valid, u_id = check_duplicate(tag, "handle", True)
+    if valid and u_id not in tagged:
+        tagged.append(u_id)
+
+def find_tags(message):
+    '''Find and return all u_ids tagged in a certain message string.'''
+    tagged = []
+    tag = ""
+    check = False
+    for letter in message:
+        if check and not letter.isalnum():
+            check_tag(tagged, tag)
+            check = False
+            tag = ""
+        elif check:
+            tag = tag + letter
+        
+        if letter == "@":
+            check = True
+            tag = ""
+
+    if check:
+        check_tag(tagged, tag)
+    
+    return tagged
+    

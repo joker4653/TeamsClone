@@ -36,6 +36,7 @@ Just a note about the setup of the users dict. As users are added, they are stor
     'last': [string last name]
     'permissions_id': [int indicating global user permissions. 1 for global owner, 2 otherwise.]
     'sessions': [list of active sessions (ints) of this user],
+    'notifications': [list of notification dicts]
     'removed': [bool]
     }
 }
