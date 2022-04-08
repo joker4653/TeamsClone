@@ -316,7 +316,6 @@ def message_react_v1(user_id, message_id, react_id):
     write_data(data_store)
     return {}
 
-
 def message_unreact_v1(user_id, message_id, react_id):    
     store = data_store.get()
     found_message = message_find(message_id)
