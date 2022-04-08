@@ -366,6 +366,10 @@ def user_profile_upload_photo_v1(token, img_url, x_start, y_start, x_end, y_end)
     response = requests.get(img_url)
     if response.status_code != 200:
          raise InputError("img_url is invalid; must be a http url that corresponds to a jpeg image.")
+    
+    find_type = requests.head(img_url)
+    if find_type.headers['content-type'] != "image/jpeg":
+        raise InputError("Image is invalid; must be a jpeg image.")
 
     img = Image.open(BytesIO(response.content))
     img_width = img.size[0]
