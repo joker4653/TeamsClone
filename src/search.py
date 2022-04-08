@@ -64,6 +64,10 @@ has joined that contain the query.
     check_messages(messages, channels, query_str, "channels")
     check_messages(messages, dms, query_str, "dms")
 
+    for message in messages:
+        for react in message["reacts"]:
+            react["is_this_user_reacted"] = user_id in react["u_ids"]
+
     return {
         'messages': messages
     }
