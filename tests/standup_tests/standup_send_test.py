@@ -41,5 +41,10 @@ def test_standup_send_long_message(example_user_id, example_channels):
     })
     assert response.status_code == 400
 
-def test_standup_send_correct_return_value(example_user_id, example_channels):
-    pass
+def test_standup_send_success(example_user_id, example_channels):
+    response = process_test_request(route="/standup/send/v1", method='post', inputs={
+        'token': example_user_id[0].get('token'), 
+        'channel_id': example_channels[0].get('channel_id'), 
+        'message': "hello, this is a message"
+    })
+    assert response.status_code == 200 

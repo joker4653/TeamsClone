@@ -6,7 +6,7 @@ from flask_cors import CORS
 
 from src.error import InputError, AccessError
 from src import config, auth, channel, notifications
-from src import channels, other, message, dm, users
+from src import channels, other, message, dm, users, standup
 
 def quit_gracefully(*args):
     '''For coverage'''
@@ -473,6 +473,44 @@ def handle_notifications_get():
     token = params.get('token', None)
 
     return dumps(notifications.notif_get_v1(token))
+
+@APP.route("/standup/start/v1", methods=['POST'])
+def handle_channel_details():
+    params = request.args
+    token = params.get('token', None)
+    channel_id = params.get('channel_id', None)
+    length = params.get('length', None)
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(standup.standup_start_v1(auth_user_id, channel_id, length))
+
+@APP.route("/standup/active/v1", methods=['GET'])
+def handle_channel_details():
+    params = request.args
+    token = params.get('token', None)
+    channel_id = params.get('channel_id', None)
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(standup.standup_active_v1(auth_user_id, channel_id))
+
+@APP.route("/standup/send/v1", methods=['POST'])
+def handle_channel_details():
+    params = request.args
+    token = params.get('token', None)
+    channel_id = params.get('channel_id', None)
+    message = params.get('message', None)
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(standup.standup_start_v1(auth_user_id, channel_id, message))
 
 #### NO NEED TO MODIFY BELOW THIS POINT
 

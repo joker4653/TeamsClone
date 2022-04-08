@@ -46,7 +46,6 @@ def test_standup_start_success_and_existing_active_standup(example_user_id, exam
         'length': 60
     })
     assert response1.status_code == 200
-    assert example_channels[0].get('active_standup')
     response2 = process_test_request(route="/standup/start/v1", method='post', inputs={
         'token': example_user_id[0].get('token'), 
         'channel_id': example_channels[0].get('channel_id'), 
