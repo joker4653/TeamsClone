@@ -1,1 +1,92 @@
-{}
+{
+    "1": {
+        "dm_owner_id": [
+            {
+                "u_id": 2,
+                "email": "smith.james12@gmail.com",
+                "name_first": "James",
+                "name_last": "Smith",
+                "handle_str": "jamessmith"
+            }
+        ],
+        "name": "jamessmith, jamessmith, stevesmith",
+        "user_ids": [
+            {
+                "u_id": 1,
+                "email": "steve.smith@gmail.com",
+                "name_first": "Steve",
+                "name_last": "Smith",
+                "handle_str": "stevesmith"
+            },
+            {
+                "u_id": 2,
+                "email": "smith.james12@gmail.com",
+                "name_first": "James",
+                "name_last": "Smith",
+                "handle_str": "jamessmith"
+            }
+        ],
+        "messages": [
+            {
+                "message_id": 4,
+                "u_id": 1,
+                "message": "first dm message",
+                "time_sent": 1649424150,
+                "is_pinned": false,
+                "reacts": [
+                    {
+                        "react_id": 1,
+                        "u_ids": [],
+                        "is_this_user_reacted": false
+                    }
+                ]
+            }
+        ],
+        "dm_id": 1
+    },
+    "2": {
+        "dm_owner_id": [
+            {
+                "u_id": 2,
+                "email": "smith.james12@gmail.com",
+                "name_first": "James",
+                "name_last": "Smith",
+                "handle_str": "jamessmith"
+            }
+        ],
+        "name": "jamessmith, carljohns, jamessmith",
+        "user_ids": [
+            {
+                "u_id": 2,
+                "email": "smith.james12@gmail.com",
+                "name_first": "James",
+                "name_last": "Smith",
+                "handle_str": "jamessmith"
+            },
+            {
+                "u_id": 3,
+                "email": "carl.johns56@gmail.com",
+                "name_first": "Carl",
+                "name_last": "Johns",
+                "handle_str": "carljohns"
+            }
+        ],
+        "messages": [
+            {
+                "message_id": 5,
+                "u_id": 2,
+                "message": "another dm message",
+                "time_sent": 1649424150,
+                "is_pinned": false,
+                "reacts": [
+                    {
+                        "react_id": 1,
+                        "u_ids": [],
+                        "is_this_user_reacted": false
+                    }
+                ]
+            }
+        ],
+        "dm_id": 2
+    }
+}
