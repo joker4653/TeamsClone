@@ -413,7 +413,12 @@ def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
         "message_id": shared_message_id,
         "u_id": user_id,
         "message": f"{message}: {og_message}",
-        "time_sent": time_sent
+        "time_sent": time_sent,
+        "reacts": [{
+            "react_id": 1,
+            "u_ids": [],
+            "is_this_user_reacted": False
+        }]
     }
     store[channel_or_dm][channel_dm_id]["messages"].insert(0, message_dict)
     data_store.set(store)
