@@ -474,6 +474,18 @@ def handle_notifications_get():
 
     return dumps(notifications.notif_get_v1(token))
 
+@APP.route("/user/profile/uploadphoto/v1", methods=['POST'])
+def handle_user_profile_upload_photo():
+    params = request.get_json()
+    token = params.get('token', None)
+    img_url = params.get('img_url', None)
+    x_start = params.get('x_start', None)
+    y_start = params.get('y_start', None)
+    x_end = params.get('x_end', None)
+    y_end = params.get('y_end', None)
+
+    return dumps(users.user_profile_upload_photo_v1(token, img_url, x_start, y_start, x_end, y_end))
+
 #### NO NEED TO MODIFY BELOW THIS POINT
 
 if __name__ == "__main__":

@@ -324,3 +324,39 @@ are being demoted to a user.
         user['permissions_id'] = permission_id
     else:
         raise InputError("User already has these permissions")
+
+def user_profile_upload_photo_v1(token, img_url, x_start, y_start, x_end, y_end):
+    '''
+    Given a URL of an image on the internet, crops the image within bounds 
+    (x_start, y_start) and (x_end, y_end). Image URL must be http (not https).
+    
+    Arguments:
+        token           (str)   - an active token corresponding to a certain user.
+        img_url         (str)   - the http URL of the image to be cropped.
+        x_start         (int)   - the starting position for cropping on the x-axis.
+        y_start         (int)   - the starting position for cropping on the y-axis.
+        x_end           (int)   - the finishing position for cropping on the x-axis.
+        y_end           (int)   - the finishing position for cropping on the y-axis.
+
+    Exceptions:
+        InputError  -occurs when:   - img_url returns a http status other than 200.
+                                    - any errors occur whilst retrieving the photo.
+                                    - any of x_start, y_start, x_end, y_end are not within 
+                                      the dimensions of the image at the URL.
+                                    - x_end is less than or equal to x_start or y_end is 
+                                      less than or equal to y_start.
+                                    - image uploaded is not a JPG.
+
+        AccessError -occurs when:   - the token provided is invalid.
+        
+    
+    Return Value:
+        Returns {} always.
+    '''
+    auth_user_id = validate_token(token)
+    if not auth_user_id:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return {     
+    }
