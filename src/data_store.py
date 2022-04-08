@@ -56,7 +56,7 @@ As channels are added, the channels dictionary will appear as follows:
             'name':             string name,
             'is_public':        boolean value,
             'user_ids':         [user_info(auth_user_id), details in other.py],
-            'messages':         dict
+            'messages':         [dict]
         }
         2: {
             'channel_id':        int,
@@ -64,7 +64,7 @@ As channels are added, the channels dictionary will appear as follows:
             'name':             string name,
             'is_public':        boolean value,
             'user_ids':         [user_info(auth_user_id), details in other.py],
-            'messages':         dict
+            'messages':         [dict]
         }
         ...
     }
@@ -80,7 +80,7 @@ cheers, Nick.
             'name':             string name,
             'dm_id':            integer,
             'user_ids':         [user_info(auth_user_id), details in other.py],
-            'messages':         dict
+            'messages':         [dict]
         }
 '''
 

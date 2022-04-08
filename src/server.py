@@ -6,7 +6,7 @@ from flask_cors import CORS
 
 from src.error import InputError, AccessError
 from src import config, auth, channel, notifications
-from src import channels, other, message, dm, users
+from src import channels, other, message, dm, users, search
 
 def quit_gracefully(*args):
     '''For coverage'''
@@ -473,6 +473,14 @@ def handle_notifications_get():
     token = params.get('token', None)
 
     return dumps(notifications.notif_get_v1(token))
+
+@APP.route("/search/v1", methods=['GET'])
+def handle_search():
+    params = request.args
+    token = params.get('token', None)
+    query_str = params.get('query_str', None)
+
+    return dumps(search.search_v1(token, query_str))
 
 #### NO NEED TO MODIFY BELOW THIS POINT
 
