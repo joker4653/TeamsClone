@@ -315,6 +315,10 @@ channel.
             break
         messages_return.append(messages[i])
     
+    for message in messages_return:
+        for react in message["reacts"]:
+            react["is_this_user_reacted"] = auth_user_id in react["u_ids"]
+
     return {
         "messages": messages_return,
         "start": start,
