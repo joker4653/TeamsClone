@@ -101,54 +101,6 @@ def channel_details_v1(auth_user_id, channel_id):
     return return_dict
 
 
-def channel_messages_v1(auth_user_id, channel_id, start):
-    '''
-    Given a channel with ID channel_id that the authorised user is a member of, return up to 50 messages between index "start" and "start + 50".
-    
-    Arguments:
-        token      (str)   - an active token corresponding to a certain user.
-        channel_id (int)   - the ID of a certain channel.
-        start      (int)   - messages index to begin reading from.
-
-    Exceptions:
-        InputError  -occurs when:   - channel_id does not refer to a valid channel.
-                                    - start is greater than the total number of messages in the channel.
-
-        AccessError -occurs when:   - channel_id is valid and the authorised user is not a member of the channel.
-
-    Return Value:
-        returns {
-            'messages': [A list containing the collected messages.]
-            'start': [The start index of reading.]
-            'end': [The end index of reading.]
-        } 
-    '''
-    if not valid_channel_id(channel_id):
-        raise InputError("This channel_id does not correspond to an existing channel.")
-    if not is_member(auth_user_id, channel_id):
-        raise AccessError("channel_id is valid and the authorised user is not a member of the channel")
-
-    store = data_store.get()
-    channel = store["channels"][channel_id]
-    messages = channel["messages"]
-    messages_return = []
-
-    if start > len(messages):
-        raise InputError("start is greater than the total number of messages in the channel")
-
-    end = start + 50
-    for i in range(start, start + 50):
-        if (i == len(messages)):
-            end = -1
-            break
-        messages_return.append(messages[i])
-    
-    return {
-        "messages": messages_return,
-        "start": start,
-        "end": end
-    }
-    
 def channel_join_v1(auth_user_id, channel_id):
     '''
     Given a channel_id of a channel that the authorised user can join, adds them to that channel.   
@@ -334,3 +286,55 @@ def channel_removeowner_v1(token, channel_id, u_id):
     return {
     }
 
+
+def channel_messages_v1(auth_user_id, channel_id, start):
+    '''
+    Given a channel with ID channel_id that the authorised user is a member of, return up to 50 messages between index "start" and "start + 50".
+    
+    Arguments:
+        token      (str)   - an active token corresponding to a certain user.
+        channel_id (int)   - the ID of a certain channel.
+        start      (int)   - messages index to begin reading from.
+
+    Exceptions:
+        InputError  -occurs when:   - channel_id does not refer to a valid channel.
+                                    - start is greater than the total number of messages in the channel.
+
+        AccessError -occurs when:   - channel_id is valid and the authorised user is not a member of the channel.
+
+    Return Value:
+        returns {
+            'messages': [A list containing the collected messages.]
+            'start': [The start index of reading.]
+            'end': [The end index of reading.]
+        } 
+    '''
+    if not valid_channel_id(channel_id):
+        raise InputError("This channel_id does not correspond to an existing channel.")
+    if not is_member(auth_user_id, channel_id):
+        raise AccessError("channel_id is valid and the authorised user is not a member of the channel")
+
+    store = data_store.get()
+    channel = store["channels"][channel_id]
+    messages = channel["messages"]
+    messages_return = []
+
+    if start > len(messages):
+        raise InputError("start is greater than the total number of messages in the channel")
+
+    end = start + 50
+    for i in range(start, start + 50):
+        if (i == len(messages)):
+            end = -1
+            break
+        messages_return.append(messages[i])
+    
+    for message in messages_return:
+        for react in message["reacts"]:
+            react["is_this_user_reacted"] = auth_user_id in react["u_ids"]
+    
+    return {
+        "messages": messages_return,
+        "start": start,
+        "end": end
+    }
