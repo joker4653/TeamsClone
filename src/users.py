@@ -11,6 +11,9 @@ from src.channel import is_member as is_channel_member
 from src.dm import is_owner as is_dm_owner
 from src.dm import is_member as is_dm_member
 import src.std_vars as std_vars
+from PIL import Image
+import requests
+from io import BytesIO
 
 import re
 
@@ -357,6 +360,20 @@ def user_profile_upload_photo_v1(token, img_url, x_start, y_start, x_end, y_end)
     if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
+    if x_end <= x_start or y_end <= y_start:
+        raise InputError("x_end and y_end must be greater than x_start and y_start respectively.")
+    
+    response = requests.get(img_url)
+    if response.status_code != 200:
+         raise InputError("img_url is invalid; must be a http url that corresponds to a jpeg image.")
+
+    img = Image.open(BytesIO(response.content))
+    img_width = img.size[0]
+    img_height = img.size[1]
+
+    if (x_start < std_vars.MIN_IMG_WIDTH or x_end > img_width or 
+        y_start < std_vars.MIN_IMG_HEIGHT or y_end > img_height):
+        raise InputError("Coordinates for cropping image must be within image dimensions.")
 
     return {     
     }
