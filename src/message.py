@@ -306,7 +306,6 @@ def message_react_v1(user_id, message_id, react_id):
 
     message_dict = store[found_message[2]][found_message[0]]["messages"][found_message[1]]
     generate_notif(message_dict['u_id'], user_id, found_message[0], found_message[2], 'react', False)
-
     reacts = message_dict["reacts"]
     for react in reacts:
         if react["react_id"] == react_id:
@@ -316,7 +315,6 @@ def message_react_v1(user_id, message_id, react_id):
     data_store.set(store)
     write_data(data_store)
     return {}
-
 
 def message_unreact_v1(user_id, message_id, react_id):    
     store = data_store.get()
