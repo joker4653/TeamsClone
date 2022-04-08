@@ -20,7 +20,7 @@ def test_message_id_not_valid(example_user_id, example_channels, example_message
 def test_react_message_id_valid_but_user_not_in_channel(example_user_id, example_messages):
     inputs = {
         "token": example_user_id[2].get("token"),
-        "message_id": example_messages[0].get("token"),
+        "message_id": example_messages[0].get("message_id"),
         "react_id": 1
     }
     response = process_test_request("message/react/v1", "post", inputs)
@@ -116,19 +116,20 @@ def test_message_already_reacted_to(example_user_id, example_channels, example_m
 
 
 def test_message_react_unreact(example_user_id, example_channels, example_messages):
-    inputs = {
+    #user1 and user2 reacting
+    inputs1 = {
         "token": example_user_id[1].get("token"), 
         "message_id": example_messages[1].get("message_id"),
         "react_id": 1
     }
-    response = process_test_request("message/react/v1", "post", inputs)
+    response = process_test_request("message/react/v1", "post", inputs1)
     assert response.status_code == 200
-    inputs = {
+    inputs2 = {
         "token": example_user_id[2].get("token"), 
         "message_id": example_messages[1].get("message_id"),
         "react_id": 1
     }
-    response = process_test_request("message/react/v1", "post", inputs)
+    response = process_test_request("message/react/v1", "post", inputs2)
     assert response.status_code == 200
     channel_messages = process_test_request("channel/messages/v2", "get", {
         "token": example_user_id[0].get("token"),
@@ -142,6 +143,21 @@ def test_message_react_unreact(example_user_id, example_channels, example_messag
     assert example_user_id[1].get("auth_user_id") in u_ids
     assert example_user_id[0].get("auth_user_id") not in u_ids
     assert not message["reacts"][0]["is_this_user_reacted"]
+
+    # user1 unreacting
+    response = process_test_request("message/unreact/v1", "post", inputs1)
+    assert response.status_code == 200
+    channel_messages = process_test_request("channel/messages/v2", "get", {
+        "token": example_user_id[1].get("token"),
+        "channel_id": example_channels[1].get("channel_id"),
+        "start": 0
+    })
+    message = channel_messages.json()["messages"][0]
+    u_ids = message["reacts"][0]["u_ids"]
+    assert len(u_ids) == 1
+    assert example_user_id[2].get("auth_user_id") in u_ids
+    assert not message["reacts"][0]["is_this_user_reacted"]
+
 
 def test_clear_2():
     process_test_request("clear/v1", "delete", {})
