@@ -6,7 +6,7 @@ from flask_cors import CORS
 
 from src.error import InputError, AccessError
 from src import config, auth, channel, notifications
-from src import channels, other, message, dm, users, standup
+from src import channels, other, message, dm, users, search, standup
 
 def quit_gracefully(*args):
     '''For coverage'''
@@ -511,6 +511,14 @@ def handle_standup_send():
         raise AccessError("The token provided was invalid.")
 
     return dumps(standup.standup_send_v1(auth_user_id, int(channel_id), message))
+
+@APP.route("/search/v1", methods=['GET'])
+def handle_search():
+    params = request.args
+    token = params.get('token', None)
+    query_str = params.get('query_str', None)
+
+    return dumps(search.search_v1(token, query_str))
 
 #### NO NEED TO MODIFY BELOW THIS POINT
 

@@ -2,6 +2,7 @@
 import datetime
 from email.policy import default
 from operator import index
+import re
 
 from src.data_store import data_store
 from src.error import InputError, AccessError
@@ -22,6 +23,9 @@ Message format:
         "message": message,
         "time_sent": time_sent
         "is_pinned": True/False
+        "reacts": { react_id, u_ids, is_this_user_reacted }
+            is_this_user_reacted must be dynamically calculated for 
+            /channel/messages, /dm/messages and /search
     }
 '''
 
@@ -113,6 +117,11 @@ def send_message(auth_user_id, channel_dm_id, message, dm_or_channel):
         "message": message,
         "time_sent": time_sent,
         "is_pinned": False,
+        "reacts": [{
+            "react_id": 1,
+            "u_ids": [],
+            "is_this_user_reacted": False
+        }]
     }
     store[dm_or_channel][channel_dm_id]["messages"].insert(0, message_dict)
     data_store.set(store)
@@ -270,14 +279,7 @@ channel/DM that the authorised user has joined.
     return {}
 
 
-def message_react_v1(user_id, message_id, react_id):
-    '''
-    InputError when any of:
-     - message_id is not a valid message within a channel or DM that the authorised user has joined
-     - react_id is not a valid react ID - currently, the only valid react ID the frontend has is 1
-     - the message already contains a react with ID react_id from the authorised user
-    '''
-    found_message = message_find(message_id)
+def react_unreact_errors(store, found_message, user_id, message_id, react_id):
     if not found_message:
         raise InputError("message_id is not a valid message within a channel or DM that the authorised user has joined")
     dm_channel_id = found_message[0]
@@ -287,30 +289,50 @@ def message_react_v1(user_id, message_id, react_id):
     if found_message[2] == "dms":
         if not d_is_member(user_id, dm_channel_id):
             raise InputError("message_id is not a valid message within a channel or DM that the authorised user has joined")
+    if react_id != 1:
+        raise InputError("react_id is not a valid react ID")
 
-    # TODO: Somehow check react_ids
+    for react in store[found_message[2]][found_message[0]]["messages"][found_message[1]]["reacts"]:
+        if user_id in react["u_ids"]:
+            return True
+    return False
 
+def message_react_v1(user_id, message_id, react_id):
     store = data_store.get()
+    found_message = message_find(message_id)
+    reacted = react_unreact_errors(store, found_message, user_id, message_id, react_id)
+    if reacted:
+        raise InputError("the message already contains a react with ID react_id from the authorised user")
+
     message_dict = store[found_message[2]][found_message[0]]["messages"][found_message[1]]
     generate_notif(message_dict['u_id'], user_id, found_message[0], found_message[2], 'react', False)
-
+    reacts = message_dict["reacts"]
+    for react in reacts:
+        if react["react_id"] == react_id:
+            react["u_ids"].append(user_id)
+            break
+    store[found_message[2]][found_message[0]]["messages"][found_message[1]]["reacts"] = reacts
+    data_store.set(store)
+    write_data(data_store)
     return {}
 
-def message_unreact_v1(user_id, message_id, react_id):
+def message_unreact_v1(user_id, message_id, react_id):    
+    store = data_store.get()
     found_message = message_find(message_id)
-    if not found_message:
-        raise InputError("message_id is not a valid message within a channel or DM that the authorised user has joined")
-    dm_channel_id = found_message[0]
-    if found_message[2] == "channels":
-        if not c_is_member(user_id, dm_channel_id):
-            raise InputError("message_id is not a valid message within a channel or DM that the authorised user has joined")
-    if found_message[2] == "dms":
-        if not d_is_member(user_id, dm_channel_id):
-            raise InputError("message_id is not a valid message within a channel or DM that the authorised user has joined")
+    reacted = react_unreact_errors(store, found_message, user_id, message_id, react_id)
+    if not reacted:
+        raise InputError("the message does not contain a react with ID react_id from the authorised user")
 
-    # TODO: Somehow check react_ids
-
+    reacts = store[found_message[2]][found_message[0]]["messages"][found_message[1]]["reacts"]
+    for react in reacts:
+        if react["react_id"] == react_id:
+            react["u_ids"].remove(user_id)
+            break
+    store[found_message[2]][found_message[0]]["messages"][found_message[1]]["reacts"] = reacts
+    data_store.set(store)
+    write_data(data_store)
     return {}
+
 
 def message_pin_unpin_v1(auth_user_id, message_id, pin):
     message_info = message_find(message_id)
@@ -389,7 +411,12 @@ def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
         "message_id": shared_message_id,
         "u_id": user_id,
         "message": f"{message}: {og_message}",
-        "time_sent": time_sent
+        "time_sent": time_sent,
+        "reacts": [{
+            "react_id": 1,
+            "u_ids": [],
+            "is_this_user_reacted": False
+        }]
     }
     store[channel_or_dm][channel_dm_id]["messages"].insert(0, message_dict)
     data_store.set(store)
