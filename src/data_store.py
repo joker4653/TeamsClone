@@ -57,7 +57,7 @@ As channels are added, the channels dictionary will appear as follows:
             'is_public':        boolean value,
             'user_ids':         [user_info(auth_user_id), details in other.py],
             'messages':         dict,
-            'active_standup':   boolean value
+            'active_standup':   dict
         }
         2: {
             'channel_id':        int,
@@ -66,7 +66,7 @@ As channels are added, the channels dictionary will appear as follows:
             'is_public':        boolean value,
             'user_ids':         [user_info(auth_user_id), details in other.py],
             'messages':         dict,
-            'active_standup':   boolean value
+            'active_standup':   dict
         }
         ...
     }

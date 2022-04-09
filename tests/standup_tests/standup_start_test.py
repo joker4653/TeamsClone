@@ -39,7 +39,7 @@ def test_standup_start_invalid_length(example_user_id, example_channels):
     })
     assert response.status_code == 400
 
-def test_standup_start_success_and_existing_active_standup(example_user_id, example_channels):
+def test_standup_start_success_and_test_existing_active_standup(example_user_id, example_channels):
     response1 = process_test_request(route="/standup/start/v1", method='post', inputs={
         'token': example_user_id[0].get('token'), 
         'channel_id': example_channels[0].get('channel_id'), 
