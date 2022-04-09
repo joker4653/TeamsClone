@@ -255,6 +255,14 @@ def test_edit_message_input_errors(test_send_messages, initialise_tests):
     })
     assert response.status_code == 400
 
+    # non valid message_id 2
+    response = process_test_request("message/edit/v1", "put", {
+        "token": initialise_tests[0].get("token"), # John
+        "message_id": test_send_messages[3], # abcds message_id
+        "message": "Hello World!"
+    })
+    assert response.status_code == 400
+
 
 def test_edit_message_access_errors(test_send_messages, initialise_tests):
     response = process_test_request("message/edit/v1", "put", {
