@@ -160,7 +160,42 @@ reset the password is the one who got sent this email.
 
     send_code(email, code)
 
+    # Log user out of all sessions.
+    store['users'][user_id]['sessions'] = []
 
+    data_store.set(store)
+    write_data(data_store)
+
+def auth_passwordreset_reset_v1(code, new_password):
+    '''
+    Given a reset code for a user, set that user's new password to the password provided.
+    
+    Arguments:
+        code            (int)   - The code given in password reset email.
+        new_password    (str)   - The new password for the user.
+
+    Exceptions:
+        N/A
+
+    Return Value:
+        Returns {} always.
+    '''
+    # Check code against codes to get user_id.
+    store = data_store.get()
+
+    user_id = store['codes'].get(code, False)
+    if not user_id:
+        raise InputError("The given reset code is invalid.")
+    if len(new_password) < 6:
+        raise InputError("The given password is too short.")
+
+    # Reset password.
+    store['users'][user_id]['password'] = hashlib.sha256(new_password.encode()).hexdigest()
+    
+    store['codes'].pop(code)
+
+    data_store.set(store)
+    write_data(data_store)
 
 def auth_logout_v1(token):
     '''

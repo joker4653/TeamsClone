@@ -155,7 +155,7 @@ def handle_channel_messages():
     start = int(params.get('start', None))
 
     auth_user_id = other.validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         raise AccessError("The token provided was invalid.")
 
     return dumps(channel.channel_messages_v1(auth_user_id, channel_id, start))
@@ -488,6 +488,14 @@ def handle_auth_passwordreset_request():
     email = params.get('email', None)
 
     return dumps(auth.auth_passwordreset_request_v1(email))
+
+@APP.route("/auth/passwordreset/reset/v1", methods=['POST'])
+def handle_auth_passwordreset_reset():
+    params = request.get_json()
+    reset_code = params.get('reset_code', None)
+    new_password = params.get('new_password', None)
+
+    return dumps(auth.auth_passwordreset_reset_v1(reset_code, new_password))
 
 #### NO NEED TO MODIFY BELOW THIS POINT
 
