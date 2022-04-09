@@ -212,7 +212,7 @@ channel/DM that the authorised user has joined.
     if (not c_is_member(auth_user_id, channel_dm_id)) and (not d_is_member(auth_user_id, channel_dm_id)):
         raise InputError("message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
     
-    if not (c_is_owner(auth_user_id, channel_dm_id)) and not (d_is_owner(auth_user_id, channel_dm_id)):
+    if not (c_is_owner(auth_user_id, channel_dm_id) or d_is_owner(auth_user_id, channel_dm_id) or is_global_owner(auth_user_id)):
         if store[message_type][channel_dm_id]["messages"][index]["u_id"] != auth_user_id:
             raise AccessError
 
@@ -262,7 +262,7 @@ channel/DM that the authorised user has joined.
     if (not c_is_member(auth_user_id, channel_dm_id)) and (not d_is_member(auth_user_id, channel_dm_id)):
         raise InputError("message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
 
-    if not (c_is_owner(auth_user_id, channel_dm_id)) and not (d_is_owner(auth_user_id, channel_dm_id)):
+    if not (c_is_owner(auth_user_id, channel_dm_id) or d_is_owner(auth_user_id, channel_dm_id) or is_global_owner(auth_user_id)):
         if store[message_type][channel_dm_id]["messages"][index]["u_id"] != auth_user_id:
             raise AccessError
 
@@ -271,6 +271,7 @@ channel/DM that the authorised user has joined.
     data_store.set(store)
     write_data(data_store)
     return {}
+
 
 
 def react_unreact_errors(store, found_message, user_id, message_id, react_id):
