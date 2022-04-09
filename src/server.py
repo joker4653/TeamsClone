@@ -482,6 +482,13 @@ def handle_search():
 
     return dumps(search.search_v1(token, query_str))
 
+@APP.route("/auth/passwordreset/request/v1", methods=['POST'])
+def handle_auth_passwordreset_request():
+    params = request.get_json()
+    email = params.get('email', None)
+
+    return dumps(auth.auth_passwordreset_request_v1(email))
+
 #### NO NEED TO MODIFY BELOW THIS POINT
 
 if __name__ == "__main__":
