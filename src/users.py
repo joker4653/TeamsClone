@@ -14,6 +14,7 @@ import src.std_vars as std_vars
 from PIL import Image
 import requests
 from io import BytesIO
+import os
 
 import re
 
@@ -331,7 +332,10 @@ are being demoted to a user.
 def user_profile_upload_photo_v1(token, img_url, x_start, y_start, x_end, y_end):
     '''
     Given a URL of an image on the internet, crops the image within bounds 
-    (x_start, y_start) and (x_end, y_end). Image URL must be http (not https).
+    (x_start, y_start) and (x_end, y_end). Image URL must be http (not https). Image is saved
+    into a file in 'images' directory, where the file name is the auth_user's u_id.
+    Each user can only have one profile picture so their image file is overwritten
+    each time they upload a new photo.
     
     Arguments:
         token           (str)   - an active token corresponding to a certain user.
@@ -371,6 +375,7 @@ def user_profile_upload_photo_v1(token, img_url, x_start, y_start, x_end, y_end)
     if find_type.headers['content-type'] != "image/jpeg":
         raise InputError("Image is invalid; must be a jpeg image.")
 
+    # Get image dimensions.
     img = Image.open(BytesIO(response.content))
     img_width = img.size[0]
     img_height = img.size[1]
@@ -378,6 +383,20 @@ def user_profile_upload_photo_v1(token, img_url, x_start, y_start, x_end, y_end)
     if (x_start < std_vars.MIN_IMG_WIDTH or x_end > img_width or 
         y_start < std_vars.MIN_IMG_HEIGHT or y_end > img_height):
         raise InputError("Coordinates for cropping image must be within image dimensions.")
+
+    # Crop image.
+    cropped_dimensions = (x_start, y_start, x_end, y_end)
+    img = img.crop(cropped_dimensions)
+
+    # Save image.
+    img_path = '/../images/'
+    if not os.path.exists(img_path):
+        os.mkdir(img_path)
+
+    filename = str(auth_user_id) + '.jpeg'
+    with open(os.path.join(img_path, filename), 'wb') as users_image_store:
+        img.save(users_image_store)
+    
 
     return {     
     }
