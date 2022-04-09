@@ -11,7 +11,8 @@ from tests.process_request import process_test_request
 PASSWORD = "Truffl3hunt3r"
 
 def test_reset_invalid_code():
-    response2 = process_test_request(route="/auth/passwordreset/reset/v1", method='post', inputs={'reset_code': 123458, 'new_password': "yeahh, we won't even get here."})
+    response = process_test_request(route="/auth/passwordreset/reset/v1", method='post', inputs={'reset_code': 123458, 'new_password': "yeahh, we won't even get here."})
+    assert response.status_code == 400
 
 
 def test_reset_short_password():
