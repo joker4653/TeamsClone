@@ -1,5 +1,12 @@
 '''User/admin functions'''
 
+from asyncio import exceptions
+from contextlib import redirect_stderr
+from distutils.command.config import config
+from http.client import HTTPConnection
+
+
+import src.config as conf
 from src.data_store import data_store
 from src.error import InputError, AccessError
 from src.other import user_info, valid_user_id, validate_token, is_only_global_owner
@@ -366,7 +373,7 @@ def user_profile_upload_photo_v1(token, img_url, x_start, y_start, x_end, y_end)
         raise AccessError("The token provided was invalid.")
     if x_end <= x_start or y_end <= y_start:
         raise InputError("x_end and y_end must be greater than x_start and y_start respectively.")
-    
+
     response = requests.get(img_url)
     if response.status_code != 200:
          raise InputError("img_url is invalid; must be a http url that corresponds to a jpeg image.")
@@ -389,13 +396,22 @@ def user_profile_upload_photo_v1(token, img_url, x_start, y_start, x_end, y_end)
     img = img.crop(cropped_dimensions)
 
     # Save image.
-    img_path = '/../images/'
+    img_path = '../images/'
     if not os.path.exists(img_path):
         os.mkdir(img_path)
+
 
     filename = str(auth_user_id) + '.jpeg'
     with open(os.path.join(img_path, filename), 'wb') as users_image_store:
         img.save(users_image_store)
+
+    new_image_url = conf.url + 'images/' + filename
+
+    store = data_store.get()
+    store['users'][auth_user_id]['profile_img_url'] = new_image_url
+
+    data_store.set(store)
+    write_data(data_store)
     
 
     return {     
