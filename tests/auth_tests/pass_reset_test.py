@@ -11,11 +11,15 @@ from tests.process_request import process_test_request
 PASSWORD = "Truffl3hunt3r"
 
 def test_reset_invalid_code():
+    process_test_request(route="/clear/v1", method='delete')
+    
     response = process_test_request(route="/auth/passwordreset/reset/v1", method='post', inputs={'reset_code': 123458, 'new_password': "yeahh, we won't even get here."})
     assert response.status_code == 400
 
 
 def test_reset_short_password():
+    process_test_request(route="/clear/v1", method='delete')
+
     # Request new password.
     process_test_request(route="/auth/register/v2", method='post', inputs={'email': "teambadgery@gmail.com", 'password': "passwordishness", 'name_first': "Trufflehunter", 'name_last': "daBadger"})
    
