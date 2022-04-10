@@ -1,7 +1,7 @@
 import sys
 import signal
 from json import dumps
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 from flask_cors import CORS
 
 from src.error import InputError, AccessError
@@ -485,6 +485,10 @@ def handle_user_profile_upload_photo():
     y_end = params.get('y_end', None)
 
     return dumps(users.user_profile_upload_photo_v1(token, img_url, x_start, y_start, x_end, y_end))
+
+@APP.route("/images/<path:filename>", methods=['POST'])
+def serve_profile_image(filename):
+    return send_from_directory('', filename)
 
 #### NO NEED TO MODIFY BELOW THIS POINT
 
