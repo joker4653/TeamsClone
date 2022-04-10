@@ -90,3 +90,7 @@ def test_register_login_multiple_handles():
     data2 = response2.json()
 
     assert(data1['auth_user_id'] == data2['auth_user_id']) 
+
+def test_clear():
+    process_test_request(route="/clear/v1", method='delete')
+
