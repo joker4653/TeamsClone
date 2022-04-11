@@ -93,6 +93,7 @@ import os
 ## YOU SHOULD MODIFY THIS OBJECT BELOW
 initial_object = {
     'sessions_no': 1,
+    'codes': {},    # dict of reset codes in form {code: u_id}
     'users': {},
     'channels': {},
     'dms': {}

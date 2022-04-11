@@ -38,3 +38,7 @@ def test_login_multiple_users():
 
     assert(register1['auth_user_id'] == login1['auth_user_id'])
     assert(register2['auth_user_id'] == login2['auth_user_id'])
+
+def test_clear():
+    process_test_request(route="/clear/v1", method='delete')
+
