@@ -116,7 +116,7 @@ def auth_register_v1(email, password, name_first, name_last):
         'sessions': [session_id],
         'notifications': [],
         'removed': False,
-        'profile_img_url': config.url + '/images/default.jpg'
+        'profile_img_url': config.url + 'images/default.jpg'
     }
     
     #Add new user to data_store
