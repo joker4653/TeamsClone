@@ -60,9 +60,16 @@ def test_standup_send_success(example_user_id, example_channels):
         'channel_id': example_channels[0].get('channel_id'), 
         'length': 60
     })
-    response = process_test_request(route="/standup/send/v1", method='post', inputs={
+    response1 = process_test_request(route="/standup/send/v1", method='post', inputs={
         'token': example_user_id[0].get('token'), 
         'channel_id': example_channels[0].get('channel_id'), 
-        'message': "hello, this is a message"
+        'message': "hello, this is message 1 by user 0"
     })
-    assert response.status_code == 200
+    assert response1.status_code == 200
+    response2 = process_test_request(route="/standup/send/v1", method='post', inputs={
+        'token': example_user_id[1].get('token'), 
+        'channel_id': example_channels[0].get('channel_id'), 
+        'message': "hello, this is message 2 by user 1"
+    })
+    assert response2.status_code == 200
+    

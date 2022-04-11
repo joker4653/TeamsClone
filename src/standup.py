@@ -6,7 +6,7 @@ from src.data_store import data_store
 from src.error import InputError, AccessError
 from src.other import valid_user_id, valid_channel_id, user_info, validate_token, is_global_owner
 from src.channel import is_member
-from src.message import send_message
+from src.message import message_send_v1
 from src.data_json import write_data
 
 message_queue = ""
@@ -38,8 +38,7 @@ def finish_standup(auth_user_id, channel_id):
     data['channels'][channel_id]['standup']['time_finish'] = None
     global message_queue
     if message_queue != "":
-        send_message(auth_user_id, channel_id, message_queue, "channels")
-    data_store.set(data)
+        message_send_v1(auth_user_id, channel_id, message_queue)
 
 def standup_active_v1(auth_user_id, channel_id):
     if not valid_channel_id(channel_id):
