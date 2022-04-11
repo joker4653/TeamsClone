@@ -313,6 +313,27 @@ def message_unreact_v1(user_id, message_id, react_id):
     return {}
 
 def message_pin_unpin_v1(auth_user_id, message_id, pin):
+    '''
+    Given a message_id for a message within a channel or DM, mark it as 'pinned' if
+    pin is true or 'unpinned' if pin is false.
+    
+    Arguments:
+        auth_user_id    (int)   - the id of a verified user.
+        message_id      (int)   - the ID of a certain message.
+        pin             (bool)  - True if message is to be pinned, false if it is to be unpinned.
+
+    Exceptions:
+        InputError  -occurs when:   - message_id does not refer to a valid message within a
+                                      channel/DM that the authorised user has joined.
+                                    - user tries to pin a message that is already pinned.
+                                    - user tries to unpin a message that is not already pinned.
+
+        AccessError -occurs when:   - message_id refers to a valid message in a joined channel/DM 
+                                      and the authorised user does not have owner permissions in the channel/DM.
+
+    Return Value:
+        Returns {} always.
+    '''
     message_info = message_find(message_id)
     if not message_info:
         raise InputError("message_id does not refer to a valid message.")
