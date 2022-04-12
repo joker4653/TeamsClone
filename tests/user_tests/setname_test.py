@@ -23,8 +23,7 @@ def test_user_setname_invalid_first_name(example_user_id):
         inputs={
             'token': example_user_id[0].get('token'), 
             'name_first': "", 
-            'name_last': 
-            "good_last_name"
+            'name_last': "good_last_name"
         })
     response_long_name = process_test_request(route="/user/profile/setname/v1", method='put',
         inputs={

@@ -1,6 +1,7 @@
 import re
 import hashlib
 
+import src.config as config
 from src.data_store import data_store
 from src.error import InputError, AccessError
 from src.data_json import write_data
@@ -115,7 +116,8 @@ def auth_register_v1(email, password, name_first, name_last):
         'permissions_id': permissions,
         'sessions': [session_id],
         'notifications': [],
-        'removed': False
+        'removed': False,
+        'profile_img_url': config.url + 'images/default.jpg'
     }
     
     #Add new user to data_store

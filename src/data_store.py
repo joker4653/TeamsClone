@@ -37,7 +37,8 @@ Just a note about the setup of the users dict. As users are added, they are stor
     'permissions_id': [int indicating global user permissions. 1 for global owner, 2 otherwise.]
     'sessions': [list of active sessions (ints) of this user],
     'notifications': [list of notification dicts]
-    'removed': [bool]
+    'removed': [bool],
+    'profile_img_url': [string]
     }
 }
 So there'll be a new user dictionary added to the users dictionary for all users created.

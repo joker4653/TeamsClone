@@ -1,5 +1,11 @@
 '''User/admin functions'''
 
+from contextlib import redirect_stderr
+from distutils.command.config import config
+from http.client import HTTPConnection
+
+
+import src.config as conf
 from src.data_store import data_store
 from src.error import InputError, AccessError
 from src.other import user_info, valid_user_id, validate_token, is_only_global_owner
@@ -11,6 +17,11 @@ from src.channel import is_member as is_channel_member
 from src.dm import is_owner as is_dm_owner
 from src.dm import is_member as is_dm_member
 import src.std_vars as std_vars
+from PIL import Image
+import requests
+from io import BytesIO
+import os
+from requests.exceptions import ConnectionError
 
 import re
 
@@ -324,3 +335,86 @@ are being demoted to a user.
         user['permissions_id'] = permission_id
     else:
         raise InputError("User already has these permissions")
+
+def user_profile_upload_photo_v1(token, img_url, x_start, y_start, x_end, y_end):
+    '''
+    Given a URL of an image on the internet, crops the image within bounds 
+    (x_start, y_start) and (x_end, y_end). Image URL must be http (not https). Image is saved
+    into a file in 'images' directory, where the file name is the auth_user's u_id.
+    Each user can only have one profile picture so their image file is overwritten
+    each time they upload a new photo.
+    
+    Arguments:
+        token           (str)   - an active token corresponding to a certain user.
+        img_url         (str)   - the http URL of the image to be cropped.
+        x_start         (int)   - the starting position for cropping on the x-axis.
+        y_start         (int)   - the starting position for cropping on the y-axis.
+        x_end           (int)   - the finishing position for cropping on the x-axis.
+        y_end           (int)   - the finishing position for cropping on the y-axis.
+
+    Exceptions:
+        InputError  -occurs when:   - img_url returns a http status other than 200.
+                                    - any errors occur whilst retrieving the photo.
+                                    - any of x_start, y_start, x_end, y_end are not within 
+                                      the dimensions of the image at the URL.
+                                    - x_end is less than or equal to x_start or y_end is 
+                                      less than or equal to y_start.
+                                    - image uploaded is not a JPG.
+
+        AccessError -occurs when:   - the token provided is invalid.
+        
+    
+    Return Value:
+        Returns {} always.
+    '''
+    auth_user_id = validate_token(token)
+    if not auth_user_id:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+    if x_end <= x_start or y_end <= y_start:
+        raise InputError("x_end and y_end must be greater than x_start and y_start respectively.")
+
+    # Check url validity.
+    try: 
+        response = requests.get(img_url)
+    except ConnectionError as e:
+        raise InputError("img_url is invalid; must be a http url that corresponds to a jpeg image.") from e
+    
+    find_type = requests.head(img_url)
+    if find_type.headers['content-type'] != "image/jpeg":
+        raise InputError("Image is invalid; must be a jpeg image.")
+
+    # Get image dimensions.
+    img = Image.open(BytesIO(response.content))
+    img_width = img.size[0]
+    img_height = img.size[1]
+
+    if (x_start < std_vars.MIN_IMG_WIDTH or x_end > img_width or 
+        y_start < std_vars.MIN_IMG_HEIGHT or y_end > img_height):
+        raise InputError("Coordinates for cropping image must be within image dimensions.")
+
+    # Crop image.
+    cropped_dimensions = (x_start, y_start, x_end, y_end)
+    img = img.crop(cropped_dimensions)
+
+    # Save image.
+    img_path = 'images/'
+    if not os.path.exists(img_path):
+        os.mkdir(img_path)
+
+
+    filename = str(auth_user_id) + '.jpeg'
+    with open(os.path.join(img_path, filename), 'wb') as users_image_store:
+        img.save(users_image_store)
+
+    new_image_url = conf.url + 'images/' + filename
+
+    store = data_store.get()
+    store['users'][auth_user_id]['profile_img_url'] = new_image_url
+
+    data_store.set(store)
+    write_data(data_store)
+    
+
+    return {     
+    }

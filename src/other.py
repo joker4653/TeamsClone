@@ -111,6 +111,7 @@ def user_info(auth_user_id):
         'name_first': store['users'][auth_user_id]['first'],
         'name_last': store['users'][auth_user_id]['last'],
         'handle_str': store['users'][auth_user_id]['handle'],
+        'profile_img_url': store['users'][auth_user_id]['profile_img_url']
     }
 
 def send_code(email, code):
