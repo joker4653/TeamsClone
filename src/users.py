@@ -1,6 +1,5 @@
 '''User/admin functions'''
 
-from asyncio import exceptions
 from contextlib import redirect_stderr
 from distutils.command.config import config
 from http.client import HTTPConnection
@@ -22,6 +21,7 @@ from PIL import Image
 import requests
 from io import BytesIO
 import os
+from requests.exceptions import ConnectionError
 
 import re
 
@@ -374,10 +374,11 @@ def user_profile_upload_photo_v1(token, img_url, x_start, y_start, x_end, y_end)
     if x_end <= x_start or y_end <= y_start:
         raise InputError("x_end and y_end must be greater than x_start and y_start respectively.")
 
+    # Check url validity.
     try: 
         response = requests.get(img_url)
-    except:
-        raise InputError("img_url is invalid; must be a http url that corresponds to a jpeg image.")
+    except ConnectionError as e:
+        raise InputError("img_url is invalid; must be a http url that corresponds to a jpeg image.") from e
     
     find_type = requests.head(img_url)
     if find_type.headers['content-type'] != "image/jpeg":
