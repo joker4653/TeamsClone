@@ -1,10 +1,15 @@
 import jwt
+from random import randint
+import smtplib
+import ssl
 
 from src.data_store import data_store
 from src.data_json import write_data
 import src.std_vars as std_vars
 
+
 SECRET = "TheBadgerUsesToolsLikeABoss"
+PASSWORD = "Truffl3hunt3r"
 
 def clear_v1():
     '''
@@ -19,6 +24,7 @@ def clear_v1():
     '''
     store = data_store.get()
     store['sessions_no'] = 1
+    store['codes'] = {}
     store['users'] = {}
     store['channels'] = {}
     store['dms'] = {}
@@ -108,6 +114,37 @@ def user_info(auth_user_id):
         'profile_img_url': store['users'][auth_user_id]['profile_img_url']
     }
 
+def send_code(email, code):
+    port = 587
+    smtp_server = "smtp.gmail.com"
+    sender_email = "teambadgery@gmail.com"
+    
+    message = f"""\
+Subject: UNSW Seams Password Reset Code
+
+Hey, here's your code to reset your UNSW Seams password:
+
+{code}
+
+(If you did not ask for a new password, feel free to ignore this email.)
+
+Thanks!
+-The Badgers at UNSW Seams
+"""
+
+    try:
+        server = smtplib.SMTP(smtp_server, port)
+        server.starttls(context=ssl.create_default_context())
+        server.login(sender_email, PASSWORD)
+
+        server.sendmail(sender_email, email, message)
+
+        server.quit()
+    except Exception as e:
+        print("Something went wrong. Try again later.")
+        print(e)
+
+
 def check_duplicate(new, field, get_id=False):
     '''Goes through the users in data store and returns True if new already has a registered entry in users[field].'''
     store = data_store.get()
@@ -121,6 +158,20 @@ def check_duplicate(new, field, get_id=False):
     if get_id:
         return False, -1
     return False
+
+def generate_code():
+    store = data_store.get()
+
+    new = False
+    code = -1
+    while not new:
+        code = randint(100000, 999999)
+        
+        if code not in store['codes'].keys():
+            new = True
+    
+    return code
+    
 
 def is_global_owner(user_id):
     '''Return true if a user is a global owner, return false otherwise.'''

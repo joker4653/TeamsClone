@@ -6,6 +6,7 @@ from src.data_store import data_store
 from src.error import InputError, AccessError
 from src.data_json import write_data
 from src.other import valid_user_id, create_token, validate_token, check_duplicate
+from src.other import generate_code, send_code 
 import src.std_vars as std_vars
 
 def auth_login_v1(email, password):
@@ -133,6 +134,70 @@ def auth_register_v1(email, password, name_first, name_last):
         'token': token
     }
 
+def auth_passwordreset_request_v1(email):
+    '''
+    Given an email address, if the user is a registered user, sends them an email containing a
+specific secret code, that when entered in auth/passwordreset/reset, shows that the user trying to
+reset the password is the one who got sent this email. 
+    
+    Arguments:
+        email       (str)   - The email address of a user.
+
+    Exceptions:
+        N/A
+
+    Return Value:
+        Returns {} always.
+    '''
+
+    # Check email is registered to a user.
+    exists, user_id = check_duplicate(email, 'email', get_id=True)
+    if not exists:
+        return {}
+
+    code = generate_code()
+
+    store = data_store.get()
+    store['codes'][code] = user_id
+
+    send_code(email, code)
+
+    # Log user out of all sessions.
+    store['users'][user_id]['sessions'] = []
+
+    data_store.set(store)
+    write_data(data_store)
+
+def auth_passwordreset_reset_v1(code, new_password):
+    '''
+    Given a reset code for a user, set that user's new password to the password provided.
+    
+    Arguments:
+        code            (int)   - The code given in password reset email.
+        new_password    (str)   - The new password for the user.
+
+    Exceptions:
+        N/A
+
+    Return Value:
+        Returns {} always.
+    '''
+    # Check code against codes to get user_id.
+    store = data_store.get()
+
+    user_id = store['codes'].get(code, False)
+    if not user_id:
+        raise InputError("The given reset code is invalid.")
+    if len(new_password) < 6:
+        raise InputError("The given password is too short.")
+
+    # Reset password.
+    store['users'][user_id]['password'] = hashlib.sha256(new_password.encode()).hexdigest()
+    
+    store['codes'].pop(code)
+
+    data_store.set(store)
+    write_data(data_store)
 
 def auth_logout_v1(token):
     '''
@@ -166,7 +231,6 @@ def auth_logout_v1(token):
 
     return {
     }
-
 
 def validate_input(email, password, first, last):
     '''Checks a certain input set meets the criteria for registering a new user.'''

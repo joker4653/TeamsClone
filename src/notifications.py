@@ -1,3 +1,5 @@
+'''Implementation of notifications/get/v1.'''
+
 from src.data_store import data_store
 from src.error import AccessError
 from src.data_json import write_data
@@ -5,6 +7,20 @@ from src.other import validate_token
 import src.std_vars as std_vars
 
 def notif_get_v1(token):
+    '''
+    Return the user's most recent 20 notifications, ordered from most recent to least recent.
+
+    Arguments:
+        token           (str)    - the token of a valid user.
+
+    Exceptions:
+        AccessError - Occurs when: - The token provided is invalid.
+
+    Return Value:
+        Returns {
+            'notifications': [A list of all the notifications to a certain user.]
+        }
+    '''
     user_id = validate_token(token)
     if not user_id:
         raise AccessError("This token is invalid.")

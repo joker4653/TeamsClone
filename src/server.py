@@ -6,7 +6,7 @@ from flask_cors import CORS
 
 from src.error import InputError, AccessError
 from src import config, auth, channel, notifications
-from src import channels, other, message, dm, users
+from src import channels, other, message, dm, users, search, standup
 
 def quit_gracefully(*args):
     '''For coverage'''
@@ -155,7 +155,7 @@ def handle_channel_messages():
     start = int(params.get('start', None))
 
     auth_user_id = other.validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         raise AccessError("The token provided was invalid.")
 
     return dumps(channel.channel_messages_v1(auth_user_id, channel_id, start))
@@ -489,6 +489,67 @@ def handle_user_profile_upload_photo():
 @APP.route("/images/<path:filename>", methods=['POST'])
 def serve_profile_image(filename):
     return send_from_directory('', filename)
+
+@APP.route("/standup/start/v1", methods=['POST'])
+def handle_standup_start():
+    params = request.get_json()
+    token = params.get('token', None)
+    channel_id = params.get('channel_id', None)
+    length = params.get('length', None)
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(standup.standup_start_v1(auth_user_id, int(channel_id), length))
+
+@APP.route("/standup/active/v1", methods=['GET'])
+def handle_standup_active():
+    params = request.args
+    token = params.get('token', None)
+    channel_id = params.get('channel_id', None)
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(standup.standup_active_v1(auth_user_id, int(channel_id)))
+
+@APP.route("/standup/send/v1", methods=['POST'])
+def handle_standup_send():
+    params = request.get_json()
+    token = params.get('token', None)
+    channel_id = params.get('channel_id', None)
+    message = params.get('message', None)
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(standup.standup_send_v1(auth_user_id, int(channel_id), message))
+
+@APP.route("/search/v1", methods=['GET'])
+def handle_search():
+    params = request.args
+    token = params.get('token', None)
+    query_str = params.get('query_str', None)
+
+    return dumps(search.search_v1(token, query_str))
+
+@APP.route("/auth/passwordreset/request/v1", methods=['POST'])
+def handle_auth_passwordreset_request():
+    params = request.get_json()
+    email = params.get('email', None)
+
+    return dumps(auth.auth_passwordreset_request_v1(email))
+
+@APP.route("/auth/passwordreset/reset/v1", methods=['POST'])
+def handle_auth_passwordreset_reset():
+    params = request.get_json()
+    reset_code = params.get('reset_code', None)
+    new_password = params.get('new_password', None)
+
+    return dumps(auth.auth_passwordreset_reset_v1(reset_code, new_password))
 
 #### NO NEED TO MODIFY BELOW THIS POINT
 
