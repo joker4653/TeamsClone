@@ -5,6 +5,7 @@ import requests
 import json
 import random
 import string
+import time
 from tests.process_request import process_test_request
 
 def test_standup_send_invalid_token(example_user_id, example_channels):
@@ -37,13 +38,14 @@ def test_standup_send_long_message(example_user_id, example_channels):
     process_test_request(route="/standup/start/v1", method='post', inputs={
         'token': example_user_id[0].get('token'), 
         'channel_id': example_channels[0].get('channel_id'), 
-        'length': 60
+        'length': 2
     })
     response = process_test_request(route = "standup/send/v1", method = "post", inputs = {
         "token": example_user_id[0].get("token"),
         "channel_id": example_channels[0].get('channel_id'),
         "message": ''.join(random.choice(string.ascii_letters) for i in range(1001))
     })
+    time.sleep(2)
     assert response.status_code == 400
 
 def test_standup_send_no_standup(example_user_id, example_channels):
@@ -58,7 +60,7 @@ def test_standup_send_success(example_user_id, example_channels):
     process_test_request(route="/standup/start/v1", method='post', inputs={
         'token': example_user_id[0].get('token'), 
         'channel_id': example_channels[0].get('channel_id'), 
-        'length': 60
+        'length': 2
     })
     response1 = process_test_request(route="/standup/send/v1", method='post', inputs={
         'token': example_user_id[0].get('token'), 
@@ -72,4 +74,5 @@ def test_standup_send_success(example_user_id, example_channels):
         'message': "hello, this is message 2 by user 1"
     })
     assert response2.status_code == 200
+    time.sleep(2)
     

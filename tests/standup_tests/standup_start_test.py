@@ -44,15 +44,16 @@ def test_standup_start_existing_active_standup(example_user_id, example_channels
     response1 = process_test_request(route="/standup/start/v1", method='post', inputs={
         'token': example_user_id[0].get('token'), 
         'channel_id': example_channels[0].get('channel_id'), 
-        'length': 3
+        'length': 2
     })
     assert response1.status_code == 200
     response2 = process_test_request(route="/standup/start/v1", method='post', inputs={
         'token': example_user_id[0].get('token'), 
         'channel_id': example_channels[0].get('channel_id'), 
-        'length': 60
+        'length': 2
     })
     assert response2.status_code == 400 
+    time.sleep(2)
     
 def test_standup_start_success(example_user_id, example_channels):
     process_test_request(route="/standup/start/v1", method='post', inputs={
