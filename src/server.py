@@ -6,7 +6,7 @@ from flask_cors import CORS
 
 from src.error import InputError, AccessError
 from src import config, auth, channel, notifications
-from src import channels, other, message, dm, users, search
+from src import channels, other, message, dm, users, search, standup
 
 def quit_gracefully(*args):
     '''For coverage'''
@@ -473,6 +473,44 @@ def handle_notifications_get():
     token = params.get('token', None)
 
     return dumps(notifications.notif_get_v1(token))
+
+@APP.route("/standup/start/v1", methods=['POST'])
+def handle_standup_start():
+    params = request.get_json()
+    token = params.get('token', None)
+    channel_id = params.get('channel_id', None)
+    length = params.get('length', None)
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(standup.standup_start_v1(auth_user_id, int(channel_id), length))
+
+@APP.route("/standup/active/v1", methods=['GET'])
+def handle_standup_active():
+    params = request.args
+    token = params.get('token', None)
+    channel_id = params.get('channel_id', None)
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(standup.standup_active_v1(auth_user_id, int(channel_id)))
+
+@APP.route("/standup/send/v1", methods=['POST'])
+def handle_standup_send():
+    params = request.get_json()
+    token = params.get('token', None)
+    channel_id = params.get('channel_id', None)
+    message = params.get('message', None)
+    auth_user_id = other.validate_token(token)
+    if auth_user_id == False:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(standup.standup_send_v1(auth_user_id, int(channel_id), message))
 
 @APP.route("/search/v1", methods=['GET'])
 def handle_search():
