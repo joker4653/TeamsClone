@@ -48,11 +48,9 @@ def dm_create(token, u_ids):
     owner_id = validate_token(token)
 
     # validate creator of DM
-    if owner_id is False:
-        raise AccessError(f"Token is invalid")
 
     if valid_user_id(owner_id) is False:
-        raise AccessError(f"Auth_user was invalid")
+        raise AccessError(f"The token provided was invalid.")
       
     # validate all users 
     for member in u_ids:
@@ -128,11 +126,7 @@ def dm_list_v1(token):
         } 
 
     '''
-    auth_user_id = token
-
-    if auth_user_id is False:
-        raise AccessError("Token is not valid")
-        
+    auth_user_id = token        
     data = data_store.get()
     new_list = []
 
@@ -171,11 +165,7 @@ creator
         Returns {} always.
 
     '''
-    auth_user_id = token
-
-    if auth_user_id == False:
-        raise AccessError(f"This token is invalid")
-    
+    auth_user_id = token    
     store = data_store.get()
 
     if not valid_dm_id(dm_id):
@@ -219,9 +209,6 @@ def dm_details_v1(token, dm_id):
     '''
     store = data_store.get()
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
-        raise AccessError(f"This token is invalid")
-
     if not valid_dm_id(dm_id):
         raise InputError(f"dm_id does not refer to a valid DM") 
 
@@ -253,9 +240,6 @@ def dm_leave_v1(token,dm_id):
     '''
     store = data_store.get()
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
-        raise AccessError(f"This token is invalid")
-
     if not valid_dm_id(dm_id):
         raise InputError(f"dm_id does not refer to a valid DM") 
 

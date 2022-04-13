@@ -12,7 +12,7 @@ def test_search_invalid_token(example_user_id):
         'token': example_user_id[0].get('token')
     })
 
-    response = process_test_request(route="/notifications/get/v1", method='get', inputs={
+    response = process_test_request(route="/search/v1", method='get', inputs={
         'token': example_user_id[0].get('token'),
         'query_str': "Can you find me even here?"
     })

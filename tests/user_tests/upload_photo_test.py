@@ -3,6 +3,18 @@
 from tests.process_request import process_test_request
 
 
+def test_users_all_invalid_token(example_user_id):
+    process_test_request(route="/auth/logout/v1", method='post', inputs={'token': example_user_id[0].get('token')})
+    response = process_test_request(route="/user/profile/uploadphoto/v1", method='post', inputs={
+        'token': example_user_id[0].get('token'), 
+        'img_url': "http://www.columbia.edu/~fdc/picture-of-something.jpg", 
+        'x_start': 50,
+        'y_start': 50,
+        'x_end': 150,
+        'y_end': 150
+    })
+    assert response.status_code == 403
+
 def test_upload_photo_url_doesnt_exist(example_user_id):
     response = process_test_request(route="/user/profile/uploadphoto/v1", method='post', inputs={
         'token': example_user_id[0].get('token'), 
