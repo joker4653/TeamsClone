@@ -3,6 +3,9 @@ from random import randint
 import smtplib
 import ssl
 
+from datetime import timezone
+import datetime
+
 from src.data_store import data_store
 from src.data_json import write_data
 import src.std_vars as std_vars
@@ -225,3 +228,15 @@ def find_tags(message):
     
     return tagged
     
+def check_valid_time(time_sent):
+    dt = datetime.datetime.now(timezone.utc)
+  
+    utc_time = dt.replace(tzinfo=timezone.utc)
+    current_time = utc_time.timestamp()
+
+    time_in_sec = time_sent - current_time
+    # means time_sent was in the past
+    if time_in_sec < 0:
+        return (False, None)
+
+    return (True, time_in_sec)

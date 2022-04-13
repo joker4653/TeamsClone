@@ -3,10 +3,11 @@ import datetime
 from email.policy import default
 from operator import index
 import re
-
+from threading import Thread
+from time import sleep
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import is_global_owner, valid_user_id, valid_channel_id, user_info, valid_dm_id, find_tags
+from src.other import is_global_owner, valid_user_id, valid_channel_id, user_info, valid_dm_id, find_tags, validate_token, check_valid_time
 from src.data_json import write_data
 from src.channel import is_member as c_is_member
 from src.channel import is_owner as c_is_owner
@@ -442,3 +443,70 @@ def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
     notify_tags(message, user_id, channel_dm_id, channel_or_dm)
    
     return {"shared_message_id": shared_message_id}
+
+    
+
+def message_sendlater_v1(token, channel_id, message, time_sent):
+    user_id = validate_token(token)
+
+    if not valid_channel_id(channel_id):
+        raise InputError("Channel_id was not valid")
+    
+    if len(message) not in range(1,1001):
+        raise InputError("length of message is less than 1 or over 1000 characters")
+    
+    if check_valid_time(time_sent)[0] == False:
+        raise InputError("Time_sent is in the past")
+    else:
+        time_in_sec = check_valid_time(time_sent)[1]
+
+    if not c_is_member(user_id, channel_id):
+        raise AccessError("You are not apart of this Channel")
+    
+
+    store = data_store.get()
+    message_id = assign_message_id(store)
+
+    # doing work
+    send_thread = Thread(target = sendlater_thread, args = (token, user_id, channel_id, message, time_in_sec, message_id,))
+    send_thread.start() 
+
+
+    return {"message_id": message_id}
+
+def sendlater_thread(token, user_id, channel_id, message, time_sent, msg_id):
+    while time_sent != 0:
+        time_sent -= 1
+        sleep(1)
+    
+    # now send message, Channels cant be deleted
+    # assumes message is not sent if a token becomes invalid,
+    # and if a user leaves before the msg was sent
+
+    #if (validate_token(token)) != False or (c_is_member(user_id, channel_id)) != False:
+
+    store = data_store.get()
+    # Get UTC timestamp
+    time = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp()
+    time = int(time)
+
+    message_dict = {
+        "message_id": msg_id,
+        "u_id": user_id,
+        "message": message,
+        "time_sent": time,
+        "is_pinned": False,
+        "reacts": [{
+            "react_id": 1,
+            "u_ids": [],
+            "is_this_user_reacted": False
+        }]
+    }
+    store["channels"][channel_id]["messages"].insert(0, message_dict)
+    data_store.set(store)
+    write_data(data_store)
+
+    # notifications
+    notify_tags(message, user_id, channel_id, "channels")
+
+    return  
