@@ -3,7 +3,7 @@ import datetime
 from email.policy import default
 from operator import index
 import re
-from threading import Thread
+from threading import Thread, Timer
 from time import sleep
 from src.data_store import data_store
 from src.error import InputError, AccessError
@@ -468,12 +468,13 @@ def message_sendlater_v1(token, channel_id, message, time_sent):
     message_id = assign_message_id(store)
 
     # doing work
-    send_thread = Thread(target = sendlater_thread, args = (token, user_id, channel_id, message, time_in_sec, message_id,))
-    send_thread.start() 
-
+    #send_thread = Thread(target = sendlater_thread, args = (token, user_id, channel_id, message, time_in_sec, message_id,))
+    #send_thread.start() 
+    Timer(float(time_in_sec), message_send_v1, [user_id, channel_id, message]).start()
 
     return {"message_id": message_id}
 
+'''
 def sendlater_thread(token, user_id, channel_id, message, time_sent, msg_id):
     while time_sent != 0:
         time_sent -= 1
@@ -509,4 +510,4 @@ def sendlater_thread(token, user_id, channel_id, message, time_sent, msg_id):
     # notifications
     notify_tags(message, user_id, channel_id, "channels")
 
-    return  
+    return  '''
