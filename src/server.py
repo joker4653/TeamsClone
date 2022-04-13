@@ -71,7 +71,7 @@ def handle_channels_create():
     token = params.get('token', None)
 
     auth_user_id = other.validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
@@ -83,7 +83,7 @@ def handle_channel_list():
     params = request.args
     token = params.get('token', None)
     auth_user_id = other.validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
@@ -96,7 +96,7 @@ def handle_channel_listall():
     params = request.args
     token = params.get('token', None)
     auth_user_id = other.validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
@@ -111,7 +111,7 @@ def handle_channel_details():
     token = params.get('token', None)
     channel_id = params.get('channel_id', None)
     auth_user_id = other.validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
@@ -125,7 +125,7 @@ def handle_channel_join():
     channel_id = params.get('channel_id', None)
 
     auth_user_id = other.validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
@@ -140,7 +140,7 @@ def handle_channel_invite():
     u_id = params.get('u_id', None)
 
     auth_user_id = other.validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
@@ -261,7 +261,7 @@ def handle_dm_create():
 def handle_dm_list():
     token = request.args.get('token', None)
     auth_user_id = other.validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
@@ -273,7 +273,7 @@ def handle_dm_remove():
     token = request.get_json().get('token', None)
     dm_id = request.get_json().get('dm_id', None)
     auth_user_id = other.validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
@@ -285,7 +285,7 @@ def handle_dm_details():
     token = request.args.get('token', None)
     dm_id = request.args.get('dm_id', None)
     auth_user_id = other.validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
@@ -298,7 +298,7 @@ def handle_dm_leave():
     token = params.get('token', None)
     dm_id = params.get('dm_id', None)
     auth_user_id = other.validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
@@ -314,7 +314,7 @@ def handle_dm_messages():
     start = int(params.get('start', None))
 
     auth_user_id = other.validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
@@ -497,7 +497,7 @@ def handle_standup_start():
     channel_id = params.get('channel_id', None)
     length = params.get('length', None)
     auth_user_id = other.validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
@@ -509,7 +509,7 @@ def handle_standup_active():
     token = params.get('token', None)
     channel_id = params.get('channel_id', None)
     auth_user_id = other.validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
@@ -522,7 +522,7 @@ def handle_standup_send():
     channel_id = params.get('channel_id', None)
     message = params.get('message', None)
     auth_user_id = other.validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
