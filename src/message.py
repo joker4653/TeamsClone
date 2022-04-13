@@ -293,6 +293,23 @@ def react_unreact_errors(store, found_message, user_id, message_id, react_id):
     return False
 
 def message_react_v1(user_id, message_id, react_id):
+    '''
+    Given a message_id for a message, add a react from user_id.
+    
+    Arguments:
+        token       (str)   - an active token corresponding to a certain user.
+        message_id  (int)   - the ID of a certain message.
+        react_id    (int)   - refers to the type of react.
+
+    Exceptions:
+        InputError  -occurs when:
+            - message_id is not a valid message within a channel/dm that the user has joined
+            - react_id is not a valid react ID - currently only 1
+            - user has already reacted to the message with that react_id
+
+    Return Value:
+        Returns {} always.
+    '''
     store = data_store.get()
     found_message = message_find(message_id)
     reacted = react_unreact_errors(store, found_message, user_id, message_id, react_id)
@@ -311,7 +328,25 @@ def message_react_v1(user_id, message_id, react_id):
     write_data(data_store)
     return {}
 
-def message_unreact_v1(user_id, message_id, react_id):    
+def message_unreact_v1(user_id, message_id, react_id):
+    '''
+    Given a message_id for a message that the user has reacted to,
+    removes the react from that message
+    
+    Arguments:
+        token       (str)   - an active token corresponding to a certain user.
+        message_id  (int)   - the ID of a certain message.
+        react_id    (int)   - refers to the type of react.
+
+    Exceptions:
+        InputError  -occurs when:
+            - message_id is not a valid message within a channel/dm that the user has joined
+            - react_id is not a valid react ID - currently only 1
+            - user hasn't reacted to that message with that react_id
+
+    Return Value:
+        Returns {} always.
+    '''
     store = data_store.get()
     found_message = message_find(message_id)
     reacted = react_unreact_errors(store, found_message, user_id, message_id, react_id)
@@ -389,6 +424,31 @@ def message_pin_unpin_v1(auth_user_id, message_id, pin):
 
 
 def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
+    '''
+    Shares the message in og_message_id to channel_id/dm_id, with the text in
+    the string message appened to it.
+    
+    Arguments:
+        token         (str)  - an active token corresponding to a certain user.
+        channel_id    (int)  - the ID of a certain channel. -1 is message in dm.
+        dm_id         (int)  - the ID of a certain dm. -1 if message in channel.
+        og_message_id (int)  - the ID of the message to be shared
+        message       (str)  - the text to be sent along with the shared message.
+
+    Exceptions:
+        InputError  -occurs when:   - both channel_id/dm_id invalid
+                                    - both channel_id/dm_id valid
+                                    - length of message is more than 1000 characters.
+                                    - og_message_id not valid message id in channel/dm
+                                      that user has joined
+        AccessError -occurs when:   - channel_id/dm_id pair valid but user not in channel/dm
+
+    Return Value:
+        returns {
+            'shared_message_id': [The ID of the new shared message sent.]
+        } 
+
+    '''
     if channel_id == -1 and dm_id == -1:
         raise InputError("both channel_id and dm_id are invalid")
     if channel_id != -1 and dm_id != -1:
