@@ -403,6 +403,19 @@ def handle_message_unpin():
 
     return dumps(message.message_pin_unpin_v1(user_id, message_id, False))
 
+@APP.route("/message/sendlater/v1", methods=['POST'])
+def handle_message_sendlater():
+    params = request.json
+    token = params.get('token', None)
+    channel_id = params.get('channel_id', None)
+    msg = params.get('message', None)
+    time_sent = params.get('time_sent', None)
+
+    user_id = other.validate_token(token)
+    if not user_id:
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(message.message_sendlater_v1(token, channel_id, msg, time_sent))
 
 @APP.route("/users/all/v1", methods=['GET'])
 def handle_user_all():
