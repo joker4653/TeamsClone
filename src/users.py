@@ -4,8 +4,7 @@ from contextlib import redirect_stderr
 from distutils.command.config import config
 from http.client import HTTPConnection
 
-
-import src.config as conf
+from flask import request
 from src.data_store import data_store
 from src.error import InputError, AccessError
 from src.other import user_info, valid_user_id, validate_token, is_only_global_owner
@@ -336,7 +335,7 @@ are being demoted to a user.
     else:
         raise InputError("User already has these permissions")
 
-def user_profile_upload_photo_v1(token, img_url, x_start, y_start, x_end, y_end):
+def user_profile_upload_photo_v1(token, img_url, host_url, x_start, y_start, x_end, y_end):
     '''
     Given a URL of an image on the internet, crops the image within bounds 
     (x_start, y_start) and (x_end, y_end). Image URL must be http (not https). Image is saved
@@ -407,7 +406,7 @@ def user_profile_upload_photo_v1(token, img_url, x_start, y_start, x_end, y_end)
     with open(os.path.join(img_path, filename), 'wb') as users_image_store:
         img.save(users_image_store)
 
-    new_image_url = conf.url + 'images/' + filename
+    new_image_url = host_url + 'images/' + filename
 
     store = data_store.get()
     store['users'][auth_user_id]['profile_img_url'] = new_image_url
