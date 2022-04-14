@@ -46,6 +46,7 @@ def standup_start_v1(auth_user_id, channel_id, length):
     data['channels'][channel_id]['standup']['is_active'] = True 
     data['channels'][channel_id]['standup']['time_finish'] = curr_time + length             
     data_store.set(data)
+    write_data(data_store)
     global message_queue
     message_queue = ""
     threading.Timer(float(length), finish_standup, [auth_user_id, channel_id]).start()
