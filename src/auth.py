@@ -1,6 +1,7 @@
 import re
 import hashlib
 
+from flask import request
 import src.config as config
 from src.data_store import data_store
 from src.error import InputError, AccessError
@@ -64,7 +65,7 @@ def auth_login_v1(email, password):
         'token': token
     }
 
-def auth_register_v1(email, password, name_first, name_last):
+def auth_register_v1(email, password, host_url, name_first, name_last):
     '''
     Registers a new user with the given user information.
     
@@ -117,7 +118,7 @@ def auth_register_v1(email, password, name_first, name_last):
         'sessions': [session_id],
         'notifications': [],
         'removed': False,
-        'profile_img_url': config.url + 'images/default.jpg'
+        'profile_img_url': host_url + 'images/default.jpg'
     }
     
     #Add new user to data_store

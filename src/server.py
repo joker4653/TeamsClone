@@ -59,8 +59,9 @@ def handle_register_v2():
     password = params.get('password', None)
     name_first = params.get('name_first', None)
     name_last = params.get('name_last', None)
+    host_url = request.host_url
 
-    return dumps(auth.auth_register_v1(email, password, name_first, name_last))
+    return dumps(auth.auth_register_v1(email, password, host_url, name_first, name_last))
 
 
 @APP.route("/channels/create/v2", methods=['POST'])
@@ -483,12 +484,13 @@ def handle_user_profile_upload_photo():
     y_start = params.get('y_start', None)
     x_end = params.get('x_end', None)
     y_end = params.get('y_end', None)
+    host_url = request.host_url
 
-    return dumps(users.user_profile_upload_photo_v1(token, img_url, x_start, y_start, x_end, y_end))
+    return dumps(users.user_profile_upload_photo_v1(token, img_url, host_url, x_start, y_start, x_end, y_end))
 
-@APP.route("/images/<path:filename>", methods=['POST'])
+@APP.route("/images/<path:filename>", methods=['GET'])
 def serve_profile_image(filename):
-    return send_from_directory('', filename)
+    return send_from_directory('../images', filename)
 
 @APP.route("/standup/start/v1", methods=['POST'])
 def handle_standup_start():
