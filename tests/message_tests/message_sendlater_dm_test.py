@@ -1,82 +1,80 @@
 from tests.process_request import process_test_request
 import datetime
 from time import sleep
-from src.message import message_find 
 
 def test_clear_1():
     response = process_test_request("clear/v1", "delete", {})
     assert response.status_code == 200
 
-def test_invalid_token(example_user_id, example_channels):
+def test_invalid_token_dm(example_user_id, example_dms):
     data = {"token" : example_user_id[2].get("token"),
-            "channel_id": example_channels[0].get("channel_id"),
+            "dm_id": example_dms[0].get("dm_id"),
             "message" : "sample_message",
             "time_sent": int(datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp() + 60)
         }
-    response = process_test_request("message/sendlater/v1", "post", data)
+    response = process_test_request("message/sendlaterdm/v1", "post", data)
     assert response.status_code == 403
 
-def test_invalid_channel_id(example_user_id, example_channels):
-    data = {"token" : example_user_id[0].get("token"),
-            "channel_id": -1,
+def test_invalid_dm_id(example_user_id, example_dms):
+    data = {"token" : example_user_id[2].get("token"),
+            "dm_id": -1,
             "message" : "sample_message",
             "time_sent": int(datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp() + 60)
         }
-
-    response = process_test_request("message/sendlater/v1", "post", data)
+    response = process_test_request("message/sendlaterdm/v1", "post", data)
     assert response.status_code == 400
 
-def test_invalid_msg_length(example_user_id, example_channels):
+def test_invalid_msg_length_dm(example_user_id, example_dms):
     # less than 1 character
-    data1 = {"token" : example_user_id[0].get("token"),
-            "channel_id": example_channels[0].get("channel_id"),
+    data = {"token" : example_user_id[0].get("token"),
+            "dm_id": example_dms[0].get("dm_id"),
             "message" : "",
-            "time_sent": int(datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp() + 5)
+            "time_sent": int(datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp() + 60)
         }
-    response1 = process_test_request("message/sendlater/v1", "post", data1)
-    assert response1.status_code == 400
+    response = process_test_request("message/sendlaterdm/v1", "post", data)
+    assert response.status_code == 400
 
     # more than 1000 characters
     data2 = {"token" : example_user_id[0].get("token"),
-            "channel_id": example_channels[0].get("channel_id"),
+            "dm_id": example_dms[0].get("dm_id"),
             "message" : 'a' * 1001,
             "time_sent": int(datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp() + 5)
         }
-    response2 = process_test_request("message/sendlater/v1", "post", data2)
+    response2 = process_test_request("message/sendlaterdm/v1", "post", data2)
     assert response2.status_code == 400
 
-def test_invalid_time(example_user_id, example_channels):
+def test_invalid_time_dm(example_user_id, example_dms):
     data = {"token" : example_user_id[0].get("token"),
-            "channel_id": example_channels[0].get("channel_id"),
+            "dm_id": example_dms[0].get("dm_id"),
             "message" : "hello",
             "time_sent": int(datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp() - 5)
         }
-    response = process_test_request("message/sendlater/v1", "post", data)
+    response = process_test_request("message/sendlaterdm/v1", "post", data)
     assert response.status_code == 400
 
-def test_user_isnt_member(example_user_id, example_channels):
+def test_user_isnt_member_dm(example_user_id, example_dms):
     data = {"token" : example_user_id[2].get("token"),
-            "channel_id": example_channels[0].get("channel_id"),
+            "dm_id": example_dms[0].get("dm_id"),
             "message" : "hello",
             "time_sent": int(datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp() + 5)
         }
-    response = process_test_request("message/sendlater/v1", "post", data)
+    response = process_test_request("message/sendlaterdm/v1", "post", data)
     assert response.status_code == 403
 
-def test_normal_operation(example_user_id, example_channels):
+def test_normal_operation_dm(example_user_id, example_dms):
     data = {"token" : example_user_id[0].get("token"),
-            "channel_id": example_channels[0].get("channel_id"),
+            "dm_id": example_dms[0].get("dm_id"),
             "message" : "hello",
             "time_sent": datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp() + 5
         }
-    response = process_test_request("message/sendlater/v1", "post", data)
+    response = process_test_request("message/sendlaterdm/v1", "post", data)
     assert response.status_code == 200
 
     sleep(6)
 
-    response = process_test_request("channel/messages/v2", "get", {
+    response = process_test_request("dm/messages/v1", "get", {
         "token": example_user_id[0].get("token"),
-        "channel_id": example_channels[0].get("channel_id"),
+        "dm_id": example_dms[0].get("dm_id"),
         "start": 0
     })
     data = response.json()
@@ -87,18 +85,18 @@ def test_normal_operation(example_user_id, example_channels):
     
 
 
-def test_msgid_invalid_before_msgsent(example_user_id, example_channels):
+def test_msgid_invalid_before_msgsent_dm(example_user_id, example_dms):
     data = {"token" : example_user_id[0].get("token"),
-            "channel_id": example_channels[0].get("channel_id"),
+            "dm_id": example_dms[0].get("dm_id"),
             "message" : "hello",
             "time_sent": datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp() + 5
         }
-    response = process_test_request("message/sendlater/v1", "post", data)
+    response = process_test_request("message/sendlaterdm/v1", "post", data)
     assert response.status_code == 200
 
-    response = process_test_request("channel/messages/v2", "get", {
+    response = process_test_request("dm/messages/v1", "get", {
         "token": example_user_id[0].get("token"),
-        "channel_id": example_channels[0].get("channel_id"),
+        "dm_id": example_dms[0].get("dm_id"),
         "start": 0
     })
     data = response.json()
@@ -109,9 +107,9 @@ def test_msgid_invalid_before_msgsent(example_user_id, example_channels):
 
     sleep(7)
 
-    response = process_test_request("channel/messages/v2", "get", {
+    response = process_test_request("dm/messages/v1", "get", {
         "token": example_user_id[0].get("token"),
-        "channel_id": example_channels[0].get("channel_id"),
+        "dm_id": example_dms[0].get("dm_id"),
         "start": 0
     })
     data = response.json()

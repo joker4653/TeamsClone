@@ -159,7 +159,7 @@ def message_send_v1(auth_user_id, channel_id, message, send_later = None):
     '''
     return send_message(auth_user_id, channel_id, message, "channels", send_later)
 
-def message_senddm_v1(auth_user_id, dm_id, message):
+def message_senddm_v1(auth_user_id, dm_id, message, send_later = None):
     '''
     Send a message from authorised_user to the DM specified by dm_id.
     
@@ -180,7 +180,7 @@ def message_senddm_v1(auth_user_id, dm_id, message):
         } 
 
     '''
-    return send_message(auth_user_id, dm_id, message, "dms")
+    return send_message(auth_user_id, dm_id, message, "dms", send_later)
 
 
 def message_edit_v1(auth_user_id, message_id, message):
@@ -513,7 +513,7 @@ def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
 
     
 
-def message_sendlater_v1(token, channel_id, message, time_sent):
+def message_sendlater_v1(user_id, channel_dm_id, dm_or_channel, message, time_sent):
     '''
     Sets a time for a given message to be sent, given its paramaters are valid
     
@@ -534,10 +534,18 @@ def message_sendlater_v1(token, channel_id, message, time_sent):
     Return Value:
         Returns {"message_id" : message_id} always.
     '''
-    user_id = validate_token(token)
+    if dm_or_channel == "channels":
+        if not valid_channel_id(channel_dm_id):
+            raise InputError("Channel_id was not valid")
 
-    if not valid_channel_id(channel_id):
-        raise InputError("Channel_id was not valid")
+        if not c_is_member(user_id, channel_dm_id):
+            raise AccessError("You are not apart of this Channel")
+    else:
+        if not valid_dm_id(channel_dm_id):
+            raise InputError("dm_id was not valid")
+        
+        if not d_is_member(user_id, channel_dm_id):
+            raise AccessError("You are not apart of this dm")
     
     if len(message) not in range(1,1001):
         raise InputError("length of message is less than 1 or over 1000 characters")
@@ -547,14 +555,24 @@ def message_sendlater_v1(token, channel_id, message, time_sent):
     else:
         time_in_sec = check_valid_time(time_sent)[1]
 
-    if not c_is_member(user_id, channel_id):
-        raise AccessError("You are not apart of this Channel")
     
 
     store = data_store.get()
     message_id = assign_message_id(store)
 
     # doing work
-    Timer(float(time_in_sec), message_send_v1, [user_id, channel_id, message, message_id]).start()
+    if dm_or_channel == "channels":
+        Timer(float(time_in_sec), message_send_v1, [user_id, channel_dm_id, message, message_id]).start()
+    else:
+        Timer(float(time_in_sec), message_senddm_v1, [user_id, channel_dm_id, message, message_id]).start()
+
 
     return {"message_id": message_id}
+
+def message_sendlater_channel_v1(user_id, channel_id, msg, time_sent):
+
+    return message_sendlater_v1(user_id,channel_id, "channels", msg, time_sent)
+
+def message_sendlater_dm_v1(user_id, dm_id, msg, time_sent):
+
+    return message_sendlater_v1(user_id, dm_id, "dms", msg, time_sent)
