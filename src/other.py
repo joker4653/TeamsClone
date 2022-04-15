@@ -251,12 +251,13 @@ def alter_stats(u_ids: list, stat: str, stat_key: str, change: int):
     write_data(data_store)
 
 def get_num_messages():
-    '''Returns the total amount of messages sent in Seams (using information stored
-        in the user dictionary).'''
+    '''Returns the total amount of messages that currently exist in Seams.'''
     store = data_store.get()
     num_messages = 0
-    for u_id in store['users']:
-        num_messages += store['users'][u_id]['messages_sent'][-1]['num_messages_sent']
+    for channel_id in store['channels']:
+        num_messages += len(store['channels'][channel_id]['messages'])
+    for dm_id in store['dms']:
+        num_messages += len(store['dms'][dm_id]['messages'])
     return num_messages
 
 def check_valid_time(time_sent):
