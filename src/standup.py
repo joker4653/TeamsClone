@@ -113,7 +113,7 @@ def standup_send_v1(auth_user_id, channel_id, message):
         raise AccessError("auth_user is not a member of the channel.")
     if len(message) > 1000:
         raise InputError("Message too long")
-    if standup_active_v1(auth_user_id, channel_id)['is_active'] == False:
+    if not standup_active_v1(auth_user_id, channel_id)['is_active']:
         raise InputError("No standup in progress")
     data = data_store.get()
     user_handle = data['users'][auth_user_id]['handle']

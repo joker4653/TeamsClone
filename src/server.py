@@ -213,7 +213,7 @@ def handle_message_send():
     messages = params.get('message', None)
 
     user_id = other.validate_token(token)
-    if user_id == False:
+    if not user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
@@ -228,7 +228,7 @@ def handle_message_edit():
     messages = params.get('message', None)
 
     user_id = other.validate_token(token)
-    if user_id == False:
+    if not user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
@@ -242,7 +242,7 @@ def handle_message_remove():
     message_id = params.get('message_id', None)
 
     user_id = other.validate_token(token)
-    if user_id == False:
+    if not user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 

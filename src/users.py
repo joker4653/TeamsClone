@@ -40,7 +40,7 @@ def users_all_v1(token):
 
     '''
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     data = data_store.get()
@@ -71,7 +71,7 @@ def user_profile_v1(token, u_id):
 
     '''
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     if not valid_user_id(u_id):
@@ -99,7 +99,7 @@ def user_profile_setname_v1(token, name_first, name_last):
             Returns {} always
     '''
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     if len(name_first) < std_vars.MIN_NAME_LEN_FIRST or len(name_first) > std_vars.MAX_NAME_LEN_FIRST:
@@ -134,7 +134,7 @@ def user_profile_setemail_v1(token, email):
 
     '''
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     '''Checks a certain input set meets the criteria for registering a new user.'''
@@ -172,7 +172,7 @@ def user_profile_sethandle_v1(token, handle_str):
             Returns {} always
     '''
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     if len(handle_str) < std_vars.MIN_LEN_HANDLE or len(handle_str) > std_vars.MAX_LEN_HANDLE:
@@ -214,7 +214,7 @@ def admin_user_remove_v1(token, u_id):
         Returns {} always.
     '''
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     if not valid_user_id(u_id):
@@ -316,7 +316,7 @@ are being demoted to a user.
         Returns {} always.
     '''
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     if not valid_user_id(u_id):

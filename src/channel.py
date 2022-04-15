@@ -211,7 +211,7 @@ def channel_addowner_v1(token, channel_id, u_id):
             Returns {} always.
     '''
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     if not valid_channel_id(channel_id):
@@ -257,7 +257,7 @@ def channel_removeowner_v1(token, channel_id, u_id):
             Returns {} always.
     '''
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     if not valid_channel_id(channel_id):
