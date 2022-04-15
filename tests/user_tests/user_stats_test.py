@@ -1,7 +1,6 @@
 '''All tests for user/stats/v1.'''
 
 from tests.process_request import process_test_request
-import src.std_vars as std_vars
 
 
 def test_user_stats_invalid_token(example_user_id):
@@ -33,6 +32,7 @@ def test_user_stats_channel_changes(example_user_id, example_channels):
         'name': "sample channel", 
         'is_public': True
     })
+    assert create_channel.status_code == 200
     new_channel = create_channel.json()
     process_test_request(route="/channel/join/v2", method='post', inputs={
         'token': example_user_id[1].get('token'), 
@@ -86,7 +86,7 @@ def test_user_stats_message_changes(example_user_id, example_channels, example_d
     stats = response3.json()
     assert stats['user_stats']['messages_sent'][2]['num_messages_sent'] == 2
     assert len(stats['user_stats']['messages_sent']) == 3
-    assert stats['user_stats']['involvement_rate'] == (5 / 9)
+    assert stats['user_stats']['involvement_rate'] == (5 / 7)
 
 def test_user_stats_dm_changes(example_user_id, example_dms):
     leave_works = process_test_request(route='/dm/leave/v1', method='post', inputs={
