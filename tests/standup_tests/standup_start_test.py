@@ -4,6 +4,7 @@ import pytest
 import requests
 import json
 import time, threading
+from datetime import datetime, timezone
 from tests.process_request import process_test_request
 
 def test_standup_start_invalid_token(example_user_id, example_channels):
@@ -56,11 +57,14 @@ def test_standup_start_existing_active_standup(example_user_id, example_channels
     time.sleep(2)
     
 def test_standup_start_success(example_user_id, example_channels):
-    process_test_request(route="/standup/start/v1", method='post', inputs={
+    response0 = process_test_request(route="/standup/start/v1", method='post', inputs={
         'token': example_user_id[0].get('token'), 
         'channel_id': example_channels[0].get('channel_id'), 
         'length': 2
     })
+    data0 = response0.json()
+    utc_timestamp = int(datetime.now(timezone.utc).replace(tzinfo=timezone.utc).timestamp())
+    assert data0['time_finish'] in range(utc_timestamp + 2 - 1, utc_timestamp + 2 + 1)  
     process_test_request(route="/standup/send/v1", method='post', inputs={
         'token': example_user_id[0].get('token'), 
         'channel_id': example_channels[0].get('channel_id'), 
@@ -86,8 +90,8 @@ def test_standup_start_success(example_user_id, example_channels):
         "start": 0
     })
     assert response2.status_code == 200
-    data = response2.json()
-    messages = [message["message"] for message in data.get("messages")]
+    data1 = response2.json()
+    messages = [message["message"] for message in data1.get("messages")]
     assert messages == ["stevesmith: hello we are the badgers\njamessmith: and we are testing iteration 3"]
 
 def test_standup_start_no_messages_sent(example_user_id, example_channels):
