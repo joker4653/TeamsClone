@@ -3,10 +3,11 @@ import datetime
 from email.policy import default
 from operator import index
 import re
-
+from threading import Thread, Timer
+from time import sleep
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import is_global_owner, valid_user_id, valid_channel_id, user_info, valid_dm_id, find_tags, alter_stats
+from src.other import is_global_owner, valid_user_id, valid_channel_id, user_info, valid_dm_id, find_tags, alter_stats, validate_token, check_valid_time
 from src.data_json import write_data
 from src.channel import is_member as c_is_member
 from src.channel import is_owner as c_is_owner
@@ -83,7 +84,7 @@ def notify_tags(message, sender_id, channel_dm_id, channel_or_dm):
 
 
 
-def send_message(auth_user_id, channel_dm_id, message, dm_or_channel):
+def send_message(auth_user_id, channel_dm_id, message, dm_or_channel, send_later = None):
     if dm_or_channel == "channels":
         if not valid_channel_id(channel_dm_id):
             raise InputError("channel_id does not refer to a valid channel")
@@ -99,7 +100,13 @@ def send_message(auth_user_id, channel_dm_id, message, dm_or_channel):
         raise InputError("length of message is less than 1 or over 1000 characters")
 
     store = data_store.get()
-    message_id = assign_message_id(store)
+    
+    # need to reserve the msg_id that was already returned in sendlater to avoid duplicate ids..
+    # only relevent for sendlater functions
+    if send_later == None:
+        message_id = assign_message_id(store)
+    else:
+        message_id = send_later
 
     # Get UTC timestamp
     time_sent = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp()
@@ -130,7 +137,7 @@ def send_message(auth_user_id, channel_dm_id, message, dm_or_channel):
 
 
 
-def message_send_v1(auth_user_id, channel_id, message):
+def message_send_v1(auth_user_id, channel_id, message, send_later = None):
     '''
     Send a message from the authorised user to the channel specified by channel_id.
     
@@ -149,9 +156,8 @@ def message_send_v1(auth_user_id, channel_id, message):
         returns {
             'message_id': [The ID of the message sent.]
         } 
-
     '''
-    return send_message(auth_user_id, channel_id, message, "channels")
+    return send_message(auth_user_id, channel_id, message, "channels", send_later)
 
 def message_senddm_v1(auth_user_id, dm_id, message):
     '''
@@ -504,3 +510,51 @@ def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
     notify_tags(message, user_id, channel_dm_id, channel_or_dm)
    
     return {"shared_message_id": shared_message_id}
+
+    
+
+def message_sendlater_v1(token, channel_id, message, time_sent):
+    '''
+    Sets a time for a given message to be sent, given its paramaters are valid
+    
+    Arguments:
+        token       (str)   - an active token corresponding to a certain user.
+        channel_id  (int)   - the ID of a certain channel.
+        message     (str)   - the message to be sent at a later time.
+        time_sent   (float) - utc timestamp
+
+    Exceptions:
+        InputError  -occurs when:   - length of message is over 1000 characters or less than 1 character.
+                                    - channel_id does not refer to a valid channel 
+                                    - time_sent is a time in the past
+
+        AccessError -occurs when:   - Everything is valid but the user is not apart of this channel
+
+
+    Return Value:
+        Returns {"message_id" : message_id} always.
+    '''
+    user_id = validate_token(token)
+
+    if not valid_channel_id(channel_id):
+        raise InputError("Channel_id was not valid")
+    
+    if len(message) not in range(1,1001):
+        raise InputError("length of message is less than 1 or over 1000 characters")
+    
+    if check_valid_time(time_sent)[0] == False:
+        raise InputError("Time_sent is in the past")
+    else:
+        time_in_sec = check_valid_time(time_sent)[1]
+
+    if not c_is_member(user_id, channel_id):
+        raise AccessError("You are not apart of this Channel")
+    
+
+    store = data_store.get()
+    message_id = assign_message_id(store)
+
+    # doing work
+    Timer(float(time_in_sec), message_send_v1, [user_id, channel_id, message, message_id]).start()
+
+    return {"message_id": message_id}
