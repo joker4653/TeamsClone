@@ -3,9 +3,6 @@ from random import randint
 import smtplib
 import ssl
 
-from datetime import timezone
-import datetime
-
 from src.data_store import data_store
 from src.data_json import write_data
 import src.std_vars as std_vars
@@ -263,7 +260,7 @@ def get_num_messages():
     return num_messages
 
 def check_valid_time(time_sent):
-    dt = datetime.datetime.now(timezone.utc)
+    dt = datetime.now(timezone.utc)
   
     utc_time = dt.replace(tzinfo=timezone.utc)
     current_time = utc_time.timestamp()
