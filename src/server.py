@@ -213,7 +213,7 @@ def handle_message_send():
     messages = params.get('message', None)
 
     user_id = other.validate_token(token)
-    if user_id == False:
+    if not user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
@@ -228,7 +228,7 @@ def handle_message_edit():
     messages = params.get('message', None)
 
     user_id = other.validate_token(token)
-    if user_id == False:
+    if not user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
@@ -242,7 +242,7 @@ def handle_message_remove():
     message_id = params.get('message_id', None)
 
     user_id = other.validate_token(token)
-    if user_id == False:
+    if not user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
@@ -565,6 +565,17 @@ def handle_auth_passwordreset_reset():
     new_password = params.get('new_password', None)
 
     return dumps(auth.auth_passwordreset_reset_v1(reset_code, new_password))
+
+@APP.route("/user/stats/v1", methods=['GET'])
+def fetch_user_stats():
+    params = request.args
+    token = params.get('token', None)
+    auth_user_id = other.validate_token(token)
+    if not auth_user_id:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(users.user_stats_v1(auth_user_id))
 
 #### NO NEED TO MODIFY BELOW THIS POINT
 

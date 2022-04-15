@@ -38,7 +38,10 @@ Just a note about the setup of the users dict. As users are added, they are stor
     'sessions': [list of active sessions (ints) of this user],
     'notifications': [list of notification dicts]
     'removed': [bool],
-    'profile_img_url': [string]
+    'profile_img_url': [string],
+    'channels_joined': [{num_channels_joined, time_stamp}],
+    'dms_joined': [{num_dms_joined, time_stamp}], 
+    'messages_sent': [{num_messages_sent, time_stamp}],
     }
 }
 So there'll be a new user dictionary added to the users dictionary for all users created.

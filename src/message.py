@@ -7,7 +7,7 @@ from threading import Thread, Timer
 from time import sleep
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import is_global_owner, valid_user_id, valid_channel_id, user_info, valid_dm_id, find_tags, validate_token, check_valid_time
+from src.other import is_global_owner, valid_user_id, valid_channel_id, user_info, valid_dm_id, find_tags, alter_stats, validate_token, check_valid_time
 from src.data_json import write_data
 from src.channel import is_member as c_is_member
 from src.channel import is_owner as c_is_owner
@@ -125,6 +125,8 @@ def send_message(auth_user_id, channel_dm_id, message, dm_or_channel, send_later
         }]
     }
     store[dm_or_channel][channel_dm_id]["messages"].insert(0, message_dict)
+
+    alter_stats([auth_user_id], 'messages_sent', 'num_messages_sent', 1)
     data_store.set(store)
     write_data(data_store)
 

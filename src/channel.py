@@ -1,7 +1,7 @@
 from tokenize import endpats
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import valid_user_id, valid_channel_id, user_info, validate_token, is_global_owner
+from src.other import valid_user_id, valid_channel_id, user_info, validate_token, is_global_owner, alter_stats
 from src.data_json import write_data
 from src.notifications import generate_notif
 
@@ -55,6 +55,7 @@ def channel_invite_v1(auth_user_id, channel_id, u_id):
 
     store = data_store.get()
     store['channels'][channel_id]['user_ids'].append(user_info(u_id))
+    alter_stats([u_id], "channels_joined", "num_channels_joined", 1)
     data_store.set(store)
     write_data(data_store)
     
@@ -131,7 +132,7 @@ authorised user is not already a channel member and is not a global owner.
         raise AccessError(f"Access Denied. {curr_channel['name']} is a private channel.")
     else:
         store['channels'][channel_id]['user_ids'].append(user_info(auth_user_id))
-        
+    alter_stats([auth_user_id], "channels_joined", "num_channels_joined", 1)
     data_store.set(store)
     write_data(data_store)
     
@@ -181,7 +182,7 @@ def channel_leave_v1(token, channel_id):
         if owner['u_id'] == user_id:
             owner_ids.remove(owner)
             break
-
+    alter_stats([user_id], "channels_joined", "num_channels_joined", -1)
     data_store.set(store)
     write_data(data_store)
 
@@ -210,7 +211,7 @@ def channel_addowner_v1(token, channel_id, u_id):
             Returns {} always.
     '''
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     if not valid_channel_id(channel_id):
@@ -256,7 +257,7 @@ def channel_removeowner_v1(token, channel_id, u_id):
             Returns {} always.
     '''
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     if not valid_channel_id(channel_id):

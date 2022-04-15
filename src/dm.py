@@ -2,7 +2,7 @@
 
 from unicodedata import name
 from src.error import AccessError, InputError
-from src.other import valid_dm_id, valid_user_id, validate_token, user_info
+from src.other import valid_dm_id, valid_user_id, validate_token, user_info, alter_stats
 from src.data_store import data_store
 from src.data_json import write_data
 from src.notifications import generate_notif
@@ -97,8 +97,10 @@ def dm_create(token, u_ids):
             'dm_id' : new_dm_id
     }
     
-    # write to data store and update json file
     store['dms'][new_dm_id] = new_dm_dictionary
+    alter_stats(u_ids, "dms_joined", "num_dms_joined", 1)
+
+    # write to data store and update json file
     data_store.set(store)
     write_data(data_store)
    
@@ -179,7 +181,13 @@ creator
     if not is_member(auth_user_id, dm_id):
         raise AccessError(f"You are not a part of this DM and cannot interact with it")
 
-    # now can remove channel and update json
+    # create list of all users in this dm so their stats can be altered.
+    u_ids = []
+    for user in store['dms'][dm_id]['user_ids']:
+        u_ids.append(user['u_id'])
+    alter_stats(u_ids, "dms_joined", "num_dms_joined", -1)
+
+    # now can remove dm and update json
     store['dms'].pop(dm_id)
     data_store.set(store)
     write_data(data_store)
@@ -248,6 +256,7 @@ def dm_leave_v1(token,dm_id):
 
 
     store['dms'][dm_id]['user_ids'].remove((user_info(auth_user_id)))
+    alter_stats([auth_user_id], "dms_joined", "num_dms_joined", -1)
     data_store.set(store)
     write_data(data_store)
 

@@ -3,12 +3,10 @@ from random import randint
 import smtplib
 import ssl
 
-from datetime import timezone
-import datetime
-
 from src.data_store import data_store
 from src.data_json import write_data
 import src.std_vars as std_vars
+from datetime import datetime, timezone
 
 
 SECRET = "TheBadgerUsesToolsLikeABoss"
@@ -228,8 +226,41 @@ def find_tags(message):
     
     return tagged
     
+def alter_stats(u_ids: list, stat: str, stat_key: str, change: int):
+    '''Generic function to alter user stats.
+
+    Example usage: alter_stats(auth_user_id, "channels_joined", "num_channels_joined", 1)
+
+        - This usage will append a new dictionary to che channels_joined list inside auth_user_id's
+            user dictionary that has this format: 
+            {'num_channels_joined': (most recent number of channels joined + 1),
+            'timestamp': current time stamp (int)} 
+    '''
+    store = data_store.get()
+    time_stamp = int(datetime.now(timezone.utc).replace(tzinfo=timezone.utc).timestamp())
+
+    for user in u_ids:
+        altered_stat = store['users'][user][stat][-1][stat_key] + change
+
+        new_stat = {stat_key: altered_stat, 
+                    'time_stamp': time_stamp}
+
+        store['users'][user][stat].append(new_stat)
+
+    data_store.set(store)
+    write_data(data_store)
+
+def get_num_messages():
+    '''Returns the total amount of messages sent in Seams (using information stored
+        in the user dictionary).'''
+    store = data_store.get()
+    num_messages = 0
+    for u_id in store['users']:
+        num_messages += store['users'][u_id]['messages_sent'][-1]['num_messages_sent']
+    return num_messages
+
 def check_valid_time(time_sent):
-    dt = datetime.datetime.now(timezone.utc)
+    dt = datetime.now(timezone.utc)
   
     utc_time = dt.replace(tzinfo=timezone.utc)
     current_time = utc_time.timestamp()
@@ -240,3 +271,4 @@ def check_valid_time(time_sent):
         return (False, None)
 
     return (True, time_in_sec)
+

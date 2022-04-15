@@ -7,7 +7,7 @@ from http.client import HTTPConnection
 from flask import request
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import user_info, valid_user_id, validate_token, is_only_global_owner
+from src.other import user_info, valid_user_id, validate_token, is_only_global_owner, get_num_messages
 from src.data_json import write_data
 from src.auth import check_duplicate, auth_logout_v1
 from src.channel import is_global_owner
@@ -40,7 +40,7 @@ def users_all_v1(token):
 
     '''
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     data = data_store.get()
@@ -71,7 +71,7 @@ def user_profile_v1(token, u_id):
 
     '''
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     if not valid_user_id(u_id):
@@ -99,7 +99,7 @@ def user_profile_setname_v1(token, name_first, name_last):
             Returns {} always
     '''
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     if len(name_first) < std_vars.MIN_NAME_LEN_FIRST or len(name_first) > std_vars.MAX_NAME_LEN_FIRST:
@@ -134,7 +134,7 @@ def user_profile_setemail_v1(token, email):
 
     '''
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     '''Checks a certain input set meets the criteria for registering a new user.'''
@@ -172,7 +172,7 @@ def user_profile_sethandle_v1(token, handle_str):
             Returns {} always
     '''
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     if len(handle_str) < std_vars.MIN_LEN_HANDLE or len(handle_str) > std_vars.MAX_LEN_HANDLE:
@@ -214,7 +214,7 @@ def admin_user_remove_v1(token, u_id):
         Returns {} always.
     '''
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     if not valid_user_id(u_id):
@@ -316,7 +316,7 @@ are being demoted to a user.
         Returns {} always.
     '''
     auth_user_id = validate_token(token)
-    if auth_user_id == False:
+    if not auth_user_id:
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
     if not valid_user_id(u_id):
@@ -401,7 +401,6 @@ def user_profile_upload_photo_v1(token, img_url, host_url, x_start, y_start, x_e
     if not os.path.exists(img_path):
         os.mkdir(img_path)
 
-
     filename = str(auth_user_id) + '.jpeg'
     with open(os.path.join(img_path, filename), 'wb') as users_image_store:
         img.save(users_image_store)
@@ -414,6 +413,36 @@ def user_profile_upload_photo_v1(token, img_url, host_url, x_start, y_start, x_e
     data_store.set(store)
     write_data(data_store)
     
-
     return {     
+    }
+
+def user_stats_v1(auth_user_id):
+    store = data_store.get()
+    user_channel_stats = store['users'][auth_user_id]['channels_joined']
+    user_dm_stats = store['users'][auth_user_id]['dms_joined']
+    user_message_stats = store['users'][auth_user_id]['messages_sent']
+
+    user_involvement = (user_channel_stats[-1]['num_channels_joined'] + user_dm_stats[-1]['num_dms_joined'] 
+                        + user_message_stats[-1]['num_messages_sent'])
+    total_activity = len(store['channels']) + len(store['dms']) + get_num_messages()
+
+    if total_activity == 0:
+        involvement = 0
+    else:
+        involvement = (user_involvement / total_activity)
+    
+    # Cap involvement at 1.
+    if involvement > 1:
+        involvement = 1
+    
+
+    user_stats = {
+        'channels_joined': user_channel_stats,
+        'dms_joined': user_dm_stats,
+        'messages_sent': user_message_stats,
+        'involvement_rate': involvement
+    }
+
+    return {
+        'user_stats': user_stats
     }

@@ -9,6 +9,7 @@ from src.data_json import write_data
 from src.other import valid_user_id, create_token, validate_token, check_duplicate
 from src.other import generate_code, send_code 
 import src.std_vars as std_vars
+from datetime import datetime, timezone
 
 def auth_login_v1(email, password):
     '''
@@ -105,7 +106,8 @@ def auth_register_v1(email, password, host_url, name_first, name_last):
     write_data(data_store)
    
     permissions = choose_permissions() 
-    
+    time_stamp = int(datetime.now(timezone.utc).replace(tzinfo=timezone.utc).timestamp())
+
     # Create new user entry.
     new_user = {
         'id': new_id,
@@ -118,7 +120,10 @@ def auth_register_v1(email, password, host_url, name_first, name_last):
         'sessions': [session_id],
         'notifications': [],
         'removed': False,
-        'profile_img_url': host_url + 'images/default.jpg'
+        'profile_img_url': host_url + 'images/default.jpg',
+        'channels_joined': [{'num_channels_joined': 0, 'time_stamp': time_stamp}],
+        'dms_joined': [{'num_dms_joined': 0, 'time_stamp': time_stamp}],
+        'messages_sent': [{'num_messages_sent': 0, 'time_stamp': time_stamp}]
     }
     
     #Add new user to data_store
