@@ -44,7 +44,7 @@ def test_standup_active_correct_return_value(example_user_id, example_channels):
     assert response1.status_code == 200 
     standup_status1 = json.loads(response1.text)
     assert standup_status1['is_active'] == True 
-    assert standup_status1['time_finish'] == utc_timestamp + 2 
+    assert standup_status1['time_finish'] in range(utc_timestamp + 2 - 1, utc_timestamp + 2 + 1)  
     time.sleep(2)
     response2 = process_test_request(route="/standup/active/v1", method='get', inputs={
         'token': example_user_id[0].get('token'), 
