@@ -120,7 +120,6 @@ def test_msgid_invalid_before_msgsent(example_user_id, example_channels):
     messages = [message["message"] for message in data.get("messages")]
     assert messages == ["hello"]
 
-
 def test_not_member_after_time(example_user_id, example_channels):
     data = {"token" : example_user_id[1].get("token"),
             "channel_id": example_channels[0].get("channel_id"),
