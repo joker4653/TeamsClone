@@ -15,3 +15,9 @@
 
 * notifications/get/v1
     - Re. tagging: If a message that already has a tag is edited and the tag remains, a new notification is sent.
+
+* user/stats/v1
+    - When a user is removed, their stats relating to channels/dms joined and messages
+    sent are left in the same state as they were in prior to removal. This seems like the 
+    most complete way to leave it; also not overly important as a removed user cannot
+    have a valid token so their user_stats cannot be retreived anyway.
