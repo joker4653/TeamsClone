@@ -21,3 +21,9 @@
     sent are left in the same state as they were in prior to removal. This seems like the 
     most complete way to leave it; also not overly important as a removed user cannot
     have a valid token so their user_stats cannot be retreived anyway.
+
+* users/stats/v1
+    - for num_users_who_have_joined_at_least_one_channel_or_dm, assumed that a user
+    who has joined only one channel and then leaves that channel would not be included
+    in the count i.e. this variable refers to users who are currently in at least one
+    channel or dm.
