@@ -418,9 +418,9 @@ def user_profile_upload_photo_v1(token, img_url, host_url, x_start, y_start, x_e
 
 def user_stats_v1(auth_user_id):
     store = data_store.get()
-    user_channel_stats = store['users'][auth_user_id]['channels_joined']
-    user_dm_stats = store['users'][auth_user_id]['dms_joined']
-    user_message_stats = store['users'][auth_user_id]['messages_sent']
+    user_channel_stats = store['users'][auth_user_id]['stats']['channels_joined']
+    user_dm_stats = store['users'][auth_user_id]['stats']['dms_joined']
+    user_message_stats = store['users'][auth_user_id]['stats']['messages_sent']
 
     user_involvement = (user_channel_stats[-1]['num_channels_joined'] + user_dm_stats[-1]['num_dms_joined'] 
                         + user_message_stats[-1]['num_messages_sent'])

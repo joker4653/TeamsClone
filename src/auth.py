@@ -121,9 +121,11 @@ def auth_register_v1(email, password, host_url, name_first, name_last):
         'notifications': [],
         'removed': False,
         'profile_img_url': host_url + 'images/default.jpg',
-        'channels_joined': [{'num_channels_joined': 0, 'time_stamp': time_stamp}],
-        'dms_joined': [{'num_dms_joined': 0, 'time_stamp': time_stamp}],
-        'messages_sent': [{'num_messages_sent': 0, 'time_stamp': time_stamp}]
+        'stats': {
+            'channels_joined': [{'num_channels_joined': 0, 'time_stamp': time_stamp}],
+            'dms_joined': [{'num_dms_joined': 0, 'time_stamp': time_stamp}],
+            'messages_sent': [{'num_messages_sent': 0, 'time_stamp': time_stamp}]
+        }
     }
     
     #Add new user to data_store

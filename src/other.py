@@ -240,12 +240,12 @@ def alter_stats(u_ids: list, stat: str, stat_key: str, change: int):
     time_stamp = int(datetime.now(timezone.utc).replace(tzinfo=timezone.utc).timestamp())
 
     for user in u_ids:
-        altered_stat = store['users'][user][stat][-1][stat_key] + change
+        altered_stat = store['users'][user]['stats'][stat][-1][stat_key] + change
 
         new_stat = {stat_key: altered_stat, 
                     'time_stamp': time_stamp}
 
-        store['users'][user][stat].append(new_stat)
+        store['users'][user]['stats'][stat].append(new_stat)
 
     data_store.set(store)
     write_data(data_store)
