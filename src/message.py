@@ -84,7 +84,7 @@ def notify_tags(message, sender_id, channel_dm_id, channel_or_dm):
 
 
 
-def send_message(auth_user_id, channel_dm_id, message, dm_or_channel):
+def send_message(auth_user_id, channel_dm_id, message, dm_or_channel, send_later = None):
     if dm_or_channel == "channels":
         if not valid_channel_id(channel_dm_id):
             raise InputError("channel_id does not refer to a valid channel")
@@ -100,7 +100,13 @@ def send_message(auth_user_id, channel_dm_id, message, dm_or_channel):
         raise InputError("length of message is less than 1 or over 1000 characters")
 
     store = data_store.get()
-    message_id = assign_message_id(store)
+    
+    # need to reserve the msg_id that was already returned in sendlater to avoid duplicate ids..
+    # only relevent for sendlater functions
+    if send_later == None:
+        message_id = assign_message_id(store)
+    else:
+        message_id = send_later
 
     # Get UTC timestamp
     time_sent = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp()
@@ -129,7 +135,7 @@ def send_message(auth_user_id, channel_dm_id, message, dm_or_channel):
 
 
 
-def message_send_v1(auth_user_id, channel_id, message):
+def message_send_v1(auth_user_id, channel_id, message, send_later = None):
     '''
     Send a message from the authorised user to the channel specified by channel_id.
     
@@ -148,9 +154,8 @@ def message_send_v1(auth_user_id, channel_id, message):
         returns {
             'message_id': [The ID of the message sent.]
         } 
-
     '''
-    return send_message(auth_user_id, channel_id, message, "channels")
+    return send_message(auth_user_id, channel_id, message, "channels", send_later)
 
 def message_senddm_v1(auth_user_id, dm_id, message):
     '''
@@ -447,6 +452,26 @@ def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
     
 
 def message_sendlater_v1(token, channel_id, message, time_sent):
+    '''
+    Sets a time for a given message to be sent, given its paramaters are valid
+    
+    Arguments:
+        token       (str)   - an active token corresponding to a certain user.
+        channel_id  (int)   - the ID of a certain channel.
+        message     (str)   - the message to be sent at a later time.
+        time_sent   (float) - utc timestamp
+
+    Exceptions:
+        InputError  -occurs when:   - length of message is over 1000 characters or less than 1 character.
+                                    - channel_id does not refer to a valid channel 
+                                    - time_sent is a time in the past
+
+        AccessError -occurs when:   - Everything is valid but the user is not apart of this channel
+
+
+    Return Value:
+        Returns {"message_id" : message_id} always.
+    '''
     user_id = validate_token(token)
 
     if not valid_channel_id(channel_id):
@@ -468,46 +493,6 @@ def message_sendlater_v1(token, channel_id, message, time_sent):
     message_id = assign_message_id(store)
 
     # doing work
-    #send_thread = Thread(target = sendlater_thread, args = (token, user_id, channel_id, message, time_in_sec, message_id,))
-    #send_thread.start() 
-    Timer(float(time_in_sec), message_send_v1, [user_id, channel_id, message]).start()
+    Timer(float(time_in_sec), message_send_v1, [user_id, channel_id, message, message_id]).start()
 
     return {"message_id": message_id}
-
-'''
-def sendlater_thread(token, user_id, channel_id, message, time_sent, msg_id):
-    while time_sent != 0:
-        time_sent -= 1
-        sleep(1)
-    
-    # now send message, Channels cant be deleted
-    # assumes message is not sent if a token becomes invalid,
-    # and if a user leaves before the msg was sent
-
-    #if (validate_token(token)) != False or (c_is_member(user_id, channel_id)) != False:
-
-    store = data_store.get()
-    # Get UTC timestamp
-    time = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=datetime.timezone.utc).timestamp()
-    time = int(time)
-
-    message_dict = {
-        "message_id": msg_id,
-        "u_id": user_id,
-        "message": message,
-        "time_sent": time,
-        "is_pinned": False,
-        "reacts": [{
-            "react_id": 1,
-            "u_ids": [],
-            "is_this_user_reacted": False
-        }]
-    }
-    store["channels"][channel_id]["messages"].insert(0, message_dict)
-    data_store.set(store)
-    write_data(data_store)
-
-    # notifications
-    notify_tags(message, user_id, channel_id, "channels")
-
-    return  '''
