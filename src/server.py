@@ -553,6 +553,17 @@ def handle_auth_passwordreset_reset():
 
     return dumps(auth.auth_passwordreset_reset_v1(reset_code, new_password))
 
+@APP.route("/user/stats/v1", methods=['GET'])
+def fetch_user_stats():
+    params = request.args
+    token = params.get('token', None)
+    auth_user_id = other.validate_token(token)
+    if not auth_user_id:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(users.user_stats_v1(auth_user_id))
+
 #### NO NEED TO MODIFY BELOW THIS POINT
 
 if __name__ == "__main__":
