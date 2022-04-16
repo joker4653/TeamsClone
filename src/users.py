@@ -423,7 +423,7 @@ def user_stats_v1(auth_user_id):
     Arguments:
         auth_user_id    (int) - u_id of an authorised user.
     Exceptions:
-        None.
+        None
    
     Return Value:
         Returns {user_stats} always, where user_stats =
@@ -468,9 +468,9 @@ def users_stats_v1():
     Fetches the required statistics about the use of UNSW Seams.
     
     Arguments:
-        None.
+        None
     Exceptions:
-        None.
+        None
    
     Return Value:
         Returns {workspace_stats} always, where workspace_stats =
