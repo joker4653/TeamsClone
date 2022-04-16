@@ -34,10 +34,11 @@ def test_user_stats_channel_changes(example_user_id, example_channels):
     })
     assert create_channel.status_code == 200
     new_channel = create_channel.json()
-    process_test_request(route="/channel/join/v2", method='post', inputs={
+    join = process_test_request(route="/channel/join/v2", method='post', inputs={
         'token': example_user_id[1].get('token'), 
         'channel_id': new_channel['channel_id']
     })
+    assert join.status_code == 200
 
     response1 = process_test_request(route="/user/stats/v1", method='get', inputs={
         'token': example_user_id[1].get('token'), 
@@ -46,7 +47,7 @@ def test_user_stats_channel_changes(example_user_id, example_channels):
 
     stats1 = response1.json()
     assert len(stats1['user_stats']['channels_joined']) == 5
-    assert stats1['user_stats']['channels_joined'][4]['num_channels_joined'] == 4
+    assert stats1['user_stats']['channels_joined'][-1]['num_channels_joined'] == 4
     assert len(stats1['user_stats']['dms_joined']) == len(stats1['user_stats']['messages_sent']) == 1
 
     leave_channel = process_test_request(route="/channel/leave/v1", method='post', inputs={
@@ -84,7 +85,7 @@ def test_user_stats_message_changes(example_user_id, example_channels, example_d
     assert response3.status_code == 200
 
     stats = response3.json()
-    assert stats['user_stats']['messages_sent'][2]['num_messages_sent'] == 2
+    assert stats['user_stats']['messages_sent'][-1]['num_messages_sent'] == 2
     assert len(stats['user_stats']['messages_sent']) == 3
     assert stats['user_stats']['involvement_rate'] == (5 / 7)
 
@@ -118,8 +119,39 @@ def test_user_stats_dm_changes(example_user_id, example_dms):
 
     stats2 = response2.json()
     assert len(stats2['user_stats']['dms_joined']) == 5
-    assert stats2['user_stats']['dms_joined'][4]['num_dms_joined'] == 0
+    assert stats2['user_stats']['dms_joined'][-1]['num_dms_joined'] == 0
     assert stats2['user_stats']['involvement_rate'] == 0
+
+def test_user_stats_message_share(example_user_id, example_channels, example_dms, example_messages):
+    process_test_request(route="message/send/v1", method="post", inputs={
+        "token": example_user_id[1].get("token"),
+        "channel_id": example_channels[0].get("channel_id"),
+        "message": "HI THERE!"
+    })
+    process_test_request(route="message/send/v1", method="post", inputs={
+        "token": example_user_id[0].get("token"),
+        "channel_id": example_channels[0].get("channel_id"),
+        "message": "more_messagess"
+    })
+    share_works = process_test_request(route="message/share/v1", method="post", inputs={
+        "token": example_user_id[1].get("token"),
+        "channel_id": example_channels[0].get("channel_id"),
+        "dm_id": -1,
+        "og_message_id": example_messages[0].get("message_id"),
+        "message": "SHARING..."
+    })
+    assert share_works.status_code == 200
+
+    response = process_test_request(route="/user/stats/v1", method='get', inputs={
+        'token': example_user_id[1].get('token'), 
+    })
+    assert response.status_code == 200
+
+    stats = response.json()
+    assert stats['user_stats']['dms_joined'][-1]['num_dms_joined'] == 2
+    assert stats['user_stats']['channels_joined'][-1]['num_channels_joined'] == 3
+    assert stats['user_stats']['messages_sent'][-1]['num_messages_sent'] == 3
+    assert stats['user_stats']['involvement_rate'] == (8 / 12)
 
 # NOTE: not an actual test - keep this at the bottom of the test file to clear data stores!
 def test_clear_data_stores():
