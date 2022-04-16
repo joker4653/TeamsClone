@@ -227,10 +227,10 @@ def find_tags(message):
     
     return tagged
     
-def alter_stats(u_ids: list, stat: str, stat_key: str, change: int):
+def update_user_stats(u_ids: list, stat: str, stat_key: str, change: int):
     '''Generic function to alter user stats.
 
-    Example usage: alter_stats(auth_user_id, "channels_joined", "num_channels_joined", 1)
+    Example usage: update_user_stats(auth_user_id, "channels_joined", "num_channels_joined", 1)
 
         - This usage will append a new dictionary to che channels_joined list inside auth_user_id's
             user dictionary that has this format: 

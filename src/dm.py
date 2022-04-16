@@ -2,7 +2,7 @@
 
 from unicodedata import name
 from src.error import AccessError, InputError
-from src.other import valid_dm_id, valid_user_id, validate_token, user_info, alter_stats, update_workspace_stats
+from src.other import valid_dm_id, valid_user_id, validate_token, user_info, update_user_stats, update_workspace_stats
 from src.data_store import data_store
 from src.data_json import write_data
 from src.notifications import generate_notif
@@ -98,7 +98,7 @@ def dm_create(token, u_ids):
     }
     
     store['dms'][new_dm_id] = new_dm_dictionary
-    alter_stats(u_ids, "dms_joined", "num_dms_joined", 1)
+    update_user_stats(u_ids, "dms_joined", "num_dms_joined", 1)
     update_workspace_stats("dms_exist", "num_dms_exist", 1)
 
     # write to data store and update json file
@@ -186,7 +186,7 @@ creator
     u_ids = []
     for user in store['dms'][dm_id]['user_ids']:
         u_ids.append(user['u_id'])
-    alter_stats(u_ids, "dms_joined", "num_dms_joined", -1)
+    update_user_stats(u_ids, "dms_joined", "num_dms_joined", -1)
 
     # now can remove dm and update json
     store['dms'].pop(dm_id)
@@ -258,7 +258,7 @@ def dm_leave_v1(token,dm_id):
 
 
     store['dms'][dm_id]['user_ids'].remove((user_info(auth_user_id)))
-    alter_stats([auth_user_id], "dms_joined", "num_dms_joined", -1)
+    update_user_stats([auth_user_id], "dms_joined", "num_dms_joined", -1)
     data_store.set(store)
     write_data(data_store)
 

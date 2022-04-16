@@ -14,7 +14,7 @@ from src.dm import is_member as d_is_member
 from src.dm import is_owner as d_is_owner
 from src.notifications import generate_notif
 from src.other import (is_global_owner, valid_channel_id, update_workspace_stats, valid_dm_id, 
-                        find_tags, alter_stats, validate_token, check_valid_time)
+                        find_tags, update_user_stats, validate_token, check_valid_time)
 
 
 '''
@@ -127,7 +127,7 @@ def send_message(auth_user_id, channel_dm_id, message, dm_or_channel, send_later
     }
     store[dm_or_channel][channel_dm_id]["messages"].insert(0, message_dict)
 
-    alter_stats([auth_user_id], 'messages_sent', 'num_messages_sent', 1)
+    update_user_stats([auth_user_id], 'messages_sent', 'num_messages_sent', 1)
     update_workspace_stats("messages_exist", "num_messages_exist", 1)
     data_store.set(store)
     write_data(data_store)
@@ -508,7 +508,7 @@ def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
     }
     store[channel_or_dm][channel_dm_id]["messages"].insert(0, message_dict)
     update_workspace_stats("messages_exist", "num_messages_exist", 1)
-    alter_stats([user_id], 'messages_sent', 'num_messages_sent', 1)
+    update_user_stats([user_id], 'messages_sent', 'num_messages_sent', 1)
     data_store.set(store)
     write_data(data_store)
     

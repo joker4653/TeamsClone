@@ -1,6 +1,6 @@
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import valid_user_id, user_info, alter_stats, update_workspace_stats
+from src.other import valid_user_id, user_info, update_user_stats, update_workspace_stats
 from src.channel import is_member
 from src.data_json import write_data
 import src.std_vars as std_vars
@@ -102,7 +102,7 @@ def channels_create_v1(auth_user_id, name, is_public):
             'standup': {'is_active': False, 'time_finish': None}
     }
     store['channels'][new_channel_id] = new_channel_details
-    alter_stats([auth_user_id], "channels_joined", "num_channels_joined", 1)
+    update_user_stats([auth_user_id], "channels_joined", "num_channels_joined", 1)
     update_workspace_stats("channels_exist", "num_channels_exist", 1)
     data_store.set(store)
     write_data(data_store)
