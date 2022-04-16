@@ -29,6 +29,7 @@ def clear_v1():
     store['users'] = {}
     store['channels'] = {}
     store['dms'] = {}
+    store['workspace_stats'] = {}
     data_store.set(store)
     write_data(data_store)
 
@@ -226,10 +227,10 @@ def find_tags(message):
     
     return tagged
     
-def alter_stats(u_ids: list, stat: str, stat_key: str, change: int):
+def update_user_stats(u_ids: list, stat: str, stat_key: str, change: int):
     '''Generic function to alter user stats.
 
-    Example usage: alter_stats(auth_user_id, "channels_joined", "num_channels_joined", 1)
+    Example usage: update_user_stats(auth_user_id, "channels_joined", "num_channels_joined", 1)
 
         - This usage will append a new dictionary to che channels_joined list inside auth_user_id's
             user dictionary that has this format: 
@@ -240,23 +241,47 @@ def alter_stats(u_ids: list, stat: str, stat_key: str, change: int):
     time_stamp = int(datetime.now(timezone.utc).replace(tzinfo=timezone.utc).timestamp())
 
     for user in u_ids:
-        altered_stat = store['users'][user][stat][-1][stat_key] + change
+        altered_stat = store['users'][user]['stats'][stat][-1][stat_key] + change
 
         new_stat = {stat_key: altered_stat, 
                     'time_stamp': time_stamp}
 
-        store['users'][user][stat].append(new_stat)
+        store['users'][user]['stats'][stat].append(new_stat)
+
+    data_store.set(store)
+    write_data(data_store)
+
+def update_workspace_stats(stat: str, stat_key: str, change: int, stream_removed=False):
+    '''Update workspace dictionary when there is a change in number of channels,
+        messages or dms. Change is +-1, depending on whether a channel, message
+        or dm has been added or removed.'''
+    store = data_store.get()
+    time_stamp = int(datetime.now(timezone.utc).replace(tzinfo=timezone.utc).timestamp())
+
+    altered_stat = store['workspace_stats'][stat][-1][stat_key] + change
+
+    new_stat = {stat_key: altered_stat, 
+                'time_stamp': time_stamp}
+
+    store['workspace_stats'][stat].append(new_stat)
+
+    if stream_removed:
+        # Update change in messages.
+        new_msg_stat = {'num_messages_exist': get_num_messages(),
+                        'time_stamp': time_stamp}
+        store['workspace_stats']['messages_exist'].append(new_msg_stat)
 
     data_store.set(store)
     write_data(data_store)
 
 def get_num_messages():
-    '''Returns the total amount of messages sent in Seams (using information stored
-        in the user dictionary).'''
+    '''Returns the total amount of messages that currently exist in Seams.'''
     store = data_store.get()
     num_messages = 0
-    for u_id in store['users']:
-        num_messages += store['users'][u_id]['messages_sent'][-1]['num_messages_sent']
+    for channel_id in store['channels']:
+        num_messages += len(store['channels'][channel_id]['messages'])
+    for dm_id in store['dms']:
+        num_messages += len(store['dms'][dm_id]['messages'])
     return num_messages
 
 def check_valid_time(time_sent):

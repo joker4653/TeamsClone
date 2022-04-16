@@ -7,13 +7,14 @@ from threading import Thread, Timer
 from time import sleep
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import is_global_owner, valid_user_id, valid_channel_id, user_info, valid_dm_id, find_tags, alter_stats, validate_token, check_valid_time
 from src.data_json import write_data
 from src.channel import is_member as c_is_member
 from src.channel import is_owner as c_is_owner
 from src.dm import is_member as d_is_member
 from src.dm import is_owner as d_is_owner
 from src.notifications import generate_notif
+from src.other import (is_global_owner, valid_channel_id, update_workspace_stats, valid_dm_id, 
+                        find_tags, update_user_stats, validate_token, check_valid_time)
 
 
 '''
@@ -126,7 +127,8 @@ def send_message(auth_user_id, channel_dm_id, message, dm_or_channel, send_later
     }
     store[dm_or_channel][channel_dm_id]["messages"].insert(0, message_dict)
 
-    alter_stats([auth_user_id], 'messages_sent', 'num_messages_sent', 1)
+    update_user_stats([auth_user_id], 'messages_sent', 'num_messages_sent', 1)
+    update_workspace_stats("messages_exist", "num_messages_exist", 1)
     data_store.set(store)
     write_data(data_store)
 
@@ -226,6 +228,7 @@ channel/DM that the authorised user has joined.
 
     if len(message) == 0:
         del store[message_type][channel_dm_id]["messages"][index]
+        update_workspace_stats("messages_exist", "num_messages_exist", -1)
     else:
         store["channels"][channel_dm_id]["messages"][index]["message"] = message
     data_store.set(store)
@@ -276,6 +279,7 @@ channel/DM that the authorised user has joined.
 
     del store[message_type][channel_dm_id]["messages"][index]
 
+    update_workspace_stats("messages_exist", "num_messages_exist", -1)
     data_store.set(store)
     write_data(data_store)
     return {}
@@ -503,6 +507,8 @@ def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
         }]
     }
     store[channel_or_dm][channel_dm_id]["messages"].insert(0, message_dict)
+    update_workspace_stats("messages_exist", "num_messages_exist", 1)
+    update_user_stats([user_id], 'messages_sent', 'num_messages_sent', 1)
     data_store.set(store)
     write_data(data_store)
     

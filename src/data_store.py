@@ -28,20 +28,22 @@ Hey Guys!
 Just a note about the setup of the users dict. As users are added, they are stored as below:
 'users': {
     id: {
-    'id': [integer id]
-    'handle': [string user handle]
-    'email': [string email]
-    'password': [string password]
-    'first': [string first name]
-    'last': [string last name]
-    'permissions_id': [int indicating global user permissions. 1 for global owner, 2 otherwise.]
-    'sessions': [list of active sessions (ints) of this user],
-    'notifications': [list of notification dicts]
-    'removed': [bool],
-    'profile_img_url': [string],
-    'channels_joined': [{num_channels_joined, time_stamp}],
-    'dms_joined': [{num_dms_joined, time_stamp}], 
-    'messages_sent': [{num_messages_sent, time_stamp}],
+        'id': [integer id]
+        'handle': [string user handle]
+        'email': [string email]
+        'password': [string password]
+        'first': [string first name]
+        'last': [string last name]
+        'permissions_id': [int indicating global user permissions. 1 for global owner, 2 otherwise.]
+        'sessions': [list of active sessions (ints) of this user],
+        'notifications': [list of notification dicts]
+        'removed': [bool],
+        'profile_img_url': [string],
+        'stats': {
+            'channels_joined': [{num_channels_joined, time_stamp}],
+            'dms_joined': [{num_dms_joined, time_stamp}], 
+            'messages_sent': [{num_messages_sent, time_stamp}],
+        }
     }
 }
 So there'll be a new user dictionary added to the users dictionary for all users created.
@@ -90,6 +92,15 @@ cheers, Nick.
         }
 '''
 
+# Workspace stats:
+'''
+'workspace_stats': {
+    'channels_exist': [{'num_channels_exist': (int), 'time_stamp': time_stamp(int)}], 
+    'dms_exist': [{'num_dms_exist': (int), 'time_stamp': time_stamp(int)}], 
+    'messages_exist': [{'num_messages_exist': (int), 'time_stamp': time_stamp(int)}],
+}
+
+'''
 
 import json
 import os
@@ -100,7 +111,8 @@ initial_object = {
     'codes': {},    # dict of reset codes in form {code: u_id}
     'users': {},
     'channels': {},
-    'dms': {}
+    'dms': {},
+    'workspace_stats': {}
 }
 ## YOU SHOULD MODIFY THIS OBJECT ABOVE
 

@@ -591,6 +591,17 @@ def fetch_user_stats():
 
     return dumps(users.user_stats_v1(auth_user_id))
 
+@APP.route("/users/stats/v1", methods=['GET'])
+def fetch_workspace_stats():
+    params = request.args
+    token = params.get('token', None)
+    auth_user_id = other.validate_token(token)
+    if not auth_user_id:
+        # Invalid token, raise an access error.
+        raise AccessError("The token provided was invalid.")
+
+    return dumps(users.users_stats_v1())
+
 #### NO NEED TO MODIFY BELOW THIS POINT
 
 if __name__ == "__main__":
