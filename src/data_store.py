@@ -92,6 +92,15 @@ cheers, Nick.
         }
 '''
 
+# Workspace stats:
+'''
+'workspace_stats': {
+    'channels_exist': [{'num_channels_exist': (int), 'time_stamp': time_stamp(int)}], 
+    'dms_exist': [{'num_dms_exist': (int), 'time_stamp': time_stamp(int)}], 
+    'messages_exist': [{'num_messages_exist': (int), 'time_stamp': time_stamp(int)}],
+}
+
+'''
 
 import json
 import os
@@ -102,7 +111,8 @@ initial_object = {
     'codes': {},    # dict of reset codes in form {code: u_id}
     'users': {},
     'channels': {},
-    'dms': {}
+    'dms': {},
+    'workspace_stats': {}
 }
 ## YOU SHOULD MODIFY THIS OBJECT ABOVE
 

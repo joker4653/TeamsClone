@@ -29,6 +29,7 @@ def clear_v1():
     store['users'] = {}
     store['channels'] = {}
     store['dms'] = {}
+    store['workspace_stats'] = {}
     data_store.set(store)
     write_data(data_store)
 
@@ -246,6 +247,29 @@ def alter_stats(u_ids: list, stat: str, stat_key: str, change: int):
                     'time_stamp': time_stamp}
 
         store['users'][user]['stats'][stat].append(new_stat)
+
+    data_store.set(store)
+    write_data(data_store)
+
+def update_workspace_stats(stat: str, stat_key: str, change: int, stream_removed=False):
+    '''Update workspace dictionary when there is a change in number of channels,
+        messages or dms. Change is +-1, depending on whether a channel, message
+        or dm has been added or removed.'''
+    store = data_store.get()
+    time_stamp = int(datetime.now(timezone.utc).replace(tzinfo=timezone.utc).timestamp())
+
+    altered_stat = store['workspace_stats'][stat][-1][stat_key] + change
+
+    new_stat = {stat_key: altered_stat, 
+                'time_stamp': time_stamp}
+
+    store['workspace_stats'][stat].append(new_stat)
+
+    if stream_removed:
+        # Update change in messages.
+        new_msg_stat = {'num_messages_exist': get_num_messages(),
+                        'time_stamp': time_stamp}
+        store['workspace_stats']['messages_exist'].append(new_msg_stat)
 
     data_store.set(store)
     write_data(data_store)

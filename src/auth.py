@@ -104,9 +104,10 @@ def auth_register_v1(email, password, host_url, name_first, name_last):
     session_id = store['sessions_no']
     store['sessions_no'] += 1
     write_data(data_store)
-   
+    
     permissions = choose_permissions() 
     time_stamp = int(datetime.now(timezone.utc).replace(tzinfo=timezone.utc).timestamp())
+    set_workspace_stats(time_stamp)
 
     # Create new user entry.
     new_user = {
@@ -301,3 +302,14 @@ def create_new_id():
         else:
             unique = True
     return num
+
+def set_workspace_stats(time_stamp):
+    '''Initialise the first entries into workspace_stats dictionary when the first
+        user registers.'''
+    store = data_store.get()
+    if store['users'] == {}:
+        store['workspace_stats'] = {
+            'channels_exist': [{'num_channels_exist': 0, 'time_stamp': time_stamp}], 
+            'dms_exist': [{'num_dms_exist': 0, 'time_stamp': time_stamp}], 
+            'messages_exist': [{'num_messages_exist': 0, 'time_stamp': time_stamp}],
+        }

@@ -446,3 +446,27 @@ def user_stats_v1(auth_user_id):
     return {
         'user_stats': user_stats
     }
+
+def users_stats_v1():
+    store = data_store.get()
+    utilization = num_users_in_at_least_one_dm_or_channel() / len(store['users'])
+    workspace_stats = {
+        'channels_exist': store['workspace_stats']['channels_exist'], 
+        'dms_exist': store['workspace_stats']['dms_exist'], 
+        'messages_exist': store['workspace_stats']['messages_exist'],
+        'utilization_rate': utilization
+    }
+
+    return {
+        'workspace_stats': workspace_stats
+    }
+
+def num_users_in_at_least_one_dm_or_channel():
+    '''Return the number of users who are in at least one channel or dm currently.'''
+    store = data_store.get()
+    count = 0
+    for u_id in store['users']:
+        if (store['users'][u_id]['stats']['channels_joined'][-1]['num_channels_joined'] >= 1 or
+            store['users'][u_id]['stats']['dms_joined'][-1]['num_dms_joined'] >= 1):
+            count += 1
+    return count
