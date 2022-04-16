@@ -417,6 +417,23 @@ def user_profile_upload_photo_v1(token, img_url, host_url, x_start, y_start, x_e
     }
 
 def user_stats_v1(auth_user_id):
+    '''
+    Fetches the required statistics about the user with u_id auth_user_id's use of UNSW Seams.
+    
+    Arguments:
+        auth_user_id    (int) - u_id of an authorised user.
+    Exceptions:
+        None
+   
+    Return Value:
+        Returns {user_stats} always, where user_stats =
+        {
+            'channels_joined': [{num_channels_joined, time_stamp}],
+            'dms_joined': [{num_dms_joined, time_stamp}], 
+            'messages_sent': [{num_messages_sent, time_stamp}], 
+            'involvement_rate': sum(num_channels_joined, num_dms_joined, num_msgs_sent)/sum(num_channels, num_dms, num_msgs)
+        }
+    '''
     store = data_store.get()
     user_channel_stats = store['users'][auth_user_id]['stats']['channels_joined']
     user_dm_stats = store['users'][auth_user_id]['stats']['dms_joined']
@@ -434,7 +451,6 @@ def user_stats_v1(auth_user_id):
     # Cap involvement at 1.
     if involvement > 1:
         involvement = 1
-    
 
     user_stats = {
         'channels_joined': user_channel_stats,
@@ -448,6 +464,23 @@ def user_stats_v1(auth_user_id):
     }
 
 def users_stats_v1():
+    '''
+    Fetches the required statistics about the use of UNSW Seams.
+    
+    Arguments:
+        None
+    Exceptions:
+        None
+   
+    Return Value:
+        Returns {workspace_stats} always, where workspace_stats =
+        {
+            'channels_exist': [{num_channels_exist, time_stamp}], 
+            'dms_exist': [{num_dms_exist, time_stamp}], 
+            'messages_exist': [{num_messages_exist, time_stamp}], 
+            'utilization_rate': (num_users_in_at_least_one_dm_or_channel_currently / total_num_users)
+        }
+    '''
     store = data_store.get()
     utilization = num_users_in_at_least_one_dm_or_channel() / len(store['users'])
     workspace_stats = {
