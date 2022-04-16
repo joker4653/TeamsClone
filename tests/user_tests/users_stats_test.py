@@ -14,21 +14,21 @@ def test_users_stats_invalid_token(example_user_id):
 
 def test_users_stats_only_one_user():
     process_test_request(route="/clear/v1", method='delete')
-    response1 = process_test_request(route="/auth/register/v2", method='post', inputs={
+    add_user = process_test_request(route="/auth/register/v2", method='post', inputs={
         'email': "steve.smith@gmail.com", 
         'password': "my_good_password1", 
         'name_first': "Steve", 
         'name_last': "Smith"
     })
-    assert response1.status_code == 200
-    user1 = response1.json()
+    assert add_user.status_code == 200
+    user1 = add_user.json()
 
-    response2 = process_test_request(route="/users/stats/v1", method='get', inputs={
+    response = process_test_request(route="/users/stats/v1", method='get', inputs={
         'token': user1.get('token'), 
     })
-    assert response2.status_code == 200
+    assert response.status_code == 200
 
-    stats = response2.json()
+    stats = response.json()
     assert stats['workspace_stats']['channels_exist'][-1]['num_channels_exist'] == 0
     assert stats['workspace_stats']['dms_exist'][-1]['num_dms_exist'] == 0
     assert stats['workspace_stats']['messages_exist'][-1]['num_messages_exist'] == 0
@@ -48,14 +48,14 @@ def test_users_stats_add_channels_dms_messages(example_user_id, example_channels
 
 def test_users_stats_alter_data(example_user_id, example_channels, example_dms, example_messages):
     # Make various changes (add/remove messages, users, channels, dms) and check stats are as expected.
-    response1 = process_test_request(route="/auth/register/v2", method='post', inputs={
+    add_user = process_test_request(route="/auth/register/v2", method='post', inputs={
         'email': "robert.stevens777@gmail.com", 
         'password': "my_good_password12", 
         'name_first': "Robert", 
         'name_last': "Stevens"
     })
-    assert response1.status_code == 200
-    user4 = response1.json()
+    assert add_user.status_code == 200
+    user4 = add_user.json()
 
     create_channel = process_test_request(route="/channels/create/v2", method='post', inputs={
         'token': example_user_id[2].get('token'), 
@@ -87,14 +87,46 @@ def test_users_stats_alter_data(example_user_id, example_channels, example_dms, 
     })
     assert remove_message.status_code == 200
 
-    response2 = process_test_request(route="/users/stats/v1", method='get', inputs={
+    response = process_test_request(route="/users/stats/v1", method='get', inputs={
         'token': example_user_id[0].get('token'), 
     })
-    assert response2.status_code == 200
+    assert response.status_code == 200
 
-    stats = response2.json()
+    stats = response.json()
     assert stats['workspace_stats']['channels_exist'][-1]['num_channels_exist'] == 4
     assert stats['workspace_stats']['dms_exist'][-1]['num_dms_exist'] == 1
     assert stats['workspace_stats']['messages_exist'][-1]['num_messages_exist'] == 2
     assert stats['workspace_stats']['utilization_rate'] == (3 / 4)
 
+def test_users_stats_share_message(example_user_id, example_channels, example_dms, example_messages):
+    send_works = process_test_request(route="message/send/v1", method="post", inputs={
+        "token": example_user_id[1].get("token"),
+        "channel_id": example_channels[0].get("channel_id"),
+        "message": "HI THERE!"
+    })
+    assert send_works.status_code == 200
+    share_works = process_test_request(route="message/share/v1", method="post", inputs={
+        "token": example_user_id[1].get("token"),
+        "channel_id": example_channels[0].get("channel_id"),
+        "dm_id": -1,
+        "og_message_id": example_messages[0].get("message_id"),
+        "message": "SHARING..."
+    })
+    assert share_works.status_code == 200
+
+    response = process_test_request(route="/users/stats/v1", method='get', inputs={
+        'token': example_user_id[0].get('token'), 
+    })
+    assert response.status_code == 200
+
+    stats = response.json()
+    assert stats['workspace_stats']['channels_exist'][-1]['num_channels_exist'] == 3
+    assert stats['workspace_stats']['dms_exist'][-1]['num_dms_exist'] == 2
+    assert stats['workspace_stats']['messages_exist'][-1]['num_messages_exist'] == 6
+    assert stats['workspace_stats']['utilization_rate'] == 1
+
+
+
+# NOTE: not an actual test - keep this at the bottom of the test file to clear data stores!
+def test_clear_data_stores():
+    process_test_request(route="/clear/v1", method='delete')
