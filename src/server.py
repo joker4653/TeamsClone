@@ -266,7 +266,7 @@ def handle_dm_list():
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
-    return dumps(dm.dm_list_v1(token))
+    return dumps(dm.dm_list_v1(auth_user_id))
 
 
 @APP.route("/dm/remove/v1", methods=['DELETE'])
@@ -290,7 +290,7 @@ def handle_dm_details():
         # Invalid token, raise an access error.
         raise AccessError("The token provided was invalid.")
 
-    return dumps(dm.dm_details_v1(token, int(dm_id)))
+    return dumps(dm.dm_details_v1(auth_user_id, int(dm_id)))
 
 
 @APP.route("/dm/leave/v1", methods=['POST'])

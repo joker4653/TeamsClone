@@ -67,8 +67,7 @@ def dm_create(token, u_ids):
     sorted_ids = u_ids
     user_list = []
     handle_list = []
-    owner_handle = user_info(owner_id)
-    dm_name = (owner_handle['handle_str'] + ", ")
+    dm_name = ""
 
     # create alphabetical name
     for member in sorted_ids:
@@ -114,7 +113,7 @@ def dm_create(token, u_ids):
     }
 
 
-def dm_list_v1(token):
+def dm_list_v1(auth_user_id):
     '''
     Returns the list of DMs that the user is a member of.
     
@@ -128,20 +127,18 @@ def dm_list_v1(token):
             'dms': [A list of all dms the user is a member of.]
         } 
 
-    '''
-    auth_user_id = token        
+    '''     
     data = data_store.get()
     new_list = []
 
-    for c in data['dms']:
-        for dm_owner in data['dms'][c]['dm_owner_id']:
-            ''' check owner status and if user is a member'''
-            if dm_owner == auth_user_id or is_member(auth_user_id, c):
-                new_dm = {
-                            'dm_id': c, 
-                            'name' : data['dms'][c]['name']
-                            }
-                new_list.append(new_dm)
+    for dm in data['dms']:
+        ''' check if user member '''
+        if is_member(auth_user_id, dm) == True:
+            new_dm = {
+                        'dm_id': dm, 
+                        'name' : data['dms'][dm]['name']
+                        }
+            new_list.append(new_dm)
 
     return {
        'dms' : new_list
@@ -197,7 +194,7 @@ creator
     return {}
 
 
-def dm_details_v1(token, dm_id):
+def dm_details_v1(auth_user_id, dm_id):
     '''
     Given a DM with ID dm_id that the authorised user is a member of, provide basic details about the DM.
     
@@ -218,7 +215,6 @@ def dm_details_v1(token, dm_id):
 
     '''
     store = data_store.get()
-    auth_user_id = validate_token(token)
     if not valid_dm_id(dm_id):
         raise InputError(f"dm_id does not refer to a valid DM") 
 
