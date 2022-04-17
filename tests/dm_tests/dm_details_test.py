@@ -23,6 +23,7 @@ def test_dm_expected_output(example_user_id):
     u_id = [example_user_id[1]['auth_user_id']]
     response_create = process_test_request(route = '/dm/create/v1', method = 'post', inputs= {'token': example_user_id[0].get('token'), 'u_ids': u_id})
     dm_id = response_create.json()
-    response = process_test_request(route = '/dm/details/v1', method = 'get', inputs = {'token':example_user_id[0].get('token'),'dm_id':dm_id['dm_id']})
+    response = process_test_request(route = '/dm/details/v1', method = 'get', inputs = {'token':example_user_id[0].get('token'),'dm_id':dm_id.get('dm_id')})
+
 
     assert(response.status_code == 200)
