@@ -1,4 +1,6 @@
 from email import message
+
+from flask import message_flashed
 from tests.process_request import process_test_request
 import string
 import random
@@ -72,15 +74,25 @@ def test_og_message_id_not_valid(example_user_id, example_channels, example_dms)
     assert response.status_code == 400
 
 
-def test_og_message_id_valid_but_not_in_valid_channel_or_dm(example_user_id, example_channels, example_dms, example_messages):
+def test_valid_share_message_to_different_channel(example_user_id, example_channels, example_dms, example_messages):
     response = process_test_request("message/share/v1", "post", {
         "token": example_user_id[1].get("token"),
         "og_message_id": example_messages[0].get("message_id"),
-        "message": "Hello",
+        "message": "!!!Hello...",
         "channel_id": example_channels[1].get("channel_id"),
         "dm_id": -1
     })
-    assert response.status_code == 400
+    assert response.status_code == 200
+    response = process_test_request("channel/messages/v2", "get", {
+        "token": example_user_id[2].get("token"),
+        "channel_id": example_channels[1].get("channel_id"),
+        "start": 0
+    })
+    messages = response.json().get("messages")
+    assert len(messages) == 2
+    message = messages[0].get("message")
+    assert "!!!Hello..." in message
+    assert "this is a message" in message
 
 
 def test_message_length_too_long(example_user_id, example_dms, example_messages):
@@ -92,6 +104,17 @@ def test_message_length_too_long(example_user_id, example_dms, example_messages)
         "dm_id": example_dms[1].get("dm_id")
     }
     response = process_test_request("message/share/v1", "post", inputs)
+    assert response.status_code == 400
+
+
+def test_message_valid_but_user_not_in_channel_dm(example_user_id, example_channels, example_dms, example_messages):
+    response = process_test_request("message/share/v1", "post", {
+        "token": example_user_id[2].get("token"),
+        "og_message_id": example_messages[2].get("message_id"),
+        "message": "hello everyone!",
+        "dm_id": example_dms[1].get("dm_id"),
+        "channel_id": -1
+    })
     assert response.status_code == 400
 
 

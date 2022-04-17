@@ -481,8 +481,9 @@ def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
     channel_dm_id = found_message[0]
     message_index = found_message[1]
     channel_or_dm = found_message[2]
-    if (channel_dm_id != channel_id) and (channel_dm_id != dm_id):
+    if not (c_is_member(user_id, channel_dm_id) or d_is_member(user_id, channel_dm_id)):
         raise InputError("og_message_id does not refer to a valid message within a channel/DM that the authorised user has joined")
+    
     if len(message) > 1000:
         raise InputError("length of message is more than 1000 characters")
     
@@ -506,7 +507,10 @@ def message_share_v1(user_id, og_message_id, message, channel_id, dm_id):
             "is_this_user_reacted": False
         }]
     }
-    store[channel_or_dm][channel_dm_id]["messages"].insert(0, message_dict)
+    if channel_id != -1:
+        store[channel_or_dm][channel_id]["messages"].insert(0, message_dict)
+    else:
+        store[channel_or_dm][dm_id]["messages"].insert(0, message_dict)
     update_workspace_stats("messages_exist", "num_messages_exist", 1)
     update_user_stats([user_id], 'messages_sent', 'num_messages_sent', 1)
     data_store.set(store)
