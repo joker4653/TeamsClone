@@ -116,6 +116,26 @@ def user_info(auth_user_id):
         'profile_img_url': store['users'][auth_user_id]['profile_img_url']
     }
 
+def update_user_info(auth_user_id):
+    ''' Call function to update user info in all different streams.'''
+    do_user_info_update(auth_user_id, 'channels')
+    do_user_info_update(auth_user_id, 'dms')
+
+def do_user_info_update(auth_user_id, stream: str):
+    '''Updates a user's details inside all of the dms and channels of which they are members.
+    Stream corresponds to either "channels" or "dms".
+    '''
+    store = data_store.get()
+    for item in store[stream]:
+        for user in store[stream][item]['user_ids']:
+            if user['u_id'] == auth_user_id:
+                store[stream][item]['user_ids'].remove(user)
+                store[stream][item]['user_ids'].append(user_info(user['u_id']))
+                break
+    data_store.set(store)
+    write_data(data_store)
+
+
 def send_code(email, code):
     port = 587
     smtp_server = "smtp.gmail.com"
