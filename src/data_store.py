@@ -148,6 +148,14 @@ class Datastore:
             dms = json.loads(f.read())
         self.__store["dms"] = dms
 
+        with open(path + "codes.json", "r") as f:
+            codes = json.loads(f.read())
+        self.__store["codes"] = codes
+
+        with open(path + "workspace_stats.json", "r") as f:
+            workspace_stats = json.loads(f.read())
+        self.__store["workspace_stats"] = workspace_stats
+
 
 print('Loading Datastore...')
 
