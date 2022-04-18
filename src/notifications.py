@@ -4,7 +4,6 @@ from src.data_store import data_store
 from src.error import AccessError
 from src.data_json import write_data
 from src.other import validate_token
-from src.standup import standup_active_v1
 import src.std_vars as std_vars
 
 def notif_get_v1(token):
@@ -64,7 +63,7 @@ def generate_notif(user_id, sender_id, channel_dm_id, channel_or_dm, trigger, me
     handle = store['users'][sender_id]['handle']
     
     if trigger == 'tag':
-        if channel_id == -1 or not standup_active_v1(sender_id, channel_id)['is_active']:
+        if channel_id == -1 or not store['channels'][channel_id]['standup']['is_active']: 
             message = f"{handle} tagged you in {name}: {message_sent[:20]}"
     elif trigger == 'react':
         message = f"{handle} reacted to your message in {name}"
