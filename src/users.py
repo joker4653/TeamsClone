@@ -7,7 +7,7 @@ from http.client import HTTPConnection
 from flask import request
 from src.data_store import data_store
 from src.error import InputError, AccessError
-from src.other import user_info, valid_user_id, validate_token, is_only_global_owner, get_num_messages
+from src.other import user_info, valid_user_id, validate_token, is_only_global_owner, get_num_messages, update_user_info
 from src.data_json import write_data
 from src.auth import check_duplicate, auth_logout_v1
 from src.channel import is_global_owner
@@ -112,6 +112,7 @@ def user_profile_setname_v1(token, name_first, name_last):
     store['users'][auth_user_id]['last'] = name_last
     data_store.set(store)
     write_data(data_store)
+    update_user_info(auth_user_id)
 
     return {
     }
@@ -148,6 +149,7 @@ def user_profile_setemail_v1(token, email):
     store['users'][auth_user_id]['email'] = email
     data_store.set(store)
     write_data(data_store)
+    update_user_info(auth_user_id)
 
     return {
     }
@@ -186,6 +188,7 @@ def user_profile_sethandle_v1(token, handle_str):
     store['users'][auth_user_id]['handle'] = handle_str
     data_store.set(store)
     write_data(data_store)
+    update_user_info(auth_user_id)
 
     return {
     }
@@ -412,6 +415,7 @@ def user_profile_upload_photo_v1(token, img_url, host_url, x_start, y_start, x_e
 
     data_store.set(store)
     write_data(data_store)
+    update_user_info(auth_user_id)
     
     return {     
     }
