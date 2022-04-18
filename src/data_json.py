@@ -20,3 +20,9 @@ def write_data(data_store):
     
     with open(path + "dms.json", "w") as f:
         json.dump(store["dms"], f, indent= 4)
+
+    with open(path + "codes.json", "w") as f:
+        json.dump(store["codes"], f, indent= 4)
+
+    with open(path + "workspace_stats.json", "w") as f:
+        json.dump(store["workspace_stats"], f, indent= 4)
