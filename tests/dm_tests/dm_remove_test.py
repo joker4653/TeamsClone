@@ -19,7 +19,7 @@ def test_dm_invalid_dm(example_user_id):
 
     assert(response.status_code == 400)
 
-def test_dm_auth_user_apart_of_dm(example_user_id):
+def test_dm_auth_user_not_apart_of_dm(example_user_id):
     u_id = [example_user_id[1]['auth_user_id']]
     response_create = process_test_request(route = '/dm/create/v1', method = 'post', inputs= {'token': example_user_id[0].get('token'), 'u_ids': u_id})
     dm_id = json.loads(response_create.text)

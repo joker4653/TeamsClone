@@ -85,7 +85,7 @@ def notify_tags(message, sender_id, channel_dm_id, channel_or_dm):
 
 
 
-def send_message(auth_user_id, channel_dm_id, message, dm_or_channel, send_later = None):
+def send_message(auth_user_id, channel_dm_id, message, dm_or_channel, send_later = None, standup_message = False):
     if dm_or_channel == "channels":
         if not valid_channel_id(channel_dm_id):
             raise InputError("channel_id does not refer to a valid channel")
@@ -122,7 +122,7 @@ def send_message(auth_user_id, channel_dm_id, message, dm_or_channel, send_later
         "reacts": [{
             "react_id": 1,
             "u_ids": [],
-            "is_this_user_reacted": False
+            "is_this_user_reacted": False,
         }]
     }
     store[dm_or_channel][channel_dm_id]["messages"].insert(0, message_dict)
@@ -133,13 +133,14 @@ def send_message(auth_user_id, channel_dm_id, message, dm_or_channel, send_later
     write_data(data_store)
 
     # Notify tags.
-    notify_tags(message, auth_user_id, channel_dm_id, dm_or_channel)
+    if not standup_message:
+        notify_tags(message, auth_user_id, channel_dm_id, dm_or_channel)
 
     return {"message_id": message_id}
 
 
 
-def message_send_v1(auth_user_id, channel_id, message, send_later = None):
+def message_send_v1(auth_user_id, channel_id, message, send_later = None, standup_message = False):
     '''
     Send a message from the authorised user to the channel specified by channel_id.
     
@@ -159,9 +160,9 @@ def message_send_v1(auth_user_id, channel_id, message, send_later = None):
             'message_id': [The ID of the message sent.]
         } 
     '''
-    return send_message(auth_user_id, channel_id, message, "channels", send_later)
+    return send_message(auth_user_id, channel_id, message, "channels", send_later, standup_message)
 
-def message_senddm_v1(auth_user_id, dm_id, message, send_later = None):
+def message_senddm_v1(auth_user_id, dm_id, message, send_later = None, standup_message = False):
     '''
     Send a message from authorised_user to the DM specified by dm_id.
     
@@ -182,7 +183,7 @@ def message_senddm_v1(auth_user_id, dm_id, message, send_later = None):
         } 
 
     '''
-    return send_message(auth_user_id, dm_id, message, "dms", send_later)
+    return send_message(auth_user_id, dm_id, message, "dms", send_later, standup_message)
 
 
 def message_edit_v1(auth_user_id, message_id, message):
@@ -224,7 +225,7 @@ channel/DM that the authorised user has joined.
     
     if not (c_is_owner(auth_user_id, channel_dm_id) or d_is_owner(auth_user_id, channel_dm_id) or is_global_owner(auth_user_id)):
         if store[message_type][channel_dm_id]["messages"][index]["u_id"] != auth_user_id:
-            raise AccessError
+            raise AccessError("User is not an owner or did not send the message")
 
     if len(message) == 0:
         del store[message_type][channel_dm_id]["messages"][index]
@@ -275,7 +276,7 @@ channel/DM that the authorised user has joined.
 
     if not (c_is_owner(auth_user_id, channel_dm_id) or d_is_owner(auth_user_id, channel_dm_id) or is_global_owner(auth_user_id)):
         if store[message_type][channel_dm_id]["messages"][index]["u_id"] != auth_user_id:
-            raise AccessError
+            raise AccessError("User is not an owner or did not send the message")
 
     del store[message_type][channel_dm_id]["messages"][index]
 

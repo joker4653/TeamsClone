@@ -63,8 +63,7 @@ def generate_notif(user_id, sender_id, channel_dm_id, channel_or_dm, trigger, me
     handle = store['users'][sender_id]['handle']
     
     if trigger == 'tag':
-        if channel_id == -1 or not store['channels'][channel_id]['standup']['is_active']: 
-            message = f"{handle} tagged you in {name}: {message_sent[:20]}"
+        message = f"{handle} tagged you in {name}: {message_sent[:20]}"
     elif trigger == 'react':
         message = f"{handle} reacted to your message in {name}"
     else:
