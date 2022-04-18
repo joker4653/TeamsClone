@@ -2,9 +2,9 @@
 
 WORKING_DIRECTORY="~/www/cs1531deploy"
 
-USERNAME="th09abadgers"
-SSH_HOST="ssh-th09abadgers.alwaysdata.net"
+USERNAME="h09abadger"
+SSH_HOST="ssh-h09abadger.alwaysdata.net"
 
 rm -rf ./**/__pycache__ ./**/.pytest_cache > /dev/null
-scp -r ./requirements.txt ./src "$USERNAME@$SSH_HOST:$WORKING_DIRECTORY"
+scp -r ./requirements.txt ./src ./data "$USERNAME@$SSH_HOST:$WORKING_DIRECTORY"
 ssh "$USERNAME@$SSH_HOST" "cd $WORKING_DIRECTORY && source env/bin/activate && pip3 install -r requirements.txt"
