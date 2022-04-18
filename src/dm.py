@@ -171,13 +171,13 @@ creator
     if not valid_dm_id(dm_id):
         raise InputError(f"dm_id does not refer to a valid DM")
 
-    # DM is valid but auth_user is not the owner
-    if store['dms'][dm_id]['dm_owner_id'][0]['u_id'] != auth_user_id:
-        raise AccessError(f"You do not have permission to remove this DM, only the owner does")
-
     # DM is valid but auth_user is not in the DM
     if not is_member(auth_user_id, dm_id):
         raise AccessError(f"You are not a part of this DM and cannot interact with it")
+
+    # DM is valid but auth_user is not the owner
+    if store['dms'][dm_id]['dm_owner_id'][0]['u_id'] != auth_user_id:
+        raise AccessError(f"You do not have permission to remove this DM, only the owner does")
 
     # create list of all users in this dm so their stats can be altered.
     u_ids = []

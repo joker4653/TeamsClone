@@ -60,7 +60,7 @@ def finish_standup(auth_user_id, channel_id):
     data['channels'][channel_id]['standup']['time_finish'] = None
     global message_queue
     if message_queue != "":
-        message_send_v1(auth_user_id, channel_id, message_queue)
+        message_send_v1(auth_user_id, channel_id, message_queue, standup_message = True)
 
 def standup_active_v1(auth_user_id, channel_id):
     ''' Returns whether a standup is active in the specified channel.

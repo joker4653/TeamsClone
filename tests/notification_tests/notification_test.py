@@ -3,6 +3,7 @@
 import pytest
 import requests
 import json
+import time
 from tests.process_request import process_test_request
 
 
@@ -103,6 +104,70 @@ def test_notifications_three_types(example_user_id):
     notifications_dict = json.loads(response4.text)
     notifications = notifications_dict['notifications']
     assert len(notifications) == 3
+
+def test_notifications_more_than_20(example_user_id):
+    create_channel1 = process_test_request(route="/channels/create/v2", method='post', inputs={
+        'token': example_user_id[0].get('token'), 
+        'name': "Badgers", 
+        'is_public': False
+    })
+    new_channel1 = create_channel1.json()
+
+    # put user in a channel. 
+    process_test_request(route="/channel/invite/v2", method='post', inputs={
+        'token': example_user_id[0].get('token'), 
+        'channel_id': new_channel1.get('channel_id'), 
+        'u_id': example_user_id[1].get('auth_user_id')
+    })
+
+    response1 = process_test_request(route="/user/profile/v1", method='get', inputs={'token': example_user_id[0].get('token'), 'u_id': example_user_id[1].get('auth_user_id')})
+    user_info = json.loads(response1.text)
+    user_info = user_info.get('user')
+
+    # Spam a user
+    for i in range (0, 25):
+        process_test_request("message/send/v1", "post", {
+            "token": example_user_id[1].get("token"),
+            "channel_id": new_channel1.get('channel_id'),
+            "message": f"Hey, @{user_info['handle_str']}!, this is #{i} mention haha."
+        })
+
+    response2 = process_test_request(route="/notifications/get/v1", method='get', inputs={
+        'token': example_user_id[1].get('token')
+    })
+    assert response2.status_code == 200
+
+    notifications_dict = json.loads(response2.text)
+    notifications = notifications_dict['notifications']
+    assert len(notifications) == 20
+
+def test_notifications_standup_mention(example_user_id, example_channels):
+    response1 = process_test_request(route="/user/profile/v1", method='get', inputs={'token': example_user_id[0].get('token'), 'u_id': example_user_id[1].get('auth_user_id')})
+    user_info = json.loads(response1.text)
+    user_info = user_info.get('user')
+
+    # starting a standup
+    process_test_request(route="/standup/start/v1", method='post', inputs={
+        'token': example_user_id[0].get('token'), 
+        'channel_id': example_channels[0].get('channel_id'), 
+        'length': 2
+    })
+
+    # mentioning a user in a message in a standup 
+    process_test_request(route="/standup/send/v1", method='post', inputs={
+        'token': example_user_id[0].get('token'), 
+        'channel_id': example_channels[0].get('channel_id'), 
+        'message': f"hello, @{user_info['handle_str']}!, this is a standup"
+    })
+    time.sleep(2)
+    response2 = process_test_request(route="/notifications/get/v1", method='get', inputs={
+        'token': example_user_id[1].get('token')
+    })
+    assert response2.status_code == 200
+
+    notifications_dict = json.loads(response2.text)
+    notifications = notifications_dict['notifications']
+    assert len(notifications) == 1
 
 def test_clear():
     process_test_request(route="/clear/v1", method='delete')
