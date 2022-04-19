@@ -194,6 +194,7 @@ def auth_passwordreset_reset_v1(code, new_password):
     # Check code against codes to get user_id.
     store = data_store.get()
 
+    code = int(code)
     user_id = store['codes'].get(code, False)
     if not user_id:
         raise InputError("The given reset code is invalid.")
